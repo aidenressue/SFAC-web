@@ -1,0 +1,38 @@
+/* Shine for a Cause — suggested web brand tokens */
+:root {
+  --sfac-bg: #0B0B0D;
+  --sfac-surface: #171A1F;
+  --sfac-surface-2: #111317;
+  --sfac-gold: #D4A851;
+  --sfac-gold-soft: #E0BF7A;
+  --sfac-text: #F7F5F0;
+  --sfac-muted: #A7ADB5;
+  --sfac-border: #2C313A;
+
+  --sfac-font-heading: 'Montserrat', sans-serif;
+  --sfac-font-body: 'Inter', sans-serif;
+
+  --sfac-radius-sm: 10px;
+  --sfac-radius-md: 16px;
+  --sfac-radius-lg: 22px;
+  --sfac-shadow-soft: 0 10px 30px rgba(0,0,0,0.28);
+}
+
+.button-primary {
+  background: var(--sfac-gold);
+  color: var(--sfac-bg);
+  border-radius: 999px;
+  font-family: var(--sfac-font-heading);
+  font-weight: 700;
+  padding: 0.9rem 1.35rem;
+}
+
+.button-secondary {
+  background: var(--sfac-surface);
+  color: var(--sfac-text);
+  border: 1px solid var(--sfac-gold);
+  border-radius: 999px;
+  font-family: var(--sfac-font-heading);
+  font-weight: 700;
+  padding: 0.9rem 1.35rem;
+}

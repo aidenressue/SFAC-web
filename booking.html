@@ -1,0 +1,2227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Book a Mobile Auto Detail — Shine for a Cause | Fort Collins & Northern Colorado</title>
+  <meta name="description" content="Schedule your mobile auto detail online. Serving Fort Collins, Loveland, Greeley, Windsor & all of Northern Colorado. Express, Executive, paint correction & ceramic coating — we come to you." />
+  <meta name="geo.region" content="US-CO" />
+  <meta name="geo.placename" content="Fort Collins, Colorado" />
+  <link rel="canonical" href="https://shineforacause.com/booking.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shineforacause.com/booking.html" />
+  <meta property="og:title" content="Book a Mobile Auto Detail — Shine for a Cause | Northern Colorado" />
+  <meta property="og:description" content="Schedule your mobile detail online. Fort Collins, Loveland, Greeley & surrounding areas. Every booking supports local recovery." />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Mobile Auto Detailing — Book Online",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "Shine for a Cause Mobile Detailing",
+      "url": "https://shineforacause.com",
+      "telephone": "+1-970-295-3577",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Fort Collins",
+        "addressRegion": "CO",
+        "addressCountry": "US"
+      }
+    },
+    "areaServed": "Northern Colorado",
+    "url": "https://shineforacause.com/booking.html"
+  }
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,400;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:        #F4F1EC;
+      --surface:   #FFFFFF;
+      --surface2:  #EEE9E2;
+      --surface3:  #E6E0D8;
+      --gold:      #B5751A;
+      --gold-soft: #C8882A;
+      --gold-dim:  rgba(181,117,26,.10);
+      --text:      #1C1811;
+      --muted:     #6B6255;
+      --muted2:    #A09488;
+      --border:    #DDD8CF;
+      --border2:   #C6BFB5;
+      --red:       #CC3333;
+      --green:     #2D7A4F;
+      --fh: 'Montserrat', sans-serif;
+      --fb: 'Inter', sans-serif;
+      --panel-w: 56%;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; overflow: hidden; }
+    body { font-family: var(--fb); background: var(--bg); color: var(--text); }
+    * { -webkit-font-smoothing: antialiased; }
+
+    /* ── NAV ── */
+    .booking-nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: 64px; padding: 0 2rem;
+      display: flex; align-items: center; justify-content: space-between;
+      background: #F4F1EC;
+      border-bottom: 1px solid var(--border);
+    }
+    .booking-nav img { height: 52px; width: auto; display: block; mix-blend-mode: darken; }
+    .nav-back {
+      color: var(--muted); font-family: var(--fh); font-size: .72rem;
+      font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+      text-decoration: none; display: flex; align-items: center; gap: .5rem;
+      transition: color .2s;
+    }
+    .nav-back:hover { color: var(--gold); }
+    .nav-back svg { width: 16px; height: 16px; }
+
+    /* ── MAIN LAYOUT ── */
+    #booking-app {
+      position: fixed; inset: 0; top: 64px;
+      display: flex;
+    }
+
+    /* ── MAP ── */
+    #map {
+      position: absolute; inset: 0;
+      transition: right .5s cubic-bezier(.4,0,.2,1);
+    }
+    #map.split { right: var(--panel-w); }
+
+    /* ── STEP 1 OVERLAY ── */
+    #step1-overlay {
+      position: absolute; inset: 0; z-index: 10;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: flex-start;
+      padding-top: 60px;
+      pointer-events: none;
+      transition: opacity .4s;
+    }
+    #step1-overlay.hidden { opacity: 0; pointer-events: none; }
+
+    .step1-card {
+      pointer-events: all;
+      background: rgba(255,255,255,.92);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2.5rem 2rem;
+      max-width: 520px; width: calc(100% - 3rem);
+      text-align: center;
+      box-shadow: 0 24px 80px rgba(0,0,0,.18), 0 4px 16px rgba(0,0,0,.08);
+    }
+    .step1-card h1 {
+      font-family: var(--fh); font-weight: 800; font-size: 1.55rem;
+      letter-spacing: -.02em; line-height: 1.25; color: var(--text);
+      margin-bottom: 1.5rem;
+    }
+    .step1-card h1 span { color: var(--gold); }
+    .search-wrapper {
+      position: relative;
+      background: var(--surface); border: 1.5px solid var(--border2);
+      border-radius: 12px; display: flex; align-items: center;
+      padding: 0 1rem; gap: .75rem;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    .search-wrapper:focus-within {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(212,168,81,.12);
+    }
+    .search-wrapper svg { color: var(--muted); flex-shrink: 0; }
+    #address-input {
+      flex: 1; background: none; border: none; outline: none;
+      color: var(--text); font-family: var(--fb); font-size: .95rem;
+      padding: 1rem 0; line-height: 1;
+    }
+    #address-input::placeholder { color: var(--muted2); }
+    .locate-btn {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); padding: .25rem; border-radius: 6px;
+      transition: color .2s; display: flex; align-items: center;
+    }
+    .locate-btn:hover { color: var(--gold); }
+    .area-error {
+      margin-top: 1rem; padding: .75rem 1rem; border-radius: 10px;
+      background: rgba(224,82,82,.12); border: 1px solid rgba(224,82,82,.3);
+      color: var(--red); font-size: .85rem; display: none;
+    }
+    .area-error.show { display: block; }
+
+    /* next float */
+    #next1-btn {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      pointer-events: none; opacity: 0;
+      transition: opacity .3s;
+    }
+    #next1-btn.show { opacity: 1; pointer-events: all; }
+    .btn-next {
+      background: var(--gold); color: #fff;
+      font-family: var(--fh); font-weight: 800; font-size: .85rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      border: none; border-radius: 999px; cursor: pointer;
+      padding: 1rem 3rem;
+      box-shadow: 0 8px 28px rgba(181,117,26,.35);
+      transition: background .2s, transform .15s, box-shadow .2s;
+    }
+    .btn-next:hover { background: var(--gold-soft); transform: translateY(-2px); box-shadow: 0 12px 36px rgba(181,117,26,.45); }
+    .btn-next:active { transform: translateY(0); }
+
+    /* ── STEPS PANEL ── */
+    #steps-panel {
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: var(--panel-w);
+      background: var(--surface2);
+      border-left: 1px solid var(--border);
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .5s cubic-bezier(.4,0,.2,1);
+      z-index: 20;
+    }
+    #steps-panel.open { transform: translateX(0); }
+
+    /* panel header */
+    .panel-header {
+      flex-shrink: 0;
+      padding: 1.25rem 1.5rem 0;
+      border-bottom: 1px solid var(--border);
+      display: flex; flex-direction: column; gap: .75rem;
+    }
+    .panel-nav {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .panel-back {
+      background: none; border: none; cursor: pointer;
+      color: var(--muted); display: flex; align-items: center; gap: .4rem;
+      font-family: var(--fh); font-size: .72rem; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: .4rem .6rem; border-radius: 8px;
+      transition: color .2s, background .2s;
+    }
+    .panel-back:hover { color: var(--text); background: var(--surface3); }
+    .panel-back svg { width: 14px; height: 14px; }
+    .breadcrumb {
+      font-size: .7rem; color: var(--muted2); font-family: var(--fh);
+      font-weight: 500; letter-spacing: .04em;
+      display: flex; align-items: center; gap: .4rem;
+      flex-wrap: wrap; padding-bottom: 1rem;
+    }
+    .breadcrumb span { color: var(--muted); }
+    .breadcrumb .active { color: var(--gold); }
+    .bc-sep { color: var(--muted2); }
+
+    /* steps container */
+    .steps-container {
+      flex: 1; position: relative; overflow: hidden; min-height: 0;
+    }
+    .step {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .38s cubic-bezier(.4,0,.2,1);
+      overflow-y: scroll;
+      -webkit-overflow-scrolling: touch;
+      padding: 1.5rem;
+    }
+    /* steps that have a sticky footer — inner content scrolls, footer stays */
+    .step[style*="padding-bottom:0"] {
+      padding: 0;
+      overflow-y: hidden;
+    }
+    .step[style*="padding-bottom:0"] > div:first-child {
+      flex: 1; overflow-y: scroll; -webkit-overflow-scrolling: touch;
+    }
+    .step.active { transform: translateX(0); }
+    .step.prev { transform: translateX(-100%); }
+
+    /* step title */
+    .step-title {
+      font-family: var(--fh); font-weight: 800; font-size: 1.2rem;
+      letter-spacing: -.01em; margin-bottom: 1.25rem; color: var(--text);
+    }
+    .step-subtitle {
+      font-size: .82rem; color: var(--muted); margin-top: .25rem;
+      font-weight: 400;
+    }
+
+    /* ── VEHICLE TYPE CARDS ── */
+    .vehicle-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .85rem;
+    }
+    .vehicle-card {
+      background: var(--surface2); border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 1.25rem 1rem 1rem;
+      cursor: pointer; text-align: center;
+      transition: border-color .2s, background .2s, transform .15s, box-shadow .2s;
+      display: flex; flex-direction: column; align-items: center; gap: .6rem;
+      overflow: hidden;
+    }
+    .vehicle-card:hover {
+      border-color: var(--border2); background: var(--surface3);
+      transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.4);
+    }
+    .vehicle-card.selected {
+      border-color: var(--gold); background: var(--surface2);
+      box-shadow: 0 0 0 1px var(--gold), 0 8px 32px rgba(181,117,26,.15);
+    }
+    .vehicle-svg { width: 100%; height: 80px; }
+    .vehicle-img {
+      width: 100%; height: 90px; object-fit: contain; object-position: center center;
+      mix-blend-mode: multiply; display: block;
+      transform: scale(1.1); transform-origin: center center;
+    }
+    .vehicle-img-van {
+      transform: scale(3.0); transform-origin: center center;
+    }
+    .vehicle-img-large {
+      transform: scale(1.2); transform-origin: center center;
+    }
+    .vehicle-label {
+      font-family: var(--fh); font-weight: 700; font-size: .8rem;
+      letter-spacing: .01em; color: var(--text); line-height: 1.3;
+    }
+    .vehicle-example {
+      font-size: .68rem; color: var(--muted); line-height: 1.4;
+    }
+
+    /* ── PACKAGE TYPE CARDS ── */
+    .package-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .85rem;
+    }
+    .package-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 0;
+      cursor: pointer; transition: border-color .2s, box-shadow .2s, transform .2s;
+      display: flex; flex-direction: column;
+      overflow: hidden;
+    }
+    .package-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .package-card.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold), 0 8px 32px rgba(212,168,81,.12);
+    }
+    .pkg-card-body { padding: .75rem .9rem .85rem; display: flex; flex-direction: column; gap: .3rem; }
+    /* Illustration area — image fills full top of card */
+    .pkg-illus {
+      position: relative; width: 100%;
+      background: #fff;
+    }
+    .pkg-car-img {
+      width: 100%; height: 110px; display: block;
+      object-fit: contain; object-position: center;
+      mix-blend-mode: multiply;
+      border-radius: 12px 12px 0 0;
+    }
+    .pkg-icon {
+      width: 100%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: .35rem; padding: 0 .5rem; height: 110px;
+      background: #1C1811; box-sizing: border-box;
+      border-radius: 12px 12px 0 0;
+    }
+    .pkg-icon svg { width: 72px; height: 72px; }
+    .pkg-icon-labels { display: flex; flex-direction: column; align-items: center; gap: .1rem; }
+    .pkg-icon-title {
+      font-family: var(--fh); font-size: .75rem; font-weight: 800;
+      color: var(--gold); letter-spacing: .06em; text-transform: uppercase; text-align: center;
+    }
+    .pkg-icon-sub {
+      font-family: var(--fh); font-size: .6rem; font-weight: 600;
+      color: rgba(212,168,81,.6); letter-spacing: .05em; text-transform: uppercase; text-align: center;
+    }
+    .pkg-label {
+      font-family: var(--fh); font-weight: 700; font-size: .9rem;
+      color: var(--text); letter-spacing: .01em;
+    }
+    .pkg-desc { font-size: .75rem; color: var(--muted); line-height: 1.4; }
+    .pkg-price-range { font-size: .75rem; color: var(--gold); font-weight: 600; margin-top: auto; }
+
+    /* ── TIER CARDS ── */
+    .tier-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .tier-card {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 16px; padding: 1.5rem;
+      cursor: pointer; transition: all .2s;
+      position: relative; overflow: hidden;
+    }
+    .tier-card:hover { border-color: var(--border2); background: var(--surface3); }
+    .tier-card.selected {
+      border-color: var(--gold); background: rgba(212,168,81,.06);
+      box-shadow: 0 0 0 1px var(--gold), 0 12px 40px rgba(212,168,81,.15);
+    }
+    .tier-badge {
+      display: inline-block; font-family: var(--fh); font-size: .62rem;
+      font-weight: 800; letter-spacing: .1em; text-transform: uppercase;
+      padding: .25rem .7rem; border-radius: 999px; margin-bottom: .75rem;
+    }
+    .tier-badge.express { background: rgba(212,168,81,.12); color: var(--gold); }
+    .tier-badge.executive { background: rgba(212,168,81,.2); color: var(--gold-soft); }
+    .tier-badge.step1 { background: rgba(100,160,255,.12); color: #7ab4ff; }
+    .tier-badge.step2 { background: rgba(180,100,255,.12); color: #c47aff; }
+    .tier-name {
+      font-family: var(--fh); font-weight: 800; font-size: 1.1rem;
+      margin-bottom: .5rem; color: var(--text);
+    }
+    .tier-tagline { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+    .tier-bullets {
+      display: flex; flex-direction: column; gap: .3rem;
+      list-style: none; margin-bottom: 1rem;
+    }
+    .tier-bullets li {
+      font-size: .78rem; color: var(--muted); display: flex; gap: .5rem; align-items: flex-start;
+    }
+    .tier-bullets li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .tier-price {
+      font-family: var(--fh); font-weight: 800; font-size: 1.4rem;
+      color: var(--gold);
+    }
+    .tier-price span { font-size: .8rem; color: var(--muted); font-weight: 400; }
+
+    /* ── PACKAGE DETAIL (Step 5) ── */
+    .pkg-detail-header {
+      display: flex; gap: 1rem; align-items: flex-start; margin-bottom: 1.25rem;
+    }
+    .pkg-detail-icon {
+      width: 64px; height: 64px; border-radius: 12px; flex-shrink: 0;
+      overflow: hidden; border: 2px solid var(--border2);
+      display: flex; flex-direction: column;
+    }
+    .pkg-detail-icon .pkg-car-img { width: 100%; height: auto; }
+    .pkg-detail-icon .pkg-icon {
+      width: 64px; height: 64px; border-radius: 12px; border: 2px solid var(--gold);
+      background: #1C1811;
+    }
+    .pkg-detail-icon .pkg-icon svg { width: 44px; height: 44px; }
+    .pkg-detail-name { font-family: var(--fh); font-weight: 800; font-size: 1.15rem; color: var(--text); }
+    .pkg-detail-price { font-size: .85rem; color: var(--gold); font-weight: 600; margin-top: .25rem; }
+    .pkg-detail-duration { font-size: .75rem; color: var(--muted); }
+    .pkg-detail-desc {
+      font-size: .83rem; color: var(--muted); line-height: 1.7;
+      margin-bottom: 1rem;
+    }
+    .pkg-includes {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.5rem;
+    }
+    .pkg-includes-title {
+      font-family: var(--fh); font-weight: 700; font-size: .72rem;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: .75rem;
+    }
+    .pkg-includes ul { list-style: none; display: flex; flex-direction: column; gap: .4rem; }
+    .pkg-includes li {
+      font-size: .8rem; color: var(--text); display: flex; gap: .6rem; align-items: center;
+    }
+    .pkg-includes li::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--gold); flex-shrink: 0; }
+    .addons-title {
+      font-family: var(--fh); font-weight: 700; font-size: .72rem;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: .85rem;
+    }
+    .addon-row {
+      display: flex; align-items: center; gap: 1rem; padding: .9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .addon-row:last-child { border-bottom: none; }
+    .addon-info { flex: 1; }
+    .addon-name { font-size: .85rem; font-weight: 600; color: var(--text); }
+    .addon-meta { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+    .addon-qty {
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .qty-btn {
+      width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid var(--border);
+      background: none; cursor: pointer; color: var(--text); font-size: 1rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s, background .2s;
+    }
+    .qty-btn:hover { border-color: var(--gold); background: var(--gold-dim); }
+    .qty-num { font-size: .85rem; font-weight: 600; color: var(--text); min-width: 20px; text-align: center; }
+    .addon-price { font-size: .85rem; font-weight: 700; color: var(--gold); min-width: 45px; text-align: right; }
+
+    /* add to cart footer */
+    .step-footer {
+      flex-shrink: 0; padding: 1.25rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: var(--surface);
+      display: flex; gap: .75rem; align-items: center;
+    }
+    .btn-cart {
+      flex: 1; background: var(--gold); color: #fff;
+      font-family: var(--fh); font-weight: 800; font-size: .82rem;
+      letter-spacing: .07em; text-transform: uppercase;
+      border: none; border-radius: 999px; cursor: pointer; padding: .95rem 1.5rem;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 6px 24px rgba(212,168,81,.3);
+    }
+    .btn-cart:hover { background: var(--gold-soft); color: #fff; transform: translateY(-1px); }
+    .btn-cart:active { transform: translateY(0); }
+    .cart-total-preview {
+      font-family: var(--fh); font-size: .8rem; font-weight: 700;
+      color: var(--gold); text-align: right; min-width: 70px;
+    }
+    .cart-total-preview small { display: block; color: var(--muted); font-weight: 400; font-size: .65rem; }
+
+    /* ── CART (Step 6) ── */
+    .cart-items-list { display: flex; flex-direction: column; gap: .85rem; flex: 1; }
+    .cart-item {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.1rem 1.25rem;
+      display: flex; flex-direction: column; gap: .4rem;
+    }
+    .cart-item-header { display: flex; justify-content: space-between; align-items: flex-start; }
+    .cart-item-name { font-family: var(--fh); font-weight: 700; font-size: .88rem; color: var(--text); }
+    .cart-item-price { font-family: var(--fh); font-weight: 800; font-size: .95rem; color: var(--gold); }
+    .cart-item-vehicle { font-size: .75rem; color: var(--muted); }
+    .cart-item-addons { font-size: .73rem; color: var(--muted2); margin-top: .2rem; }
+    .cart-item-remove {
+      font-size: .7rem; color: var(--red); cursor: pointer; background: none;
+      border: none; padding: 0; font-family: var(--fb); margin-top: .35rem;
+      opacity: .7; transition: opacity .15s;
+    }
+    .cart-item-remove:hover { opacity: 1; }
+    .cart-divider { height: 1px; background: var(--border); margin: .5rem 0; }
+    .cart-subtotal {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: .5rem 0;
+    }
+    .cart-subtotal-label { font-family: var(--fh); font-size: .75rem; font-weight: 600; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; }
+    .cart-subtotal-amount { font-family: var(--fh); font-size: 1.1rem; font-weight: 800; color: var(--text); }
+    .cart-note { font-size: .72rem; color: var(--muted2); text-align: center; margin-top: .5rem; }
+    .btn-another {
+      flex: 1; background: none; border: 1.5px solid var(--border);
+      color: var(--text); font-family: var(--fh); font-weight: 700;
+      font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+      border-radius: 999px; cursor: pointer; padding: .9rem 1rem;
+      transition: border-color .2s, background .2s;
+    }
+    .btn-another:hover { border-color: var(--gold); background: var(--gold-dim); }
+
+    /* ── CALENDAR (Step 7) ── */
+    .calendar-service-summary {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 1rem 1.25rem; margin-bottom: 1.25rem;
+      display: flex; align-items: center; gap: .75rem;
+    }
+    .cal-svc-icon { width: 36px; height: 36px; background: var(--surface3); border-radius: 9px; display: flex; align-items: center; justify-content: center; }
+    .cal-svc-icon svg { width: 18px; height: 18px; color: var(--gold); }
+    .cal-svc-name { font-weight: 600; font-size: .85rem; color: var(--text); }
+    .cal-svc-meta { font-size: .72rem; color: var(--muted); }
+    .calendar-wrapper {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.25rem; margin-bottom: 1rem;
+    }
+    .cal-month-nav {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 1.25rem;
+    }
+    .cal-month-btn {
+      background: var(--surface3); border: 1px solid var(--border);
+      color: var(--text); border-radius: 8px; width: 32px; height: 32px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: border-color .2s;
+    }
+    .cal-month-btn:hover { border-color: var(--gold); }
+    .cal-month-btn:disabled { opacity: .3; cursor: default; }
+    .cal-month-label { font-family: var(--fh); font-weight: 700; font-size: .95rem; color: var(--text); }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr); gap: .3rem;
+    }
+    .cal-dow {
+      text-align: center; font-family: var(--fh); font-size: .62rem;
+      font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+      color: var(--muted); padding: .3rem 0 .6rem;
+    }
+    .cal-day {
+      text-align: center; font-size: .82rem; font-weight: 500;
+      padding: .55rem .2rem; border-radius: 8px; cursor: default;
+      color: var(--muted2); transition: all .15s;
+    }
+    .cal-day.available { color: var(--text); cursor: pointer; }
+    .cal-day.available:hover { background: var(--surface3); color: var(--gold); }
+    .cal-day.selected { background: var(--gold); color: #fff; font-weight: 700; }
+    .cal-day.today { outline: 1px solid var(--border2); }
+    .cal-loading { text-align: center; color: var(--muted); font-size: .82rem; padding: 2rem; }
+    .time-slots-title {
+      font-family: var(--fh); font-size: .72rem; font-weight: 700;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
+      margin-bottom: .75rem;
+    }
+    .time-slots-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem;
+      margin-bottom: 1.5rem;
+    }
+    .time-slot {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: .65rem .5rem; text-align: center;
+      font-size: .8rem; font-weight: 600; color: var(--text); cursor: pointer;
+      transition: all .15s;
+    }
+    .time-slot:hover { border-color: var(--gold); background: var(--gold-dim); }
+    .time-slot.selected { border-color: var(--gold); background: var(--gold); color: #fff; }
+    .no-slots { font-size: .82rem; color: var(--muted); text-align: center; padding: 1rem; }
+
+    /* ── YOUR DETAILS (Step 8) ── */
+    .details-form { display: flex; flex-direction: column; gap: 1rem; flex: 1; }
+    .form-field { display: flex; flex-direction: column; gap: .4rem; }
+    .form-label {
+      font-family: var(--fh); font-size: .72rem; font-weight: 600;
+      letter-spacing: .07em; text-transform: uppercase; color: var(--muted);
+    }
+    .form-input {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: .85rem 1rem;
+      color: var(--text); font-family: var(--fb); font-size: .92rem;
+      outline: none; transition: border-color .2s, box-shadow .2s;
+    }
+    .form-input:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(212,168,81,.1); }
+    .form-input::placeholder { color: var(--muted2); }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .btn-guest {
+      background: var(--gold); color: #fff;
+      font-family: var(--fh); font-weight: 800; font-size: .85rem;
+      letter-spacing: .07em; text-transform: uppercase;
+      border: none; border-radius: 999px; cursor: pointer; padding: 1rem;
+      transition: all .2s; box-shadow: 0 6px 24px rgba(212,168,81,.3);
+      margin-top: .5rem;
+    }
+    .btn-guest:hover { background: var(--gold-soft); transform: translateY(-1px); }
+
+    /* ── CONFIRMATION (Step 9) ── */
+    .confirm-section {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 1.25rem; margin-bottom: .85rem;
+    }
+    .confirm-section-title {
+      font-family: var(--fh); font-size: .7rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--gold);
+      margin-bottom: .85rem;
+    }
+    .confirm-row {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      gap: 1rem; margin-bottom: .55rem;
+    }
+    .confirm-row:last-child { margin-bottom: 0; }
+    .confirm-label { font-size: .78rem; color: var(--muted); }
+    .confirm-value { font-size: .82rem; color: var(--text); font-weight: 600; text-align: right; }
+    .confirm-edit {
+      background: none; border: none; color: var(--gold); cursor: pointer;
+      font-size: .7rem; font-family: var(--fb); padding: 0; transition: opacity .15s;
+    }
+    .confirm-edit:hover { opacity: .7; }
+    .promo-row {
+      display: flex; gap: .5rem; align-items: center; margin-bottom: .85rem;
+    }
+    .promo-input {
+      flex: 1; background: var(--surface3); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: .75rem 1rem; color: var(--text);
+      font-family: var(--fb); font-size: .88rem; outline: none;
+      transition: border-color .2s;
+    }
+    .promo-input:focus { border-color: var(--gold); }
+    .promo-input::placeholder { color: var(--muted2); }
+    .btn-apply {
+      background: var(--surface3); border: 1.5px solid var(--border);
+      color: var(--text); border-radius: 10px; padding: .75rem 1rem;
+      font-family: var(--fh); font-size: .72rem; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; cursor: pointer;
+      transition: border-color .2s, background .2s; white-space: nowrap;
+    }
+    .btn-apply:hover { border-color: var(--gold); background: var(--gold-dim); }
+    .promo-msg { font-size: .75rem; margin-top: .3rem; }
+    .promo-msg.ok { color: var(--green); }
+    .promo-msg.err { color: var(--red); }
+    .comment-field {
+      background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 10px; padding: .85rem 1rem;
+      color: var(--text); font-family: var(--fb); font-size: .88rem;
+      outline: none; width: 100%; resize: vertical; min-height: 80px;
+      transition: border-color .2s;
+    }
+    .comment-field:focus { border-color: var(--gold); }
+    .comment-field::placeholder { color: var(--muted2); }
+    .payment-note {
+      text-align: center; font-size: .75rem; color: var(--muted);
+      margin-bottom: .85rem; display: flex; align-items: center; justify-content: center; gap: .4rem;
+    }
+    .payment-note svg { color: var(--gold); }
+    .btn-book {
+      width: 100%; background: var(--gold); color: #fff;
+      font-family: var(--fh); font-weight: 900; font-size: .92rem;
+      letter-spacing: .1em; text-transform: uppercase;
+      border: none; border-radius: 999px; cursor: pointer; padding: 1.1rem;
+      transition: all .2s; box-shadow: 0 8px 32px rgba(212,168,81,.4);
+    }
+    .btn-book:hover { background: var(--gold-soft); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,168,81,.5); }
+    .btn-book:disabled { opacity: .5; cursor: default; transform: none; }
+
+    /* ── SUCCESS ── */
+    #success-screen {
+      display: none; position: fixed; inset: 0; z-index: 500;
+      background: var(--surface); flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; padding: 2rem;
+    }
+    #success-screen.show { display: flex; }
+    .success-icon { font-size: 4rem; margin-bottom: 1.5rem; }
+    .success-title { font-family: var(--fh); font-weight: 900; font-size: 1.8rem; margin-bottom: .75rem; color: var(--text); }
+    .success-sub { font-size: .92rem; color: var(--muted); max-width: 380px; line-height: 1.7; }
+    .success-conf { font-family: var(--fh); font-weight: 700; font-size: .8rem; color: var(--gold); margin-top: 1rem; }
+    .btn-home {
+      margin-top: 2rem; background: var(--gold); color: #fff;
+      font-family: var(--fh); font-weight: 800; font-size: .82rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      border: none; border-radius: 999px; cursor: pointer; padding: 1rem 2.5rem;
+      text-decoration: none; display: inline-block;
+      box-shadow: 0 6px 24px rgba(212,168,81,.3);
+    }
+
+    /* ── LOADING SPINNER ── */
+    .spinner {
+      width: 18px; height: 18px; border: 2px solid rgba(212,168,81,.3);
+      border-top-color: var(--gold); border-radius: 50%;
+      animation: spin .7s linear infinite; display: inline-block;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── MOBILE ── */
+    @media (max-width: 768px) {
+      :root { --panel-w: 100%; }
+
+      /* map takes top 30%, panel fills the rest down to real bottom */
+      #map.split { right: 0; height: 30vh; bottom: auto; top: 0; }
+      #steps-panel {
+        top: 30vh;
+        bottom: 0;          /* extend to real bottom of viewport */
+        height: auto;       /* don't use vh height — use bottom:0 instead */
+      }
+
+      /* tighten panel chrome */
+      .panel-header { padding: .6rem 1rem 0; }
+      .breadcrumb { padding-bottom: .6rem; font-size: .65rem; }
+
+      /* all scrollable steps — pad bottom so content isn't behind fixed footer */
+      .step { padding: .85rem 1rem 100px; }
+      .step[style*="padding-bottom:0"] > div:first-child {
+        padding: .85rem 1rem;
+        padding-bottom: 100px;  /* room for the fixed footer */
+      }
+      .step-title { font-size: .95rem; margin-bottom: .75rem; }
+
+      /* step footer — fixed to bottom of screen so it's ALWAYS visible */
+      .step-footer {
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        padding: .75rem 1rem;
+        padding-bottom: max(.75rem, env(safe-area-inset-bottom));
+        z-index: 999;
+        background: var(--surface);
+        border-top: 1px solid var(--border);
+        box-shadow: 0 -4px 20px rgba(0,0,0,.15);
+      }
+      .btn-cart { padding: .85rem 1rem; font-size: .8rem; }
+
+      /* vehicle cards */
+      .vehicle-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
+      .vehicle-card { padding: .6rem .5rem; gap: .25rem; }
+      .vehicle-svg  { height: 50px; }
+      .vehicle-img  { height: 55px; }
+      .vehicle-label { font-size: .72rem; }
+      .vehicle-example { font-size: .62rem; }
+
+      /* package cards — shorter images */
+      .package-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
+      .package-card { border-radius: 10px; }
+      .pkg-car-img  { height: 75px; }
+      .pkg-icon     { height: 75px; }
+      .pkg-icon svg { width: 48px; height: 48px; }
+      .pkg-card-body { padding: .55rem .7rem .65rem; }
+      .pkg-label    { font-size: .8rem; }
+      .pkg-desc     { font-size: .68rem; }
+      .pkg-price-range { font-size: .68rem; }
+
+      /* tier cards */
+      .tier-grid { gap: .6rem; }
+      .tier-card { padding: .9rem 1rem; border-radius: 12px; }
+      .tier-badge { margin-bottom: .45rem; }
+      .tier-name  { font-size: .95rem; margin-bottom: .3rem; }
+      .tier-tagline { font-size: .72rem; margin-bottom: .6rem; line-height: 1.4; }
+      .tier-bullets { gap: .2rem; margin-bottom: .6rem; }
+      .tier-bullets li { font-size: .72rem; }
+      .tier-price { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── NAV ── -->
+<nav class="booking-nav">
+  <img src="web.screenshots/Dark logo for booking pages.png" alt="Shine for a Cause" />
+  <a href="/" class="nav-back">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+    Back to Site
+  </a>
+</nav>
+
+<!-- ── BOOKING APP ── -->
+<div id="booking-app">
+
+  <!-- Map -->
+  <div id="map"></div>
+
+  <!-- STEP 1: Address Overlay -->
+  <div id="step1-overlay">
+    <div class="step1-card">
+      <h1>Step 1: Where would you like your<br><span>vehicle detailed?</span></h1>
+      <div class="search-wrapper">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input id="address-input" type="text" placeholder="Enter your address here" autocomplete="off" />
+        <button class="locate-btn" id="locate-btn" title="Use my location">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/><circle cx="12" cy="12" r="9" stroke-dasharray="2 3"/></svg>
+        </button>
+      </div>
+      <div class="area-error" id="area-error">
+        Sorry, we don't currently service that location. We serve Fort Collins, Loveland, Timnath, Windsor, and areas within ~20 minutes of Fort Collins.
+      </div>
+    </div>
+    <div id="next1-btn">
+      <button class="btn-next" onclick="proceedToStep2()">Next</button>
+    </div>
+  </div>
+
+  <!-- STEPS PANEL (steps 2–9) -->
+  <div id="steps-panel">
+
+    <!-- Panel Header -->
+    <div class="panel-header">
+      <div class="panel-nav">
+        <button class="panel-back" id="panel-back-btn" onclick="goBack()">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M10 12L6 8l4-4"/></svg>
+          Back
+        </button>
+        <div id="breadcrumb" class="breadcrumb" style="padding-bottom:0; font-size:.68rem;"></div>
+      </div>
+      <div class="breadcrumb" id="breadcrumb-full"></div>
+    </div>
+
+    <div class="steps-container" id="steps-container">
+
+      <!-- ── STEP 2: Vehicle Type ── -->
+      <div class="step" data-step="2">
+        <div class="step-title">Select Vehicle Type</div>
+        <div class="vehicle-grid" id="vehicle-grid"></div>
+      </div>
+
+      <!-- ── STEP 3: Package Type ── -->
+      <div class="step" data-step="3">
+        <div class="step-title">Select Package</div>
+        <div class="package-grid" id="package-grid"></div>
+      </div>
+
+      <!-- ── STEP 4: Tier ── -->
+      <div class="step" data-step="4">
+        <div class="step-title" id="tier-title">Select Level</div>
+        <div class="tier-grid" id="tier-grid"></div>
+      </div>
+
+      <!-- ── STEP 5: Description + Add-ons ── -->
+      <div class="step" data-step="5" style="padding-bottom:0;">
+        <div style="flex:1; overflow-y:auto; padding:1.5rem;">
+          <div id="pkg-detail-content"></div>
+          <div id="addons-section"></div>
+        </div>
+        <div class="step-footer">
+          <div class="cart-total-preview">
+            <span id="cart-preview-price">$0</span>
+            <small>Total</small>
+          </div>
+          <button class="btn-cart" onclick="addToCart()">Add to Cart</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 6: Cart ── -->
+      <div class="step" data-step="6" style="padding-bottom:0;">
+        <div style="flex:1; overflow-y:auto; padding:1.5rem;">
+          <div class="step-title">Your Cart</div>
+          <div class="cart-items-list" id="cart-items-list"></div>
+          <div class="cart-divider"></div>
+          <div class="cart-subtotal">
+            <span class="cart-subtotal-label">Subtotal</span>
+            <span class="cart-subtotal-amount" id="cart-subtotal">$0</span>
+          </div>
+          <p class="cart-note">Payment collected in person after service</p>
+        </div>
+        <div class="step-footer">
+          <button class="btn-another" onclick="addAnotherVehicle()">+ Add Vehicle</button>
+          <button class="btn-cart" onclick="goToStep(7)" id="to-calendar-btn">Select Date</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 7: Calendar ── -->
+      <div class="step" data-step="7" style="padding-bottom:0;">
+        <div style="flex:1; overflow-y:auto; padding:1.5rem;">
+          <div class="step-title">Select Date &amp; Time</div>
+          <div class="calendar-service-summary" id="cal-service-summary"></div>
+          <div class="calendar-wrapper">
+            <div class="cal-month-nav">
+              <button class="cal-month-btn" id="cal-prev" onclick="changeMonth(-1)">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
+              </button>
+              <span class="cal-month-label" id="cal-month-label">Loading...</span>
+              <button class="cal-month-btn" id="cal-next" onclick="changeMonth(1)">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 4l4 4-4 4"/></svg>
+              </button>
+            </div>
+            <div class="cal-grid" id="cal-grid"></div>
+          </div>
+          <div id="time-slots-section" style="display:none;">
+            <div class="time-slots-title">Available Times</div>
+            <div class="time-slots-grid" id="time-slots-grid"></div>
+          </div>
+        </div>
+        <div class="step-footer">
+          <button class="btn-cart" onclick="goToStep(8)" id="to-details-btn" disabled>Continue</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 8: Your Details ── -->
+      <div class="step" data-step="8" style="padding-bottom:0;">
+        <div style="flex:1; overflow-y:auto; padding:1.5rem;">
+          <div class="step-title">Your Details</div>
+          <div class="details-form">
+            <div class="form-field">
+              <label class="form-label">Email</label>
+              <input class="form-input" type="email" id="f-email" placeholder="you@email.com" />
+            </div>
+            <div class="form-row">
+              <div class="form-field">
+                <label class="form-label">First Name</label>
+                <input class="form-input" type="text" id="f-first" placeholder="First" />
+              </div>
+              <div class="form-field">
+                <label class="form-label">Last Name</label>
+                <input class="form-input" type="text" id="f-last" placeholder="Last" />
+              </div>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Phone Number</label>
+              <input class="form-input" type="tel" id="f-phone" placeholder="(970) 555-0123" />
+            </div>
+          </div>
+        </div>
+        <div class="step-footer">
+          <button class="btn-cart" onclick="goToConfirmation()">Continue as Guest</button>
+        </div>
+      </div>
+
+      <!-- ── STEP 9: Confirmation ── -->
+      <div class="step" data-step="9" style="padding-bottom:0;">
+        <div style="flex:1; overflow-y:auto; padding:1.5rem;">
+          <div class="step-title">Confirm Your Booking</div>
+
+          <div class="confirm-section">
+            <div class="confirm-section-title">Location</div>
+            <div class="confirm-row">
+              <span class="confirm-label">Service Address</span>
+              <span class="confirm-value" id="conf-address">—</span>
+            </div>
+          </div>
+
+          <div class="confirm-section">
+            <div class="confirm-section-title">Date &amp; Time</div>
+            <div class="confirm-row">
+              <span class="confirm-label">Appointment</span>
+              <span class="confirm-value" id="conf-datetime">—</span>
+            </div>
+          </div>
+
+          <div class="confirm-section">
+            <div class="confirm-section-title">Services</div>
+            <div id="conf-services"></div>
+          </div>
+
+          <div class="confirm-section">
+            <div class="confirm-section-title">Your Details</div>
+            <div class="confirm-row">
+              <span class="confirm-label">Name</span>
+              <span class="confirm-value" id="conf-name">—</span>
+            </div>
+            <div class="confirm-row">
+              <span class="confirm-label">Email</span>
+              <span class="confirm-value" id="conf-email">—</span>
+            </div>
+            <div class="confirm-row">
+              <span class="confirm-label">Phone</span>
+              <span class="confirm-value" id="conf-phone">—</span>
+            </div>
+            <div class="confirm-row">
+              <span class="confirm-label"></span>
+              <button class="confirm-edit" onclick="goToStep(8)">Edit Details</button>
+            </div>
+          </div>
+
+          <div class="confirm-section">
+            <div class="confirm-section-title">Promo Code</div>
+            <div class="promo-row">
+              <input class="promo-input" type="text" id="promo-code" placeholder="Enter promo code" />
+              <button class="btn-apply" onclick="applyPromo()">Apply</button>
+            </div>
+            <div class="promo-msg" id="promo-msg"></div>
+          </div>
+
+          <div class="form-field" style="margin-bottom:1rem;">
+            <label class="form-label">Comments for Your Detailer</label>
+            <textarea class="comment-field" id="f-comments" placeholder="Any notes? Gate codes, parking instructions, specific concerns..."></textarea>
+          </div>
+
+          <div class="payment-note">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Payment collected in person after the detail is complete
+          </div>
+
+          <div class="cart-subtotal" style="margin-bottom:1rem;">
+            <span class="cart-subtotal-label">Total Due Today</span>
+            <span style="font-family:var(--fh);font-size:.85rem;color:var(--muted);font-weight:600;">$0 — Paid In Person</span>
+          </div>
+          <div class="cart-subtotal" style="margin-bottom:1.25rem;">
+            <span class="cart-subtotal-label">Estimated Total</span>
+            <span class="cart-subtotal-amount" id="conf-total">$0</span>
+          </div>
+
+          <button class="btn-book" id="book-btn" onclick="confirmBooking()">Book Now</button>
+          <div id="book-error" style="color:var(--red);font-size:.78rem;text-align:center;margin-top:.75rem;display:none;"></div>
+        </div>
+      </div>
+
+    </div><!-- /steps-container -->
+  </div><!-- /steps-panel -->
+</div><!-- /booking-app -->
+
+<!-- SUCCESS SCREEN -->
+<div id="success-screen">
+  <div class="success-icon">✨</div>
+  <div class="success-title">You're Booked!</div>
+  <div class="success-sub" id="success-sub">Your appointment has been confirmed. You'll receive an email and text confirmation shortly.</div>
+  <div class="success-conf" id="success-conf"></div>
+  <a href="/" class="btn-home">Back to Home</a>
+</div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════
+// DATA
+// ═══════════════════════════════════════════════════════════════════
+const VEHICLE_TYPES = [
+  { key: 'small', label: 'Small',  desc: 'Sedan or compact car' },
+  { key: 'mid',   label: 'Mid-Size', desc: 'SUV, crossover, or mid-size truck' },
+  { key: 'large', label: 'Large',  desc: 'Full-size SUV or heavy-duty truck' },
+  { key: 'van',   label: 'Van',    desc: 'Minivan or full-size van' }
+];
+
+const PACKAGE_TYPES = [
+  { key: 'interior', label: 'Interior',        desc: 'Deep clean inside your vehicle',        color: '#7a6fff' },
+  { key: 'exterior', label: 'Exterior',        desc: 'Full paint care & protection outside',  color: '#52c77a' },
+  { key: 'full',     label: 'Full Detail',     desc: 'Complete inside & out treatment',       color: '#D4A851' },
+  { key: 'ceramic',  label: 'Ceramic Coating', desc: 'Long-lasting professional protection',  color: '#7ab4ff' }
+];
+
+const SERVICE_CONFIGS = {
+  'express-exterior': {
+    label: 'Express Exterior', packageType: 'exterior', tier: 'express',
+    description: 'A thorough outside clean that leaves your paint gleaming and your wheels spotless.',
+    bullets: ['Hand wash & dry', 'Tire dressing & rim clean', 'Window & mirror polish', 'Door jambs wiped down', 'Paint sealant & wax protection'],
+    pricing: { small:80, mid:90, large:100, van:125 },
+    acuityIds: { small:91811065, mid:91812053, large:91812249, van:91812273 },
+    addons: ['headlight','engine','trim']
+  },
+  'express-interior': {
+    label: 'Express Interior', packageType: 'interior', tier: 'express',
+    description: 'A focused interior refresh to clear clutter, odors, and dust — in and out fast.',
+    bullets: ['Full vacuum (seats, carpets, trunk)', 'Wipe all surfaces & dash', 'Clean floor mats', 'Interior windows & mirrors', 'Door panels & cupholder clean'],
+    pricing: { small:149, mid:170, large:190, van:225 },
+    acuityIds: { small:91812297, mid:91812447, large:91812550, van:91812687 },
+    addons: ['petHair']
+  },
+  'express-full': {
+    label: 'Express Full Detail', packageType: 'full', tier: 'express',
+    description: 'The complete package — a full interior refresh combined with a spotless exterior clean.',
+    bullets: ['Everything in Express Interior', 'Everything in Express Exterior', 'Complete vehicle refresh in one visit'],
+    pricing: { small:199, mid:225, large:250, van:275 },
+    acuityIds: { small:91812717, mid:91812748, large:91812775, van:91812792 },
+    addons: ['headlight','engine','petHair','trim']
+  },
+  'executive-exterior': {
+    label: 'Executive Exterior', packageType: 'exterior', tier: 'executive',
+    description: 'A premium paint care experience with deep decontamination, machine polish, and a show-quality finish.',
+    bullets: ['Clay bar decontamination', 'Single-stage machine polish', 'Ceramic-grade paint sealant', 'Tire & wheel deep clean', 'Window & trim dressing'],
+    pricing: { small:125, mid:150, large:175, van:225 },
+    acuityIds: { small:91815363, mid:91815382, large:91815395, van:91815404 },
+    addons: ['headlight','engine','trim']
+  },
+  'executive-interior': {
+    label: 'Executive Interior', packageType: 'interior', tier: 'executive',
+    description: 'A meticulous, showroom-quality interior restoration. Every surface cleaned, conditioned, and protected.',
+    bullets: ['Deep extraction & steam cleaning', 'Leather & vinyl conditioning', 'Odor elimination treatment', 'Pet hair removal (included)', 'Interior trim dressing'],
+    pricing: { small:299, mid:325, large:350, van:400 },
+    acuityIds: { small:91813164, mid:91813181, large:91813208, van:91813231 },
+    addons: [] // pet hair included
+  },
+  'executive-full': {
+    label: 'Executive Full Detail', packageType: 'full', tier: 'executive',
+    description: 'Our flagship service — a full-day transformation combining Executive Interior and Exterior with premium paint correction.',
+    bullets: ['Everything in Executive Interior', 'Everything in Executive Exterior', 'Pet hair removal (included)', 'Complete protection package'],
+    pricing: { small:399, mid:425, large:450, van:500 },
+    acuityIds: { small:91812844, mid:91812881, large:91812988, van:91813125 },
+    addons: ['headlight','engine','trim'] // no pet hair (included)
+  },
+  'ceramic-1step': {
+    label: '1-Step Ceramic Coating', packageType: 'ceramic', tier: '1step',
+    description: 'Full decontamination and one-stage machine polish, followed by professional-grade ceramic coating application.',
+    bullets: ['Wash & clay bar decontamination', '1-stage machine polish', 'Panel wipe & prep', 'Ceramic coating application', 'Curing & final inspection'],
+    pricing: { small:700, mid:750, large:800, van:900 },
+    acuityIds: { small:91815440, mid:91815483, large:91815511, van:91815521 },
+    addons: ['headlight','engine','trim']
+  },
+  'ceramic-2step': {
+    label: '2-Step Ceramic Coating', packageType: 'ceramic', tier: '2step',
+    description: 'The ultimate paint correction and protection combo — two-stage polishing delivers a flawless glass-like finish before ceramic application.',
+    bullets: ['Wash & clay bar decontamination', '2-stage machine polish (cut + refine)', 'Full paint depth analysis', 'Ceramic coating application', 'Multi-panel inspection'],
+    pricing: { small:1000, mid:1100, large:1200, van:1400 },
+    acuityIds: { small:91815583, mid:91815597, large:91815615, van:91815638 },
+    addons: ['headlight','engine','trim']
+  }
+};
+
+const ADDON_DEFS = {
+  headlight: { id:6906837, name:'Headlight Restoration', price:65, duration:45, desc:'Restore clarity to cloudy, yellowed headlights — improves night visibility.' },
+  engine:    { id:6906838, name:'Engine Bay Cleaning',   price:50, duration:30, desc:'Degrease, rinse, and detail the engine bay for a clean under-hood look.' },
+  trim:      { id:6906840, name:'Trim Restoration',      price:40, duration:30, desc:'Restore faded exterior plastic trim to a rich, factory-black finish.' },
+  petHair:   { id:6906841, name:'Pet Hair Removal',      price:40, duration:30, desc:'Thorough removal of embedded pet hair from all upholstery surfaces.' }
+};
+
+const TIER_INFO = {
+  express: {
+    badge: 'express', name: 'Express', tagline: 'The essentials, done right — fast, thorough, and affordable.',
+    highlights: ['Quality results in minimal time', 'Hand wash & vacuum', 'Perfect for regular maintenance']
+  },
+  executive: {
+    badge: 'executive', name: 'Executive', tagline: 'Premium detailing with professional-grade products and deep treatment.',
+    highlights: ['Professional-grade products', 'Deep extraction & steam', 'Showroom-quality results']
+  },
+  '1step': {
+    badge: 'step1', name: '1-Step Ceramic', tagline: 'Single-stage correction + ceramic protection. Years of shine in one appointment.',
+    highlights: ['1-stage machine polish', 'Professional ceramic coating', '1–3 year protection']
+  },
+  '2step': {
+    badge: 'step2', name: '2-Step Ceramic', tagline: 'Maximum paint correction before ceramic coating for flawless, glass-like results.',
+    highlights: ['2-stage cut & refine polish', 'Paint depth analysis', '7–8 year protection']
+  }
+};
+
+const PACKAGE_TIERS = {
+  interior: ['express','executive'],
+  exterior: ['express','executive'],
+  full:     ['express','executive'],
+  ceramic:  ['1step','2step']
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════════════
+const state = {
+  address: null,        // { formatted, lat, lng }
+  currentStep: 1,
+  stepHistory: [1],
+
+  // Current selection in progress
+  vehicle: null,        // 'small' | 'mid' | 'large' | 'van'
+  packageType: null,    // 'interior' | 'exterior' | 'full' | 'ceramic'
+  tier: null,           // 'express' | 'executive' | '1step' | '2step'
+  addons: {},           // { addonKey: quantity }
+
+  // Cart
+  cart: [],             // [{ serviceKey, vehicle, addons, price, acuityTypeId, label, vehicleLabel }]
+
+  // Booking
+  calMonth: null,       // Date object for current calendar month
+  availableDates: [],
+  selectedDate: null,
+  selectedTime: null,
+
+  // Customer
+  email: '', firstName: '', lastName: '', phone: '',
+  promoCode: '', comments: ''
+};
+
+// ═══════════════════════════════════════════════════════════════════
+// GOOGLE MAPS
+// ═══════════════════════════════════════════════════════════════════
+let map, marker, autocomplete;
+const FORT_COLLINS = { lat: 40.5853, lng: -105.0844 };
+
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: FORT_COLLINS,
+    zoom: 11,
+    disableDefaultUI: true,
+    zoomControl: true,
+    styles: [
+      { elementType:'geometry', stylers:[{color:'#f0ebe3'}] },
+      { elementType:'labels.text.fill', stylers:[{color:'#7c7060'}] },
+      { elementType:'labels.text.stroke', stylers:[{color:'#f0ebe3'}] },
+      { featureType:'administrative', elementType:'geometry.stroke', stylers:[{color:'#c8bfb0'}] },
+      { featureType:'administrative.locality', elementType:'labels.text.fill', stylers:[{color:'#4a3f30'}] },
+      { featureType:'poi', elementType:'labels.text.fill', stylers:[{color:'#9a8a78'}] },
+      { featureType:'poi.park', elementType:'geometry', stylers:[{color:'#dff0d8'}] },
+      { featureType:'poi.park', elementType:'labels.text.fill', stylers:[{color:'#7cac6a'}] },
+      { featureType:'road', elementType:'geometry', stylers:[{color:'#ffffff'}] },
+      { featureType:'road', elementType:'geometry.stroke', stylers:[{color:'#e0d8cc'}] },
+      { featureType:'road', elementType:'labels.text.fill', stylers:[{color:'#8a7a68'}] },
+      { featureType:'road.highway', elementType:'geometry', stylers:[{color:'#fde9b0'}] },
+      { featureType:'road.highway', elementType:'geometry.stroke', stylers:[{color:'#e8cc88'}] },
+      { featureType:'road.highway', elementType:'labels.text.fill', stylers:[{color:'#5a4a30'}] },
+      { featureType:'transit', elementType:'geometry', stylers:[{color:'#e8e0d4'}] },
+      { featureType:'water', elementType:'geometry', stylers:[{color:'#c8dfe8'}] },
+      { featureType:'water', elementType:'labels.text.fill', stylers:[{color:'#7aa8c0'}] }
+    ]
+  });
+
+  const input = document.getElementById('address-input');
+  autocomplete = new google.maps.places.Autocomplete(input, {
+    componentRestrictions: { country: 'us' },
+    bounds: new google.maps.LatLngBounds(
+      { lat: 40.2, lng: -105.5 },
+      { lat: 40.9, lng: -104.6 }
+    ),
+    strictBounds: false,
+    fields: ['geometry', 'formatted_address']
+  });
+
+  autocomplete.addListener('place_changed', onPlaceSelected);
+
+  document.getElementById('locate-btn').addEventListener('click', () => {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(async (pos) => {
+      const loc = { lat: pos.coords.latitude, lng: pos.coords.longitude };
+      const geocoder = new google.maps.Geocoder();
+      geocoder.geocode({ location: loc }, (results, status) => {
+        if (status === 'OK' && results[0]) {
+          document.getElementById('address-input').value = results[0].formatted_address;
+          handleAddressConfirmed(results[0].formatted_address, loc.lat, loc.lng);
+        }
+      });
+    });
+  });
+}
+
+async function onPlaceSelected() {
+  const place = autocomplete.getPlace();
+  if (!place.geometry) return;
+  const lat = place.geometry.location.lat();
+  const lng = place.geometry.location.lng();
+  handleAddressConfirmed(place.formatted_address, lat, lng);
+}
+
+async function handleAddressConfirmed(formatted, lat, lng) {
+  document.getElementById('area-error').classList.remove('show');
+
+  // Drop pin
+  if (marker) marker.setMap(null);
+  marker = new google.maps.Marker({
+    position: { lat, lng }, map,
+    icon: {
+      path: google.maps.SymbolPath.CIRCLE,
+      scale: 10,
+      fillColor: '#B5751A', fillOpacity: 1,
+      strokeColor: '#ffffff', strokeWeight: 2
+    }
+  });
+  map.panTo({ lat, lng });
+  map.setZoom(14);
+
+  // Check service area
+  const inArea = await checkServiceArea(lat, lng);
+  if (!inArea) {
+    document.getElementById('area-error').classList.add('show');
+    document.getElementById('next1-btn').classList.remove('show');
+    return;
+  }
+
+  state.address = { formatted, lat, lng };
+  document.getElementById('next1-btn').classList.add('show');
+}
+
+function checkServiceArea(lat, lng) {
+  return new Promise((resolve) => {
+    const service = new google.maps.DistanceMatrixService();
+    service.getDistanceMatrix({
+      origins: [FORT_COLLINS],
+      destinations: [{ lat, lng }],
+      travelMode: google.maps.TravelMode.DRIVING,
+    }, (resp, status) => {
+      if (status !== 'OK') { resolve(true); return; }
+      const el = resp.rows[0].elements[0];
+      if (el.status !== 'OK') { resolve(true); return; }
+      const mins = el.duration.value / 60;
+      resolve(mins <= 25); // slight buffer for edge cases
+    });
+  });
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════════════════════════
+function proceedToStep2() {
+  if (!state.address) return;
+  document.getElementById('map').classList.add('split');
+  document.getElementById('step1-overlay').classList.add('hidden');
+  document.getElementById('steps-panel').classList.add('open');
+  goToStep(2);
+}
+
+function goToStep(n) {
+  const prev = state.currentStep;
+  state.currentStep = n;
+
+  if (n !== 1 && !state.stepHistory.includes(n)) {
+    state.stepHistory.push(n);
+  }
+
+  // Render step content
+  renderStep(n);
+
+  // Animate panels
+  document.querySelectorAll('.step').forEach(el => {
+    const s = parseInt(el.dataset.step);
+    el.classList.remove('active','prev');
+    if (s === n) el.classList.add('active');
+    else if (s < n) el.classList.add('prev');
+  });
+
+  updateBreadcrumb();
+  updateBackBtn(n);
+}
+
+function goBack() {
+  const hist = state.stepHistory;
+  if (hist.length <= 1) {
+    // Back to address step
+    document.getElementById('map').classList.remove('split');
+    document.getElementById('step1-overlay').classList.remove('hidden');
+    document.getElementById('steps-panel').classList.remove('open');
+    state.stepHistory = [1];
+    state.currentStep = 1;
+    return;
+  }
+  hist.pop();
+  const prev = hist[hist.length - 1];
+  goToStep(prev);
+}
+
+function updateBackBtn(step) {
+  const btn = document.getElementById('panel-back-btn');
+  btn.style.display = step <= 2 ? 'flex' : 'flex';
+}
+
+function updateBreadcrumb() {
+  const parts = [];
+  if (state.vehicle) parts.push(VEHICLE_TYPES.find(v=>v.key===state.vehicle)?.label);
+  if (state.packageType) parts.push(PACKAGE_TYPES.find(p=>p.key===state.packageType)?.label);
+  if (state.tier) parts.push(TIER_INFO[state.tier]?.name);
+
+  const bc = document.getElementById('breadcrumb-full');
+  if (!parts.length) { bc.innerHTML = ''; return; }
+  bc.innerHTML = parts.map((p,i) =>
+    `<span class="${i===parts.length-1?'active':''}">${p}</span>${i<parts.length-1?'<span class="bc-sep">›</span>':''}`
+  ).join('');
+}
+
+function addAnotherVehicle() {
+  state.vehicle = null;
+  state.packageType = null;
+  state.tier = null;
+  state.addons = {};
+  state.stepHistory = [...state.stepHistory, 2];
+  goToStep(2);
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// RENDER STEPS
+// ═══════════════════════════════════════════════════════════════════
+function renderStep(n) {
+  switch(n) {
+    case 2: renderVehicleTypes(); break;
+    case 3: renderPackageTypes(); break;
+    case 4: renderTiers(); break;
+    case 5: renderPackageDetail(); break;
+    case 6: renderCart(); break;
+    case 7: renderCalendar(); break;
+    case 8: break; // static HTML
+    case 9: renderConfirmation(); break;
+  }
+}
+
+// ── Step 2: Vehicle Types ──
+function renderVehicleTypes() {
+  const grid = document.getElementById('vehicle-grid');
+  grid.innerHTML = VEHICLE_TYPES.map(v => `
+    <div class="vehicle-card ${state.vehicle===v.key?'selected':''}" onclick="selectVehicle('${v.key}')">
+      ${vehicleSVG(v.key)}
+      <div class="vehicle-label">${v.label}</div>
+      <div class="vehicle-example">${v.desc}</div>
+    </div>
+  `).join('');
+}
+
+function selectVehicle(key) {
+  state.vehicle = key;
+  renderVehicleTypes();
+  setTimeout(() => goToStep(3), 220);
+}
+
+// ── Step 3: Package Types ──
+function renderPackageTypes() {
+  const grid = document.getElementById('package-grid');
+  grid.innerHTML = PACKAGE_TYPES.map(p => {
+    const prices = getPriceRange(p.key);
+    return `
+    <div class="package-card ${state.packageType===p.key?'selected':''}" onclick="selectPackage('${p.key}')">
+      ${packageIllus(p.key)}
+      <div class="pkg-card-body">
+        <div class="pkg-label">${p.label}</div>
+        <div class="pkg-desc">${p.desc}</div>
+        <div class="pkg-price-range">${prices}</div>
+      </div>
+    </div>
+  `}).join('');
+}
+
+function packageIllus(key) {
+  if (key === 'ceramic') {
+    return `<div class="pkg-icon">
+      ${packageIcon('ceramic')}
+      <div class="pkg-icon-labels">
+        <div class="pkg-icon-title">Ceramic Coating</div>
+        <div class="pkg-icon-sub">+ Paint Correction</div>
+      </div>
+    </div>`;
+  }
+  const colors = {
+    interior: '#9B59B6',
+    exterior: '#27AE60',
+    full:     '#2C3E50',
+  };
+  const labels = {
+    interior: 'Interior Only',
+    exterior: 'Exterior Only',
+    full:     'Inside & Out',
+  };
+  const c = colors[key] || '#B5751A';
+
+  // Interior — image has title baked in, fill edge to edge
+  if (key === 'interior') {
+    return `<div class="pkg-illus" style="--pkg-color:${c}">
+      <img class="pkg-car-img" src="web.screenshots/813e921e-de36-4ec4-a308-9594dcdd3285.png" alt="interior" />
+    </div>`;
+  }
+
+  // Full — image has title baked in, fill edge to edge
+  if (key === 'full') {
+    return `<div class="pkg-illus" style="--pkg-color:${c}">
+      <img class="pkg-car-img" src="web.screenshots/Inside and out.png" alt="full" />
+    </div>`;
+  }
+
+  // Exterior — image has title baked in, fill edge to edge
+  return `
+    <div class="pkg-illus" style="--pkg-color:${c}">
+      <img class="pkg-car-img" src="web.screenshots/EXT.png" alt="${key}" />
+    </div>`;
+}
+
+function buildSvcKey(tier, pkgType) {
+  return pkgType === 'ceramic' ? `ceramic-${tier}` : `${tier}-${pkgType}`;
+}
+
+function getPriceRange(pkgType) {
+  const tiers = PACKAGE_TIERS[pkgType];
+  let min = Infinity, max = 0;
+  tiers.forEach(tier => {
+    const svcKey = buildSvcKey(tier, pkgType);
+    const cfg = SERVICE_CONFIGS[svcKey];
+    if (!cfg) return;
+    const p = cfg.pricing[state.vehicle || 'small'];
+    if (p < min) min = p;
+    if (p > max) max = p;
+  });
+  if (!isFinite(min)) return '';
+  return min === max ? `$${min}` : `From $${min}`;
+}
+
+function selectPackage(key) {
+  state.packageType = key;
+  state.tier = null;
+  renderPackageTypes();
+  setTimeout(() => goToStep(4), 220);
+}
+
+// ── Step 4: Tiers ──
+function renderTiers() {
+  const tiers = PACKAGE_TIERS[state.packageType] || [];
+  document.getElementById('tier-title').textContent =
+    state.packageType === 'ceramic' ? 'Select Ceramic Level' : 'Select Detail Level';
+
+  const grid = document.getElementById('tier-grid');
+  grid.innerHTML = tiers.map(tier => {
+    const svcKey = buildSvcKey(tier, state.packageType);
+    const cfg = SERVICE_CONFIGS[svcKey];
+    const price = cfg?.pricing[state.vehicle] || 0;
+    const info = TIER_INFO[tier];
+    return `
+    <div class="tier-card ${state.tier===tier?'selected':''}" onclick="selectTier('${tier}')">
+      <div class="tier-badge ${info.badge}">${info.name}</div>
+      <div class="tier-name">${cfg?.label}</div>
+      <div class="tier-tagline">${info.tagline}</div>
+      <ul class="tier-bullets">
+        ${info.highlights.map(h=>`<li>${h}</li>`).join('')}
+      </ul>
+      <div class="tier-price">$${price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
+    </div>
+  `}).join('');
+}
+
+function selectTier(tier) {
+  state.tier = tier;
+  state.addons = {};
+  renderTiers();
+  setTimeout(() => goToStep(5), 220);
+}
+
+function getDuration(svcKey, vehicle) {
+  // Return duration in minutes from Acuity data
+  const durations = {
+    'express-exterior':  { small:80, mid:90, large:90, van:100 },
+    'express-interior':  { small:105, mid:110, large:115, van:120 },
+    'express-full':      { small:180, mid:190, large:195, van:200 },
+    'executive-exterior':{ small:105, mid:110, large:115, van:120 },
+    'executive-interior':{ small:210, mid:220, large:230, van:240 },
+    'executive-full':    { small:330, mid:340, large:350, van:360 },
+    'ceramic-1step':     { small:420, mid:430, large:440, van:450 },
+    'ceramic-2step':     { small:480, mid:490, large:500, van:510 },
+  };
+  return durations[svcKey]?.[vehicle] || 0;
+}
+
+function formatDuration(mins) {
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  if (m === 0) return `${h} hr`;
+  return `${h} hr ${m} min`;
+}
+
+// ── Step 5: Package Detail + Add-ons ──
+function renderPackageDetail() {
+  const svcKey = buildSvcKey(state.tier, state.packageType);
+  const cfg = SERVICE_CONFIGS[svcKey];
+  if (!cfg) return;
+
+  const price = cfg.pricing[state.vehicle];
+  const dur = getDuration(svcKey, state.vehicle);
+
+  document.getElementById('pkg-detail-content').innerHTML = `
+    <div class="pkg-detail-header">
+      <div class="pkg-detail-icon">${packageIllus(state.packageType)}</div>
+      <div>
+        <div class="pkg-detail-name">${cfg.label}</div>
+        <div class="pkg-detail-price">$${price}</div>
+        <div class="pkg-detail-duration">${formatDuration(dur)}</div>
+      </div>
+    </div>
+    <div class="pkg-detail-desc">${cfg.description}</div>
+    <div class="pkg-includes">
+      <div class="pkg-includes-title">What's Included</div>
+      <ul>${cfg.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+    </div>
+  `;
+
+  const addonsEl = document.getElementById('addons-section');
+  if (cfg.addons.length === 0) {
+    addonsEl.innerHTML = '';
+  } else {
+    addonsEl.innerHTML = `
+      <div class="addons-title">Extras & Add-Ons</div>
+      ${cfg.addons.map(key => {
+        const a = ADDON_DEFS[key];
+        const qty = state.addons[key] || 0;
+        return `
+        <div class="addon-row">
+          <div class="addon-info">
+            <div class="addon-name">${a.name}</div>
+            <div class="addon-meta">$${a.price} · ${a.duration} min — ${a.desc}</div>
+          </div>
+          <div class="addon-qty">
+            <button class="qty-btn" onclick="changeAddon('${key}',-1)">−</button>
+            <span class="qty-num" id="qty-${key}">${qty}</span>
+            <button class="qty-btn" onclick="changeAddon('${key}',1)">+</button>
+          </div>
+          <div class="addon-price" id="aprice-${key}">$${qty * a.price}</div>
+        </div>`;
+      }).join('')}
+    `;
+  }
+  updateCartPreview();
+}
+
+function changeAddon(key, delta) {
+  const current = state.addons[key] || 0;
+  const next = Math.max(0, Math.min(1, current + delta)); // max 1 of each
+  state.addons[key] = next;
+  const qEl = document.getElementById(`qty-${key}`);
+  const pEl = document.getElementById(`aprice-${key}`);
+  if (qEl) qEl.textContent = next;
+  if (pEl) pEl.textContent = `$${next * ADDON_DEFS[key].price}`;
+  updateCartPreview();
+}
+
+function updateCartPreview() {
+  const svcKey = buildSvcKey(state.tier, state.packageType);
+  const cfg = SERVICE_CONFIGS[svcKey];
+  if (!cfg) return;
+  let total = cfg.pricing[state.vehicle] || 0;
+  Object.entries(state.addons).forEach(([key, qty]) => {
+    total += qty * (ADDON_DEFS[key]?.price || 0);
+  });
+  document.getElementById('cart-preview-price').textContent = `$${total}`;
+}
+
+function addToCart() {
+  const svcKey = buildSvcKey(state.tier, state.packageType);
+  const cfg = SERVICE_CONFIGS[svcKey];
+  if (!cfg) return;
+
+  const vehicleType = VEHICLE_TYPES.find(v=>v.key===state.vehicle);
+  const vehicleLabel = vehicleType ? `${vehicleType.label} — ${vehicleType.desc}` : state.vehicle;
+  let price = cfg.pricing[state.vehicle] || 0;
+  const selectedAddons = {};
+  Object.entries(state.addons).forEach(([key, qty]) => {
+    if (qty > 0) { selectedAddons[key] = qty; price += qty * ADDON_DEFS[key].price; }
+  });
+
+  state.cart.push({
+    serviceKey: svcKey,
+    vehicle: state.vehicle,
+    vehicleLabel,
+    label: cfg.label,
+    addons: selectedAddons,
+    price,
+    acuityTypeId: cfg.acuityIds[state.vehicle]
+  });
+
+  // Reset selections
+  state.vehicle = null;
+  state.packageType = null;
+  state.tier = null;
+  state.addons = {};
+
+  state.stepHistory.push(6);
+  goToStep(6);
+}
+
+// ── Step 6: Cart ──
+function renderCart() {
+  const list = document.getElementById('cart-items-list');
+  list.innerHTML = state.cart.map((item, i) => {
+    const addonNames = Object.keys(item.addons).map(k => ADDON_DEFS[k].name).join(', ');
+    return `
+    <div class="cart-item">
+      <div class="cart-item-header">
+        <div class="cart-item-name">${item.label}</div>
+        <div class="cart-item-price">$${item.price}</div>
+      </div>
+      <div class="cart-item-vehicle">${item.vehicleLabel}</div>
+      ${addonNames ? `<div class="cart-item-addons">+ ${addonNames}</div>` : ''}
+      <button class="cart-item-remove" onclick="removeCartItem(${i})">Remove</button>
+    </div>
+  `}).join('');
+
+  const subtotal = state.cart.reduce((s, i) => s + i.price, 0);
+  document.getElementById('cart-subtotal').textContent = `$${subtotal}`;
+}
+
+function removeCartItem(i) {
+  state.cart.splice(i, 1);
+  if (state.cart.length === 0) {
+    addAnotherVehicle();
+  } else {
+    renderCart();
+  }
+}
+
+// ── Step 7: Calendar ──
+function renderCalendar() {
+  if (!state.calMonth) {
+    const now = new Date();
+    state.calMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  }
+
+  // Service summary
+  const primary = state.cart[0];
+  if (primary) {
+    const icon = packageIcon(SERVICE_CONFIGS[primary.serviceKey]?.packageType);
+    document.getElementById('cal-service-summary').innerHTML = `
+      <div class="cal-svc-icon">${icon}</div>
+      <div>
+        <div class="cal-svc-name">${primary.label}</div>
+        <div class="cal-svc-meta">$${primary.price} · ${primary.vehicleLabel}${state.cart.length>1?' + '+( state.cart.length-1)+' more':''}</div>
+      </div>
+    `;
+  }
+
+  renderCalendarGrid();
+  fetchAvailableDates();
+}
+
+function renderCalendarGrid() {
+  const m = state.calMonth;
+  const monthNames = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  document.getElementById('cal-month-label').textContent = `${monthNames[m.getMonth()]} ${m.getFullYear()}`;
+
+  const now = new Date();
+  const isPastMonth = m.getFullYear() < now.getFullYear() || (m.getFullYear()===now.getFullYear() && m.getMonth() < now.getMonth());
+  document.getElementById('cal-prev').disabled = isPastMonth;
+
+  const grid = document.getElementById('cal-grid');
+  const dows = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+  let html = dows.map(d=>`<div class="cal-dow">${d}</div>`).join('');
+
+  const firstDay = new Date(m.getFullYear(), m.getMonth(), 1);
+  // JS: 0=Sun,1=Mon. We want Mon=0
+  let startOffset = firstDay.getDay() - 1;
+  if (startOffset < 0) startOffset = 6;
+
+  for (let i = 0; i < startOffset; i++) html += '<div></div>';
+
+  const daysInMonth = new Date(m.getFullYear(), m.getMonth()+1, 0).getDate();
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dateStr = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isAvailable = state.availableDates.includes(dateStr);
+    const isSelected = state.selectedDate === dateStr;
+    const isToday = dateStr === now.toISOString().split('T')[0];
+    const isPast = new Date(dateStr) < new Date(now.toISOString().split('T')[0]);
+    const cls = [
+      'cal-day',
+      isAvailable && !isPast ? 'available' : '',
+      isSelected ? 'selected' : '',
+      isToday ? 'today' : ''
+    ].filter(Boolean).join(' ');
+    const onclick = isAvailable && !isPast ? `onclick="selectDate('${dateStr}')"` : '';
+    html += `<div class="${cls}" ${onclick}>${d}</div>`;
+  }
+  grid.innerHTML = html;
+}
+
+async function fetchAvailableDates() {
+  const typeId = state.cart[0]?.acuityTypeId;
+  if (!typeId) return;
+  const m = state.calMonth;
+  const monthStr = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
+  document.getElementById('cal-grid').innerHTML = '<div class="cal-loading" style="grid-column:1/-1">Loading availability...</div>';
+  try {
+    const resp = await fetch(`/api/acuity/availability/dates?appointmentTypeID=${typeId}&month=${monthStr}&timezone=America%2FDenver`);
+    const dates = await resp.json();
+    state.availableDates = Array.isArray(dates) ? dates.map(d => d.date || d) : [];
+  } catch(e) {
+    state.availableDates = [];
+  }
+  renderCalendarGrid();
+}
+
+function changeMonth(delta) {
+  const m = state.calMonth;
+  state.calMonth = new Date(m.getFullYear(), m.getMonth() + delta, 1);
+  state.availableDates = [];
+  state.selectedDate = null;
+  state.selectedTime = null;
+  document.getElementById('time-slots-section').style.display = 'none';
+  document.getElementById('to-details-btn').disabled = true;
+  renderCalendarGrid();
+  fetchAvailableDates();
+}
+
+async function selectDate(dateStr) {
+  state.selectedDate = dateStr;
+  state.selectedTime = null;
+  document.getElementById('to-details-btn').disabled = true;
+  renderCalendarGrid();
+
+  // Fetch times
+  const typeId = state.cart[0]?.acuityTypeId;
+  const timesEl = document.getElementById('time-slots-grid');
+  const section = document.getElementById('time-slots-section');
+  section.style.display = 'block';
+  timesEl.innerHTML = '<div class="no-slots">Loading times...</div>';
+
+  try {
+    const resp = await fetch(`/api/acuity/availability/times?appointmentTypeID=${typeId}&date=${dateStr}&timezone=America%2FDenver`);
+    const times = await resp.json();
+    if (!times.length) {
+      timesEl.innerHTML = '<div class="no-slots">No available times on this date.</div>';
+      return;
+    }
+    // Filter to 15-minute intervals
+    const filtered = times.filter(t => {
+      const dt = new Date(t.time);
+      const mins = parseInt(dt.toLocaleTimeString('en-US', { minute:'2-digit', timeZone:'America/Denver' }));
+      return mins % 15 === 0;
+    });
+    const display = filtered.length ? filtered : times; // fallback to all if none match
+    timesEl.innerHTML = display.map(t => {
+      const dt = new Date(t.time);
+      const label = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
+      return `<div class="time-slot ${state.selectedTime===t.time?'selected':''}" onclick="selectTime('${t.time}', '${label}')">${label}</div>`;
+    }).join('');
+  } catch(e) {
+    timesEl.innerHTML = '<div class="no-slots">Could not load times.</div>';
+  }
+}
+
+function selectTime(isoTime, label) {
+  state.selectedTime = isoTime;
+  document.querySelectorAll('.time-slot').forEach(el => el.classList.remove('selected'));
+  event.target.classList.add('selected');
+  document.getElementById('to-details-btn').disabled = false;
+}
+
+// ── Step 9: Confirmation ──
+function goToConfirmation() {
+  const email = document.getElementById('f-email').value.trim();
+  const first = document.getElementById('f-first').value.trim();
+  const last  = document.getElementById('f-last').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+
+  if (!email || !first || !last || !phone) {
+    alert('Please fill in all fields.');
+    return;
+  }
+  state.email = email; state.firstName = first; state.lastName = last; state.phone = phone;
+  goToStep(9);
+}
+
+function renderConfirmation() {
+  // Address
+  document.getElementById('conf-address').textContent = state.address?.formatted || '';
+
+  // Date & Time
+  if (state.selectedTime) {
+    const dt = new Date(state.selectedTime);
+    const dateLabel = dt.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric', timeZone:'America/Denver' });
+    const timeLabel = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
+    // End time estimate
+    const totalMins = state.cart.reduce((s,item) => {
+      return s + getDuration(item.serviceKey, item.vehicle) + Object.entries(item.addons).reduce((a,[k,q])=>a+q*ADDON_DEFS[k].duration,0);
+    }, 0);
+    const end = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000);
+    const endLabel = end.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
+    document.getElementById('conf-datetime').textContent = `${timeLabel} – ${endLabel}, ${dateLabel}`;
+  }
+
+  // Services
+  const total = state.cart.reduce((s,i)=>s+i.price,0);
+  document.getElementById('conf-services').innerHTML = state.cart.map(item => {
+    const addonNames = Object.keys(item.addons).map(k=>ADDON_DEFS[k].name).join(', ');
+    return `
+    <div class="confirm-row">
+      <div class="confirm-label">${item.label}<br><small style="color:var(--muted2)">${item.vehicleLabel}${addonNames?'<br>+ '+addonNames:''}</small></div>
+      <div class="confirm-value">$${item.price}</div>
+    </div>`;
+  }).join('');
+  document.getElementById('conf-total').textContent = `$${total}`;
+
+  // Details
+  document.getElementById('conf-name').textContent = `${state.firstName} ${state.lastName}`;
+  document.getElementById('conf-email').textContent = state.email;
+  document.getElementById('conf-phone').textContent = state.phone;
+}
+
+async function applyPromo() {
+  const code = document.getElementById('promo-code').value.trim();
+  const msgEl = document.getElementById('promo-msg');
+  if (!code) return;
+
+  msgEl.textContent = 'Checking...';
+  msgEl.className = 'promo-msg';
+  state.promoCode = code;
+
+  // Acuity will validate on booking — show optimistic message
+  msgEl.textContent = `Code "${code}" will be applied at booking.`;
+  msgEl.className = 'promo-msg ok';
+}
+
+async function confirmBooking() {
+  const btn = document.getElementById('book-btn');
+  const errEl = document.getElementById('book-error');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>';
+  errEl.style.display = 'none';
+
+  state.comments = document.getElementById('f-comments').value.trim();
+
+  const primary = state.cart[0];
+  const extraItems = state.cart.slice(1);
+
+  // Build notes
+  let notes = `Service Address: ${state.address?.formatted}\n`;
+  if (extraItems.length) {
+    notes += `\nAdditional Vehicles (same appointment):\n`;
+    extraItems.forEach(item => {
+      const addons = Object.keys(item.addons).map(k=>ADDON_DEFS[k].name).join(', ');
+      notes += `- ${item.label} (${item.vehicleLabel})${addons ? ' + '+addons : ''} — $${item.price}\n`;
+    });
+  }
+  if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
+
+  // Build addon IDs for primary item
+  const addonIDs = Object.entries(primary.addons)
+    .filter(([,q])=>q>0)
+    .map(([k])=>ADDON_DEFS[k].id);
+
+  const payload = {
+    appointmentTypeID: primary.acuityTypeId,
+    datetime: state.selectedTime,
+    firstName: state.firstName,
+    lastName: state.lastName,
+    email: state.email,
+    phone: state.phone,
+    addonIDs,
+    notes,
+    ...(state.promoCode && { couponCode: state.promoCode })
+  };
+
+  try {
+    const resp = await fetch('/api/acuity/appointments', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    const result = await resp.json();
+
+    if (!resp.ok || result.status_code) {
+      throw new Error(result.message || 'Booking failed. Please try again.');
+    }
+
+    // Success!
+    const total = state.cart.reduce((s,i)=>s+i.price,0);
+    document.getElementById('success-sub').textContent =
+      `Your ${primary.label} has been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
+    document.getElementById('success-conf').textContent = `Confirmation #${result.id} · Estimated Total: $${total} (due in person)`;
+    document.getElementById('success-screen').classList.add('show');
+
+  } catch(e) {
+    btn.disabled = false;
+    btn.textContent = 'Book Now';
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════
+// SVG HELPERS
+// ═══════════════════════════════════════════════════════════════════
+function vehicleSVG(key) {
+  const imgs = {
+    small: 'web.screenshots/Small car illistration.jpg',
+    mid:   'web.screenshots/Mid size illistration.png',
+    large: 'web.screenshots/Large illistration.webp',
+    van:   'web.screenshots/Van illistration.avif',
+  };
+  const extraClass = { van: 'vehicle-img-van', large: 'vehicle-img-large' };
+  if (imgs[key]) return `<img class="vehicle-img ${extraClass[key]||''}" src="${imgs[key]}" alt="${key}" />`;
+
+  // Shared wheel helper
+  const wheel = (cx, cy, r) => `
+    <circle cx="${cx}" cy="${cy}" r="${r}" fill="#2C2C30" stroke="#1A1A1E" stroke-width="1"/>
+    <circle cx="${cx}" cy="${cy}" r="${r*0.62}" fill="#48484E" stroke="#38383E" stroke-width="0.8"/>
+    <circle cx="${cx}" cy="${cy}" r="${r*0.28}" fill="#D0CBC0"/>
+    <line x1="${cx-r*0.52}" y1="${cy}" x2="${cx+r*0.52}" y2="${cy}" stroke="#3A3A40" stroke-width="1" opacity="0.7"/>
+    <line x1="${cx}" y1="${cy-r*0.52}" x2="${cx}" y2="${cy+r*0.52}" stroke="#3A3A40" stroke-width="1" opacity="0.7"/>`;
+
+  const svgs = {
+    // Sedan — sleek 4-door, low roofline
+    small: `<svg class="vehicle-svg" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="150" cy="92" rx="118" ry="5" fill="#C8C0B0" opacity="0.35"/>
+      <!-- body lower -->
+      <path d="M30 68 Q32 54 50 52 L250 52 Q268 54 270 68 L270 76 Q270 79 267 79 L33 79 Q30 79 30 76 Z" fill="#EDEAE4" stroke="#C8C2B8" stroke-width="1.2"/>
+      <!-- body upper / roofline -->
+      <path d="M80 52 Q90 28 108 24 L192 24 Q210 28 220 52 Z" fill="#E8E4DE" stroke="#C8C2B8" stroke-width="1.2"/>
+      <!-- windshield -->
+      <path d="M108 24 Q115 30 115 52 L148 52 L148 24 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- rear window -->
+      <path d="M152 24 L152 52 L185 52 Q185 30 192 24 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- windshield glare -->
+      <path d="M110 26 Q118 28 118 38 L113 38 Q113 30 112 28 Z" fill="white" opacity="0.35"/>
+      <!-- door lines -->
+      <line x1="148" y1="52" x2="148" y2="79" stroke="#C0BAB0" stroke-width="0.9"/>
+      <line x1="115" y1="52" x2="113" y2="79" stroke="#C0BAB0" stroke-width="0.9"/>
+      <line x1="185" y1="52" x2="187" y2="79" stroke="#C0BAB0" stroke-width="0.9"/>
+      <!-- front bumper -->
+      <path d="M258 52 Q275 54 278 68 L270 68 Z" fill="#DDD8D0" stroke="#C0BAB0" stroke-width="1"/>
+      <!-- rear bumper -->
+      <path d="M42 52 Q25 54 22 68 L30 68 Z" fill="#DDD8D0" stroke="#C0BAB0" stroke-width="1"/>
+      <!-- headlights -->
+      <path d="M263 56 Q272 58 274 64 L268 64 Q266 60 263 59 Z" fill="#FEFCE8" stroke="#E8E060" stroke-width="0.7" opacity="0.9"/>
+      <!-- tail lights -->
+      <rect x="26" y="58" width="10" height="8" rx="2" fill="#FF9999" stroke="#E06060" stroke-width="0.7" opacity="0.85"/>
+      <!-- door handle lines -->
+      <line x1="122" y1="66" x2="145" y2="66" stroke="#B8B2A8" stroke-width="1" stroke-linecap="round"/>
+      <line x1="155" y1="66" x2="178" y2="66" stroke="#B8B2A8" stroke-width="1" stroke-linecap="round"/>
+      ${wheel(78, 81, 14)}
+      ${wheel(222, 81, 14)}
+    </svg>`,
+
+    // Mid-size SUV/Crossover — taller greenhouse, boxier silhouette
+    mid: `<svg class="vehicle-svg" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="150" cy="93" rx="122" ry="5" fill="#C8C0B0" opacity="0.35"/>
+      <!-- body lower -->
+      <path d="M26 66 Q28 50 48 48 L252 48 Q272 50 274 66 L274 78 Q274 81 271 81 L29 81 Q26 81 26 78 Z" fill="#EDEAE4" stroke="#C8C2B8" stroke-width="1.2"/>
+      <!-- body upper — taller SUV roofline -->
+      <path d="M72 48 Q80 18 100 14 L200 14 Q220 18 228 48 Z" fill="#E8E4DE" stroke="#C8C2B8" stroke-width="1.2"/>
+      <!-- windshield — more upright -->
+      <path d="M100 14 Q106 24 106 48 L148 48 L148 14 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- rear window -->
+      <path d="M152 14 L152 48 L194 48 Q194 24 200 14 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- windshield glare -->
+      <path d="M102 16 Q110 20 110 34 L106 34 Q106 24 104 20 Z" fill="white" opacity="0.35"/>
+      <!-- door & pillar lines -->
+      <line x1="148" y1="48" x2="148" y2="81" stroke="#C0BAB0" stroke-width="0.9"/>
+      <line x1="106" y1="48" x2="104" y2="81" stroke="#C0BAB0" stroke-width="0.9"/>
+      <line x1="194" y1="48" x2="196" y2="81" stroke="#C0BAB0" stroke-width="0.9"/>
+      <!-- roof rack -->
+      <rect x="108" y="13" width="84" height="3" rx="1.5" fill="#D4CECC" stroke="#C0BAB8" stroke-width="0.6"/>
+      <!-- headlights -->
+      <path d="M264 52 Q275 55 276 64 L268 64 Q267 58 264 56 Z" fill="#FEFCE8" stroke="#E8E060" stroke-width="0.7" opacity="0.9"/>
+      <!-- tail lights -->
+      <rect x="27" y="54" width="10" height="10" rx="2" fill="#FF9999" stroke="#E06060" stroke-width="0.7" opacity="0.85"/>
+      <!-- door handles -->
+      <line x1="114" y1="64" x2="144" y2="64" stroke="#B8B2A8" stroke-width="1" stroke-linecap="round"/>
+      <line x1="154" y1="64" x2="184" y2="64" stroke="#B8B2A8" stroke-width="1" stroke-linecap="round"/>
+      ${wheel(74, 83, 15)}
+      ${wheel(226, 83, 15)}
+    </svg>`,
+
+    // Large — crew cab pickup truck
+    large: `<svg class="vehicle-svg" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="150" cy="92" rx="122" ry="5" fill="#C8C0B0" opacity="0.35"/>
+      <!-- truck bed sides & floor -->
+      <rect x="176" y="32" width="90" height="46" rx="3" fill="#DDD8D0" stroke="#C4BCAC" stroke-width="1.2"/>
+      <!-- bed interior shadow -->
+      <rect x="178" y="34" width="86" height="16" rx="2" fill="#C8C0B4" opacity="0.4"/>
+      <!-- bed cap line -->
+      <rect x="176" y="30" width="90" height="6" rx="2" fill="#D0C8BC" stroke="#C0B8AC" stroke-width="0.8"/>
+      <!-- tailgate line -->
+      <line x1="264" y1="36" x2="264" y2="78" stroke="#C0B8AC" stroke-width="1.2"/>
+      <!-- cab body -->
+      <path d="M24 62 Q26 44 48 40 L178 40 L178 78 L28 78 Q24 78 24 74 Z" fill="#EDEAE4" stroke="#C8C2B8" stroke-width="1.2"/>
+      <!-- windshield — steep truck angle -->
+      <path d="M100 40 Q108 20 120 16 L166 16 L166 40 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- windshield glare -->
+      <path d="M104 22 Q112 22 114 34 L109 34 Q108 26 106 24 Z" fill="white" opacity="0.35"/>
+      <!-- rear cab window -->
+      <rect x="50" y="42" width="46" height="28" rx="2" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- door line -->
+      <line x1="100" y1="40" x2="100" y2="78" stroke="#C0BAB0" stroke-width="0.9"/>
+      <!-- headlights (front = right side) -->
+      <path d="M258 44 Q272 48 274 58 L266 58 Q265 52 258 50 Z" fill="#FEFCE8" stroke="#E8E060" stroke-width="0.7" opacity="0.9"/>
+      <!-- tail lights (rear = left) -->
+      <rect x="25" y="50" width="9" height="12" rx="2" fill="#FF9999" stroke="#E06060" stroke-width="0.7" opacity="0.85"/>
+      <!-- door handle -->
+      <line x1="54" y1="60" x2="96" y2="60" stroke="#B8B2A8" stroke-width="1" stroke-linecap="round"/>
+      <!-- front bumper -->
+      <path d="M258 62 Q276 64 278 72 L266 72 Z" fill="#D8D4CC" stroke="#C4BCAC" stroke-width="0.9"/>
+      ${wheel(66, 81, 15)}
+      ${wheel(216, 81, 15)}
+    </svg>`,
+
+    // Van — tall boxy minivan with sliding doors
+    van: `<svg class="vehicle-svg" viewBox="0 0 300 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="150" cy="93" rx="116" ry="5" fill="#C8C0B0" opacity="0.35"/>
+      <!-- boxy body -->
+      <path d="M26 72 Q26 8 68 8 L234 8 Q262 8 268 58 L268 78 Q268 82 265 82 L29 82 Q26 82 26 79 Z" fill="#EDEAE4" stroke="#C8C2B8" stroke-width="1.2"/>
+      <!-- windshield — tall upright van -->
+      <path d="M68 8 Q68 12 74 16 L74 58 L112 58 L112 8 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- windshield glare -->
+      <path d="M76 10 Q84 12 86 28 L80 28 Q80 18 78 12 Z" fill="white" opacity="0.35"/>
+      <!-- sliding door windows (2 panes) -->
+      <rect x="118" y="10" width="52" height="48" rx="2" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <line x1="144" y1="10" x2="144" y2="58" stroke="#AACCE0" stroke-width="0.8" opacity="0.7"/>
+      <rect x="176" y="10" width="52" height="48" rx="2" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <line x1="202" y1="10" x2="202" y2="58" stroke="#AACCE0" stroke-width="0.8" opacity="0.7"/>
+      <!-- pillar/door lines -->
+      <line x1="112" y1="8" x2="112" y2="82" stroke="#C0BAB0" stroke-width="1.2"/>
+      <line x1="170" y1="8" x2="170" y2="82" stroke="#C0BAB0" stroke-width="1.2"/>
+      <line x1="234" y1="8" x2="234" y2="82" stroke="#C0BAB0" stroke-width="1.2"/>
+      <!-- headlights -->
+      <path d="M254 56 Q268 58 270 66 L262 66 Q260 62 254 60 Z" fill="#FEFCE8" stroke="#E8E060" stroke-width="0.7" opacity="0.9"/>
+      <!-- tail lights -->
+      <rect x="27" y="56" width="10" height="16" rx="2" fill="#FF9999" stroke="#E06060" stroke-width="0.7" opacity="0.85"/>
+      <!-- sliding door handle -->
+      <line x1="125" y1="70" x2="158" y2="70" stroke="#B8B2A8" stroke-width="1" stroke-linecap="round"/>
+      ${wheel(68, 84, 13)}
+      ${wheel(222, 84, 13)}
+    </svg>`
+  };
+  return svgs[key] || '';
+}
+
+function packageIcon(key) {
+  const C = '#B5751A';
+  const icons = {
+    // Interior — top-down overhead view showing seats and dashboard
+    interior: `<svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- car body outline (top-down) -->
+      <rect x="18" y="10" width="84" height="70" rx="14" fill="#F0EDE8" stroke="#C8BFB0" stroke-width="1.5"/>
+      <!-- windshield -->
+      <path d="M28 10 Q60 14 92 10 L88 26 Q60 30 32 26 Z" fill="#D4E8F0" stroke="#AACCE0" stroke-width="1"/>
+      <!-- rear window -->
+      <path d="M32 64 Q60 60 88 64 L92 80 Q60 76 28 80 Z" fill="#D4E8F0" stroke="#AACCE0" stroke-width="1"/>
+      <!-- dashboard -->
+      <rect x="32" y="26" width="56" height="8" rx="3" fill="#D0CABD" stroke="#B8B0A4" stroke-width="1"/>
+      <!-- steering wheel -->
+      <circle cx="42" cy="30" r="5" fill="none" stroke="#8A8278" stroke-width="1.5"/>
+      <circle cx="42" cy="30" r="1.5" fill="#8A8278"/>
+      <!-- front seats -->
+      <rect x="28" y="36" width="26" height="18" rx="4" fill="#DDD8D0" stroke="#B8B0A4" stroke-width="1"/>
+      <rect x="66" y="36" width="26" height="18" rx="4" fill="#DDD8D0" stroke="#B8B0A4" stroke-width="1"/>
+      <!-- seat detail lines -->
+      <line x1="41" y1="36" x2="41" y2="54" stroke="#C8C0B8" stroke-width="0.8"/>
+      <line x1="79" y1="36" x2="79" y2="54" stroke="#C8C0B8" stroke-width="0.8"/>
+      <!-- rear seats -->
+      <rect x="26" y="57" width="68" height="14" rx="4" fill="#DDD8D0" stroke="#B8B0A4" stroke-width="1"/>
+      <line x1="60" y1="57" x2="60" y2="71" stroke="#C8C0B8" stroke-width="0.8"/>
+      <!-- gold accent line -->
+      <line x1="18" y1="45" x2="22" y2="45" stroke="${C}" stroke-width="2" stroke-linecap="round"/>
+      <line x1="98" y1="45" x2="102" y2="45" stroke="${C}" stroke-width="2" stroke-linecap="round"/>
+    </svg>`,
+
+    // Exterior — 3/4 front angle detailed car outline
+    exterior: `<svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="60" cy="84" rx="52" ry="4" fill="#C8C0B0" opacity="0.3"/>
+      <!-- main body -->
+      <path d="M12 58 Q14 44 28 40 L92 40 Q106 44 108 58 L108 72 Q108 75 105 75 L15 75 Q12 75 12 72 Z" fill="#EDEAE4" stroke="#C8C2B8" stroke-width="1.3"/>
+      <!-- roof + A-pillar -->
+      <path d="M36 40 Q42 20 54 16 L80 16 Q92 20 96 40 Z" fill="#E4E0DA" stroke="#C8C2B8" stroke-width="1.3"/>
+      <!-- windshield -->
+      <path d="M40 40 Q46 22 54 18 L80 18 Q88 22 92 40 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- windshield glare -->
+      <path d="M44 38 Q48 25 54 20 L62 20 Q56 26 53 38 Z" fill="white" opacity="0.3"/>
+      <!-- side windows -->
+      <rect x="36" y="41" width="22" height="15" rx="2" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.8"/>
+      <rect x="60" y="41" width="20" height="15" rx="2" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.8"/>
+      <!-- door lines -->
+      <line x1="60" y1="40" x2="60" y2="75" stroke="#C0BAB0" stroke-width="0.9"/>
+      <line x1="82" y1="40" x2="84" y2="75" stroke="#C0BAB0" stroke-width="0.9"/>
+      <!-- front bumper/grille area -->
+      <path d="M96 56 Q110 58 112 66 L104 66 Z" fill="#D8D4CC" stroke="#C4BCAC" stroke-width="0.8"/>
+      <!-- headlight -->
+      <path d="M98 50 Q108 52 110 58 L103 58 Q102 54 98 53 Z" fill="#FEFCE8" stroke="#E8E060" stroke-width="0.6" opacity="0.9"/>
+      <!-- tail light -->
+      <rect x="13" y="54" width="8" height="12" rx="2" fill="#FF9999" stroke="#E06060" stroke-width="0.6" opacity="0.85"/>
+      <!-- door handle -->
+      <line x1="66" y1="58" x2="78" y2="58" stroke="#B8B2A8" stroke-width="1" stroke-linecap="round"/>
+      <!-- wheel arches -->
+      <path d="M24 75 Q24 62 36 62 Q48 62 48 75" fill="none" stroke="#C0BAB0" stroke-width="1"/>
+      <path d="M72 75 Q72 62 84 62 Q96 62 96 75" fill="none" stroke="#C0BAB0" stroke-width="1"/>
+      <!-- wheels -->
+      <circle cx="36" cy="76" r="11" fill="#2C2C30" stroke="#1A1A1E" stroke-width="1"/>
+      <circle cx="36" cy="76" r="6.5" fill="#48484E" stroke="#38383E" stroke-width="0.8"/>
+      <circle cx="36" cy="76" r="2.5" fill="#D0CBC0"/>
+      <circle cx="84" cy="76" r="11" fill="#2C2C30" stroke="#1A1A1E" stroke-width="1"/>
+      <circle cx="84" cy="76" r="6.5" fill="#48484E" stroke="#38383E" stroke-width="0.8"/>
+      <circle cx="84" cy="76" r="2.5" fill="#D0CBC0"/>
+    </svg>`,
+
+    // Full — 3/4 rear angle, door open showing inside + trunk open
+    full: `<svg viewBox="0 0 120 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="60" cy="84" rx="50" ry="4" fill="#C8C0B0" opacity="0.3"/>
+      <!-- body -->
+      <path d="M14 56 Q16 42 30 38 L90 38 Q104 42 106 56 L106 72 Q106 75 103 75 L17 75 Q14 75 14 72 Z" fill="#EDEAE4" stroke="#C8C2B8" stroke-width="1.3"/>
+      <!-- roof -->
+      <path d="M34 38 Q40 18 54 14 L78 14 Q90 18 94 38 Z" fill="#E4E0DA" stroke="#C8C2B8" stroke-width="1.3"/>
+      <!-- rear window -->
+      <path d="M80 38 Q84 20 86 16 L92 38 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- main rear glass -->
+      <path d="M38 38 Q44 20 54 16 L78 16 Q82 20 80 38 Z" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.9"/>
+      <!-- door open (front door swung out) -->
+      <path d="M14 42 L14 72 L38 72 L38 42 Z" fill="#E8E4DC" stroke="#C0BAB0" stroke-width="1.2"/>
+      <path d="M6 38 L6 76 L15 76 L14 42 Z" fill="#D8D4CC" stroke="#C0BAB0" stroke-width="1" transform="rotate(-25, 14, 57)"/>
+      <!-- door window -->
+      <rect x="18" y="41" width="18" height="14" rx="2" fill="#CADFEe" stroke="#AACCE0" stroke-width="0.8"/>
+      <!-- interior seat peek -->
+      <rect x="22" y="55" width="14" height="10" rx="3" fill="#D0CABD" stroke="#B8B0A4" stroke-width="0.8"/>
+      <!-- trunk open -->
+      <path d="M90 38 L106 38 L106 26 Q98 14 86 16 L82 38 Z" fill="#E4E0DA" stroke="#C8C2B8" stroke-width="1" opacity="0.85"/>
+      <!-- trunk interior -->
+      <rect x="88" y="56" width="16" height="16" rx="2" fill="#DDD8D0" stroke="#C0BAB0" stroke-width="0.8"/>
+      <!-- door line -->
+      <line x1="62" y1="38" x2="62" y2="75" stroke="#C0BAB0" stroke-width="0.9"/>
+      <!-- tail lights -->
+      <rect x="104" y="52" width="5" height="14" rx="1.5" fill="#FF9999" stroke="#E06060" stroke-width="0.6" opacity="0.85"/>
+      <!-- wheels -->
+      <circle cx="36" cy="76" r="11" fill="#2C2C30" stroke="#1A1A1E" stroke-width="1"/>
+      <circle cx="36" cy="76" r="6.5" fill="#48484E" stroke="#38383E" stroke-width="0.8"/>
+      <circle cx="36" cy="76" r="2.5" fill="#D0CBC0"/>
+      <circle cx="84" cy="76" r="11" fill="#2C2C30" stroke="#1A1A1E" stroke-width="1"/>
+      <circle cx="84" cy="76" r="6.5" fill="#48484E" stroke="#38383E" stroke-width="0.8"/>
+      <circle cx="84" cy="76" r="2.5" fill="#D0CBC0"/>
+    </svg>`,
+
+    // Ceramic — shield with car silhouette and sparkle/coating effect
+    ceramic: `<svg viewBox="0 0 88 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="sc">
+          <path d="M44 7 L75 19 L75 51 Q75 71 44 84 Q13 71 13 51 L13 19 Z"/>
+        </clipPath>
+      </defs>
+      <!-- shield fill -->
+      <path d="M44 7 L75 19 L75 51 Q75 71 44 84 Q13 71 13 51 L13 19 Z" fill="#1C1811" stroke="${C}" stroke-width="2"/>
+      <!-- honeycomb grid -->
+      <g clip-path="url(#sc)">
+        <path d="M22 14 L28 14 L31 19 L28 24 L22 24 L19 19 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M31 14 L37 14 L40 19 L37 24 L31 24 L28 19 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M40 14 L46 14 L49 19 L46 24 L40 24 L37 19 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M49 14 L55 14 L58 19 L55 24 L49 24 L46 19 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M58 14 L64 14 L67 19 L64 24 L58 24 L55 19 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M17 24 L23 24 L26 29 L23 34 L17 34 L14 29 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M26 24 L32 24 L35 29 L32 34 L26 34 L23 29 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M53 24 L59 24 L62 29 L59 34 L53 34 L50 29 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M62 24 L68 24 L71 29 L68 34 L62 34 L59 29 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M14 34 L20 34 L23 39 L20 44 L14 44 L11 39 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M65 34 L71 34 L74 39 L71 44 L65 44 L62 39 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M15 44 L21 44 L24 49 L21 54 L15 54 L12 49 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M64 44 L70 44 L73 49 L70 54 L64 54 L61 49 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M18 54 L24 54 L27 59 L24 64 L18 64 L15 59 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M61 54 L67 54 L70 59 L67 64 L61 64 L58 59 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M23 64 L29 64 L32 69 L29 74 L23 74 L20 69 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M56 64 L62 64 L65 69 L62 74 L56 74 L53 69 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M32 72 L38 72 L41 77 L38 82 L32 82 L29 77 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+        <path d="M47 72 L53 72 L56 77 L53 82 L47 82 L44 77 Z" fill="none" stroke="${C}" stroke-width="1" opacity="0.55"/>
+      </g>
+      <!-- shield border -->
+      <path d="M44 7 L75 19 L75 51 Q75 71 44 84 Q13 71 13 51 L13 19 Z" fill="none" stroke="${C}" stroke-width="2.2"/>
+      <!-- water droplet -->
+      <path d="M44 28 C44 28 33 43 33 53 C33 60 37.9 66 44 66 C50.1 66 55 60 55 53 C55 43 44 28 44 28 Z" fill="${C}"/>
+      <!-- droplet shine -->
+      <path d="M38.5 47 C37 51 36.5 55 37.5 58" stroke="white" stroke-width="1.8" stroke-linecap="round" opacity="0.4"/>
+    </svg>`
+  };
+  return icons[key] || icons.full;
+}
+</script>
+
+<!-- Google Maps API -->
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKS0DiGpQQV2A8T3R_Ku6ZVrZy1KqBtAU&libraries=places&callback=initMap">
+</script>
+</body>
+</html>

@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shine for a Cause | Mobile Auto Detailing Fort Collins, Loveland & Northern Colorado</title>
+  <meta name="description" content="Professional mobile auto detailing serving Fort Collins, Loveland, Greeley & Northern Colorado. Express, Executive, paint correction & ceramic coating. We come to you — and every booking supports local recovery." />
+  <meta name="keywords" content="mobile auto detailing Fort Collins, mobile detailing Loveland, mobile detailing Greeley, ceramic coating Northern Colorado, paint correction Fort Collins, car detailing Windsor Colorado, Shine for a Cause" />
+  <meta name="geo.region" content="US-CO" />
+  <meta name="geo.placename" content="Fort Collins, Colorado" />
+  <link rel="canonical" href="https://shineforacause.com/" />
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://shineforacause.com/" />
+  <meta property="og:title" content="Shine for a Cause | Mobile Auto Detailing — Northern Colorado" />
+  <meta property="og:description" content="Professional mobile auto detailing serving Fort Collins, Loveland, Greeley & Northern Colorado. We come to you. Every booking supports local recovery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --sfac-bg:       #0B0B0D;
+      --sfac-surface:  #171A1F;
+      --sfac-surface-2:#111317;
+      --sfac-gold:     #D4A851;
+      --sfac-gold-soft:#E0BF7A;
+      --sfac-text:     #F7F5F0;
+      --sfac-muted:    #A7ADB5;
+      --sfac-border:   #2C313A;
+      --font-h: 'Montserrat', sans-serif;
+      --font-b: 'Inter', sans-serif;
+      --r-sm: 10px; --r-md: 16px; --r-lg: 22px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-b); background: var(--sfac-bg); color: var(--sfac-text); overflow-x: hidden; line-height: 1.6; }
+
+    /* ─── NAV ─────────────────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,11,13,0.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--sfac-border);
+      padding: 0 3rem; height: 74px;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    }
+    .nav-logo a { display: flex; align-items: center; }
+    .nav-logo img { height: 64px; width: auto; mix-blend-mode: screen; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; justify-content: center; }
+    .nav-cta { display: flex; justify-content: flex-end; }
+    .nav-links a {
+      color: var(--sfac-muted); text-decoration: none;
+      font-family: var(--font-h); font-size: 0.75rem; font-weight: 600;
+      letter-spacing: 0.09em; text-transform: uppercase; transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--sfac-gold); }
+
+    /* ─── BUTTONS ─────────────────────────────────────────── */
+    .btn-gold {
+      background: var(--sfac-gold); color: #0B0B0D;
+      border: none; border-radius: 999px;
+      font-family: var(--font-h); font-weight: 700;
+      font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+      padding: .7rem 1.55rem; cursor: pointer; text-decoration: none;
+      display: inline-block;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px rgba(212,168,81,.28);
+    }
+    .btn-gold:hover { background: var(--sfac-gold-soft); transform: translateY(-1px); box-shadow: 0 8px 26px rgba(212,168,81,.38); }
+    .btn-gold:active { transform: translateY(0); }
+    .btn-outline {
+      background: transparent; color: var(--sfac-text);
+      border: 1.5px solid var(--sfac-gold); border-radius: 999px;
+      font-family: var(--font-h); font-weight: 700;
+      font-size: .78rem; letter-spacing: .06em; text-transform: uppercase;
+      padding: .7rem 1.55rem; cursor: pointer; text-decoration: none;
+      display: inline-block; transition: background .2s, color .2s, transform .15s;
+    }
+    .btn-outline:hover { background: var(--sfac-gold); color: #0B0B0D; transform: translateY(-1px); }
+    .btn-outline:active { transform: translateY(0); }
+
+    /* ─── HERO ────────────────────────────────────────────── */
+    .hero {
+      min-height: 100vh; padding-top: 74px;
+      position: relative; display: flex;
+      align-items: center; justify-content: center;
+      text-align: center; overflow: hidden; background: #080a0e;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0; overflow: hidden;
+    }
+    .hero-bg video {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center;
+      /* slightly desaturate + darken the raw video */
+      filter: saturate(0.7) brightness(0.55);
+      /* iOS Safari fixes */
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+    }
+    /* colour-grade layer: deep teal-to-black gives cinematic depth */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(160deg, rgba(0,10,20,.45) 0%, transparent 55%);
+      mix-blend-mode: multiply;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0; z-index: 1;
+      background:
+        /* gold bloom behind the text */
+        radial-gradient(ellipse 60% 50% at 50% 48%, rgba(212,168,81,.07) 0%, transparent 65%),
+        /* top vignette — keeps nav readable */
+        linear-gradient(to bottom, rgba(8,10,14,.75) 0%, transparent 22%),
+        /* bottom vignette — anchors content */
+        linear-gradient(to top,    rgba(8,10,14,.88) 0%, transparent 30%),
+        /* left/right edge fade */
+        linear-gradient(to right,  rgba(8,10,14,.35) 0%, transparent 18%, transparent 82%, rgba(8,10,14,.35) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2;
+      max-width: 760px; padding: 4rem 2rem;
+      display: flex; flex-direction: column; align-items: center;
+    }
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-family: var(--font-h); font-size: .68rem; font-weight: 700;
+      letter-spacing: .18em; text-transform: uppercase;
+      color: var(--sfac-gold); margin-bottom: 1.1rem;
+    }
+    .hero-eyebrow::before, .hero-eyebrow::after {
+      content: ''; display: block; width: 24px; height: 1.5px; background: var(--sfac-gold);
+    }
+    .hero h1 {
+      font-family: var(--font-h);
+      font-size: clamp(2.6rem, 5.5vw, 4.4rem);
+      font-weight: 900; line-height: 1.04;
+      letter-spacing: -.03em; color: var(--sfac-text); margin-bottom: 1.2rem;
+      text-shadow: 0 2px 24px rgba(0,0,0,.7), 0 1px 4px rgba(0,0,0,.9);
+    }
+    .hero h1 em { font-style: italic; color: var(--sfac-gold); }
+    .hero-tagline {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic; font-size: 2rem; font-weight: 500;
+      color: var(--sfac-gold-soft); margin-bottom: .55rem;
+      letter-spacing: .03em; line-height: 1.2;
+      text-shadow: 0 1px 12px rgba(0,0,0,.6);
+    }
+    .hero-services-line {
+      font-family: var(--font-h); font-size: .68rem; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--sfac-muted); margin-bottom: 2rem;
+    }
+    .hero-services-line span { color: rgba(167,173,181,.45); margin: 0 .5rem; }
+    .hero-sub { display: none; }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+    .hero-btn-schedule {
+      display: inline-flex; align-items: center; gap: .65rem;
+      background: var(--sfac-gold); color: #0B0B0D;
+      border: none; border-radius: 6px;
+      font-family: var(--font-h); font-weight: 800;
+      font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
+      padding: .92rem 1.8rem; cursor: pointer; text-decoration: none;
+      transition: background .2s, transform .15s, box-shadow .2s;
+      box-shadow: 0 4px 18px rgba(212,168,81,.28);
+    }
+    .hero-btn-schedule:hover { background: var(--sfac-gold-soft); transform: translateY(-1px); box-shadow: 0 8px 28px rgba(212,168,81,.45); }
+    .hero-btn-schedule:active { transform: translateY(0); box-shadow: 0 0 0 4px rgba(212,168,81,.5), 0 0 30px rgba(212,168,81,.6); }
+    .hero-btn-schedule svg { width:17px; height:17px; flex-shrink:0; }
+    .hero-btn-phone {
+      display: inline-flex; flex-direction: column; align-items: flex-start; justify-content: center;
+      gap: .1rem;
+      background: rgba(255,255,255,.07); color: var(--sfac-text);
+      border: 1.5px solid rgba(255,255,255,.15); border-radius: 6px;
+      font-family: var(--font-h); font-weight: 800;
+      font-size: .78rem; letter-spacing: .06em;
+      padding: .7rem 1.4rem; cursor: pointer; text-decoration: none;
+      transition: background .2s, border-color .2s, transform .15s;
+      line-height: 1;
+    }
+    .hero-btn-phone:hover { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.28); transform: translateY(-1px); }
+    .hero-btn-phone .phone-num { display: flex; align-items: center; gap: .5rem; font-size: .82rem; }
+    .hero-btn-phone .phone-hours { font-size: .6rem; font-weight: 500; letter-spacing: .08em; color: var(--sfac-muted); text-transform: uppercase; margin-top: .18rem; padding-left: 1.4rem; }
+    .hero-rating-row {
+      display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; justify-content: center;
+    }
+    .stars { display: flex; gap: 2px; }
+    .star { color: var(--sfac-gold); font-size: 1rem; }
+    .hero-rating-text { font-family: var(--font-h); font-size: .76rem; font-weight: 600; color: var(--sfac-muted); }
+    .hero-rating-text strong { color: var(--sfac-text); }
+    .g-link {
+      display: inline-flex; align-items: center; gap: .35rem;
+      font-family: var(--font-h); font-size: .67rem; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--sfac-gold); text-decoration: none;
+      border: 1px solid rgba(212,168,81,.35); border-radius: 999px;
+      padding: .3rem .8rem; transition: background .2s, border-color .2s;
+    }
+    .g-link:hover { background: rgba(212,168,81,.1); border-color: var(--sfac-gold); }
+    .g-link svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+    /* ─── STATS BAR ───────────────────────────────────────── */
+    .stats-bar {
+      background: var(--sfac-surface);
+      border-top: 1px solid var(--sfac-border); border-bottom: 1px solid var(--sfac-border);
+      padding: 1.8rem 7rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
+    }
+    .stat-item { text-align: center; }
+    .stat-num {
+      font-family: var(--font-h); font-size: 2rem; font-weight: 900;
+      color: var(--sfac-gold); letter-spacing: -.03em; line-height: 1;
+    }
+    .stat-lbl {
+      font-size: .68rem; font-weight: 600; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--sfac-muted); margin-top: .28rem;
+    }
+    .stat-div { width: 1px; height: 38px; background: var(--sfac-border); flex-shrink: 0; }
+
+    /* ─── SECTION HELPERS ─────────────────────────────────── */
+    .sec-label {
+      display: inline-flex; align-items: center; gap: .5rem;
+      font-family: var(--font-h); font-size: .65rem; font-weight: 700;
+      letter-spacing: .17em; text-transform: uppercase;
+      color: var(--sfac-gold); margin-bottom: .75rem;
+    }
+    .sec-label::before { content:''; display:block; width:20px; height:1.5px; background:var(--sfac-gold); }
+    .sec-h {
+      font-family: var(--font-h);
+      font-size: clamp(1.9rem, 3vw, 2.6rem);
+      font-weight: 900; letter-spacing: -.03em; line-height: 1.1;
+      color: var(--sfac-text); margin-bottom: .85rem;
+    }
+    .sec-sub {
+      font-size: .9rem; color: var(--sfac-muted);
+      max-width: 520px; line-height: 1.72; margin-bottom: 2.5rem;
+    }
+
+    /* ─── SERVICE PACKAGE SECTIONS ────────────────────────── */
+    .pkg-tier {
+      padding: 2.5rem 7rem 3.5rem;
+    }
+    .tier-row-label {
+      margin-bottom: 1.4rem;
+    }
+    .tier-badge {
+      display: inline-flex; align-items: center; gap: .4rem;
+      font-family: var(--font-h); font-size: .6rem; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase;
+      background: var(--sfac-gold); color: #0B0B0D;
+      padding: .25rem .8rem; border-radius: 4px; width: fit-content;
+    }
+
+    /* 3-column service card grid */
+    .pkg-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.4rem;
+    }
+
+    .pkg-card {
+      background: var(--sfac-surface);
+      border: 1px solid var(--sfac-border);
+      border-radius: var(--sfac-r-md, 16px);
+      overflow: hidden;
+      display: flex; flex-direction: column;
+      transition: border-color .25s, transform .3s cubic-bezier(.22,1,.36,1), box-shadow .3s;
+    }
+    .pkg-card:hover {
+      border-color: rgba(212,168,81,.45);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 50px rgba(0,0,0,.5), 0 0 0 1px rgba(212,168,81,.12);
+    }
+    .pkg-card-img {
+      position: relative; aspect-ratio: 16/10; overflow: hidden;
+      background: #0d1117;
+    }
+    .pkg-card-img img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      transition: transform .55s cubic-bezier(.22,1,.36,1);
+    }
+    .pkg-card:hover .pkg-card-img img { transform: scale(1.06); }
+    .pkg-card-img-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(23,26,31,.9) 0%, rgba(23,26,31,.1) 60%, transparent 100%);
+    }
+    /* Icon badge top-left of image */
+    .pkg-img-icon {
+      position: absolute; top: 1rem; left: 1rem;
+      width: 40px; height: 40px; border-radius: 10px;
+      background: rgba(212,168,81,.18); backdrop-filter: blur(6px);
+      border: 1px solid rgba(212,168,81,.35);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+    }
+    .pkg-card-body {
+      padding: 1.6rem; display: flex; flex-direction: column; flex: 1;
+    }
+    .pkg-card-name {
+      font-family: var(--font-h); font-size: 1.05rem; font-weight: 800;
+      color: var(--sfac-text); margin-bottom: .45rem; letter-spacing: -.01em;
+    }
+    .pkg-card-desc {
+      font-size: .82rem; color: var(--sfac-muted); line-height: 1.65; margin-bottom: 1.2rem;
+    }
+    .pkg-includes {
+      list-style: none; margin-bottom: 1.4rem;
+      display: flex; flex-direction: column; gap: .45rem; flex: 1;
+    }
+    .pkg-includes li {
+      display: flex; align-items: flex-start; gap: .6rem;
+      font-size: .8rem; color: var(--sfac-muted); line-height: 1.45;
+    }
+    .pkg-includes li::before {
+      content: '✦'; color: var(--sfac-gold); font-size: .52rem;
+      margin-top: .28rem; flex-shrink: 0;
+    }
+    .pkg-card-footer {
+      padding: 0 1.6rem 1.6rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    }
+    .pkg-price {
+      font-family: var(--font-h); font-size: .75rem; font-weight: 700;
+      color: var(--sfac-muted); letter-spacing: .04em; text-transform: uppercase;
+    }
+    .pkg-price span { font-size: 1.4rem; font-weight: 900; color: var(--sfac-gold); letter-spacing: -.02em; }
+
+    /* ceramic section now uses pkg-card grid */
+    .addon-chip {
+      font-family: var(--font-h); font-size: .73rem; font-weight: 500;
+      color: var(--sfac-muted); background: var(--sfac-surface);
+      border: 1px solid var(--sfac-border); border-radius: 999px;
+      padding: .38rem 1rem;
+    }
+    .addon-chip strong { color: var(--sfac-text); font-weight: 700; }
+
+    /* ─── REVIEWS ─────────────────────────────────────────── */
+    .reviews-sec { background: var(--sfac-bg); padding: 5rem 7rem; }
+    .reviews-header { text-align: center; margin-bottom: 2.5rem; }
+
+    /* ─── PHOTO GALLERY ───────────────────────────────────── */
+    .photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; align-items: start; }
+    .photo-item {
+      border-radius:12px; overflow:hidden;
+      border:1px solid var(--sfac-border); position:relative; cursor:pointer;
+      transition: transform .25s, border-color .25s;
+      background: var(--sfac-surface-2);
+    }
+    .photo-item:first-child { grid-column: span 2; }
+    .photo-item:hover { transform:translateY(-3px); border-color:rgba(212,168,81,.4); }
+    .photo-item img { width:100%; height:auto; display:block; }
+    .photo-overlay {
+      position:absolute; inset:0;
+      background:linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 60%);
+      opacity:0; transition:opacity .25s;
+    }
+    .photo-item:hover .photo-overlay { opacity:1; }
+
+    /* ─── FAQ ─────────────────────────────────────────────── */
+    .faq-sec { background: var(--sfac-bg); padding: 5rem 7rem; }
+    .faq-inner { max-width: 860px; margin: 0 auto; }
+    .faq-list { display:flex; flex-direction:column; gap:.75rem; margin-top:2.5rem; }
+    .faq-item {
+      background: var(--sfac-surface); border:1px solid var(--sfac-border);
+      border-radius: var(--r-md); overflow:hidden;
+      transition: border-color .25s;
+    }
+    .faq-item.open { border-color: rgba(212,168,81,.4); }
+    .faq-q {
+      width:100%; background:none; border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+      padding:1.4rem 1.6rem; text-align:left;
+      font-family:var(--font-h); font-size:.92rem; font-weight:700;
+      color:var(--sfac-text); letter-spacing:-.01em;
+      transition: color .2s;
+    }
+    .faq-item.open .faq-q { color:var(--sfac-gold); }
+    .faq-icon {
+      width:28px; height:28px; border-radius:8px; flex-shrink:0;
+      background:rgba(212,168,81,.1); border:1px solid rgba(212,168,81,.2);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; color:var(--sfac-gold); line-height:1;
+      transition: background .2s, transform .3s;
+    }
+    .faq-item.open .faq-icon { background:rgba(212,168,81,.2); transform:rotate(45deg); }
+    .faq-a {
+      max-height: 0; overflow: hidden;
+      transition: max-height .35s cubic-bezier(.22,1,.36,1), padding .35s;
+    }
+    .faq-item.open .faq-a { max-height: 300px; }
+    .faq-a-inner {
+      padding: 0 1.6rem 1.4rem;
+      font-size:.86rem; color:var(--sfac-muted); line-height:1.75;
+    }
+
+    /* ─── CTA BAND ────────────────────────────────────────── */
+    .cta-band {
+      padding:5rem 7rem; background:var(--sfac-surface);
+      border-top:1px solid var(--sfac-border); border-bottom:1px solid var(--sfac-border);
+      display:flex; align-items:center; justify-content:space-between; gap:2rem;
+      position:relative; overflow:hidden;
+    }
+    .cta-band::before {
+      content:''; position:absolute; top:-100px; left:-100px;
+      width:320px; height:320px; border-radius:50%;
+      background:radial-gradient(circle,rgba(212,168,81,.1) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .cta-band::after {
+      content:''; position:absolute; bottom:-100px; right:8%;
+      width:280px; height:280px; border-radius:50%;
+      background:radial-gradient(circle,rgba(212,168,81,.07) 0%,transparent 70%);
+      pointer-events:none;
+    }
+    .cta-band-text h2 {
+      font-family:var(--font-h); font-size:clamp(1.8rem,3vw,2.4rem);
+      font-weight:900; letter-spacing:-.03em; color:var(--sfac-text); margin-bottom:.5rem;
+    }
+    .cta-band-text p { font-size:.9rem; color:var(--sfac-muted); }
+    .cta-band-btns { display:flex; gap:1rem; flex-shrink:0; }
+
+    /* ─── FOOTER ──────────────────────────────────────────── */
+    footer { background:var(--sfac-surface-2); border-top:1px solid var(--sfac-border); padding:4rem 7rem 2rem; }
+    .footer-grid { display:grid; grid-template-columns:1.5fr 1fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
+    .footer-brand img { height:68px; display:block; margin-bottom:1.2rem; mix-blend-mode:screen; }
+    .footer-brand p { font-size:.79rem; color:var(--sfac-muted); line-height:1.72; max-width:255px; margin-bottom:1.4rem; }
+    .footer-socials { display:flex; gap:.6rem; }
+    .social-btn {
+      width:36px; height:36px; border-radius:9px;
+      background:var(--sfac-surface); border:1px solid var(--sfac-border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.85rem; color:var(--sfac-muted); text-decoration:none;
+      transition:border-color .2s,color .2s,background .2s;
+    }
+    .social-btn:hover { border-color:var(--sfac-gold); color:var(--sfac-gold); background:rgba(212,168,81,.08); }
+    .footer-col h4 {
+      font-family:var(--font-h); font-size:.68rem; font-weight:800;
+      letter-spacing:.12em; text-transform:uppercase; color:var(--sfac-text); margin-bottom:1.2rem;
+    }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:.55rem; }
+    .footer-col a { font-size:.79rem; color:var(--sfac-muted); text-decoration:none; transition:color .2s; }
+    .footer-col a:hover { color:var(--sfac-gold); }
+    .footer-bot {
+      border-top:1px solid var(--sfac-border); padding-top:1.5rem;
+      display:flex; align-items:center; justify-content:space-between; gap:1rem;
+    }
+    .footer-bot p { font-size:.71rem; color:var(--sfac-muted); }
+    .footer-bot a { color:var(--sfac-gold); text-decoration:none; }
+
+    /* ─── UTILS ───────────────────────────────────────────── */
+    .gold { color:var(--sfac-gold); }
+    .desktop-only { }
+    @media(max-width:660px){ .desktop-only{display:none} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+    .fu { animation:fadeUp .75s cubic-bezier(.22,1,.36,1) both; }
+    .d1{animation-delay:.1s} .d2{animation-delay:.22s} .d3{animation-delay:.34s} .d4{animation-delay:.46s}
+
+    /* ─── HAMBURGER ───────────────────────────────────────── */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; gap: 5px;
+      width: 36px; height: 36px; background: none; border: none;
+      cursor: pointer; padding: 4px; border-radius: 8px;
+      transition: background .2s;
+    }
+    .nav-hamburger:hover { background: rgba(255,255,255,.07); }
+    .nav-hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--sfac-text); border-radius: 2px;
+      transition: transform .3s cubic-bezier(.22,1,.36,1), opacity .2s, width .3s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    /* mobile drawer */
+    .mobile-nav {
+      display: none;
+      position: fixed; inset: 74px 0 0 0; z-index: 99;
+      background: rgba(11,11,13,.97); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center;
+      gap: 2rem; padding: 3rem 2rem;
+      opacity: 0; pointer-events: none;
+      transition: opacity .3s cubic-bezier(.22,1,.36,1);
+    }
+    .mobile-nav.open { opacity: 1; pointer-events: all; }
+    .mobile-nav a {
+      font-family: var(--font-h); font-size: 1.3rem; font-weight: 800;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--sfac-muted); text-decoration: none;
+      transition: color .2s, transform .2s;
+    }
+    .mobile-nav a:hover { color: var(--sfac-gold); transform: translateX(4px); }
+    .mobile-nav .btn-gold { font-size: .85rem; padding: .85rem 2rem; margin-top: .5rem; }
+
+    /* ─── RESPONSIVE ──────────────────────────────────────── */
+    @media(max-width:1150px){
+      nav{padding:0 2rem}
+      .stats-bar{padding:1.5rem 3rem}
+      .pkg-tier{padding:2rem 3rem 3rem}
+      #services > div:first-child{padding:3rem 3rem 0}
+      #ceramic{padding:3rem 3rem 4rem}
+      .reviews-sec,.portfolio-sec,.faq-sec,.cta-band{padding:4rem 3rem}
+      footer{padding:3rem 3rem 2rem}
+      .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
+    }
+    @media(max-width:900px){
+      .pkg-grid{grid-template-columns:1fr 1fr}
+      #ceramic > div:last-child{grid-template-columns:1fr}
+      .photo-grid{grid-template-columns:1fr 1fr}
+      #portfolio{padding:4rem 3rem !important}
+      #portfolio > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
+    }
+    @media(max-width:660px){
+      /* nav */
+      nav{padding:0 1.25rem;grid-template-columns:1fr auto auto;gap:.75rem}
+      .nav-links{display:none}
+      .nav-hamburger{display:flex}
+
+      /* hero */
+      .hero-content{padding:2.5rem 1.25rem}
+      .hero h1{font-size:clamp(2rem,8vw,2.6rem);letter-spacing:-.02em}
+      .hero-tagline{font-size:1.25rem}
+      .hero-services-line{font-size:.6rem;letter-spacing:.1em}
+      .hero-btns{flex-direction:column;width:100%;gap:.75rem}
+      .hero-btn-schedule,.hero-btn-phone{width:100%;justify-content:center;border-radius:8px}
+      .hero-btn-phone{align-items:center}
+      .hero-btn-phone .phone-hours{padding-left:0;text-align:center}
+      .hero-rating-row{gap:.5rem}
+
+      /* stats */
+      .stats-bar{padding:1.25rem 1.25rem;display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+      .stat-div{display:none}
+      .stat-num{font-size:1.5rem}
+      .stat-item{text-align:center;padding:.5rem 0;border:1px solid var(--sfac-border);border-radius:10px;background:var(--sfac-surface-2)}
+
+      /* packages */
+      .pkg-tier{padding:2rem 1.25rem 2.5rem}
+      #services > div:first-child{padding:2.5rem 1.25rem 0;text-align:left !important}
+      #services .sec-label{justify-content:flex-start !important}
+      #services .sec-h,#services .sec-sub{text-align:left !important}
+      .sec-sub[style*="white-space:nowrap"]{white-space:normal !important}
+      .pkg-grid{grid-template-columns:1fr}
+
+      /* ceramic */
+      #ceramic{padding:2.5rem 1.25rem 3rem !important}
+      #ceramic > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
+      #ceramic .addon-row{flex-wrap:wrap;gap:.5rem}
+
+      /* reviews */
+      .reviews-sec{padding:3rem 1.25rem}
+
+      /* portfolio */
+      #portfolio{padding:3rem 1.25rem !important}
+      #portfolio > div[style]{grid-template-columns:1fr !important}
+      .photo-grid{grid-template-columns:1fr}
+      .photo-item:first-child{grid-column:span 1}
+
+      /* faq */
+      .faq-sec{padding:3rem 1.25rem}
+      .faq-q{font-size:.85rem;padding:1.1rem 1.2rem}
+      .faq-a-inner{padding:0 1.2rem 1.2rem}
+      .faq-item.open .faq-a{max-height:400px}
+
+      /* cta band */
+      .cta-band{flex-direction:column;text-align:center;padding:3rem 1.25rem !important}
+      .cta-band-btns{justify-content:center;flex-wrap:wrap;width:100%}
+      .cta-band-btns .btn-gold,.cta-band-btns .btn-outline{flex:1;min-width:0;text-align:center;justify-content:center}
+
+      /* footer */
+      footer{padding:3rem 1.25rem 2rem}
+      .footer-grid{grid-template-columns:1fr}
+      .footer-bot{flex-direction:column;text-align:center;gap:.5rem}
+    }
+
+    /* show mobile nav when open */
+    @media(max-width:660px){
+      .mobile-nav{display:flex}
+      body.nav-open{overflow:hidden}
+    }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Shine for a Cause Mobile Detailing",
+    "description": "Professional mobile auto detailing serving Fort Collins, Loveland, Greeley, and all of Northern Colorado. Express, Executive, paint correction, and ceramic coating — we come to you. Every booking supports local AA/NA groups, the SAFE Foundation, and sponsoring people through recovery.",
+    "url": "https://shineforacause.com",
+    "telephone": "+1-970-295-3577",
+    "email": "info@shineforacause.com",
+    "priceRange": "$$",
+    "image": "https://shineforacause.com/brand_assets/Shine for a Cause LOGO.png",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Fort Collins",
+      "addressRegion": "CO",
+      "addressCountry": "US"
+    },
+    "areaServed": [
+      { "@type": "City", "name": "Fort Collins" },
+      { "@type": "City", "name": "Loveland" },
+      { "@type": "City", "name": "Greeley" },
+      { "@type": "City", "name": "Windsor" },
+      { "@type": "City", "name": "Timnath" },
+      { "@type": "City", "name": "Wellington" }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+        "opens": "08:00",
+        "closes": "19:00"
+      }
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Auto Detailing Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Express Auto Detail" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Executive Auto Detail" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Ceramic Coating" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Paint Correction" } }
+      ]
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5",
+      "reviewCount": "50",
+      "bestRating": "5"
+    }
+  }
+  </script>
+</head>
+<body>
+
+<!-- ═══ NAV ═══════════════════════════════════════════════════ -->
+<nav>
+  <div class="nav-logo">
+    <a href="#"><img src="brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause Mobile Auto Detailing — Fort Collins, Northern Colorado" /></a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#ceramic">Ceramic Coating</a></li>
+    <li><a href="#reviews">Reviews</a></li>
+    <li><a href="#portfolio">Our Work</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-cta" style="display:flex;align-items:center;gap:.75rem;">
+    <a href="/booking.html" class="btn-gold" style="padding:.5rem 1.2rem;font-size:.72rem;">Book Now</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile nav drawer -->
+<div class="mobile-nav" id="mobileNav">
+  <a href="#services" class="mobile-nav-link">Services</a>
+  <a href="#ceramic" class="mobile-nav-link">Ceramic Coating</a>
+  <a href="#reviews" class="mobile-nav-link">Reviews</a>
+  <a href="#portfolio" class="mobile-nav-link">Our Work</a>
+  <a href="#faq" class="mobile-nav-link">FAQ</a>
+  <a href="/booking.html" class="btn-gold">Book Now</a>
+</div>
+
+<!-- ═══ HERO ════════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-bg">
+    <video id="heroVideo" autoplay muted loop playsinline webkit-playsinline preload="auto"
+           src="web.screenshots/Untitled.mp4"
+           type="video/mp4"></video>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow fu">Northern Colorado's Top Detailer</div>
+    <h1 class="fu d1">
+      Mobile Auto Detailing<br/>
+      <em>Northern Colorado</em>
+    </h1>
+    <p class="hero-tagline fu d2">Great Service, Greater Cause</p>
+    <p class="hero-services-line fu d3">100% Mobile <span>·</span> We Come To You <span>·</span> Ceramic Coating <span>·</span> Paint Correction</p>
+    <div class="hero-btns fu d4">
+      <a href="/booking.html" class="hero-btn-schedule">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
+        </svg>
+        Schedule Online
+      </a>
+      <a href="tel:+19702953577" class="hero-btn-phone">
+        <div class="phone-num">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px;flex-shrink:0;"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.38 2 2 0 0 1 3.59 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          (970) 295-3577
+        </div>
+        <div class="phone-hours">8am – 7pm &nbsp;·&nbsp; 7 Days</div>
+      </a>
+    </div>
+    <div class="hero-rating-row fu" style="animation-delay:.58s;margin-top:1.8rem;">
+      <div class="stars">
+        <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+      </div>
+      <span class="hero-rating-text"><strong>5.0</strong> &nbsp;·&nbsp; Google Reviews</span>
+      <a href="https://share.google/30ZRDMpHtHqeJzK9F" target="_blank" rel="noopener" class="g-link">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#D4A851"/>
+          <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#D4A851"/>
+          <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z" fill="#D4A851"/>
+          <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#D4A851"/>
+        </svg>
+        See Our Google Reviews
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ STATS BAR ══════════════════════════════════════════ -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num" style="display:flex;gap:2px;justify-content:center;font-size:1.4rem;">★★★★★</div>
+    <div class="stat-lbl">5-Star Google Rating</div>
+  </div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">100%</div><div class="stat-lbl">Satisfaction Guarantee</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">$5K+</div><div class="stat-lbl">Donated This Year</div></div>
+  <div class="stat-div"></div>
+  <div class="stat-item"><div class="stat-num">♥</div><div class="stat-lbl">Portion Donated Per Job</div></div>
+</div>
+
+<!-- ═══ DETAIL SERVICES ════════════════════════════════════ -->
+<section id="services" style="background:var(--sfac-bg);">
+
+  <!-- Section Header -->
+  <div style="padding:4rem 7rem 0; border-bottom:1px solid var(--sfac-border); text-align:left;">
+    <div class="sec-label" style="justify-content:flex-start;">Detail Services</div>
+    <h2 class="sec-h" style="text-align:left;">Mobile Detailing Packages<span class="desktop-only"> — Fort Collins &amp; Northern Colorado</span></h2>
+    <p class="sec-sub" style="max-width:none;white-space:nowrap;text-align:left;">Starting prices for a standard sedan — final price based on your vehicle size.</p>
+  </div>
+
+  <!-- EXPRESS TIER -->
+  <div class="pkg-tier" id="express" style="background:var(--sfac-bg); border-bottom:1px solid var(--sfac-border);">
+    <div class="tier-row-label">
+      <div class="tier-badge">Express</div>
+    </div>
+    <div class="pkg-grid">
+
+      <!-- Express Exterior -->
+      <div class="pkg-card">
+        <div class="pkg-card-img">
+          <img src="web.screenshots/Express EXT.webp" alt="Express exterior mobile auto detail — Fort Collins Northern Colorado" />
+          <div class="pkg-card-img-overlay"></div>
+        </div>
+        <div class="pkg-card-body">
+          <div class="pkg-card-name">Express Exterior</div>
+          <div class="pkg-card-desc">A thorough outside clean that leaves your paint gleaming and your wheels spotless. (~1.5 hrs)</div>
+          <ul class="pkg-includes">
+            <li>Hand wash &amp; dry</li>
+            <li>Tire dressing &amp; rim clean</li>
+            <li>Window &amp; mirror polish</li>
+            <li>Door jambs wiped down</li>
+            <li>Paint sealant &amp; wax protection</li>
+          </ul>
+        </div>
+        <div class="pkg-card-footer">
+          <div class="pkg-price">Starting at <span>$80</span></div>
+          <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+        </div>
+      </div>
+
+      <!-- Express Interior -->
+      <div class="pkg-card">
+        <div class="pkg-card-img">
+          <img src="web.screenshots/Express INT.avif" alt="Express interior mobile auto detail — Fort Collins Northern Colorado" />
+          <div class="pkg-card-img-overlay"></div>
+        </div>
+        <div class="pkg-card-body">
+          <div class="pkg-card-name">Express Interior</div>
+          <div class="pkg-card-desc">A focused interior refresh to clear clutter, odors, and dust — in and out fast. (~1 hr 45 min)</div>
+          <ul class="pkg-includes">
+            <li>Full vacuum (seats, carpets, trunk)</li>
+            <li>Wipe all surfaces, dash</li>
+            <li>Clean floor mats</li>
+            <li>Interior windows &amp; mirrors</li>
+            <li>Door panels &amp; cupholders</li>
+          </ul>
+        </div>
+        <div class="pkg-card-footer">
+          <div class="pkg-price">Starting at <span>$149</span></div>
+          <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+        </div>
+      </div>
+
+      <!-- Express Full -->
+      <div class="pkg-card">
+        <div class="pkg-card-img">
+          <img src="web.screenshots/Express Full.webp" alt="Express full mobile auto detail package — Northern Colorado" />
+          <div class="pkg-card-img-overlay"></div>
+        </div>
+        <div class="pkg-card-body">
+          <div class="pkg-card-name">Express Full Detail</div>
+          <div class="pkg-card-desc">Complete express interior &amp; exterior detail in one appointment. (~3 hrs)</div>
+          <ul class="pkg-includes">
+            <li>Full Express Interior</li>
+            <li>Full Express Exterior</li>
+            <li>Paint sealant protection</li>
+            <li>Best value for a full clean</li>
+          </ul>
+        </div>
+        <div class="pkg-card-footer">
+          <div class="pkg-price">Starting at <span>$199</span></div>
+          <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- EXECUTIVE TIER -->
+  <div class="pkg-tier" id="executive" style="background:var(--sfac-surface-2);">
+    <div class="tier-row-label">
+      <div class="tier-badge">Executive</div>
+    </div>
+    <div class="pkg-grid">
+
+      <!-- Executive Exterior -->
+      <div class="pkg-card">
+        <div class="pkg-card-img">
+          <img src="web.screenshots/Executive EXT.webp" alt="Executive exterior detail with paint decontamination — Fort Collins" />
+          <div class="pkg-card-img-overlay"></div>
+        </div>
+        <div class="pkg-card-body">
+          <div class="pkg-card-name">Executive Exterior</div>
+          <div class="pkg-card-desc">A deeper exterior detail — everything in Express plus enhanced decontamination, trim restoration, and wheel well cleaning. (~1.5 hrs)</div>
+          <ul class="pkg-includes">
+            <li>All Express Exterior steps</li>
+            <li>Enhanced paint decontamination</li>
+            <li>Black trim restore &amp; UV protect</li>
+            <li>Wheel wells deep cleaned</li>
+            <li>Extra attention to door jambs &amp; edges</li>
+          </ul>
+        </div>
+        <div class="pkg-card-footer">
+          <div class="pkg-price">Starting at <span>$125</span></div>
+          <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+        </div>
+      </div>
+
+      <!-- Executive Interior -->
+      <div class="pkg-card">
+        <div class="pkg-card-img">
+          <img src="web.screenshots/Exectutive INT.avif" alt="Executive interior detail with steam cleaning and leather conditioning — Northern Colorado" />
+          <div class="pkg-card-img-overlay"></div>
+        </div>
+        <div class="pkg-card-body">
+          <div class="pkg-card-name">Executive Interior</div>
+          <div class="pkg-card-desc">Full steam clean restoration — steam extraction on every surface, seat, and carpet. (~3.5 hrs)</div>
+          <ul class="pkg-includes">
+            <li>All Express Interior steps</li>
+            <li>Steam clean all panels &amp; vents</li>
+            <li>Shampoo &amp; extract carpets</li>
+            <li>Shampoo &amp; extract seats</li>
+            <li>Leather conditioning</li>
+          </ul>
+        </div>
+        <div class="pkg-card-footer">
+          <div class="pkg-price">Starting at <span>$299</span></div>
+          <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+        </div>
+      </div>
+
+      <!-- Executive Full -->
+      <div class="pkg-card" style="position:relative;">
+        <div style="position:absolute;top:1rem;right:1rem;z-index:3;background:var(--sfac-gold);color:#0B0B0D;font-family:var(--font-h);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:999px;">Best Value</div>
+        <div class="pkg-card-img">
+          <img src="web.screenshots/Executive Full.png" alt="Executive full detail package — comprehensive mobile detailing Northern Colorado" />
+          <div class="pkg-card-img-overlay"></div>
+        </div>
+        <div class="pkg-card-body">
+          <div class="pkg-card-name">Executive Full Detail</div>
+          <div class="pkg-card-desc">The complete package — full Executive Interior and full Executive Exterior in one visit. (~5–6 hrs)</div>
+          <ul class="pkg-includes">
+            <li>Full Executive Interior</li>
+            <li>Full Executive Exterior</li>
+            <li>Steam &amp; shampoo full interior</li>
+            <li>Leather conditioning</li>
+            <li>Trim restore &amp; wheel wells</li>
+          </ul>
+        </div>
+        <div class="pkg-card-footer">
+          <div class="pkg-price">Starting at <span>$399</span></div>
+          <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══ CERAMIC COATING + PAINT CORRECTION ════════════════ -->
+<section id="ceramic" style="background:var(--sfac-surface-2);padding:4rem 7rem 5rem;border-top:1px solid var(--sfac-border);border-bottom:1px solid var(--sfac-border);">
+  <div style="margin-bottom:2.5rem;">
+    <div class="sec-label">Advanced Protection</div>
+    <h2 class="sec-h">Paint Correction &amp; Ceramic Coating</h2>
+    <p class="sec-sub">Give your vehicle permanent-level protection with a mirror finish that lasts years.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;">
+
+    <!-- 1-Step Ceramic Coating Card -->
+    <div class="pkg-card">
+      <div class="pkg-card-img" style="aspect-ratio:16/9;">
+        <img src="web.screenshots/1 step.avif" alt="1-step ceramic coating application — Fort Collins Northern Colorado" />
+        <div class="pkg-card-img-overlay"></div>
+      </div>
+      <div class="pkg-card-body">
+        <div class="pkg-card-name">1-Step Ceramic Coating</div>
+        <div class="pkg-card-desc">Single-stage paint correction followed by a professional nano-ceramic coating for lasting protection. (~7 hrs)</div>
+        <ul class="pkg-includes">
+          <li>1-step paint correction (light swirl removal)</li>
+          <li>10H nano-ceramic coating applied</li>
+          <li>Hydrophobic surface — water beads off</li>
+          <li>UV protection prevents paint fade</li>
+          <li>5-year durability</li>
+          <li>Insured for the life of the coating</li>
+        </ul>
+      </div>
+      <div class="pkg-card-footer">
+        <div class="pkg-price">Starting at <span>$700</span></div>
+        <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+      </div>
+    </div>
+
+    <!-- 2-Step Ceramic Coating Card -->
+    <div class="pkg-card" style="position:relative;">
+      <div style="position:absolute;top:1rem;right:1rem;z-index:3;background:var(--sfac-gold);color:#0B0B0D;font-family:var(--font-h);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:999px;">Most Popular</div>
+      <div class="pkg-card-img" style="aspect-ratio:16/9;">
+        <img src="web.screenshots/2 step.avif" alt="2-step ceramic coating with paint correction — Northern Colorado" />
+        <div class="pkg-card-img-overlay"></div>
+      </div>
+      <div class="pkg-card-body">
+        <div class="pkg-card-name">2-Step Ceramic Coating</div>
+        <div class="pkg-card-desc">Full two-stage paint correction + premium ceramic coating — the ultimate in paint protection and gloss. (~8 hrs)</div>
+        <ul class="pkg-includes">
+          <li>2-step paint correction (deep swirl &amp; scratch removal)</li>
+          <li>10H nano-ceramic coating applied</li>
+          <li>Maximum gloss &amp; clarity</li>
+          <li>7–8 year durability</li>
+          <li>Insured for the life of the coating</li>
+        </ul>
+      </div>
+      <div class="pkg-card-footer">
+        <div class="pkg-price">Starting at <span>$1,000</span></div>
+        <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Add-Ons Row -->
+  <div style="margin-top:2rem;padding:1.6rem 2rem;background:rgba(255,255,255,.03);border:1px solid var(--sfac-border);border-radius:12px;">
+    <div style="font-family:var(--font-h);font-size:.63rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sfac-gold);margin-bottom:1rem;">Add-On Services</div>
+    <div style="display:flex;flex-wrap:wrap;gap:.75rem;">
+      <div class="addon-chip">Headlight Restoration — <strong>$65</strong></div>
+      <div class="addon-chip">Engine Bay Cleaning — <strong>$50</strong></div>
+      <div class="addon-chip">Trim Restore — <strong>$40</strong></div>
+      <div class="addon-chip">Pet Hair Removal — <strong>$40</strong></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- Elfsight Google Reviews -->
+<script src="https://elfsightcdn.com/platform.js" async></script>
+
+<!-- ═══ REVIEWS ════════════════════════════════════════════ -->
+<section class="reviews-sec" id="reviews">
+  <div class="reviews-header">
+    <div class="sec-label" style="justify-content:center;">Customer Reviews</div>
+    <h2 class="sec-h">What Our Customers Say</h2>
+    <p style="font-size:.9rem;color:var(--sfac-muted);line-height:1.7;">Trusted by Northern Colorado drivers for premium mobile auto detailing.</p>
+  </div>
+
+  <!-- Elfsight Live Google Reviews Widget -->
+  <div class="elfsight-app-227397fb-9284-4392-98e6-18ce4992003a" data-elfsight-app-lazy></div>
+</section>
+
+<!-- ═══ OUR WORK ════════════════════════════════════════════ -->
+<section id="portfolio" style="background:var(--sfac-surface-2);padding:5rem 7rem;border-top:1px solid var(--sfac-border);">
+
+  <div class="sec-label">Our Work</div>
+  <h2 class="sec-h">Before &amp; After Transformations</h2>
+  <p class="sec-sub">Drag the slider to see the difference we make on every vehicle.</p>
+
+  <!-- Elfsight Before & After Sliders — side by side -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:4rem;">
+    <div class="elfsight-app-0081b4db-da64-4a2f-862c-8271cf7c70ab" data-elfsight-app-lazy></div>
+    <div class="elfsight-app-c812aa86-055b-4446-ad8f-4fe5b5309b61" data-elfsight-app-lazy></div>
+  </div>
+
+  <!-- Photo Gallery -->
+  <div class="sec-label" style="margin-bottom:.6rem;">Recent Jobs</div>
+  <h3 style="font-family:var(--font-h);font-size:clamp(1.4rem,2.2vw,1.9rem);font-weight:800;letter-spacing:-.02em;color:var(--sfac-text);margin-bottom:.5rem;">Fresh Off the Detail</h3>
+  <p style="font-size:.86rem;color:var(--sfac-muted);line-height:1.7;margin-bottom:2rem;max-width:480px;">Real results from real vehicles we've serviced across Northern Colorado.</p>
+
+  <div class="photo-grid">
+    <!-- Wide hero photo -->
+    <div class="photo-item">
+      <img src="Our.work/RSQ8 POST EXT.jpg" alt="Audi RSQ8 exterior detail" loading="lazy" />
+      <div class="photo-overlay"></div>
+    </div>
+    <!-- Smaller photos -->
+    <div class="photo-item">
+      <img src="Our.work/RSQ8 Post INT.jpg" alt="Audi RSQ8 interior detail" loading="lazy" />
+      <div class="photo-overlay"></div>
+    </div>
+    <div class="photo-item">
+      <img src="Our.work/LEX ENG.JPG" alt="Lexus engine bay detail" loading="lazy" />
+      <div class="photo-overlay"></div>
+    </div>
+    <div class="photo-item">
+      <img src="Our.work/BRONCO Foam.jpg" alt="Ford Bronco foam wash" loading="lazy" />
+      <div class="photo-overlay"></div>
+    </div>
+    <div class="photo-item">
+      <img src="Our.work/RSQ8 Back INT.jpg" alt="Audi RSQ8 rear interior detail" loading="lazy" />
+      <div class="photo-overlay"></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ═══ FAQ ════════════════════════════════════════════════ -->
+<section class="faq-sec" id="faq">
+  <div class="faq-inner">
+    <div style="text-align:center;margin-bottom:.25rem;">
+      <div class="sec-label" style="justify-content:center;">before you book</div>
+    </div>
+    <h2 class="sec-h" style="text-align:center;">Frequently Asked Questions</h2>
+    <p style="text-align:center;font-size:.9rem;color:var(--sfac-muted);margin-bottom:0;line-height:1.7;">
+      Everything you need to know before booking your detail.
+    </p>
+    <div class="faq-list" id="faqList">
+
+      <div class="faq-item">
+        <button class="faq-q">
+          What areas do you serve?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">We serve all of Northern Colorado including Fort Collins, Loveland, Greeley, Windsor, Timnath, Wellington, and surrounding areas. Since we're fully mobile, we come directly to your home, office, or wherever you park your vehicle.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          How do I book an appointment?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Booking is easy — schedule directly on our website or call or text us and we'll get you locked in. We offer flexible scheduling including evenings and weekends to work around your day.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          Do I need to provide water or electricity?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Nope — we bring everything with us, every time. Water, power, and all supplies are fully on us for every single detail. Just let us know where to pull up and we'll handle the rest.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          What is the difference between Express and Executive?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">The Express Detail is a maintenance service — great for keeping your car clean between deeper cleans. The Executive Detail is a comprehensive, top-to-bottom service that includes decontamination, clay bar, shampoo extraction, steam cleaning, leather conditioning, and more. Think of Express as a refresh and Executive as a full restoration.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          How long does a detail take?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Express details run 1–3 hours depending on the scope — interior-only or exterior-only services sit on the shorter end, while a full Express detail takes closer to 3 hours. Executive packages run 3–5 hours depending on vehicle size and condition. Ceramic coating and paint correction may require a full day. We'll always give you an accurate time estimate at booking.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          What cause does Shine for a Cause support?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Every booking contributes to recovery in our community. We donate to local AA and NA groups, support the SAFE Foundation, and directly sponsor individuals through rehab and treatment programs right here in Northern Colorado. When you book with us, your car gets clean and someone gets a real shot at a new life.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          Do you offer a satisfaction guarantee?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">Absolutely. We stand behind every detail we perform. If you're not 100% satisfied, let us know within 24 hours and we'll come back to make it right — no questions asked.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q">
+          How long does ceramic coating last?
+          <span class="faq-icon">+</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner">We offer ceramic coating packages in 3, 5, 7, and 10-year tiers — available on request so we can match the right protection level to your vehicle and budget. Every package comes with a warranty for the full term you choose: if the coating fails before that time is up, we come back and fix it for free, no hassle.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BAND ═══════════════════════════════════════════ -->
+<div class="cta-band" id="booking">
+  <div class="cta-band-text">
+    <h2>Ready for a <span class="gold">Showroom Shine?</span></h2>
+    <p>Book online in seconds — we come to you anywhere in Northern Colorado.</p>
+  </div>
+  <div class="cta-band-btns">
+    <a href="/booking.html" class="btn-gold" style="padding:1rem 2.2rem;font-size:.84rem;">Book a Detail Today</a>
+    <a href="#services" class="btn-outline" style="padding:1rem 2.2rem;font-size:.84rem;">View Our Services</a>
+  </div>
+</div>
+
+<!-- ═══ FOOTER ═════════════════════════════════════════════ -->
+<footer id="contact">
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause" />
+      <p>Mobile detailing delivered with pride across Northern Colorado — every booking supports a cause in our community.</p>
+      <div class="footer-socials">
+        <a href="#" class="social-btn" title="Instagram">📷</a>
+        <a href="#" class="social-btn" title="Facebook">f</a>
+        <a href="#" class="social-btn" title="TikTok">♪</a>
+        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" class="social-btn" title="Google">G</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#express">Express Exterior</a></li>
+        <li><a href="#express">Express Interior</a></li>
+        <li><a href="#express">Express Full Detail</a></li>
+        <li><a href="#executive">Executive Exterior</a></li>
+        <li><a href="#executive">Executive Interior</a></li>
+        <li><a href="#executive">Executive Full Detail</a></li>
+        <li><a href="#ceramic">Ceramic Coating</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="#">About Us</a></li>
+        <li><a href="#">Our Mission &amp; Cause</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#portfolio">Gallery</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+1">📞 Call / Text Us</a></li>
+        <li><a href="mailto:info@shineforacause.com">✉ info@shineforacause.com</a></li>
+        <li><a href="#">📍 Northern Colorado</a></li>
+        <li><a href="#">⏰ Mon–Sat: 7am – 7pm</a></li>
+        <li style="margin-top:.8rem;"><a href="/booking.html" class="btn-gold" style="font-size:.73rem;padding:.58rem 1.2rem;">Book Online</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <p>© 2025 Shine for a Cause Mobile Detailing — Fort Collins & Northern Colorado. All rights reserved.</p>
+    <p><a href="#">Privacy Policy</a> &nbsp;·&nbsp; <a href="#">Terms of Service</a></p>
+  </div>
+</footer>
+
+<script>
+  // Hero video — force play on mobile (iOS Safari requires explicit play call)
+  const heroVideo = document.getElementById('heroVideo');
+  if (heroVideo) {
+    // Try immediately
+    const tryPlay = () => {
+      heroVideo.muted = true;
+      heroVideo.play().catch(() => {});
+    };
+    tryPlay();
+    // Also try on canplay in case video wasn't loaded yet
+    heroVideo.addEventListener('canplay', tryPlay, { once: true });
+    // Fallback: play on first user interaction (Low Power Mode on iOS)
+    const unlockPlay = () => { tryPlay(); };
+    document.addEventListener('touchstart', unlockPlay, { once: true });
+    document.addEventListener('click', unlockPlay, { once: true });
+  }
+
+  // Hamburger menu
+  const hamburger = document.getElementById('hamburger');
+  const mobileNav = document.getElementById('mobileNav');
+  hamburger.addEventListener('click', () => {
+    const open = hamburger.classList.toggle('open');
+    mobileNav.classList.toggle('open', open);
+    document.body.classList.toggle('nav-open', open);
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      mobileNav.classList.remove('open');
+      document.body.classList.remove('nav-open');
+    });
+  });
+
+  // FAQ accordion
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // close all
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+</body>
+</html>
