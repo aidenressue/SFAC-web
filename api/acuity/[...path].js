@@ -1,25 +1,24 @@
-import https from 'https';
+const https = require('https');
 
 const ACUITY_AUTH = Buffer.from(
   `${process.env.ACUITY_USER_ID}:${process.env.ACUITY_API_KEY}`
 ).toString('base64');
 
-export default function handler(req, res) {
+module.exports = function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') {
-    res.status(204).end();
+    res.statusCode = 204;
+    res.end();
     return;
   }
 
-  // path segments e.g. ['availability', 'dates']
   const segments = Array.isArray(req.query.path) ? req.query.path : [req.query.path];
   const acuityPath = '/' + segments.join('/');
 
-  // build query string from all params except 'path'
-  const params = { ...req.query };
+  const params = Object.assign({}, req.query);
   delete params.path;
   const query = Object.keys(params).length ? '?' + new URLSearchParams(params).toString() : '';
 
@@ -35,13 +34,14 @@ export default function handler(req, res) {
   };
 
   const proxyReq = https.request(options, (proxyRes) => {
-    res.status(proxyRes.statusCode);
+    res.statusCode = proxyRes.statusCode;
     res.setHeader('Content-Type', 'application/json');
     proxyRes.pipe(res);
   });
 
   proxyReq.on('error', (e) => {
-    res.status(500).json({ error: e.message });
+    res.statusCode = 500;
+    res.end(JSON.stringify({ error: e.message }));
   });
 
   if (req.method === 'POST' && req.body) {
@@ -49,4 +49,4 @@ export default function handler(req, res) {
   }
 
   proxyReq.end();
-}
+};
