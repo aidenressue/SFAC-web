@@ -1,1 +1,5 @@
-{}
+{
+  "rewrites": [
+    { "source": "/api/acuity/:path*", "destination": "/api/acuity?_p=:path*" }
+  ]
+}

@@ -15,12 +15,11 @@ module.exports = function handler(req, res) {
     return;
   }
 
-  const segments = Array.isArray(req.query.path) ? req.query.path : [req.query.path];
-  const acuityPath = '/' + segments.join('/');
-
-  const params = Object.assign({}, req.query);
-  delete params.path;
-  const query = Object.keys(params).length ? '?' + new URLSearchParams(params).toString() : '';
+  // vercel.json rewrite passes the acuity path as ?_p=availability/dates
+  const urlObj = new URL(req.url, 'http://localhost');
+  const acuityPath = '/' + (urlObj.searchParams.get('_p') || '');
+  urlObj.searchParams.delete('_p');
+  const query = urlObj.search;
 
   const options = {
     hostname: 'acuityscheduling.com',
