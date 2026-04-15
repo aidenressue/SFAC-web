@@ -14,13 +14,16 @@ export default function handler(req, res) {
     return;
   }
 
-  // Strip /api/acuity prefix to get the actual Acuity path
-  const full = req.url; // e.g. /api/acuity/appointment-types?foo=bar
-  const acuityPath = full.replace(/^\/api\/acuity/, '');
+  // Vercel rewrite passes the path as ?_path=/availability/dates
+  // The original query params are also present in req.url
+  const urlObj = new URL(req.url, 'http://localhost');
+  const acuityPath = urlObj.searchParams.get('_path') || '';
+  urlObj.searchParams.delete('_path');
+  const query = urlObj.search; // remaining query params
 
   const options = {
     hostname: 'acuityscheduling.com',
-    path: `/api/v1${acuityPath}`,
+    path: `/api/v1${acuityPath}${query}`,
     method: req.method,
     headers: {
       'Authorization': `Basic ${ACUITY_AUTH}`,
