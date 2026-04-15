@@ -5,7 +5,6 @@ const ACUITY_AUTH = Buffer.from(
 ).toString('base64');
 
 export default function handler(req, res) {
-  // CORS headers
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
@@ -15,10 +14,14 @@ export default function handler(req, res) {
     return;
   }
 
-  // Build the Acuity path from the catch-all segments
-  const segments = req.query.path || [];
+  // path segments e.g. ['availability', 'dates']
+  const segments = Array.isArray(req.query.path) ? req.query.path : [req.query.path];
   const acuityPath = '/' + segments.join('/');
-  const query = req.url.includes('?') ? req.url.slice(req.url.indexOf('?')) : '';
+
+  // build query string from all params except 'path'
+  const params = { ...req.query };
+  delete params.path;
+  const query = Object.keys(params).length ? '?' + new URLSearchParams(params).toString() : '';
 
   const options = {
     hostname: 'acuityscheduling.com',
