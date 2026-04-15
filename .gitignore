@@ -2,7 +2,8 @@ node_modules/
 .DS_Store
 temporary screenshots/
 screenshot*.mjs
-web.screenshots/
+web.screenshots/*.mp4
+!web.screenshots/Untitled-compressed.mp4
 .claude/
 package-lock.json
 serve.mjs
