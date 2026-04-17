@@ -550,10 +550,6 @@
       .sec-sub[style*="white-space:nowrap"]{white-space:normal !important}
       .pkg-grid{grid-template-columns:1fr}
 
-      /* paint correction */
-      #paint-correction{padding:2.5rem 1.25rem 3rem !important}
-      #paint-correction > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
-
       /* ceramic */
       #ceramic{padding:2.5rem 1.25rem 3rem !important}
       #ceramic > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
@@ -655,12 +651,11 @@
     <a href="#"><img src="brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause Mobile Auto Detailing — Fort Collins, Northern Colorado" /></a>
   </div>
   <ul class="nav-links">
-    <li><a href="#services">Services</a></li>
-    <li><a href="#paint-correction">Paint Correction</a></li>
-    <li><a href="#ceramic">Ceramic Coating</a></li>
-    <li><a href="#maintenance">Maintenance</a></li>
-    <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#faq">FAQ</a></li>
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/#ceramic">Ceramic Coating</a></li>
+    <li><a href="/#maintenance">Maintenance</a></li>
+    <li><a href="/#reviews">Reviews</a></li>
+    <li><a href="/#faq">FAQ</a></li>
   </ul>
   <div class="nav-cta" style="display:flex;align-items:center;gap:.75rem;">
     <a href="/booking.html" class="btn-gold" style="padding:.5rem 1.2rem;font-size:.72rem;">Book Now</a>
@@ -672,12 +667,11 @@
 
 <!-- Mobile nav drawer -->
 <div class="mobile-nav" id="mobileNav">
-  <a href="#services" class="mobile-nav-link">Services</a>
-  <a href="#paint-correction" class="mobile-nav-link">Paint Correction</a>
-  <a href="#ceramic" class="mobile-nav-link">Ceramic Coating</a>
-  <a href="#maintenance" class="mobile-nav-link">Maintenance</a>
-  <a href="#reviews" class="mobile-nav-link">Reviews</a>
-  <a href="#faq" class="mobile-nav-link">FAQ</a>
+  <a href="/services.html" class="mobile-nav-link">Services</a>
+  <a href="/#ceramic" class="mobile-nav-link">Ceramic Coating</a>
+  <a href="/#maintenance" class="mobile-nav-link">Maintenance</a>
+  <a href="/#reviews" class="mobile-nav-link">Reviews</a>
+  <a href="/#faq" class="mobile-nav-link">FAQ</a>
   <a href="/booking.html" class="btn-gold">Book Now</a>
 </div>
 
@@ -914,50 +908,134 @@
 
 </section>
 
-<!-- ═══ PAINT CORRECTION ════════════════════════════════════ -->
-<section id="paint-correction" style="background:var(--sfac-bg);padding:4rem 7rem 5rem;border-top:1px solid var(--sfac-border);border-bottom:1px solid var(--sfac-border);">
-  <div style="margin-bottom:2.5rem;">
-    <div class="sec-label">Paint Restoration</div>
-    <h2 class="sec-h">Paint Correction</h2>
-    <p class="sec-sub">Remove swirls, scratches, and oxidation — then seal it with a premium paint sealant for a clean, protected finish without the commitment of ceramic.</p>
+<!-- ═══ PAINT CORRECTION & CERAMIC COATING ════════════════ -->
+<section id="ceramic" style="background:var(--sfac-surface-2);padding:4rem 7rem 5rem;border-top:1px solid var(--sfac-border);border-bottom:1px solid var(--sfac-border);">
+
+  <!-- Section header -->
+  <div style="margin-bottom:3rem;">
+    <div class="sec-label">Advanced Protection</div>
+    <h2 class="sec-h">Paint Correction &amp; Ceramic Coating</h2>
+    <!-- One descriptor per line, no wrapping mid-thought -->
+    <div style="display:flex;flex-direction:column;gap:.3rem;margin-top:.6rem;">
+      <p style="font-size:.86rem;color:var(--sfac-muted);white-space:nowrap;">Machine cut and polish to restore your paint and remove scratches.</p>
+      <p style="font-size:.86rem;color:var(--sfac-text);font-weight:600;white-space:nowrap;">Certified JADE coating applied — backed by a written warranty.</p>
+      <p style="font-size:.86rem;color:var(--sfac-muted);white-space:nowrap;">UV protection and a permanent hydrophobic layer, every time.</p>
+    </div>
   </div>
+
+  <!-- ── CERAMIC COATING ── -->
+  <div style="margin-bottom:.75rem;">
+    <div style="display:inline-flex;align-items:center;gap:.6rem;">
+      <div style="width:20px;height:1px;background:var(--sfac-gold);opacity:.6;"></div>
+      <span style="font-family:var(--font-h);font-size:.6rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--sfac-gold);">Ceramic Coating</span>
+    </div>
+    <p style="font-size:.8rem;color:var(--sfac-muted);margin-top:.3rem;line-height:1.6;">Full paint decontamination, machine correction, and a certified JADE nano-ceramic coating — with a multi-year warranty that means it.</p>
+  </div>
+
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:2.5rem;">
+
+    <!-- 1-Step Ceramic Coating -->
+    <div class="pkg-card" style="border-color:rgba(212,168,81,0.2);">
+      <div class="pkg-card-img" style="aspect-ratio:16/9;">
+        <img src="web.screenshots/1 step.avif" alt="1-step ceramic coating — Fort Collins Northern Colorado" style="object-fit:cover;object-position:center;" />
+        <div class="pkg-card-img-overlay"></div>
+        <div style="position:absolute;bottom:.75rem;left:.75rem;z-index:3;background:rgba(212,168,81,0.18);border:1px solid rgba(212,168,81,0.5);color:var(--sfac-gold);font-family:var(--font-h);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;backdrop-filter:blur(6px);">4-Year Warranty</div>
+      </div>
+      <div class="pkg-card-body">
+        <div class="pkg-card-name">1-Step Ceramic Coating</div>
+        <div class="pkg-card-desc">Full decontamination, light correction, and JADE ceramic coating applied. Protection that lasts — guaranteed. (~7 hrs)</div>
+        <ul class="pkg-includes">
+          <li>Full paint decontamination with clay bar</li>
+          <li>1-step machine polish — light swirls &amp; scratches removed</li>
+          <li>JADE 4-year nano-ceramic coating applied</li>
+          <li>Hydrophobic surface — water beads and rolls off</li>
+          <li>UV protection prevents paint fade</li>
+          <li>4-year written warranty — fails early, we fix it free</li>
+        </ul>
+      </div>
+      <div class="pkg-card-footer">
+        <div class="pkg-price">Starting at <span>$799</span></div>
+        <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+      </div>
+    </div>
+
+    <!-- 2-Step Ceramic Coating -->
+    <div class="pkg-card" style="position:relative;border-color:rgba(212,168,81,0.35);">
+      <div style="position:absolute;top:1rem;right:1rem;z-index:3;background:var(--sfac-gold);color:#0B0B0D;font-family:var(--font-h);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:999px;">Most Popular</div>
+      <div class="pkg-card-img" style="aspect-ratio:16/9;">
+        <img src="web.screenshots/2 step.avif" alt="2-step ceramic coating — Northern Colorado" style="object-fit:cover;object-position:center 30%;" />
+        <div class="pkg-card-img-overlay"></div>
+        <div style="position:absolute;bottom:.75rem;left:.75rem;z-index:3;background:rgba(212,168,81,0.18);border:1px solid rgba(212,168,81,0.5);color:var(--sfac-gold);font-family:var(--font-h);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;backdrop-filter:blur(6px);">7-Year Warranty</div>
+      </div>
+      <div class="pkg-card-body">
+        <div class="pkg-card-name">2-Step Ceramic Coating</div>
+        <div class="pkg-card-desc">Full decontamination, deep two-stage correction, and our most durable JADE ceramic coating — plus rim coating included. (~8 hrs)</div>
+        <ul class="pkg-includes">
+          <li>Full paint decontamination with clay bar</li>
+          <li>2-step correction: compound cut + fine polish</li>
+          <li>Deep scratches and oxidation removed</li>
+          <li>JADE 7–8 year nano-ceramic coating applied</li>
+          <li>Rim coating included</li>
+          <li>Hydrophobic + UV protection layer</li>
+          <li>7-year written warranty — fails early, we fix it free</li>
+        </ul>
+      </div>
+      <div class="pkg-card-footer">
+        <div class="pkg-price">Starting at <span>$1,100</span></div>
+        <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── PAINT CORRECTION ── -->
+  <div style="margin-bottom:.75rem;">
+    <div style="display:inline-flex;align-items:center;gap:.6rem;">
+      <div style="width:20px;height:1px;background:rgba(212,168,81,0.45);"></div>
+      <span style="font-family:var(--font-h);font-size:.6rem;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:var(--sfac-muted);">Paint Correction</span>
+    </div>
+    <p style="font-size:.8rem;color:var(--sfac-muted);margin-top:.3rem;line-height:1.6;">Machine polishing to restore gloss, remove scratches, and refresh your paint — finished with a premium sealant for lasting protection.</p>
+  </div>
+
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;">
 
-    <!-- 1-Step Paint Correction Card -->
+    <!-- 1-Step Paint Correction -->
     <div class="pkg-card">
       <div class="pkg-card-img" style="aspect-ratio:16/9;">
-        <img src="web.screenshots/1 step.avif" alt="1-step paint correction Fort Collins Northern Colorado" style="object-position:center;" />
+        <img src="web.screenshots/1 step.avif" alt="1-step paint correction — Fort Collins Northern Colorado" style="object-fit:cover;object-position:center;" />
         <div class="pkg-card-img-overlay"></div>
+        <div style="position:absolute;bottom:.75rem;left:.75rem;z-index:3;background:rgba(0,0,0,0.7);border:1px solid var(--sfac-border);color:var(--sfac-muted);font-family:var(--font-h);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;backdrop-filter:blur(6px);">Sealant Finish</div>
       </div>
       <div class="pkg-card-body">
         <div class="pkg-card-name">1-Step Paint Correction</div>
-        <div class="pkg-card-desc">Single-stage machine polish to remove light swirls and water spots, finished with a premium paint sealant. (~4–5 hrs)</div>
+        <div class="pkg-card-desc">Single-stage machine polish removes light swirls and water spots — finished with a premium paint sealant. (~5 hrs)</div>
         <ul class="pkg-includes">
-          <li>1-step machine polish (light swirl &amp; water spot removal)</li>
-          <li>Enhanced gloss &amp; clarity</li>
+          <li>1-step machine polish (light swirls &amp; water spots)</li>
+          <li>Enhanced gloss &amp; paint clarity</li>
           <li>Premium paint sealant applied</li>
           <li>UV protection &amp; hydrophobic layer</li>
           <li>Sealant lasts up to 6 months</li>
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$350</span></div>
+        <div class="pkg-price">Starting at <span>$499</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
       </div>
     </div>
 
-    <!-- 2-Step Paint Correction Card -->
-    <div class="pkg-card" style="position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;z-index:3;background:var(--sfac-gold);color:#0B0B0D;font-family:var(--font-h);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:999px;">Best Value</div>
+    <!-- 2-Step Paint Correction -->
+    <div class="pkg-card">
       <div class="pkg-card-img" style="aspect-ratio:16/9;">
-        <img src="web.screenshots/2 step.avif" alt="2-step paint correction Northern Colorado" style="object-position:center;" />
+        <img src="web.screenshots/2 step.avif" alt="2-step paint correction — Northern Colorado" style="object-fit:cover;object-position:center;" />
         <div class="pkg-card-img-overlay"></div>
+        <div style="position:absolute;bottom:.75rem;left:.75rem;z-index:3;background:rgba(0,0,0,0.7);border:1px solid var(--sfac-border);color:var(--sfac-muted);font-family:var(--font-h);font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:999px;backdrop-filter:blur(6px);">Sealant Finish</div>
       </div>
       <div class="pkg-card-body">
         <div class="pkg-card-name">2-Step Paint Correction</div>
-        <div class="pkg-card-desc">Two-stage cut and polish to remove deeper scratches and heavy oxidation, sealed with our top-tier paint sealant. (~6–7 hrs)</div>
+        <div class="pkg-card-desc">Two-stage cut and polish removes deeper scratches and oxidation — sealed with our top-tier paint sealant. (~6 hrs)</div>
         <ul class="pkg-includes">
-          <li>2-step machine polish (deep scratches &amp; oxidation)</li>
+          <li>2-step machine polish: compound cut + fine polish</li>
+          <li>Deep scratch and oxidation removal</li>
           <li>Maximum gloss restoration</li>
           <li>Premium paint sealant applied</li>
           <li>UV + hydrophobic protection</li>
@@ -965,74 +1043,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$500</span></div>
-        <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Note bar -->
-  <div style="margin-top:2rem;padding:1.4rem 2rem;background:rgba(255,255,255,.03);border:1px solid var(--sfac-border);border-radius:12px;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
-    <div style="font-family:var(--font-h);font-size:.63rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sfac-gold);white-space:nowrap;">Want longer protection?</div>
-    <p style="font-size:.8rem;color:var(--sfac-muted);line-height:1.6;">Upgrade any paint correction to a full ceramic coating for multi-year durability and a permanent hydrophobic bond. <a href="#ceramic" style="color:var(--sfac-gold);text-decoration:none;font-weight:600;">See Ceramic Coating →</a></p>
-  </div>
-
-</section>
-
-<!-- ═══ CERAMIC COATING ════════════════════════════════════ -->
-<section id="ceramic" style="background:var(--sfac-surface-2);padding:4rem 7rem 5rem;border-top:1px solid var(--sfac-border);border-bottom:1px solid var(--sfac-border);">
-  <div style="margin-bottom:2.5rem;">
-    <div class="sec-label">Advanced Protection</div>
-    <h2 class="sec-h">Ceramic Coating</h2>
-    <p class="sec-sub">The gold standard in paint protection. A permanent nano-ceramic bond that keeps your car looking flawless for years.</p>
-  </div>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;">
-
-    <!-- 1-Step Ceramic Coating Card -->
-    <div class="pkg-card">
-      <div class="pkg-card-img" style="aspect-ratio:16/9;">
-        <img src="web.screenshots/1 step.avif" alt="1-step ceramic coating application — Fort Collins Northern Colorado" style="object-fit:cover;object-position:center;" />
-        <div class="pkg-card-img-overlay"></div>
-      </div>
-      <div class="pkg-card-body">
-        <div class="pkg-card-name">1-Step Ceramic Coating</div>
-        <div class="pkg-card-desc">Single-stage paint correction followed by a professional 10H nano-ceramic coating for lasting protection. (~7 hrs)</div>
-        <ul class="pkg-includes">
-          <li>1-step paint correction (light swirl removal)</li>
-          <li>10H nano-ceramic coating applied</li>
-          <li>Hydrophobic surface — water beads off</li>
-          <li>UV protection prevents paint fade</li>
-          <li>5-year warranty included</li>
-          <li>If it fails early, we fix it free</li>
-        </ul>
-      </div>
-      <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$700</span></div>
-        <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
-      </div>
-    </div>
-
-    <!-- 2-Step Ceramic Coating Card -->
-    <div class="pkg-card" style="position:relative;">
-      <div style="position:absolute;top:1rem;right:1rem;z-index:3;background:var(--sfac-gold);color:#0B0B0D;font-family:var(--font-h);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:999px;">Most Popular</div>
-      <div class="pkg-card-img" style="aspect-ratio:16/9;">
-        <img src="web.screenshots/2 step.avif" alt="2-step ceramic coating with paint correction — Northern Colorado" style="object-fit:cover;object-position:center 30%;" />
-        <div class="pkg-card-img-overlay"></div>
-      </div>
-      <div class="pkg-card-body">
-        <div class="pkg-card-name">2-Step Ceramic Coating</div>
-        <div class="pkg-card-desc">Full two-stage paint correction + premium ceramic coating — the ultimate in paint protection and gloss. (~8 hrs)</div>
-        <ul class="pkg-includes">
-          <li>2-step paint correction (deep swirl &amp; scratch removal)</li>
-          <li>10H nano-ceramic coating applied</li>
-          <li>Maximum gloss &amp; clarity</li>
-          <li>7–8 year warranty included</li>
-          <li>If it fails early, we fix it free</li>
-        </ul>
-      </div>
-      <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$1,000</span></div>
+        <div class="pkg-price">Starting at <span>$799</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
       </div>
     </div>
