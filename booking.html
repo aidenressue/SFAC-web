@@ -11,15 +11,22 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book a Mobile Auto Detail — Shine for a Cause | Fort Collins & Northern Colorado</title>
-  <meta name="description" content="Schedule your mobile auto detail online. Serving Fort Collins, Loveland, Greeley, Windsor & all of Northern Colorado. Express, Executive, paint correction & ceramic coating — we come to you." />
+  <title>Book Mobile Auto Detailing Online | Fort Collins, Loveland, Greeley | Shine for a Cause</title>
+  <meta name="description" content="Book your mobile auto detail online in seconds. Serving Fort Collins, Loveland, Greeley, Windsor &amp; all of Northern Colorado. Express, Executive, paint correction &amp; ceramic coating — we come to you. Every booking supports local recovery." />
+  <meta name="keywords" content="book mobile auto detail Fort Collins, schedule car detailing Northern Colorado, online booking auto detailing Loveland, mobile detailing appointment Greeley, book ceramic coating Fort Collins, car wash appointment Northern Colorado" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
+  <meta name="author" content="Shine for a Cause Mobile Detailing" />
   <meta name="geo.region" content="US-CO" />
   <meta name="geo.placename" content="Fort Collins, Colorado" />
   <link rel="canonical" href="https://shineforacause.com/booking.html" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://shineforacause.com/booking.html" />
-  <meta property="og:title" content="Book a Mobile Auto Detail — Shine for a Cause | Northern Colorado" />
-  <meta property="og:description" content="Schedule your mobile detail online. Fort Collins, Loveland, Greeley & surrounding areas. Every booking supports local recovery." />
+  <meta property="og:title" content="Book Mobile Auto Detailing Online — Shine for a Cause | Fort Collins &amp; Northern Colorado" />
+  <meta property="og:description" content="Schedule your mobile detail in seconds. Express, Executive, ceramic coating &amp; paint correction — we come to you in Fort Collins, Loveland, Greeley &amp; all of Northern Colorado. Every booking supports local recovery." />
+  <meta property="og:site_name" content="Shine for a Cause" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Book Mobile Auto Detailing | Shine for a Cause — Northern Colorado" />
+  <meta name="twitter:description" content="Book Express, Executive, ceramic coating or paint correction online. We come to you anywhere in Northern Colorado." />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -281,6 +288,9 @@
       width: 100%; height: 90px; object-fit: contain; object-position: center center;
       mix-blend-mode: multiply; display: block;
       transform: scale(1.1); transform-origin: center center;
+    }
+    .vehicle-img-small {
+      transform: scale(1.6); transform-origin: center center;
     }
     .vehicle-img-van {
       transform: scale(3.0); transform-origin: center center;
@@ -1029,10 +1039,11 @@ const VEHICLE_TYPES = [
 ];
 
 const PACKAGE_TYPES = [
-  { key: 'interior', label: 'Interior',        desc: 'Deep clean inside your vehicle',        color: '#7a6fff' },
-  { key: 'exterior', label: 'Exterior',        desc: 'Full paint care & protection outside',  color: '#52c77a' },
-  { key: 'full',     label: 'Full Detail',     desc: 'Complete inside & out treatment',       color: '#D4A851' },
-  { key: 'ceramic',  label: 'Ceramic Coating', desc: 'Long-lasting professional protection',  color: '#7ab4ff' }
+  { key: 'interior',    label: 'Interior',          desc: 'Deep clean inside your vehicle',              color: '#7a6fff' },
+  { key: 'exterior',    label: 'Exterior',          desc: 'Full paint care & protection outside',        color: '#52c77a' },
+  { key: 'full',        label: 'Full Detail',       desc: 'Complete inside & out treatment',             color: '#D4A851' },
+  { key: 'ceramic',     label: 'Ceramic Coating',   desc: 'JADE certified coating with warranty', color: '#7ab4ff' },
+  { key: 'paint',       label: 'Paint Correction',  desc: 'Machine polish to restore gloss & fix swirls', color: '#D4A851' }
 ];
 
 const SERVICE_CONFIGS = {
@@ -1084,19 +1095,35 @@ const SERVICE_CONFIGS = {
     acuityIds: { small:91812844, mid:91812881, large:91812988, van:91813125 },
     addons: ['headlight','engine','trim'] // no pet hair (included)
   },
+  'paint-1step': {
+    label: '1-Step Paint Correction', packageType: 'paint', tier: '1step',
+    description: 'Single-stage machine polish removes light swirls and water spots — finished with a premium paint sealant.',
+    bullets: ['Full wash & decontamination', '1-step machine polish (light swirls & water spots)', 'Enhanced gloss & paint clarity', 'Premium paint sealant applied', 'Sealant lasts up to 6 months'],
+    pricing: { small:499, mid:550, large:600, van:700 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','trim']
+  },
+  'paint-2step': {
+    label: '2-Step Paint Correction', packageType: 'paint', tier: '2step',
+    description: 'Two-stage cut and polish removes deeper scratches and oxidation — sealed with our top-tier paint sealant.',
+    bullets: ['Full wash & decontamination', '2-step machine polish: compound cut + fine polish', 'Deep scratch and oxidation removal', 'Maximum gloss restoration', 'Premium paint sealant applied', 'Sealant lasts 6–12 months'],
+    pricing: { small:799, mid:850, large:900, van:1000 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','trim']
+  },
   'ceramic-1step': {
     label: '1-Step Ceramic Coating', packageType: 'ceramic', tier: '1step',
-    description: 'Full decontamination and one-stage machine polish, followed by professional-grade ceramic coating application.',
-    bullets: ['Wash & clay bar decontamination', '1-stage machine polish', 'Panel wipe & prep', 'Ceramic coating application', 'Curing & final inspection'],
-    pricing: { small:700, mid:750, large:800, van:900 },
+    description: 'Full decontamination, 1-step machine polish, and JADE certified ceramic coating — backed by a 4-year warranty.',
+    bullets: ['Full paint decontamination with clay bar', '1-step machine polish — light swirls & scratches removed', 'JADE 4-year nano-ceramic coating applied', 'Hydrophobic surface — water beads and rolls off', 'UV protection prevents paint fade', '4-year warranty'],
+    pricing: { small:799, mid:850, large:900, van:1000 },
     acuityIds: { small:91815440, mid:91815483, large:91815511, van:91815521 },
     addons: ['headlight','engine','trim']
   },
   'ceramic-2step': {
     label: '2-Step Ceramic Coating', packageType: 'ceramic', tier: '2step',
-    description: 'The ultimate paint correction and protection combo — two-stage polishing delivers a flawless glass-like finish before ceramic application.',
-    bullets: ['Wash & clay bar decontamination', '2-stage machine polish (cut + refine)', 'Full paint depth analysis', 'Ceramic coating application', 'Multi-panel inspection'],
-    pricing: { small:1000, mid:1100, large:1200, van:1400 },
+    description: 'Full decontamination, deep 2-step machine correction, and JADE 7-year nano-ceramic coating applied — plus rim coating included. 7-year warranty.',
+    bullets: ['Full paint decontamination with clay bar', '2-step correction: compound cut + fine polish', 'Deep scratches and oxidation removed', 'JADE 7–8 year nano-ceramic coating applied', 'Rim coating included', 'Hydrophobic + UV protection layer', 'UV protection prevents paint fade', '7-year warranty'],
+    pricing: { small:1100, mid:1200, large:1300, van:1500 },
     acuityIds: { small:91815583, mid:91815597, large:91815615, van:91815638 },
     addons: ['headlight','engine','trim']
   }
@@ -1119,12 +1146,12 @@ const TIER_INFO = {
     highlights: ['Professional-grade products', 'Deep extraction & steam', 'Showroom-quality results']
   },
   '1step': {
-    badge: 'step1', name: '1-Step Ceramic', tagline: 'Single-stage correction + ceramic protection. Years of shine in one appointment.',
-    highlights: ['1-stage machine polish', 'Professional ceramic coating', '1–3 year protection']
+    badge: 'step1', name: '1-Step', tagline: 'Single-stage correction for light swirls and water spots.',
+    highlights: ['1-step machine polish', 'Premium paint sealant applied', 'Enhanced gloss & clarity']
   },
   '2step': {
-    badge: 'step2', name: '2-Step Ceramic', tagline: 'Maximum paint correction before ceramic coating for flawless, glass-like results.',
-    highlights: ['2-stage cut & refine polish', 'Paint depth analysis', '7–8 year protection']
+    badge: 'step2', name: '2-Step', tagline: 'Deep two-stage correction removes scratches and oxidation.',
+    highlights: ['Compound cut + fine polish', 'Deep scratch & oxidation removal', 'Maximum gloss restoration']
   }
 };
 
@@ -1132,6 +1159,7 @@ const PACKAGE_TIERS = {
   interior: ['express','executive'],
   exterior: ['express','executive'],
   full:     ['express','executive'],
+  paint:    ['1step','2step'],
   ceramic:  ['1step','2step']
 };
 
@@ -1407,50 +1435,43 @@ function renderPackageTypes() {
 }
 
 function packageIllus(key) {
-  if (key === 'ceramic') {
-    return `<div class="pkg-icon">
-      ${packageIcon('ceramic')}
-      <div class="pkg-icon-labels">
-        <div class="pkg-icon-title">Ceramic Coating</div>
-        <div class="pkg-icon-sub">+ Paint Correction</div>
-      </div>
-    </div>`;
-  }
-  const colors = {
-    interior: '#9B59B6',
-    exterior: '#27AE60',
-    full:     '#2C3E50',
-  };
-  const labels = {
-    interior: 'Interior Only',
-    exterior: 'Exterior Only',
-    full:     'Inside & Out',
-  };
-  const c = colors[key] || '#B5751A';
-
-  // Interior — image has title baked in, fill edge to edge
+  // Interior
   if (key === 'interior') {
-    return `<div class="pkg-illus" style="--pkg-color:${c}">
+    return `<div class="pkg-illus">
       <img class="pkg-car-img" src="web.screenshots/813e921e-de36-4ec4-a308-9594dcdd3285.png" alt="interior" />
     </div>`;
   }
-
-  // Full — image has title baked in, fill edge to edge
+  // Full
   if (key === 'full') {
-    return `<div class="pkg-illus" style="--pkg-color:${c}">
+    return `<div class="pkg-illus">
       <img class="pkg-car-img" src="web.screenshots/Inside and out.png" alt="full" />
     </div>`;
   }
-
-  // Exterior — image has title baked in, fill edge to edge
-  return `
-    <div class="pkg-illus" style="--pkg-color:${c}">
-      <img class="pkg-car-img" src="web.screenshots/EXT.png" alt="${key}" />
+  // Exterior
+  if (key === 'exterior') {
+    return `<div class="pkg-illus">
+      <img class="pkg-car-img" src="web.screenshots/EXT.png" alt="exterior" />
     </div>`;
+  }
+  // Paint Correction
+  if (key === 'paint') {
+    return `<div class="pkg-illus" style="background:#fff;">
+      <img class="pkg-car-img" src="web.screenshots/Paint correction PKG.png" alt="paint correction" style="object-fit:contain;height:110px;mix-blend-mode:multiply;" />
+    </div>`;
+  }
+  // Ceramic Coating
+  if (key === 'ceramic') {
+    return `<div class="pkg-illus" style="background:#fff;">
+      <img class="pkg-car-img" src="web.screenshots/Ceramic coating PKG.png" alt="ceramic coating" style="object-fit:contain;height:110px;mix-blend-mode:multiply;" />
+    </div>`;
+  }
+  return `<div class="pkg-illus"></div>`;
 }
 
 function buildSvcKey(tier, pkgType) {
-  return pkgType === 'ceramic' ? `ceramic-${tier}` : `${tier}-${pkgType}`;
+  if (pkgType === 'ceramic') return `ceramic-${tier}`;
+  if (pkgType === 'paint')   return `paint-${tier}`;
+  return `${tier}-${pkgType}`;
 }
 
 function getPriceRange(pkgType) {
@@ -1479,7 +1500,9 @@ function selectPackage(key) {
 function renderTiers() {
   const tiers = PACKAGE_TIERS[state.packageType] || [];
   document.getElementById('tier-title').textContent =
-    state.packageType === 'ceramic' ? 'Select Ceramic Level' : 'Select Detail Level';
+    state.packageType === 'ceramic' ? 'Select Ceramic Level' :
+    state.packageType === 'paint'   ? 'Select Correction Level' :
+    'Select Detail Level';
 
   const grid = document.getElementById('tier-grid');
   grid.innerHTML = tiers.map(tier => {
@@ -1493,7 +1516,7 @@ function renderTiers() {
       <div class="tier-name">${cfg?.label}</div>
       <div class="tier-tagline">${info.tagline}</div>
       <ul class="tier-bullets">
-        ${info.highlights.map(h=>`<li>${h}</li>`).join('')}
+        ${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}
       </ul>
       <div class="tier-price">$${price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
     </div>
@@ -1516,6 +1539,8 @@ function getDuration(svcKey, vehicle) {
     'executive-exterior':{ small:105, mid:110, large:115, van:120 },
     'executive-interior':{ small:210, mid:220, large:230, van:240 },
     'executive-full':    { small:330, mid:340, large:350, van:360 },
+    'paint-1step':       { small:300, mid:320, large:340, van:360 },
+    'paint-2step':       { small:360, mid:380, large:400, van:420 },
     'ceramic-1step':     { small:420, mid:430, large:440, van:450 },
     'ceramic-2step':     { small:480, mid:490, large:500, van:510 },
   };
@@ -1540,7 +1565,7 @@ function renderPackageDetail() {
 
   document.getElementById('pkg-detail-content').innerHTML = `
     <div class="pkg-detail-header">
-      <div class="pkg-detail-icon">${packageIllus(state.packageType)}</div>
+      <div class="pkg-detail-icon">${vehicleSVG(state.vehicle)}</div>
       <div>
         <div class="pkg-detail-name">${cfg.label}</div>
         <div class="pkg-detail-price">$${price}</div>
@@ -1732,16 +1757,22 @@ function renderCalendarGrid() {
 
 async function fetchAvailableDates() {
   const typeId = state.cart[0]?.acuityTypeId;
-  if (!typeId) return;
+  const grid = document.getElementById('cal-grid');
+  if (!typeId) {
+    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Online booking coming soon for this service.<br>Please call or text us to book.</div>';
+    return;
+  }
   const m = state.calMonth;
   const monthStr = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
-  document.getElementById('cal-grid').innerHTML = '<div class="cal-loading" style="grid-column:1/-1">Loading availability...</div>';
+  grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1">Loading availability...</div>';
   try {
     const resp = await fetch(`/api/acuity/availability/dates?appointmentTypeID=${typeId}&month=${monthStr}&timezone=America%2FDenver`);
     const dates = await resp.json();
     state.availableDates = Array.isArray(dates) ? dates.map(d => d.date || d) : [];
   } catch(e) {
     state.availableDates = [];
+    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Unable to load availability. Please refresh or contact us.</div>';
+    return;
   }
   renderCalendarGrid();
 }
@@ -1944,7 +1975,7 @@ function vehicleSVG(key) {
     large: 'web.screenshots/Large illistration.webp',
     van:   'web.screenshots/Van illistration.avif',
   };
-  const extraClass = { van: 'vehicle-img-van', large: 'vehicle-img-large' };
+  const extraClass = { small: 'vehicle-img-small', van: 'vehicle-img-van', large: 'vehicle-img-large' };
   if (imgs[key]) return `<img class="vehicle-img ${extraClass[key]||''}" src="${imgs[key]}" alt="${key}" />`;
 
   // Shared wheel helper
