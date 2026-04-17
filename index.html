@@ -550,10 +550,18 @@
       .sec-sub[style*="white-space:nowrap"]{white-space:normal !important}
       .pkg-grid{grid-template-columns:1fr}
 
+      /* paint correction */
+      #paint-correction{padding:2.5rem 1.25rem 3rem !important}
+      #paint-correction > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
+
       /* ceramic */
       #ceramic{padding:2.5rem 1.25rem 3rem !important}
       #ceramic > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important}
       #ceramic .addon-row{flex-wrap:wrap;gap:.5rem}
+
+      /* maintenance */
+      #maintenance{padding:2.5rem 1.25rem 3rem !important}
+      #maintenance > div[style*="grid-template-columns:1fr 1fr"]{grid-template-columns:1fr !important;gap:2rem !important}
 
       /* reviews */
       .reviews-sec{padding:3rem 1.25rem}
@@ -648,9 +656,10 @@
   </div>
   <ul class="nav-links">
     <li><a href="#services">Services</a></li>
+    <li><a href="#paint-correction">Paint Correction</a></li>
     <li><a href="#ceramic">Ceramic Coating</a></li>
+    <li><a href="#maintenance">Maintenance</a></li>
     <li><a href="#reviews">Reviews</a></li>
-    <li><a href="#portfolio">Our Work</a></li>
     <li><a href="#faq">FAQ</a></li>
   </ul>
   <div class="nav-cta" style="display:flex;align-items:center;gap:.75rem;">
@@ -664,9 +673,10 @@
 <!-- Mobile nav drawer -->
 <div class="mobile-nav" id="mobileNav">
   <a href="#services" class="mobile-nav-link">Services</a>
+  <a href="#paint-correction" class="mobile-nav-link">Paint Correction</a>
   <a href="#ceramic" class="mobile-nav-link">Ceramic Coating</a>
+  <a href="#maintenance" class="mobile-nav-link">Maintenance</a>
   <a href="#reviews" class="mobile-nav-link">Reviews</a>
-  <a href="#portfolio" class="mobile-nav-link">Our Work</a>
   <a href="#faq" class="mobile-nav-link">FAQ</a>
   <a href="/booking.html" class="btn-gold">Book Now</a>
 </div>
@@ -904,31 +914,97 @@
 
 </section>
 
-<!-- ═══ CERAMIC COATING + PAINT CORRECTION ════════════════ -->
+<!-- ═══ PAINT CORRECTION ════════════════════════════════════ -->
+<section id="paint-correction" style="background:var(--sfac-bg);padding:4rem 7rem 5rem;border-top:1px solid var(--sfac-border);border-bottom:1px solid var(--sfac-border);">
+  <div style="margin-bottom:2.5rem;">
+    <div class="sec-label">Paint Restoration</div>
+    <h2 class="sec-h">Paint Correction</h2>
+    <p class="sec-sub">Remove swirls, scratches, and oxidation — then seal it with a premium paint sealant for a clean, protected finish without the commitment of ceramic.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;">
+
+    <!-- 1-Step Paint Correction Card -->
+    <div class="pkg-card">
+      <div class="pkg-card-img" style="aspect-ratio:16/9;">
+        <img src="web.screenshots/1 step.avif" alt="1-step paint correction Fort Collins Northern Colorado" style="object-position:center;" />
+        <div class="pkg-card-img-overlay"></div>
+      </div>
+      <div class="pkg-card-body">
+        <div class="pkg-card-name">1-Step Paint Correction</div>
+        <div class="pkg-card-desc">Single-stage machine polish to remove light swirls and water spots, finished with a premium paint sealant. (~4–5 hrs)</div>
+        <ul class="pkg-includes">
+          <li>1-step machine polish (light swirl &amp; water spot removal)</li>
+          <li>Enhanced gloss &amp; clarity</li>
+          <li>Premium paint sealant applied</li>
+          <li>UV protection &amp; hydrophobic layer</li>
+          <li>Sealant lasts up to 6 months</li>
+        </ul>
+      </div>
+      <div class="pkg-card-footer">
+        <div class="pkg-price">Starting at <span>$350</span></div>
+        <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+      </div>
+    </div>
+
+    <!-- 2-Step Paint Correction Card -->
+    <div class="pkg-card" style="position:relative;">
+      <div style="position:absolute;top:1rem;right:1rem;z-index:3;background:var(--sfac-gold);color:#0B0B0D;font-family:var(--font-h);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:999px;">Best Value</div>
+      <div class="pkg-card-img" style="aspect-ratio:16/9;">
+        <img src="web.screenshots/2 step.avif" alt="2-step paint correction Northern Colorado" style="object-position:center;" />
+        <div class="pkg-card-img-overlay"></div>
+      </div>
+      <div class="pkg-card-body">
+        <div class="pkg-card-name">2-Step Paint Correction</div>
+        <div class="pkg-card-desc">Two-stage cut and polish to remove deeper scratches and heavy oxidation, sealed with our top-tier paint sealant. (~6–7 hrs)</div>
+        <ul class="pkg-includes">
+          <li>2-step machine polish (deep scratches &amp; oxidation)</li>
+          <li>Maximum gloss restoration</li>
+          <li>Premium paint sealant applied</li>
+          <li>UV + hydrophobic protection</li>
+          <li>Sealant lasts 6–12 months</li>
+        </ul>
+      </div>
+      <div class="pkg-card-footer">
+        <div class="pkg-price">Starting at <span>$500</span></div>
+        <a href="/booking.html" class="btn-gold" style="padding:.6rem 1.2rem;font-size:.72rem;">Book Now</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Note bar -->
+  <div style="margin-top:2rem;padding:1.4rem 2rem;background:rgba(255,255,255,.03);border:1px solid var(--sfac-border);border-radius:12px;display:flex;align-items:center;gap:1rem;flex-wrap:wrap;">
+    <div style="font-family:var(--font-h);font-size:.63rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--sfac-gold);white-space:nowrap;">Want longer protection?</div>
+    <p style="font-size:.8rem;color:var(--sfac-muted);line-height:1.6;">Upgrade any paint correction to a full ceramic coating for multi-year durability and a permanent hydrophobic bond. <a href="#ceramic" style="color:var(--sfac-gold);text-decoration:none;font-weight:600;">See Ceramic Coating →</a></p>
+  </div>
+
+</section>
+
+<!-- ═══ CERAMIC COATING ════════════════════════════════════ -->
 <section id="ceramic" style="background:var(--sfac-surface-2);padding:4rem 7rem 5rem;border-top:1px solid var(--sfac-border);border-bottom:1px solid var(--sfac-border);">
   <div style="margin-bottom:2.5rem;">
     <div class="sec-label">Advanced Protection</div>
-    <h2 class="sec-h">Paint Correction &amp; Ceramic Coating</h2>
-    <p class="sec-sub">Give your vehicle permanent-level protection with a mirror finish that lasts years.</p>
+    <h2 class="sec-h">Ceramic Coating</h2>
+    <p class="sec-sub">The gold standard in paint protection. A permanent nano-ceramic bond that keeps your car looking flawless for years.</p>
   </div>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;">
 
     <!-- 1-Step Ceramic Coating Card -->
     <div class="pkg-card">
       <div class="pkg-card-img" style="aspect-ratio:16/9;">
-        <img src="web.screenshots/1 step.avif" alt="1-step ceramic coating application — Fort Collins Northern Colorado" />
+        <img src="web.screenshots/1 step.avif" alt="1-step ceramic coating application — Fort Collins Northern Colorado" style="object-fit:cover;object-position:center;" />
         <div class="pkg-card-img-overlay"></div>
       </div>
       <div class="pkg-card-body">
         <div class="pkg-card-name">1-Step Ceramic Coating</div>
-        <div class="pkg-card-desc">Single-stage paint correction followed by a professional nano-ceramic coating for lasting protection. (~7 hrs)</div>
+        <div class="pkg-card-desc">Single-stage paint correction followed by a professional 10H nano-ceramic coating for lasting protection. (~7 hrs)</div>
         <ul class="pkg-includes">
           <li>1-step paint correction (light swirl removal)</li>
           <li>10H nano-ceramic coating applied</li>
           <li>Hydrophobic surface — water beads off</li>
           <li>UV protection prevents paint fade</li>
-          <li>5-year durability</li>
-          <li>Insured for the life of the coating</li>
+          <li>5-year warranty included</li>
+          <li>If it fails early, we fix it free</li>
         </ul>
       </div>
       <div class="pkg-card-footer">
@@ -941,7 +1017,7 @@
     <div class="pkg-card" style="position:relative;">
       <div style="position:absolute;top:1rem;right:1rem;z-index:3;background:var(--sfac-gold);color:#0B0B0D;font-family:var(--font-h);font-size:.58rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .65rem;border-radius:999px;">Most Popular</div>
       <div class="pkg-card-img" style="aspect-ratio:16/9;">
-        <img src="web.screenshots/2 step.avif" alt="2-step ceramic coating with paint correction — Northern Colorado" />
+        <img src="web.screenshots/2 step.avif" alt="2-step ceramic coating with paint correction — Northern Colorado" style="object-fit:cover;object-position:center 30%;" />
         <div class="pkg-card-img-overlay"></div>
       </div>
       <div class="pkg-card-body">
@@ -951,8 +1027,8 @@
           <li>2-step paint correction (deep swirl &amp; scratch removal)</li>
           <li>10H nano-ceramic coating applied</li>
           <li>Maximum gloss &amp; clarity</li>
-          <li>7–8 year durability</li>
-          <li>Insured for the life of the coating</li>
+          <li>7–8 year warranty included</li>
+          <li>If it fails early, we fix it free</li>
         </ul>
       </div>
       <div class="pkg-card-footer">
@@ -974,6 +1050,102 @@
     </div>
   </div>
 
+</section>
+
+<!-- ═══ MAINTENANCE PROGRAM ═══════════════════════════════════ -->
+<section id="maintenance" style="background:var(--sfac-bg);padding:4rem 7rem 5rem;border-top:1px solid var(--sfac-border);border-bottom:1px solid var(--sfac-border);">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center;">
+
+    <!-- Left: text -->
+    <div>
+      <div class="sec-label">Ongoing Care</div>
+      <h2 class="sec-h" style="text-align:left;">Maintenance Program</h2>
+      <p style="font-size:.95rem;color:var(--sfac-muted);line-height:1.8;margin-bottom:2rem;">Your detail shouldn't be a one-time thing. Our maintenance program keeps your vehicle in showroom condition year-round — protecting your paint, preserving your investment, and making every drive feel like the first day you got it.</p>
+
+      <div style="display:flex;flex-direction:column;gap:1rem;margin-bottom:2.5rem;">
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div style="width:36px;height:36px;border-radius:50%;background:rgba(212,168,81,0.12);border:1px solid rgba(212,168,81,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#D4A851" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <p style="font-family:var(--font-h);font-size:.78rem;font-weight:700;color:var(--sfac-text);letter-spacing:.04em;">Scheduled visits on your timeline</p>
+            <p style="font-size:.78rem;color:var(--sfac-muted);margin-top:.2rem;">Monthly, bi-monthly, or quarterly — we work around your schedule.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div style="width:36px;height:36px;border-radius:50%;background:rgba(212,168,81,0.12);border:1px solid rgba(212,168,81,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#D4A851" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <p style="font-family:var(--font-h);font-size:.78rem;font-weight:700;color:var(--sfac-text);letter-spacing:.04em;">Protect your paint investment</p>
+            <p style="font-size:.78rem;color:var(--sfac-muted);margin-top:.2rem;">Contaminants and UV exposure degrade paint over time. Regular maintenance prevents long-term damage.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div style="width:36px;height:36px;border-radius:50%;background:rgba(212,168,81,0.12);border:1px solid rgba(212,168,81,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#D4A851" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <p style="font-family:var(--font-h);font-size:.78rem;font-weight:700;color:var(--sfac-text);letter-spacing:.04em;">We come to you — every time</p>
+            <p style="font-size:.78rem;color:var(--sfac-muted);margin-top:.2rem;">100% mobile. Same reliable team, same premium results, at your home or office.</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1rem;">
+          <div style="width:36px;height:36px;border-radius:50%;background:rgba(212,168,81,0.12);border:1px solid rgba(212,168,81,0.3);display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7l3.5 3.5L12 3" stroke="#D4A851" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <div>
+            <p style="font-family:var(--font-h);font-size:.78rem;font-weight:700;color:var(--sfac-text);letter-spacing:.04em;">Custom packages available</p>
+            <p style="font-size:.78rem;color:var(--sfac-muted);margin-top:.2rem;">We'll build a plan around your vehicle, your budget, and how you use it.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTAs -->
+      <div style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="tel:+19706826423" class="btn-gold" style="display:inline-flex;align-items:center;gap:.5rem;">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M13 10.33v1.5a1 1 0 01-1.09.98A9.9 9.9 0 012 2.09 1 1 0 012.97 1h1.5a1 1 0 011 .86c.1.72.3 1.42.59 2.08a1 1 0 01-.23 1.06L5.09 5.74a8 8 0 004.17 4.17l.74-.74a1 1 0 011.06-.23c.66.29 1.36.49 2.08.59a1 1 0 01.86 1z" stroke="#0B0B0D" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Call to Set Up
+        </a>
+        <a href="sms:+19706826423" style="display:inline-flex;align-items:center;gap:.5rem;padding:.65rem 1.4rem;border-radius:999px;border:1px solid var(--sfac-gold);color:var(--sfac-gold);font-family:var(--font-h);font-size:.72rem;font-weight:700;letter-spacing:.05em;text-decoration:none;transition:background .2s;" onmouseover="this.style.background='rgba(212,168,81,0.1)'" onmouseout="this.style.background='transparent'">
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M12 1H2C1.45 1 1 1.45 1 2v9l2.5-2.5H12c.55 0 1-.45 1-1V2c0-.55-.45-1-1-1z" stroke="#D4A851" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Text to Set Up
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: visual card -->
+    <div style="background:var(--sfac-surface);border:1px solid var(--sfac-border);border-radius:20px;padding:2.5rem;display:flex;flex-direction:column;gap:1.5rem;">
+      <div style="font-family:var(--font-h);font-size:.65rem;font-weight:800;letter-spacing:.18em;text-transform:uppercase;color:var(--sfac-gold);">Popular Maintenance Plans</div>
+
+      <div style="display:flex;flex-direction:column;gap:.75rem;">
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:rgba(255,255,255,.03);border:1px solid var(--sfac-border);border-radius:10px;">
+          <div>
+            <p style="font-family:var(--font-h);font-size:.82rem;font-weight:700;color:var(--sfac-text);">Monthly Refresh</p>
+            <p style="font-size:.72rem;color:var(--sfac-muted);margin-top:.2rem;">Express detail every 4 weeks</p>
+          </div>
+          <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;color:var(--sfac-gold);white-space:nowrap;">From $80 / mo</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:rgba(212,168,81,0.06);border:1px solid rgba(212,168,81,0.25);border-radius:10px;">
+          <div>
+            <p style="font-family:var(--font-h);font-size:.82rem;font-weight:700;color:var(--sfac-text);">Bi-Monthly Deep Clean</p>
+            <p style="font-size:.72rem;color:var(--sfac-muted);margin-top:.2rem;">Executive detail every 2 months</p>
+          </div>
+          <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;color:var(--sfac-gold);white-space:nowrap;">From $200 / visit</div>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;padding:1rem 1.25rem;background:rgba(255,255,255,.03);border:1px solid var(--sfac-border);border-radius:10px;">
+          <div>
+            <p style="font-family:var(--font-h);font-size:.82rem;font-weight:700;color:var(--sfac-text);">Quarterly Full Detail</p>
+            <p style="font-size:.72rem;color:var(--sfac-muted);margin-top:.2rem;">Executive full detail 4× per year</p>
+          </div>
+          <div style="font-family:var(--font-h);font-size:.78rem;font-weight:700;color:var(--sfac-gold);white-space:nowrap;">From $299 / visit</div>
+        </div>
+      </div>
+
+      <p style="font-size:.72rem;color:var(--sfac-muted);line-height:1.7;border-top:1px solid var(--sfac-border);padding-top:1.25rem;">All maintenance plans are customized to your vehicle and schedule. Pricing varies by vehicle size. <strong style="color:var(--sfac-text);">Call or text us and we'll build your plan.</strong></p>
+    </div>
+
+  </div>
 </section>
 
 <!-- Elfsight Google Reviews -->
