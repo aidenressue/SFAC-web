@@ -1704,7 +1704,7 @@ function renderCalendar() {
   // Service summary
   const primary = state.cart[0];
   if (primary) {
-    const icon = packageIcon(SERVICE_CONFIGS[primary.serviceKey]?.packageType);
+    const icon = vehicleSVG(state.vehicle);
     document.getElementById('cal-service-summary').innerHTML = `
       <div class="cal-svc-icon">${icon}</div>
       <div>
