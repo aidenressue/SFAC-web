@@ -804,7 +804,7 @@
         </button>
       </div>
       <div class="area-error" id="area-error">
-        Sorry, we don't currently service that location. We serve Fort Collins, Loveland, Timnath, Windsor, and areas within ~20 minutes of Fort Collins.
+        Sorry, we don't currently service that location. We serve Fort Collins, Loveland, Windsor, Timnath, Wellington, and surrounding areas within 25 miles of Fort Collins.
       </div>
     </div>
     <div id="next1-btn">
@@ -1292,20 +1292,15 @@ async function handleAddressConfirmed(formatted, lat, lng) {
 }
 
 function checkServiceArea(lat, lng) {
-  return new Promise((resolve) => {
-    const service = new google.maps.DistanceMatrixService();
-    service.getDistanceMatrix({
-      origins: [FORT_COLLINS],
-      destinations: [{ lat, lng }],
-      travelMode: google.maps.TravelMode.DRIVING,
-    }, (resp, status) => {
-      if (status !== 'OK') { resolve(true); return; }
-      const el = resp.rows[0].elements[0];
-      if (el.status !== 'OK') { resolve(true); return; }
-      const mins = el.duration.value / 60;
-      resolve(mins <= 25); // slight buffer for edge cases
-    });
-  });
+  // Haversine straight-line distance from Fort Collins center
+  const R = 3958.8; // Earth radius in miles
+  const dLat = (lat - FORT_COLLINS.lat) * Math.PI / 180;
+  const dLng = (lng - FORT_COLLINS.lng) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(FORT_COLLINS.lat * Math.PI / 180) * Math.cos(lat * Math.PI / 180) *
+            Math.sin(dLng/2) * Math.sin(dLng/2);
+  const miles = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return Promise.resolve(miles <= 25);
 }
 
 // ═══════════════════════════════════════════════════════════════════
