@@ -1190,7 +1190,7 @@ const state = {
 
   // Customer
   email: '', firstName: '', lastName: '', phone: '',
-  promoCode: '', comments: ''
+  promoCode: '', promoDiscount: 0, comments: ''
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1864,7 +1864,6 @@ function renderConfirmation() {
   }
 
   // Services
-  const total = state.cart.reduce((s,i)=>s+i.price,0);
   document.getElementById('conf-services').innerHTML = state.cart.map(item => {
     const addonNames = Object.keys(item.addons).map(k=>ADDON_DEFS[k].name).join(', ');
     return `
@@ -1873,7 +1872,7 @@ function renderConfirmation() {
       <div class="confirm-value">$${item.price}</div>
     </div>`;
   }).join('');
-  document.getElementById('conf-total').textContent = `$${total}`;
+  renderConfirmationTotals();
 
   // Details
   document.getElementById('conf-name').textContent = `${state.firstName} ${state.lastName}`;
@@ -1881,18 +1880,62 @@ function renderConfirmation() {
   document.getElementById('conf-phone').textContent = state.phone;
 }
 
+function renderConfirmationTotals() {
+  const subtotal = state.cart.reduce((s,i)=>s+i.price,0);
+  const discount = state.promoDiscount;
+  const savings = Math.round(subtotal * discount);
+  const total = subtotal - savings;
+  const totalEl = document.getElementById('conf-total');
+  const existingSavingsRow = document.getElementById('conf-savings-row');
+  if (existingSavingsRow) existingSavingsRow.remove();
+
+  if (discount > 0) {
+    const pct = Math.round(discount * 100);
+    // Insert savings row before the total row
+    const totalRow = totalEl.closest('.cart-subtotal');
+    const savingsRow = document.createElement('div');
+    savingsRow.id = 'conf-savings-row';
+    savingsRow.className = 'cart-subtotal';
+    savingsRow.style.marginBottom = '.5rem';
+    savingsRow.innerHTML = `
+      <span class="cart-subtotal-label" style="color:var(--green);">Promo (${pct}% off)</span>
+      <span class="cart-subtotal-amount" style="color:var(--green);">-$${savings}</span>`;
+    totalRow.parentNode.insertBefore(savingsRow, totalRow);
+    totalEl.textContent = `$${total}`;
+    totalEl.style.color = 'var(--gold)';
+  } else {
+    totalEl.textContent = `$${subtotal}`;
+    totalEl.style.color = '';
+  }
+}
+
+const PROMO_CODES = {
+  'SNAF20': 0.20
+};
+
 async function applyPromo() {
-  const code = document.getElementById('promo-code').value.trim();
+  const code = document.getElementById('promo-code').value.trim().toUpperCase();
   const msgEl = document.getElementById('promo-msg');
   if (!code) return;
 
-  msgEl.textContent = 'Checking...';
   msgEl.className = 'promo-msg';
-  state.promoCode = code;
 
-  // Acuity will validate on booking — show optimistic message
-  msgEl.textContent = `Code "${code}" will be applied at booking.`;
+  const discount = PROMO_CODES[code];
+  if (!discount) {
+    state.promoCode = '';
+    state.promoDiscount = 0;
+    msgEl.textContent = 'Invalid promo code. Please try again.';
+    msgEl.className = 'promo-msg err';
+    renderConfirmationTotals();
+    return;
+  }
+
+  state.promoCode = code;
+  state.promoDiscount = discount;
+  const pct = Math.round(discount * 100);
+  msgEl.textContent = `✓ ${pct}% off applied!`;
   msgEl.className = 'promo-msg ok';
+  renderConfirmationTotals();
 }
 
 async function confirmBooking() {
