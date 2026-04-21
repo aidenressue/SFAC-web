@@ -358,16 +358,17 @@
     .reviews-header { text-align: center; margin-bottom: 2.5rem; }
 
     /* ─── PHOTO GALLERY ───────────────────────────────────── */
-    .photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; align-items: start; }
+    .photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
     .photo-item {
       border-radius:12px; overflow:hidden;
       border:1px solid var(--sfac-border); position:relative; cursor:pointer;
       transition: transform .25s, border-color .25s;
       background: var(--sfac-surface-2);
+      aspect-ratio: 4/3;
     }
     .photo-item:first-child { grid-column: span 2; }
     .photo-item:hover { transform:translateY(-3px); border-color:rgba(212,168,81,.4); }
-    .photo-item img { width:100%; height:auto; display:block; }
+    .photo-item img { width:100%; height:100%; display:block; object-fit:cover; object-position:center; }
     .photo-overlay {
       position:absolute; inset:0;
       background:linear-gradient(to top, rgba(0,0,0,.55) 0%, transparent 60%);
@@ -1372,6 +1373,18 @@
     </div>
     <div class="photo-item">
       <img src="Our.work/RSQ8 Back INT.jpg" alt="Audi RSQ8 rear interior detail" loading="lazy" />
+      <div class="photo-overlay"></div>
+    </div>
+    <div class="photo-item">
+      <img src="web.screenshots/Website1.JPG" alt="Mobile auto detail — Northern Colorado" loading="lazy" />
+      <div class="photo-overlay"></div>
+    </div>
+    <div class="photo-item">
+      <img src="web.screenshots/Website2.JPG" alt="Mobile auto detail — Northern Colorado" loading="lazy" />
+      <div class="photo-overlay"></div>
+    </div>
+    <div class="photo-item">
+      <img src="web.screenshots/Website 3.JPG" alt="Mobile auto detail — Northern Colorado" loading="lazy" />
       <div class="photo-overlay"></div>
     </div>
   </div>
