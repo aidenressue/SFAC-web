@@ -1959,6 +1959,12 @@ async function confirmBooking() {
       notes += `- ${item.label} (${item.vehicleLabel})${addons ? ' + '+addons : ''} — $${item.price}\n`;
     });
   }
+  if (state.promoCode) {
+    const rawTotal = state.cart.reduce((s,i)=>s+i.price,0);
+    const savings  = Math.round(rawTotal * state.promoDiscount);
+    const discounted = rawTotal - savings;
+    notes += `\nPromo Code Applied: ${state.promoCode} (${Math.round(state.promoDiscount*100)}% off)\nOriginal Total: $${rawTotal}\nDiscounted Total: $${discounted} (due in person)`;
+  }
   if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
 
   // Build addon IDs for primary item
@@ -1991,10 +1997,15 @@ async function confirmBooking() {
     }
 
     // Success!
-    const total = state.cart.reduce((s,i)=>s+i.price,0);
+    const rawTotal   = state.cart.reduce((s,i)=>s+i.price,0);
+    const savings    = Math.round(rawTotal * state.promoDiscount);
+    const finalTotal = rawTotal - savings;
     document.getElementById('success-sub').textContent =
       `Your ${primary.label} has been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
-    document.getElementById('success-conf').textContent = `Confirmation #${result.id} · Estimated Total: $${total} (due in person)`;
+    const totalLine = state.promoDiscount > 0
+      ? `Confirmation #${result.id} · Total: $${finalTotal} (${Math.round(state.promoDiscount*100)}% promo applied — due in person)`
+      : `Confirmation #${result.id} · Estimated Total: $${rawTotal} (due in person)`;
+    document.getElementById('success-conf').textContent = totalLine;
     document.getElementById('success-screen').classList.add('show');
 
   } catch(e) {
