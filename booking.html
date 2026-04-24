@@ -2023,13 +2023,21 @@ async function confirmBooking() {
     }
 
     // Success!
-    const rawTotal   = state.cart.reduce((s,i)=>s+i.price,0);
-    const savings    = Math.round(rawTotal * state.promoDiscount);
-    const finalTotal = rawTotal - savings;
+    const rawTotal      = state.cart.reduce((s,i)=>s+i.price,0);
+    const multiVehicle  = state.cart.length > 1;
+    const multiSavings  = multiVehicle ? Math.round(rawTotal * 0.10) : 0;
+    const afterMulti    = rawTotal - multiSavings;
+    const promoSavings  = Math.round(afterMulti * state.promoDiscount);
+    const finalTotal    = afterMulti - promoSavings;
+
     document.getElementById('success-sub').textContent =
       `Your ${primary.label} has been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
-    const totalLine = state.promoDiscount > 0
-      ? `Confirmation #${result.id} · Total: $${finalTotal} (${Math.round(state.promoDiscount*100)}% promo applied — due in person)`
+
+    let discountParts = [];
+    if (multiVehicle) discountParts.push('10% multi-vehicle');
+    if (state.promoDiscount > 0) discountParts.push(`${Math.round(state.promoDiscount*100)}% promo`);
+    const totalLine = discountParts.length > 0
+      ? `Confirmation #${result.id} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
       : `Confirmation #${result.id} · Estimated Total: $${rawTotal} (due in person)`;
     document.getElementById('success-conf').textContent = totalLine;
     document.getElementById('success-screen').classList.add('show');
