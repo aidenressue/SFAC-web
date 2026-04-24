@@ -1882,31 +1882,41 @@ function renderConfirmation() {
 
 function renderConfirmationTotals() {
   const subtotal = state.cart.reduce((s,i)=>s+i.price,0);
-  const discount = state.promoDiscount;
-  const savings = Math.round(subtotal * discount);
-  const total = subtotal - savings;
-  const totalEl = document.getElementById('conf-total');
-  const existingSavingsRow = document.getElementById('conf-savings-row');
-  if (existingSavingsRow) existingSavingsRow.remove();
+  const multiVehicle = state.cart.length > 1;
+  const multiSavings = multiVehicle ? Math.round(subtotal * 0.10) : 0;
+  const afterMulti = subtotal - multiSavings;
+  const promoSavings = Math.round(afterMulti * state.promoDiscount);
+  const total = afterMulti - promoSavings;
 
-  if (discount > 0) {
-    const pct = Math.round(discount * 100);
-    // Insert savings row before the total row
-    const totalRow = totalEl.closest('.cart-subtotal');
-    const savingsRow = document.createElement('div');
-    savingsRow.id = 'conf-savings-row';
-    savingsRow.className = 'cart-subtotal';
-    savingsRow.style.marginBottom = '.5rem';
-    savingsRow.innerHTML = `
-      <span class="cart-subtotal-label" style="color:var(--green);">Promo (${pct}% off)</span>
-      <span class="cart-subtotal-amount" style="color:var(--green);">-$${savings}</span>`;
-    totalRow.parentNode.insertBefore(savingsRow, totalRow);
-    totalEl.textContent = `$${total}`;
-    totalEl.style.color = 'var(--gold)';
-  } else {
-    totalEl.textContent = `$${subtotal}`;
-    totalEl.style.color = '';
+  const totalEl = document.getElementById('conf-total');
+  const totalRow = totalEl.closest('.cart-subtotal');
+
+  // Remove any previously inserted discount rows
+  document.querySelectorAll('.conf-discount-row').forEach(el => el.remove());
+
+  if (multiVehicle) {
+    const row = document.createElement('div');
+    row.className = 'cart-subtotal conf-discount-row';
+    row.style.marginBottom = '.5rem';
+    row.innerHTML = `
+      <span class="cart-subtotal-label" style="color:var(--green);">Multi-Vehicle Discount (10% off)</span>
+      <span class="cart-subtotal-amount" style="color:var(--green);">-$${multiSavings}</span>`;
+    totalRow.parentNode.insertBefore(row, totalRow);
   }
+
+  if (state.promoDiscount > 0) {
+    const pct = Math.round(state.promoDiscount * 100);
+    const row = document.createElement('div');
+    row.className = 'cart-subtotal conf-discount-row';
+    row.style.marginBottom = '.5rem';
+    row.innerHTML = `
+      <span class="cart-subtotal-label" style="color:var(--green);">Promo (${pct}% off)</span>
+      <span class="cart-subtotal-amount" style="color:var(--green);">-$${promoSavings}</span>`;
+    totalRow.parentNode.insertBefore(row, totalRow);
+  }
+
+  totalEl.textContent = `$${total}`;
+  totalEl.style.color = (multiVehicle || state.promoDiscount > 0) ? 'var(--gold)' : '';
 }
 
 const PROMO_CODES = {
@@ -1959,11 +1969,18 @@ async function confirmBooking() {
       notes += `- ${item.label} (${item.vehicleLabel})${addons ? ' + '+addons : ''} — $${item.price}\n`;
     });
   }
-  if (state.promoCode) {
-    const rawTotal = state.cart.reduce((s,i)=>s+i.price,0);
-    const savings  = Math.round(rawTotal * state.promoDiscount);
-    const discounted = rawTotal - savings;
-    notes += `\nPromo Code Applied: ${state.promoCode} (${Math.round(state.promoDiscount*100)}% off)\nOriginal Total: $${rawTotal}\nDiscounted Total: $${discounted} (due in person)`;
+  const rawTotal = state.cart.reduce((s,i)=>s+i.price,0);
+  const multiVehicle = state.cart.length > 1;
+  const multiSavings = multiVehicle ? Math.round(rawTotal * 0.10) : 0;
+  const afterMulti = rawTotal - multiSavings;
+  const promoSavings = Math.round(afterMulti * state.promoDiscount);
+  const finalTotal = afterMulti - promoSavings;
+
+  if (multiVehicle || state.promoCode) {
+    notes += `\nPricing Summary:\nSubtotal: $${rawTotal}`;
+    if (multiVehicle) notes += `\nMulti-Vehicle Discount (10%): -$${multiSavings}`;
+    if (state.promoCode) notes += `\nPromo Code (${state.promoCode}, ${Math.round(state.promoDiscount*100)}% off): -$${promoSavings}`;
+    notes += `\nTotal Due: $${finalTotal} (due in person)`;
   }
   if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
 
