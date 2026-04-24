@@ -804,7 +804,7 @@
         </button>
       </div>
       <div class="area-error" id="area-error">
-        Sorry, we don't currently service that location. We serve Fort Collins, Loveland, Windsor, Timnath, Wellington, and surrounding areas within 25 miles of Fort Collins.
+        Sorry, we don't currently service that location. We serve Fort Collins, Loveland, Windsor, Timnath, Wellington, and surrounding areas within 30 miles of Timnath.
       </div>
     </div>
     <div id="next1-btn">
@@ -1197,11 +1197,11 @@ const state = {
 // GOOGLE MAPS
 // ═══════════════════════════════════════════════════════════════════
 let map, marker, autocomplete;
-const FORT_COLLINS = { lat: 40.5853, lng: -105.0844 };
+const TIMNATH = { lat: 40.5272, lng: -104.9611 };
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: FORT_COLLINS,
+    center: TIMNATH,
     zoom: 11,
     disableDefaultUI: true,
     zoomControl: true,
@@ -1294,13 +1294,13 @@ async function handleAddressConfirmed(formatted, lat, lng) {
 function checkServiceArea(lat, lng) {
   // Haversine straight-line distance from Fort Collins center
   const R = 3958.8; // Earth radius in miles
-  const dLat = (lat - FORT_COLLINS.lat) * Math.PI / 180;
-  const dLng = (lng - FORT_COLLINS.lng) * Math.PI / 180;
+  const dLat = (lat - TIMNATH.lat) * Math.PI / 180;
+  const dLng = (lng - TIMNATH.lng) * Math.PI / 180;
   const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(FORT_COLLINS.lat * Math.PI / 180) * Math.cos(lat * Math.PI / 180) *
+            Math.cos(TIMNATH.lat * Math.PI / 180) * Math.cos(lat * Math.PI / 180) *
             Math.sin(dLng/2) * Math.sin(dLng/2);
   const miles = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return Promise.resolve(miles <= 25);
+  return Promise.resolve(miles <= 30);
 }
 
 // ═══════════════════════════════════════════════════════════════════
