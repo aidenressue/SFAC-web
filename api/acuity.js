@@ -4,6 +4,8 @@ const ACUITY_AUTH = Buffer.from(
   `${process.env.ACUITY_USER_ID}:${process.env.ACUITY_API_KEY}`
 ).toString('base64');
 
+const SUPABASE_URL = 'https://janzjvhkpiminuscxzzv.supabase.co';
+
 function extractFromNotes(notes, key) {
   if (!notes) return null;
   const line = notes.split('\n').find(l => l.toLowerCase().startsWith(key.toLowerCase()));
@@ -17,21 +19,43 @@ function extractPromoCode(notes) {
   return match?.[1]?.trim() ?? null;
 }
 
-function extractPromoPercent(notes) {
-  if (!notes) return 0;
-  const match = notes.match(/Promo Code \([^,]+,\s*(\d+)%/i);
-  return match ? parseInt(match[1]) : 0;
-}
-
 function extractTotal(notes) {
   if (!notes) return null;
   const match = notes.match(/Total Due: \$(\d+)/i);
   return match ? parseInt(match[1]) : null;
 }
 
-function acuityRequest(options, bodyStr) {
+function httpsPost(hostname, path, headers, body) {
   return new Promise((resolve, reject) => {
-    const req = https.request(options, (res) => {
+    const bodyStr = JSON.stringify(body);
+    const req = https.request({
+      hostname,
+      path,
+      method: 'POST',
+      headers: { ...headers, 'Content-Length': Buffer.byteLength(bodyStr) },
+    }, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    });
+    req.on('error', reject);
+    req.write(bodyStr);
+    req.end();
+  });
+}
+
+function acuityRequest(method, path, query, bodyStr) {
+  return new Promise((resolve, reject) => {
+    const req = https.request({
+      hostname: 'acuityscheduling.com',
+      path: `/api/v1${path}${query}`,
+      method,
+      headers: {
+        'Authorization': `Basic ${ACUITY_AUTH}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    }, (res) => {
       let data = '';
       res.on('data', chunk => data += chunk);
       res.on('end', () => resolve({ status: res.statusCode, body: data }));
@@ -42,25 +66,42 @@ function acuityRequest(options, bodyStr) {
   });
 }
 
-function notifyInternalApp(payload) {
-  return new Promise((resolve) => {
-    const body = JSON.stringify(payload);
-    const req = https.request({
-      hostname: 'sfac-mu.vercel.app',
-      path: '/api/booking-notification',
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(body),
-      },
-    }, (res) => {
-      res.resume();
-      res.on('end', resolve);
-    });
-    req.on('error', resolve);
-    req.write(body);
-    req.end();
-  });
+async function saveToSupabase(appt, reqBody) {
+  const supabaseKey = process.env.SUPABASE_KEY;
+  if (!supabaseKey) return;
+
+  const notes = reqBody.notes || '';
+  const address = extractFromNotes(notes, 'service address');
+  const promoCode = extractPromoCode(notes);
+  const finalTotal = extractTotal(notes);
+
+  const scheduledDate = (() => {
+    try { return new Date(appt.datetime).toISOString().slice(0, 10); }
+    catch { return appt.date; }
+  })();
+
+  const booking = {
+    client_name:                  `${appt.firstName} ${appt.lastName}`.trim(),
+    service_type:                 appt.type,
+    service_location:             address,
+    scheduled_date:               scheduledDate,
+    scheduled_time:               appt.time,
+    duration_minutes:             appt.duration || null,
+    status:                       'scheduled',
+    source:                       'website_booking',
+    notes:                        notes || null,
+    website_submission_reference: String(appt.id),
+    calendar_event_reference:     null,
+    client_id:                    null,
+    client_type:                  'residential',
+  };
+
+  await httpsPost('janzjvhkpiminuscxzzv.supabase.co', '/rest/v1/bookings', {
+    'Content-Type': 'application/json',
+    'apikey': supabaseKey,
+    'Authorization': `Bearer ${supabaseKey}`,
+    'Prefer': 'return=minimal',
+  }, booking);
 }
 
 module.exports = async function handler(req, res) {
@@ -85,42 +126,13 @@ module.exports = async function handler(req, res) {
     : null;
 
   try {
-    const { status, body: responseBody } = await acuityRequest({
-      hostname: 'acuityscheduling.com',
-      path: `/api/v1${acuityPath}${query}`,
-      method: req.method,
-      headers: {
-        'Authorization': `Basic ${ACUITY_AUTH}`,
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-    }, bodyStr);
+    const { status, body: responseBody } = await acuityRequest(req.method, acuityPath, query, bodyStr);
 
-    // If this was a successful booking creation, notify internal app before responding
     if (isCreateAppointment && (status === 200 || status === 201)) {
       try {
         const appt = JSON.parse(responseBody);
         const reqBody = bodyStr ? JSON.parse(bodyStr) : {};
-        const notes = reqBody.notes || '';
-
-        await notifyInternalApp({
-          acuityId:     appt.id,
-          firstName:    appt.firstName,
-          lastName:     appt.lastName,
-          email:        appt.email,
-          phone:        appt.phone,
-          service:      appt.type,
-          datetime:     appt.datetime,
-          date:         appt.date,
-          time:         appt.time,
-          duration:     appt.duration,
-          address:      extractFromNotes(notes, 'service address'),
-          promoCode:    extractPromoCode(notes),
-          promoPercent: extractPromoPercent(notes),
-          multiVehicle: notes.includes('Additional Vehicles'),
-          finalTotal:   extractTotal(notes),
-          notes,
-        });
+        await saveToSupabase(appt, reqBody);
       } catch (_) {}
     }
 
