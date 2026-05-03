@@ -2030,6 +2030,32 @@ async function confirmBooking() {
     const promoSavings  = Math.round(afterMulti * state.promoDiscount);
     const finalTotal    = afterMulti - promoSavings;
 
+    // Notify internal app (non-blocking)
+    fetch('https://sfac-mu.vercel.app/api/booking-notification', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        acuityId:     result.id,
+        firstName:    state.firstName,
+        lastName:     state.lastName,
+        email:        state.email,
+        phone:        state.phone,
+        service:      primary.label,
+        datetime:     state.selectedTime,
+        date:         result.date,
+        time:         result.time,
+        duration:     result.duration,
+        address:      state.address?.formatted || state.address || null,
+        promoCode:    state.promoCode || null,
+        promoPercent: Math.round(state.promoDiscount * 100),
+        multiVehicle,
+        rawTotal,
+        finalTotal,
+        notes,
+      })
+    }).catch(() => {});
+
+
     document.getElementById('success-sub').textContent =
       `Your ${primary.label} has been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
 
