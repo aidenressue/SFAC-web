@@ -29,6 +29,40 @@ function extractTotal(notes) {
   return match ? parseInt(match[1]) : null;
 }
 
+function acuityRequest(options, bodyStr) {
+  return new Promise((resolve, reject) => {
+    const req = https.request(options, (res) => {
+      let data = '';
+      res.on('data', chunk => data += chunk);
+      res.on('end', () => resolve({ status: res.statusCode, body: data }));
+    });
+    req.on('error', reject);
+    if (bodyStr) req.write(bodyStr);
+    req.end();
+  });
+}
+
+function notifyInternalApp(payload) {
+  return new Promise((resolve) => {
+    const body = JSON.stringify(payload);
+    const req = https.request({
+      hostname: 'sfac-mu.vercel.app',
+      path: '/api/booking-notification',
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
+      },
+    }, (res) => {
+      res.resume();
+      res.on('end', resolve);
+    });
+    req.on('error', resolve);
+    req.write(body);
+    req.end();
+  });
+}
+
 module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
@@ -50,84 +84,51 @@ module.exports = async function handler(req, res) {
     ? (typeof req.body === 'string' ? req.body : JSON.stringify(req.body))
     : null;
 
-  const options = {
-    hostname: 'acuityscheduling.com',
-    path: `/api/v1${acuityPath}${query}`,
-    method: req.method,
-    headers: {
-      'Authorization': `Basic ${ACUITY_AUTH}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
-    },
-  };
+  try {
+    const { status, body: responseBody } = await acuityRequest({
+      hostname: 'acuityscheduling.com',
+      path: `/api/v1${acuityPath}${query}`,
+      method: req.method,
+      headers: {
+        'Authorization': `Basic ${ACUITY_AUTH}`,
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+      },
+    }, bodyStr);
 
-  const proxyReq = https.request(options, (proxyRes) => {
-    res.statusCode = proxyRes.statusCode;
-    res.setHeader('Content-Type', 'application/json');
+    // If this was a successful booking creation, notify internal app before responding
+    if (isCreateAppointment && (status === 200 || status === 201)) {
+      try {
+        const appt = JSON.parse(responseBody);
+        const reqBody = bodyStr ? JSON.parse(bodyStr) : {};
+        const notes = reqBody.notes || '';
 
-    // For appointment creation, buffer the response so we can read + forward it
-    if (isCreateAppointment) {
-      let data = '';
-      proxyRes.on('data', chunk => data += chunk);
-      proxyRes.on('end', () => {
-        res.end(data);
-
-        // If booking was created successfully, notify internal app (server-side, no CORS)
-        if (proxyRes.statusCode === 200 || proxyRes.statusCode === 201) {
-          try {
-            const appt = JSON.parse(data);
-            const reqBody = bodyStr ? JSON.parse(bodyStr) : {};
-            const notes = reqBody.notes || '';
-
-            const address   = extractFromNotes(notes, 'service address');
-            const promoCode = extractPromoCode(notes);
-            const promoPercent = extractPromoPercent(notes);
-            const finalTotal = extractTotal(notes);
-
-            const payload = JSON.stringify({
-              acuityId:     appt.id,
-              firstName:    appt.firstName,
-              lastName:     appt.lastName,
-              email:        appt.email,
-              phone:        appt.phone,
-              service:      appt.type,
-              datetime:     appt.datetime,
-              date:         appt.date,
-              time:         appt.time,
-              duration:     appt.duration,
-              address,
-              promoCode,
-              promoPercent,
-              multiVehicle: notes.includes('Additional Vehicles'),
-              finalTotal,
-              notes,
-            });
-
-            const notifyReq = https.request({
-              hostname: 'sfac-mu.vercel.app',
-              path: '/api/booking-notification',
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-                'Content-Length': Buffer.byteLength(payload),
-              },
-            });
-            notifyReq.on('error', () => {});
-            notifyReq.write(payload);
-            notifyReq.end();
-          } catch (_) {}
-        }
-      });
-    } else {
-      proxyRes.pipe(res);
+        await notifyInternalApp({
+          acuityId:     appt.id,
+          firstName:    appt.firstName,
+          lastName:     appt.lastName,
+          email:        appt.email,
+          phone:        appt.phone,
+          service:      appt.type,
+          datetime:     appt.datetime,
+          date:         appt.date,
+          time:         appt.time,
+          duration:     appt.duration,
+          address:      extractFromNotes(notes, 'service address'),
+          promoCode:    extractPromoCode(notes),
+          promoPercent: extractPromoPercent(notes),
+          multiVehicle: notes.includes('Additional Vehicles'),
+          finalTotal:   extractTotal(notes),
+          notes,
+        });
+      } catch (_) {}
     }
-  });
 
-  proxyReq.on('error', (e) => {
+    res.statusCode = status;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(responseBody);
+  } catch (e) {
     res.statusCode = 500;
     res.end(JSON.stringify({ error: e.message }));
-  });
-
-  if (bodyStr) proxyReq.write(bodyStr);
-  proxyReq.end();
+  }
 };
