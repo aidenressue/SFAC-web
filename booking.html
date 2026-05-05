@@ -711,12 +711,12 @@
     @media (max-width: 768px) {
       :root { --panel-w: 100%; }
 
-      /* map takes top 30%, panel fills the rest down to real bottom */
-      #map.split { right: 0; height: 30vh; bottom: auto; top: 0; }
+      /* map takes top 22%, panel fills the rest — smaller map = more content visible */
+      #map.split { right: 0; height: 22vh; bottom: auto; top: 0; }
       #steps-panel {
-        top: 30vh;
-        bottom: 0;          /* extend to real bottom of viewport */
-        height: auto;       /* don't use vh height — use bottom:0 instead */
+        top: 22vh;
+        bottom: 0;
+        height: auto;
       }
 
       /* tighten panel chrome */
@@ -724,12 +724,17 @@
       .breadcrumb { padding-bottom: .6rem; font-size: .65rem; }
 
       /* all scrollable steps — pad bottom so content isn't behind fixed footer */
-      .step { padding: .85rem 1rem 100px; }
+      .step { padding: .85rem 1rem 120px; }
       .step[style*="padding-bottom:0"] > div:first-child {
         padding: .85rem 1rem;
-        padding-bottom: 100px;  /* room for the fixed footer */
+        padding-bottom: 120px;
       }
       .step-title { font-size: .95rem; margin-bottom: .75rem; }
+
+      /* prevent iOS zoom on input focus — must be 16px+ */
+      .form-input { font-size: 16px !important; }
+      /* stack name fields so they fit on screen */
+      .form-row { grid-template-columns: 1fr !important; }
 
       /* step footer — fixed to bottom of screen so it's ALWAYS visible */
       .step-footer {
