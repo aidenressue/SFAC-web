@@ -562,6 +562,8 @@
       #services .sec-h,#services .sec-sub{text-align:left !important}
       .sec-sub[style*="white-space:nowrap"]{white-space:normal !important}
       .pkg-grid{grid-template-columns:1fr}
+      .pkg-includes{display:none}
+      .pkg-show-more{display:block;width:100%;margin-top:.6rem;background:none;border:1px solid var(--sfac-border);border-radius:8px;color:var(--sfac-gold);font-size:.75rem;font-weight:600;padding:.5rem;cursor:pointer;letter-spacing:.04em}
 
       /* ceramic */
       #ceramic{padding:2.5rem 1.25rem 3rem !important}
@@ -574,15 +576,26 @@
 
       /* reviews */
       .reviews-sec{padding:3rem 1.25rem}
+      .reviews-header{text-align:left !important}
+      .reviews-header .sec-label{justify-content:flex-start !important}
+      .reviews-header .sec-h{text-align:left !important}
+      .reviews-header p{text-align:left !important}
 
       /* portfolio */
       #portfolio{padding:3rem 1.25rem !important}
-      #portfolio > div[style]{grid-template-columns:1fr !important}
+      #portfolio .sec-h,#portfolio .sec-sub{text-align:left !important}
+      #portfolio .sec-label{justify-content:flex-start !important}
+      .ba-grid{grid-template-columns:1fr !important}
+      .ba-grid > div:last-child{display:none}
       .photo-grid{grid-template-columns:1fr}
       .photo-item:first-child{grid-column:span 1}
 
       /* faq */
       .faq-sec{padding:3rem 1.25rem}
+      .faq-sec .sec-h,.faq-sec h2{text-align:left !important}
+      .faq-sec .sec-label{justify-content:flex-start !important}
+      .faq-sec > div > div:first-child{text-align:left !important}
+      .faq-sec p{text-align:left !important}
       .faq-q{font-size:.85rem;padding:1.1rem 1.2rem}
       .faq-a-inner{padding:0 1.2rem 1.2rem}
       .faq-item.open .faq-a{max-height:400px}
@@ -1343,7 +1356,7 @@
   <p class="sec-sub">Drag the slider to see the difference we make on every vehicle.</p>
 
   <!-- Elfsight Before & After Sliders — side by side -->
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:4rem;">
+  <div class="ba-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:1.4rem;margin-bottom:4rem;">
     <div class="elfsight-app-0081b4db-da64-4a2f-862c-8271cf7c70ab" data-elfsight-app-lazy></div>
     <div class="elfsight-app-c812aa86-055b-4446-ad8f-4fe5b5309b61" data-elfsight-app-lazy></div>
   </div>
@@ -1608,6 +1621,25 @@
       if (!isOpen) item.classList.add('open');
     });
   });
+</script>
+
+<script>
+  // Mobile: add Show More toggle to service card bullet lists
+  if (window.innerWidth < 768) {
+    document.querySelectorAll('.pkg-card-body').forEach(body => {
+      const list = body.querySelector('.pkg-includes');
+      if (!list) return;
+      const btn = document.createElement('button');
+      btn.className = 'pkg-show-more';
+      btn.textContent = 'Show details ↓';
+      btn.addEventListener('click', () => {
+        const expanded = list.style.display === 'block';
+        list.style.display = expanded ? 'none' : 'block';
+        btn.textContent = expanded ? 'Show details ↓' : 'Hide details ↑';
+      });
+      body.insertBefore(btn, list);
+    });
+  }
 </script>
 </body>
 </html>
