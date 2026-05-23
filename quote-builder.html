@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Build Your Coating Package | Shine for a Cause — Fort Collins</title>
+  <meta name="description" content="Build your custom ceramic coating package — choose your paint prep level, System X coating tier, and get an instant estimate. Serving Fort Collins and Northern Colorado." />
+  <meta name="robots" content="index, follow" />
+  <link rel="icon" type="image/png" href="/brand_assets/Shine for a Cause LOGO.png" />
+  <link rel="canonical" href="https://shineforacause.com/quote-builder.html" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg:       #0B0B0D;
+      --surface:  #141618;
+      --surface2: #1A1C20;
+      --gold:     #D4A851;
+      --gold-soft:#E0BF7A;
+      --gold-dim: rgba(212,168,81,0.10);
+      --gold-bdr: rgba(212,168,81,0.35);
+      --text:     #FFFFFF;
+      --muted:    #C8CDD6;
+      --border:   #333840;
+      --fh: 'Montserrat', sans-serif;
+      --fb: 'Inter', sans-serif;
+      --radius: 14px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--fb); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(11,11,13,0.94); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 3rem; height: 74px;
+      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
+    }
+    .nav-logo a { display: flex; align-items: center; }
+    .nav-logo img { height: 64px; width: auto; mix-blend-mode: screen; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; justify-content: center; }
+    .nav-cta { display: flex; justify-content: flex-end; align-items: center; gap: .75rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-family: var(--fh); font-size: .75rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; transition: color .2s; }
+    .nav-links a:hover { color: var(--gold); }
+    .btn-gold { background: var(--gold); color: #0B0B0D; border: none; border-radius: 999px; font-family: var(--fh); font-weight: 700; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; padding: .65rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 18px rgba(212,168,81,.25); }
+    .btn-gold:hover { background: var(--gold-soft); transform: translateY(-1px); box-shadow: 0 8px 26px rgba(212,168,81,.38); }
+    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--gold); border-radius: 999px; font-family: var(--fh); font-weight: 700; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; padding: .65rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background .2s, color .2s, transform .15s; }
+    .btn-outline:hover { background: var(--gold); color: #0B0B0D; }
+    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: .4rem; flex-direction: column; gap: 5px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
+    .mobile-nav { display: none; position: fixed; top: 74px; left: 0; right: 0; z-index: 99; background: rgba(11,11,13,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1.5rem 2rem 2rem; flex-direction: column; gap: 1rem; }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav-link { color: var(--muted); text-decoration: none; font-family: var(--fh); font-size: .85rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; padding: .5rem 0; border-bottom: 1px solid var(--border); }
+
+    /* HERO */
+    .page-hero { padding-top: 74px; background: var(--bg); position: relative; overflow: hidden; }
+    .page-hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse, rgba(212,168,81,0.06) 0%, transparent 65%); pointer-events: none; }
+    .page-hero-inner { max-width: 720px; margin: 0 auto; padding: 4rem 3rem 3rem; text-align: center; position: relative; z-index: 1; }
+    .page-hero-label { font-family: var(--fh); font-size: .62rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: .75rem; }
+    .page-hero-label::before, .page-hero-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,168,81,0.4)); }
+    .page-hero-label::after { transform: scaleX(-1); }
+    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 300; line-height: 1.1; letter-spacing: -.02em; color: var(--text); margin-bottom: 1rem; }
+    .page-hero h1 em { color: var(--gold); font-style: italic; }
+    .page-hero p { font-size: .9rem; color: var(--muted); line-height: 1.8; max-width: 520px; margin: 0 auto; }
+
+    /* BUILDER LAYOUT */
+    .builder-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 6rem; display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start; }
+    .builder-steps { display: flex; flex-direction: column; gap: 2rem; }
+
+    /* STEP */
+    .step { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+    .step-header { padding: 1.4rem 1.6rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; }
+    .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-dim); border: 1px solid var(--gold-bdr); display: flex; align-items: center; justify-content: center; font-family: var(--fh); font-size: .65rem; font-weight: 800; color: var(--gold); flex-shrink: 0; }
+    .step-title { font-family: var(--fh); font-size: .88rem; font-weight: 800; color: var(--text); }
+    .step-sub { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+    .step-body { padding: 1.4rem 1.6rem; }
+
+    /* OPTION CARDS */
+    .option-grid { display: grid; gap: .75rem; }
+    .option-grid.cols2 { grid-template-columns: 1fr 1fr; }
+    .option-grid.cols3 { grid-template-columns: repeat(3, 1fr); }
+    .option-card { position: relative; cursor: pointer; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; background: var(--surface2); transition: border-color .2s, background .2s; }
+    .option-card:hover { border-color: var(--gold-bdr); }
+    .option-card.selected { border-color: var(--gold); background: var(--gold-dim); }
+    .option-card input[type=radio] { position: absolute; opacity: 0; pointer-events: none; }
+    .option-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; margin-bottom: .35rem; }
+    .option-name { font-family: var(--fh); font-size: .8rem; font-weight: 800; color: var(--text); }
+    .option-badge { font-family: var(--fh); font-size: .5rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: .18rem .45rem; border-radius: 999px; flex-shrink: 0; }
+    .badge-gold { background: var(--gold); color: #0B0B0D; }
+    .badge-subtle { background: rgba(255,255,255,.07); border: 1px solid var(--border); color: var(--muted); }
+    .badge-premium { background: rgba(212,168,81,.15); border: 1px solid var(--gold-bdr); color: var(--gold); }
+    .option-desc { font-size: .72rem; color: var(--muted); line-height: 1.55; }
+    .option-price { margin-top: .6rem; font-family: var(--fh); font-size: .72rem; color: var(--muted); }
+    .option-price strong { color: var(--gold); font-size: 1rem; font-weight: 800; letter-spacing: -.02em; }
+    .option-check { position: absolute; top: .75rem; right: .75rem; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; transition: all .2s; display: flex; align-items: center; justify-content: center; }
+    .option-card.selected .option-check { background: var(--gold); border-color: var(--gold); }
+    .option-check::after { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: #0B0B0D; opacity: 0; transition: opacity .15s; }
+    .option-card.selected .option-check::after { opacity: 1; }
+
+    /* Coating tier cards */
+    .coating-card { cursor: pointer; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface2); transition: border-color .2s, background .2s; }
+    .coating-card:hover { border-color: var(--gold-bdr); }
+    .coating-card.selected { border-color: var(--gold); }
+    .coating-card input[type=radio] { position: absolute; opacity: 0; pointer-events: none; }
+    .coating-card-header { padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
+    .coating-card-name { font-family: var(--fh); font-size: .82rem; font-weight: 800; color: var(--text); }
+    .coating-card-warranty { font-family: var(--fh); font-size: .55rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: .22rem .55rem; border-radius: 999px; }
+    .coating-card-body { padding: .6rem 1.2rem 1rem; border-top: 1px solid var(--border); }
+    .coating-card-desc { font-size: .72rem; color: var(--muted); line-height: 1.55; margin-bottom: .7rem; }
+    .coating-specs { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .coating-spec { font-size: .62rem; color: var(--muted); background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 6px; padding: .2rem .5rem; }
+    .coating-card-footer { padding: .75rem 1.2rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .coating-card-footer .price-label { font-size: .65rem; color: var(--muted); font-family: var(--fh); }
+    .coating-card-footer .price-val { font-family: var(--fh); font-size: 1.05rem; font-weight: 800; color: var(--gold); letter-spacing: -.02em; }
+    .coating-card.selected .coating-card-header { background: var(--gold-dim); }
+
+    /* Lifetime addon */
+    .lifetime-addon { margin-top: 1rem; border: 1px solid var(--gold-bdr); border-radius: var(--radius); padding: 1rem 1.2rem; background: rgba(212,168,81,0.04); display: none; }
+    .lifetime-addon.visible { display: block; }
+    .lifetime-addon-label { display: flex; align-items: center; gap: .75rem; cursor: pointer; }
+    .lifetime-addon-label input[type=checkbox] { accent-color: var(--gold); width: 14px; height: 14px; }
+    .lifetime-addon-text { font-family: var(--fh); font-size: .78rem; font-weight: 700; color: var(--text); }
+    .lifetime-addon-desc { font-size: .7rem; color: var(--muted); margin-top: .4rem; margin-left: calc(14px + .75rem); line-height: 1.55; }
+
+    /* CONTACT FORM */
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+    .form-field { display: flex; flex-direction: column; gap: .35rem; }
+    .form-field.full { grid-column: 1 / -1; }
+    .form-field label { font-family: var(--fh); font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+    .form-field input, .form-field select, .form-field textarea {
+      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
+      padding: .65rem .9rem; font-size: .82rem; color: var(--text); font-family: var(--fb);
+      outline: none; transition: border-color .2s;
+    }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--gold-bdr); }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); opacity: .5; }
+    .form-field textarea { resize: vertical; min-height: 80px; }
+    .form-field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A7ADB5' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .9rem center; padding-right: 2.5rem; }
+
+    /* ESTIMATE PANEL */
+    .estimate-panel { position: sticky; top: calc(74px + 2rem); background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
+    .estimate-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .75rem; }
+    .estimate-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--gold-dim); border: 1px solid var(--gold-bdr); display: flex; align-items: center; justify-content: center; }
+    .estimate-title { font-family: var(--fh); font-size: .82rem; font-weight: 800; color: var(--text); }
+    .estimate-body { padding: 1.25rem 1.5rem; }
+    .estimate-row { display: flex; justify-content: space-between; align-items: center; padding: .5rem 0; border-bottom: 1px solid rgba(44,49,58,0.6); }
+    .estimate-row:last-of-type { border-bottom: none; }
+    .estimate-row-label { font-size: .73rem; color: var(--muted); }
+    .estimate-row-val { font-family: var(--fh); font-size: .75rem; font-weight: 600; color: var(--text); }
+    .estimate-row-val.empty { color: var(--muted); font-weight: 400; font-style: italic; }
+    .estimate-total { margin-top: 1rem; padding: 1rem; background: var(--gold-dim); border: 1px solid var(--gold-bdr); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; }
+    .estimate-total-label { font-family: var(--fh); font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
+    .estimate-total-val { font-family: var(--fh); font-size: 1.5rem; font-weight: 800; color: var(--gold); letter-spacing: -.02em; }
+    .estimate-note { font-size: .65rem; color: var(--muted); line-height: 1.6; margin-top: .75rem; }
+    .estimate-system-x { margin-top: 1rem; padding: .75rem 1rem; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 10px; }
+    .estimate-system-x-label { font-family: var(--fh); font-size: .55rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
+    .estimate-system-x-name { font-family: var(--fh); font-size: .78rem; font-weight: 700; color: var(--text); }
+    .estimate-system-x-warranty { font-size: .68rem; color: var(--gold); }
+
+    /* SUBMIT */
+    .submit-btn { width: 100%; margin-top: 1.25rem; background: var(--gold); color: #0B0B0D; border: none; border-radius: 10px; font-family: var(--fh); font-weight: 800; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; padding: 1rem 1.5rem; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 18px rgba(212,168,81,.25); }
+    .submit-btn:hover { background: var(--gold-soft); transform: translateY(-1px); box-shadow: 0 8px 26px rgba(212,168,81,.38); }
+    .submit-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
+
+    /* SUCCESS */
+    .success-state { display: none; text-align: center; padding: 2rem; }
+    .success-state.visible { display: block; }
+    .success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; color: var(--text); margin-bottom: .5rem; }
+    .success-sub { font-size: .82rem; color: var(--muted); line-height: 1.7; }
+
+    /* FOOTER */
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 3rem 5rem 2rem; }
+    .footer-inner { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand img { height: 56px; mix-blend-mode: screen; margin-bottom: 1rem; }
+    .footer-brand p { font-size: .8rem; color: var(--muted); line-height: 1.75; max-width: 220px; }
+    .footer-col h4 { font-family: var(--fh); font-size: .65rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
+    .footer-col ul li a { font-size: .8rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--text); }
+    .footer-bot { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+    .footer-bot p { font-size: .72rem; color: var(--muted); }
+    .footer-bot a { color: var(--muted); text-decoration: none; }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .builder-wrap { grid-template-columns: 1fr; }
+      .estimate-panel { position: static; }
+    }
+    @media (max-width: 768px) {
+      nav { padding: 0 1.25rem; grid-template-columns: 1fr auto; }
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .builder-wrap { padding: 2rem 1.25rem 4rem; }
+      .option-grid.cols2, .option-grid.cols3 { grid-template-columns: 1fr; }
+      .form-grid { grid-template-columns: 1fr; }
+      footer { padding: 3rem 1.5rem 2rem; }
+      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <a href="/"><img src="brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause" /></a>
+  </div>
+  <ul class="nav-links">
+    <li><a href="/services.html">Services</a></li>
+    <li><a href="/#ceramic">Ceramic Coating</a></li>
+    <li><a href="/maintenance.html">Maintenance</a></li>
+    <li><a href="/#reviews">Reviews</a></li>
+    <li><a href="/#faq">FAQ</a></li>
+  </ul>
+  <div class="nav-cta">
+    <a href="/booking.html" class="btn-gold" style="padding:.5rem 1.2rem;font-size:.72rem;">Book Now</a>
+    <button class="nav-hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-nav" id="mobileNav">
+  <a href="/services.html" class="mobile-nav-link">Services</a>
+  <a href="/#ceramic" class="mobile-nav-link">Ceramic Coating</a>
+  <a href="/maintenance.html" class="mobile-nav-link">Maintenance</a>
+  <a href="/#reviews" class="mobile-nav-link">Reviews</a>
+  <a href="/#faq" class="mobile-nav-link">FAQ</a>
+  <a href="/booking.html" class="btn-gold" style="margin-top:.5rem;">Book Now</a>
+</div>
+
+<!-- HERO V1 BACKUP
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">System X Certified Installer</div>
+    <h1>Build your<br><em>coating package.</em></h1>
+    <p>Choose your paint prep level and coating tier. We'll send you a confirmed quote and set up your appointment.</p>
+  </div>
+</div>
+END HERO V1 BACKUP -->
+
+<div class="page-hero">
+  <div class="page-hero-inner">
+    <div class="page-hero-label">System X Certified Installer</div>
+    <h1>Build your<br><em>coating package.</em></h1>
+    <p>Choose your paint prep level and coating tier. We'll send you a confirmed quote and set up your appointment.</p>
+    <div style="margin-top:1.75rem;display:flex;align-items:center;justify-content:center;gap:.75rem;flex-wrap:wrap;">
+      <a href="tel:+19702953577" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:#0B0B0D;border-radius:999px;padding:.6rem 1.4rem;font-family:var(--fh);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 18px rgba(212,168,81,.3);transition:background .2s,transform .15s;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.37a16 16 0 0 0 6 6l1.27-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.05z"/></svg>
+        Call or Text
+      </a>
+      <span style="font-size:.75rem;color:var(--muted);">Not sure what you need? We'll walk you through it.</span>
+    </div>
+  </div>
+</div>
+
+<!-- BUILDER -->
+<div class="builder-wrap">
+  <div class="builder-steps" id="builderForm">
+
+    <!-- STEP 1: VEHICLE SIZE -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Vehicle Size</div>
+          <div class="step-sub">Select your vehicle — pricing adjusts automatically</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="option-grid cols2">
+          <label class="option-card selected" data-group="size" data-val="small" data-mult="1.0">
+            <input type="radio" name="size" value="small" checked />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Small</div></div>
+            <div class="option-desc">Coupe / Sedan / Hatchback</div>
+          </label>
+          <label class="option-card" data-group="size" data-val="mid" data-mult="1.2">
+            <input type="radio" name="size" value="mid" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Mid-Size</div></div>
+            <div class="option-desc">Crossover / Mid-Size SUV / Standard Pickup</div>
+          </label>
+          <label class="option-card" data-group="size" data-val="large" data-mult="1.45">
+            <input type="radio" name="size" value="large" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Large</div></div>
+            <div class="option-desc">Full-Size SUV / Crew Cab / Large Truck</div>
+          </label>
+          <label class="option-card" data-group="size" data-val="van">
+            <input type="radio" name="size" value="van" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Van / Oversized</div></div>
+            <div class="option-desc">Minivan / Full-Size Van / Cargo Van / Sprinter</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: PAINT CORRECTION -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Paint Correction</div>
+          <div class="step-sub">Every package starts here — your paint is fully corrected and prepped before the coating goes on</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="option-grid">
+          <label class="option-card selected" data-group="prep" data-val="polish">
+            <input type="radio" name="prep" value="polish" checked />
+            <div class="option-check"></div>
+            <div class="option-card-top">
+              <div class="option-name">Enhancement</div>
+            </div>
+            <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before coating. A fine machine polish then enhances and restores your paint's gloss, bringing out depth and clarity in the clear coat. Best for paint already in good condition. This service does not remove swirl marks or scratches.</div>
+          </label>
+          <label class="option-card" data-group="prep" data-val="one-step">
+            <input type="radio" name="prep" value="one-step" />
+            <div class="option-check"></div>
+            <div class="option-card-top">
+              <div class="option-name">1-Step Correction</div>
+            </div>
+            <div style="margin-bottom:.5rem;"><span class="option-badge badge-gold">Most Common</span></div>
+            <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before correction. A single-stage machine polish removes 65–75% of swirl marks, water spots, and light surface scratches, restoring real clarity and gloss before the coating locks it in.</div>
+          </label>
+          <label class="option-card" data-group="prep" data-val="two-step">
+            <input type="radio" name="prep" value="two-step" />
+            <div class="option-check"></div>
+            <div class="option-card-top">
+              <div class="option-name">2-Step Correction</div>
+            </div>
+            <div style="margin-bottom:.5rem;"><span class="option-badge badge-subtle">Maximum Correction</span></div>
+            <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before correction. A compound cut followed by a fine polish removes 85–95% of swirl marks and surface defects for maximum paint clarity. Scratches that have cut through the clear coat cannot be removed by polishing and are outside the scope of this service.</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: COATING TIER -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Ceramic Coating</div>
+          <div class="step-sub">Choose your System X coating — all tiers are 9H hardness, UV protection, self-cleaning, and Carfax reported</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="option-grid" style="gap:1rem;">
+
+          <!-- Crystal+ -->
+          <label class="coating-card selected" data-group="coating" data-val="crystal">
+            <input type="radio" name="coating" value="crystal" checked />
+            <div class="coating-card-header">
+              <div>
+                <div class="coating-card-name">System X Crystal+</div>
+                <div style="font-size:.65rem;color:var(--muted);margin-top:.15rem;">Entry-level professional ceramic protection</div>
+              </div>
+              <div class="coating-card-warranty" style="background:rgba(167,173,181,.1);border:1px solid var(--border);color:var(--muted);">2-Year Warranty</div>
+            </div>
+            <div class="coating-card-body">
+              <div class="coating-card-desc">Professional-grade 9H ceramic coating with deep gloss, hydrophobic surface, and Boeing-approval tested paint safety. Ideal for vehicles wanting lasting protection at an accessible price point.</div>
+              <div class="coating-specs">
+                <span class="coating-spec">9H Hardness</span>
+                <span class="coating-spec">High Gloss</span>
+                <span class="coating-spec">Hydrophobic</span>
+                <span class="coating-spec">UV Protection</span>
+                <span class="coating-spec">Self-Cleaning</span>
+                <span class="coating-spec">Carfax Reported</span>
+              </div>
+            </div>
+          </label>
+
+          <!-- Pro+ -->
+          <label class="coating-card" data-group="coating" data-val="pro">
+            <input type="radio" name="coating" value="pro" />
+            <div class="coating-card-header">
+              <div>
+                <div class="coating-card-name">System X Pro+</div>
+                <div style="font-size:.65rem;color:var(--muted);margin-top:.15rem;">Long-term ultra-hydrophobic protection</div>
+              </div>
+              <div class="coating-card-warranty" style="background:rgba(212,168,81,.12);border:1px solid var(--gold-bdr);color:var(--gold);">6-Year Warranty</div>
+            </div>
+            <div class="coating-card-body">
+              <div class="coating-card-desc">Ultra-hydrophobic 9H coating with a thicker film for superior chemical and salt resistance. Boeing-approval tested and SGS laboratory verified for hardness. The most popular long-term protection choice.</div>
+              <div class="coating-specs">
+                <span class="coating-spec">9H Hardness</span>
+                <span class="coating-spec">5µm Film</span>
+                <span class="coating-spec">Ultra-Hydrophobic</span>
+                <span class="coating-spec">Boeing Tested</span>
+                <span class="coating-spec">Salt Resistant</span>
+                <span class="coating-spec">Carfax Reported</span>
+              </div>
+            </div>
+          </label>
+
+          <!-- Max G+ -->
+          <label class="coating-card" data-group="coating" data-val="max" id="maxCard">
+            <input type="radio" name="coating" value="max" />
+            <div class="coating-card-header">
+              <div>
+                <div class="coating-card-name">System X Max G+</div>
+                <div style="font-size:.65rem;color:var(--muted);margin-top:.15rem;">The thickest, most durable coating available</div>
+              </div>
+              <div class="coating-card-warranty badge-gold" style="padding:.22rem .55rem;border-radius:999px;font-family:var(--fh);font-size:.55rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;">Lifetime Warranty</div>
+            </div>
+            <div class="coating-card-body">
+              <div class="coating-card-desc">The pinnacle of ceramic protection. 9µm film with outstanding chemical resistance and mirror-like gloss built to last a lifetime. Annual maintenance keeps the lifetime warranty active at $150/yr after year one.</div>
+              <div class="coating-specs">
+                <span class="coating-spec">9H Hardness</span>
+                <span class="coating-spec">9µm Film</span>
+                <span class="coating-spec">Super-Slick Gloss</span>
+                <span class="coating-spec">Chemical Resistant</span>
+                <span class="coating-spec">Lifetime Warranty</span>
+                <span class="coating-spec">Carfax Reported</span>
+              </div>
+            </div>
+          </label>
+
+
+        </div>
+      </div>
+    </div>
+
+    <!-- WARRANTY MAINTENANCE CALLOUT -->
+    <div style="display:flex;align-items:flex-start;gap:1rem;background:rgba(212,168,81,0.06);border:1px solid rgba(212,168,81,0.25);border-radius:14px;padding:1.1rem 1.3rem;">
+      <div style="flex-shrink:0;margin-top:.1rem;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      </div>
+      <div>
+        <div style="font-family:var(--fh);font-size:.75rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Warranty Maintenance — First Year Free on Every Package</div>
+        <div style="font-size:.75rem;color:var(--muted);line-height:1.65;">Every System X coating we install includes a <strong style="color:var(--text);">free first-year inspection and topcoat</strong> to keep your coating performing and your warranty valid. After year one, annual maintenance is $150/yr — we come to you. You can opt out at any time and we'll go over all of it when we confirm your quote.</div>
+      </div>
+    </div>
+
+    <!-- STEP 4: CONTACT -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">4</div>
+        <div>
+          <div class="step-title">Your Info</div>
+          <div class="step-sub">We'll confirm your quote and schedule your appointment</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div id="successState" class="success-state">
+          <div class="success-icon">✓</div>
+          <div class="success-title">Quote sent!</div>
+          <div class="success-sub">We've received your package request and will reach out within 24 hours to confirm pricing and schedule your appointment.</div>
+        </div>
+        <div id="contactFields">
+          <div class="form-grid">
+            <div class="form-field">
+              <label>Full Name</label>
+              <input type="text" id="fName" placeholder="John Smith" required />
+            </div>
+            <div class="form-field">
+              <label>Phone Number</label>
+              <input type="tel" id="fPhone" placeholder="(970) 000-0000" required />
+            </div>
+            <div class="form-field">
+              <label>Email</label>
+              <input type="email" id="fEmail" placeholder="you@email.com" />
+            </div>
+            <div class="form-field">
+              <label>Vehicle Make, Year &amp; Color</label>
+              <input type="text" id="fVehicle" placeholder="2021 Toyota Tacoma, Midnight Black" />
+            </div>
+            <div class="form-field full">
+              <label>Your Address / City</label>
+              <input type="text" id="fAddress" placeholder="Fort Collins, CO" />
+            </div>
+            <div class="form-field">
+              <label>Preferred Timeline</label>
+              <select id="fTimeline">
+                <option value="">Select…</option>
+                <option>As soon as possible</option>
+                <option>Within 2 weeks</option>
+                <option>Within a month</option>
+                <option>Just getting a quote</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label>How did you hear about us?</label>
+              <select id="fSource">
+                <option value="">Select…</option>
+                <option>Facebook / Instagram Ad</option>
+                <option>Google Search</option>
+                <option>Friend / Referral</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="form-field full">
+              <label>Any notes or questions?</label>
+              <textarea id="fNotes" placeholder="Paint condition, special requests, questions about the coating…"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /builder-steps -->
+
+  <!-- ESTIMATE PANEL -->
+  <div class="estimate-panel">
+    <div class="estimate-header">
+      <div class="estimate-icon">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A851" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      </div>
+      <div class="estimate-title">Package Estimate</div>
+    </div>
+    <div class="estimate-body">
+      <div class="estimate-row">
+        <span class="estimate-row-label">Vehicle Size</span>
+        <span class="estimate-row-val" id="est-size">Small</span>
+      </div>
+      <div class="estimate-row">
+        <span class="estimate-row-label">Paint Prep</span>
+        <span class="estimate-row-val" id="est-prep">Enhancement</span>
+      </div>
+      <div class="estimate-row">
+        <span class="estimate-row-label">Coating</span>
+        <span class="estimate-row-val" id="est-coating">System X Crystal+</span>
+      </div>
+      <div class="estimate-row" id="est-lifetime-row" style="display:none;">
+        <span class="estimate-row-label">Lifetime Warranty</span>
+        <span class="estimate-row-val" style="color:var(--gold);">+$150/yr</span>
+      </div>
+      <div class="estimate-total">
+        <div class="estimate-total-label">Estimate</div>
+        <div class="estimate-total-val" id="est-total">$750</div>
+      </div>
+      <div class="estimate-note">Starting estimate — final price confirmed when we reach out. Varies by vehicle condition and any additional prep needed on the day.</div>
+      <div class="estimate-system-x" id="est-product-box">
+        <div class="estimate-system-x-label">System X Product</div>
+        <div class="estimate-system-x-name" id="est-product-name">Crystal+</div>
+        <div class="estimate-system-x-warranty" id="est-product-warranty">2-Year Warranty</div>
+      </div>
+      <div style="display:flex;align-items:center;gap:.75rem;margin-top:.75rem;padding:.75rem 1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
+        <div style="background:#fff;border-radius:6px;padding:3px 6px;flex-shrink:0;display:flex;align-items:center;">
+          <img src="brand_assets/carfax-logo.svg" alt="CARFAX" style="height:18px;width:auto;display:block;" />
+        </div>
+        <span style="font-size:.65rem;color:var(--muted);line-height:1.4;">Your coating is <strong style="color:var(--text);">reported to Carfax</strong> — adding verified, documented value to your vehicle history.</span>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:center;margin-top:.75rem;">
+        <a href="https://www.bbb.org/us/co/timnath/profile/mobile-auto-detailing/shine-for-a-cause-mobile-detailing-llc-0805-46154063/#sealclick" target="_blank" rel="nofollow" style="background:#fff;border-radius:8px;padding:4px 8px;display:inline-flex;align-items:center;">
+          <img src="https://seal-wynco.bbb.org/seals/blue-seal-293-61-bbb-46154063.png" style="border:0;height:50px;width:auto;display:block;" alt="Shine for a Cause Mobile Detailing LLC BBB Business Review" />
+        </a>
+      </div>
+      <button class="submit-btn" id="submitBtn" onclick="submitQuote()">Send Quote Request →</button>
+    </div>
+  </div>
+
+</div><!-- /builder-wrap -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <img src="brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause" />
+      <p>Premium mobile auto detailing serving Northern Colorado — and giving back to those who need it most.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="/services.html#express">Express Detail</a></li>
+        <li><a href="/services.html#executive">Executive Detail</a></li>
+        <li><a href="/services.html#paint-ceramic">Paint Correction</a></li>
+        <li><a href="/services.html#ceramic">Ceramic Coating</a></li>
+        <li><a href="/maintenance.html">Maintenance Program</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/#reviews">Reviews</a></li>
+        <li><a href="/#portfolio">Our Work</a></li>
+        <li><a href="/#faq">FAQ</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:+19702953577">📞 (970) 295-3577</a></li>
+        <li><a href="mailto:shineforacausemd@gmail.com">✉ shineforacausemd@gmail.com</a></li>
+        <li><a>📍 Northern Colorado</a></li>
+        <li><a>⏰ Mon–Sat: 7am – 7pm</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bot">
+    <p>© 2026 Shine for a Cause Mobile Detailing — Fort Collins &amp; Northern Colorado.</p>
+    <a href="https://www.bbb.org/us/co/timnath/profile/mobile-auto-detailing/shine-for-a-cause-mobile-detailing-llc-0805-46154063/#sealclick" target="_blank" rel="nofollow" style="background:#fff;border-radius:8px;padding:4px 8px;display:inline-flex;align-items:center;">
+      <img src="https://seal-wynco.bbb.org/seals/blue-seal-293-61-bbb-46154063.png" style="border:0;height:44px;width:auto;display:block;" alt="Shine for a Cause Mobile Detailing LLC BBB Business Review" />
+    </a>
+    <p><a href="/privacy-policy.html">Privacy Policy</a></p>
+  </div>
+</footer>
+
+<script>
+  // --- Nav ---
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('open'));
+
+  // --- Pricing data (exact prices per size) ---
+  const PREP_PRICES = {
+    polish:     { small: 300, mid: 350,  large: 400,  van: 500  },
+    'one-step': { small: 550, mid: 650,  large: 750,  van: 900  },
+    'two-step': { small: 900, mid: 1000, large: 1100, van: 1400 }
+  };
+  const COATING_PRICES = {
+    crystal: { small: 199, mid: 225, large: 250, van: 300 },
+    pro:     { small: 350, mid: 450, large: 550, van: 600 },
+    max:     { small: 400, mid: 500, large: 600, van: 750 }
+  };
+  const PREP_LABELS = { polish: 'Enhancement', 'one-step': '1-Step Correction', 'two-step': '2-Step Correction' };
+  const COATING_LABELS = { crystal: 'System X Crystal+', pro: 'System X Pro+', max: 'System X Max G+' };
+  const PRODUCT_NAMES = { crystal: 'Crystal+', pro: 'Pro+', max: 'Max G+' };
+  const WARRANTY_LABELS = { crystal: '2-Year Warranty', pro: '6-Year Warranty', max: 'Lifetime Warranty' };
+  const SIZE_LABELS = { small: 'Small', mid: 'Mid-Size', large: 'Large', van: 'Van / Oversized' };
+
+  let sel = { size: 'small', prep: 'polish', coating: 'crystal', lifetime: false };
+
+  function fmt(n) { return '$' + n.toLocaleString(); }
+
+  function updateEstimate() {
+    const sz = sel.size;
+    const prepPrice    = PREP_PRICES[sel.prep][sz];
+    const coatingPrice = COATING_PRICES[sel.coating][sz];
+    const total        = prepPrice + coatingPrice;
+
+    // Update estimate panel
+    document.getElementById('est-size').textContent    = SIZE_LABELS[sz];
+    document.getElementById('est-prep').textContent    = PREP_LABELS[sel.prep];
+    document.getElementById('est-coating').textContent = COATING_LABELS[sel.coating];
+    document.getElementById('est-total').textContent   = fmt(total);
+    document.getElementById('est-product-name').textContent    = PRODUCT_NAMES[sel.coating];
+    document.getElementById('est-product-warranty').textContent = sel.lifetime && sel.coating === 'max' ? 'Lifetime Warranty' : WARRANTY_LABELS[sel.coating];
+
+    // Lifetime row
+    document.getElementById('est-lifetime-row').style.display = sel.lifetime && sel.coating === 'max' ? 'flex' : 'none';
+
+    // Show/hide lifetime addon
+    document.getElementById('lifetimeAddon').classList.toggle('visible', sel.coating === 'max');
+
+  }
+
+  // Option card selection
+  document.querySelectorAll('.option-card').forEach(card => {
+    card.addEventListener('click', () => {
+      const group = card.dataset.group;
+      const val = card.dataset.val;
+      document.querySelectorAll(`.option-card[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      card.querySelector('input[type=radio]').checked = true;
+      sel[group] = val;
+      updateEstimate();
+    });
+  });
+
+  // Coating card selection
+  document.querySelectorAll('.coating-card').forEach(card => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.coating-card').forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      card.querySelector('input[type=radio]').checked = true;
+      sel.coating = card.dataset.val;
+      updateEstimate();
+    });
+  });
+
+  // Lifetime checkbox
+  document.getElementById('lifetimeCheck').addEventListener('change', e => {
+    sel.lifetime = e.target.checked;
+    updateEstimate();
+  });
+
+  // Init
+  updateEstimate();
+
+  // Submit
+  async function submitQuote() {
+    const name = document.getElementById('fName').value.trim();
+    const phone = document.getElementById('fPhone').value.trim();
+    const email = document.getElementById('fEmail').value.trim();
+    const vehicle = document.getElementById('fVehicle').value.trim();
+    const address = document.getElementById('fAddress').value.trim();
+    const timeline = document.getElementById('fTimeline').value;
+    const notes = document.getElementById('fNotes').value.trim();
+
+    if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+
+    const btn = document.getElementById('submitBtn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    const total = PREP_PRICES[sel.prep][sel.size] + COATING_PRICES[sel.coating][sel.size];
+    const service = `${COATING_LABELS[sel.coating]} — ${PREP_LABELS[sel.prep]} — ${SIZE_LABELS[sel.size]}${sel.lifetime ? ' + Lifetime Warranty' : ''}`;
+    const notesOut = `[Coating Quote] ${service} | Estimate: $${total.toLocaleString()}${vehicle ? ` | Vehicle: ${vehicle}` : ''}${timeline ? ` | Timeline: ${timeline}` : ''}${notes ? ` | Notes: ${notes}` : ''}`;
+
+    try {
+      const res = await fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          full_name: name,
+          phone,
+          email,
+          address,
+          service,
+          vehicle_type: vehicle,
+          timeline,
+          platform: 'WEB',
+          notes: notesOut,
+        }),
+      });
+      if (res.ok || res.status === 201) {
+        document.getElementById('contactFields').style.display = 'none';
+        document.getElementById('successState').classList.add('visible');
+        btn.style.display = 'none';
+      } else {
+        throw new Error('Server error');
+      }
+    } catch {
+      btn.textContent = 'Send Quote Request →';
+      btn.disabled = false;
+      alert('Something went wrong — please call or text us at (970) 295-3577.');
+    }
+  }
+</script>
+</body>
+</html>

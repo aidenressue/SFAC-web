@@ -1042,7 +1042,6 @@ const PACKAGE_TYPES = [
   { key: 'interior',    label: 'Interior',          desc: 'Deep clean inside your vehicle',              color: '#7a6fff' },
   { key: 'exterior',    label: 'Exterior',          desc: 'Full paint care & protection outside',        color: '#52c77a' },
   { key: 'full',        label: 'Full Detail',       desc: 'Complete inside & out treatment',             color: '#D4A851' },
-  { key: 'ceramic',     label: 'Ceramic Coating',   desc: 'JADE certified coating with warranty', color: '#7ab4ff' },
   { key: 'paint',       label: 'Paint Correction',  desc: 'Machine polish to restore gloss & fix swirls', color: '#D4A851' }
 ];
 
@@ -1111,22 +1110,6 @@ const SERVICE_CONFIGS = {
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
-  'ceramic-1step': {
-    label: '1-Step Ceramic Coating', packageType: 'ceramic', tier: '1step',
-    description: 'Full decontamination, 1-step machine polish, and JADE certified ceramic coating — backed by a 4-year warranty.',
-    bullets: ['Full paint decontamination with clay bar', '1-step machine polish — light swirls & scratches removed', 'JADE 4-year nano-ceramic coating applied', 'Hydrophobic surface — water beads and rolls off', 'UV protection prevents paint fade', '4-year warranty'],
-    pricing: { small:799, mid:850, large:900, van:1000 },
-    acuityIds: { small:91815440, mid:91815483, large:91815511, van:91815521 },
-    addons: ['headlight','engine','trim']
-  },
-  'ceramic-2step': {
-    label: '2-Step Ceramic Coating', packageType: 'ceramic', tier: '2step',
-    description: 'Full decontamination, deep 2-step machine correction, and JADE 7-year nano-ceramic coating applied — plus rim coating included. 7-year warranty.',
-    bullets: ['Full paint decontamination with clay bar', '2-step correction: compound cut + fine polish', 'Deep scratches and oxidation removed', 'JADE 7–8 year nano-ceramic coating applied', 'Rim coating included', 'Hydrophobic + UV protection layer', 'UV protection prevents paint fade', '7-year warranty'],
-    pricing: { small:1100, mid:1200, large:1300, van:1500 },
-    acuityIds: { small:91815583, mid:91815597, large:91815615, van:91815638 },
-    addons: ['headlight','engine','trim']
-  }
 };
 
 const ADDON_DEFS = {
@@ -1160,7 +1143,6 @@ const PACKAGE_TIERS = {
   exterior: ['express','executive'],
   full:     ['express','executive'],
   paint:    ['1step','2step'],
-  ceramic:  ['1step','2step']
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1455,17 +1437,11 @@ function packageIllus(key) {
     </div>`;
   }
   // Ceramic Coating
-  if (key === 'ceramic') {
-    return `<div class="pkg-illus" style="background:#fff;">
-      <img class="pkg-car-img" src="web.screenshots/Ceramic coating PKG.png" alt="ceramic coating" style="object-fit:contain;height:110px;mix-blend-mode:multiply;" />
-    </div>`;
-  }
   return `<div class="pkg-illus"></div>`;
 }
 
 function buildSvcKey(tier, pkgType) {
-  if (pkgType === 'ceramic') return `ceramic-${tier}`;
-  if (pkgType === 'paint')   return `paint-${tier}`;
+  if (pkgType === 'paint') return `paint-${tier}`;
   return `${tier}-${pkgType}`;
 }
 
@@ -1495,8 +1471,7 @@ function selectPackage(key) {
 function renderTiers() {
   const tiers = PACKAGE_TIERS[state.packageType] || [];
   document.getElementById('tier-title').textContent =
-    state.packageType === 'ceramic' ? 'Select Ceramic Level' :
-    state.packageType === 'paint'   ? 'Select Correction Level' :
+    state.packageType === 'paint' ? 'Select Correction Level' :
     'Select Detail Level';
 
   const grid = document.getElementById('tier-grid');
@@ -1536,8 +1511,6 @@ function getDuration(svcKey, vehicle) {
     'executive-full':    { small:330, mid:340, large:350, van:360 },
     'paint-1step':       { small:300, mid:320, large:340, van:360 },
     'paint-2step':       { small:360, mid:380, large:400, van:420 },
-    'ceramic-1step':     { small:420, mid:430, large:440, van:450 },
-    'ceramic-2step':     { small:480, mid:490, large:500, van:510 },
   };
   return durations[svcKey]?.[vehicle] || 0;
 }
