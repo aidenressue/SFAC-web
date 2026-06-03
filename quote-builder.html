@@ -749,9 +749,6 @@ END HERO V1 BACKUP -->
     // Lifetime row
     document.getElementById('est-lifetime-row').style.display = sel.lifetime && sel.coating === 'max' ? 'flex' : 'none';
 
-    // Show/hide lifetime addon
-    document.getElementById('lifetimeAddon').classList.toggle('visible', sel.coating === 'max');
-
     // Update mobile sticky bar
     const fmtTotal = fmt(total);
     document.getElementById('mob-total').textContent  = fmtTotal;
@@ -760,18 +757,16 @@ END HERO V1 BACKUP -->
     document.getElementById('mob-prep').textContent   = PREP_LABELS[sel.prep] + ' · ' + SIZE_LABELS[sz];
 
     const rows = [
-      { label: 'Paint Prep',   val: fmt(prepPrice),    gold: false },
-      { label: 'Coating',      val: fmt(coatingPrice), gold: false },
+      { label: 'Paint Prep',        val: fmt(prepPrice),    cls: '' },
+      { label: 'Coating',           val: fmt(coatingPrice), cls: '' },
     ];
-    if (lifetimePrice) rows.push({ label: 'Lifetime Warranty', val: '+$150/yr', gold: true });
-    rows.push({ label: 'Windshield Coating', val: 'FREE', green: true });
+    if (lifetimePrice) rows.push({ label: 'Lifetime Warranty', val: '+$150/yr', cls: ' gold' });
+    rows.push({ label: 'Windshield Coating', val: 'FREE', cls: ' green' });
 
     document.getElementById('mob-rows').innerHTML = rows.map(r => `
       <div class="mobile-total-row">
         <span class="mobile-total-row-label">${r.label}</span>
-        <span class="mobile-total-row-val${r.gold ? ' gold' : r.green ? ' green' : ''}">
-          ${r.gold || r.green ? r.val : '$' + r.val}
-        </span>
+        <span class="mobile-total-row-val${r.cls}">${r.val}</span>
       </div>`).join('');
   }
 
@@ -806,12 +801,6 @@ END HERO V1 BACKUP -->
       sel.coating = card.dataset.val;
       updateEstimate();
     });
-  });
-
-  // Lifetime checkbox
-  document.getElementById('lifetimeCheck').addEventListener('change', e => {
-    sel.lifetime = e.target.checked;
-    updateEstimate();
   });
 
   // Init
