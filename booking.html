@@ -1170,7 +1170,7 @@ const state = {
 
   // Customer
   email: '', firstName: '', lastName: '', phone: '',
-  promoCode: '', promoDiscount: 0, comments: ''
+  promoCode: '', promoDiscount: 0, promoFlatAmount: 0, comments: ''
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1856,9 +1856,11 @@ function renderConfirmationTotals() {
   const multiVehicle = state.cart.length > 1;
   const multiSavings = multiVehicle ? Math.round(subtotal * 0.10) : 0;
   const afterMulti = subtotal - multiSavings;
-  const promoSavings = Math.round(afterMulti * state.promoDiscount);
+  const promoSavings = state.promoDiscount > 0
+    ? Math.round(afterMulti * state.promoDiscount)
+    : Math.min(state.promoFlatAmount, afterMulti);
   const total = afterMulti - promoSavings;
-  const hasDiscount = multiVehicle || state.promoDiscount > 0;
+  const hasDiscount = multiVehicle || state.promoDiscount > 0 || state.promoFlatAmount > 0;
 
   const block = document.getElementById('conf-totals-block');
 
@@ -1887,6 +1889,12 @@ function renderConfirmationTotals() {
         <span class="cart-subtotal-label" style="color:#4ade80;">Promo Code — ${state.promoCode} (${pct}% off)</span>
         <span class="cart-subtotal-amount" style="color:#4ade80;">-$${promoSavings}</span>
       </div>`;
+  } else if (state.promoFlatAmount > 0) {
+    html += `
+      <div class="cart-subtotal" style="margin-bottom:.5rem;">
+        <span class="cart-subtotal-label" style="color:#4ade80;">Promo Code — ${state.promoCode} ($${state.promoFlatAmount} off)</span>
+        <span class="cart-subtotal-amount" style="color:#4ade80;">-$${promoSavings}</span>
+      </div>`;
   }
 
   if (hasDiscount) {
@@ -1907,7 +1915,13 @@ function renderConfirmationTotals() {
 }
 
 const PROMO_CODES = {
-  'SFAC20': 0.20
+  'SFAC10': { type: 'percent', value: 0.10 },
+  'SFAC20': { type: 'percent', value: 0.20 },
+  'SFAC50': {
+    type: 'flat', value: 50,
+    requires: 'full',
+    requiresMsg: 'SFAC50 is only valid on Full Detail packages (Interior + Exterior combined). It can\'t be applied to an Interior-only or Exterior-only booking — select a Full Detail package and try again.'
+  }
 };
 
 async function applyPromo() {
@@ -1917,20 +1931,38 @@ async function applyPromo() {
 
   msgEl.className = 'promo-msg';
 
-  const discount = PROMO_CODES[code];
-  if (!discount) {
+  const promo = PROMO_CODES[code];
+  if (!promo) {
     state.promoCode = '';
     state.promoDiscount = 0;
+    state.promoFlatAmount = 0;
     msgEl.textContent = 'Invalid promo code. Please try again.';
     msgEl.className = 'promo-msg err';
     renderConfirmationTotals();
     return;
   }
 
+  // Check package type restriction
+  if (promo.requires && state.packageType !== promo.requires) {
+    state.promoCode = '';
+    state.promoDiscount = 0;
+    state.promoFlatAmount = 0;
+    msgEl.textContent = promo.requiresMsg;
+    msgEl.className = 'promo-msg err';
+    renderConfirmationTotals();
+    return;
+  }
+
   state.promoCode = code;
-  state.promoDiscount = discount;
-  const pct = Math.round(discount * 100);
-  msgEl.textContent = `✓ ${pct}% off applied!`;
+  if (promo.type === 'percent') {
+    state.promoDiscount = promo.value;
+    state.promoFlatAmount = 0;
+    msgEl.textContent = `✓ ${Math.round(promo.value * 100)}% off applied!`;
+  } else {
+    state.promoDiscount = 0;
+    state.promoFlatAmount = promo.value;
+    msgEl.textContent = `✓ $${promo.value} off applied!`;
+  }
   msgEl.className = 'promo-msg ok';
   renderConfirmationTotals();
 }
@@ -1960,13 +1992,18 @@ async function confirmBooking() {
   const multiVehicle = state.cart.length > 1;
   const multiSavings = multiVehicle ? Math.round(rawTotal * 0.10) : 0;
   const afterMulti = rawTotal - multiSavings;
-  const promoSavings = Math.round(afterMulti * state.promoDiscount);
+  const promoSavings = state.promoDiscount > 0
+    ? Math.round(afterMulti * state.promoDiscount)
+    : Math.min(state.promoFlatAmount, afterMulti);
   const finalTotal = afterMulti - promoSavings;
 
   if (multiVehicle || state.promoCode) {
     notes += `\nPricing Summary:\nSubtotal: $${rawTotal}`;
     if (multiVehicle) notes += `\nMulti-Vehicle Discount (10%): -$${multiSavings}`;
-    if (state.promoCode) notes += `\nPromo Code (${state.promoCode}, ${Math.round(state.promoDiscount*100)}% off): -$${promoSavings}`;
+    if (state.promoCode) {
+      if (state.promoDiscount > 0) notes += `\nPromo Code (${state.promoCode}, ${Math.round(state.promoDiscount*100)}% off): -$${promoSavings}`;
+      else notes += `\nPromo Code (${state.promoCode}, $${state.promoFlatAmount} off): -$${promoSavings}`;
+    }
     notes += `\nTotal Due: $${finalTotal} (due in person)`;
   }
   if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
