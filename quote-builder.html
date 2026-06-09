@@ -93,6 +93,9 @@
     .badge-subtle { background: rgba(255,255,255,.07); border: 1px solid var(--border); color: var(--muted); }
     .badge-premium { background: rgba(212,168,81,.15); border: 1px solid var(--gold-bdr); color: var(--gold); }
     .option-desc { font-size: .72rem; color: var(--muted); line-height: 1.55; }
+    .option-includes { list-style: none; margin: .6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: .3rem; }
+    .option-includes li { font-size: .69rem; color: var(--muted); line-height: 1.4; padding-left: 1rem; position: relative; }
+    .option-includes li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-size: .6rem; font-weight: 700; top: .05rem; }
     .option-price { margin-top: .6rem; font-family: var(--fh); font-size: .72rem; color: var(--muted); }
     .option-price strong { color: var(--gold); font-size: 1rem; font-weight: 800; letter-spacing: -.02em; }
     .option-check { position: absolute; top: .75rem; right: .75rem; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; transition: all .2s; display: flex; align-items: center; justify-content: center; }
@@ -361,6 +364,12 @@ END HERO V1 BACKUP -->
               <div class="option-name">Enhancement</div>
             </div>
             <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before coating. A fine machine polish then enhances and restores your paint's gloss, bringing out depth and clarity in the clear coat. Best for paint already in good condition. This service does not remove swirl marks or scratches.</div>
+            <ul class="option-includes">
+              <li>Iron remover &amp; clay bar decontamination</li>
+              <li>Fine machine polish — enhances gloss &amp; clarity</li>
+              <li>Best for paint already in good condition</li>
+              <li>Does <em>not</em> remove swirl marks or scratches</li>
+            </ul>
           </label>
           <label class="option-card" data-group="prep" data-val="one-step">
             <input type="radio" name="prep" value="one-step" />
@@ -370,6 +379,13 @@ END HERO V1 BACKUP -->
             </div>
             <div style="margin-bottom:.5rem;"><span class="option-badge badge-gold">Most Common</span></div>
             <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before correction. A single-stage machine polish removes 65–75% of swirl marks, water spots, and light surface scratches, restoring real clarity and gloss before the coating locks it in.</div>
+            <ul class="option-includes">
+              <li>Iron remover &amp; clay bar decontamination</li>
+              <li>Single-stage machine polish</li>
+              <li>65–75% swirl mark &amp; water spot removal</li>
+              <li>Restored gloss and paint clarity</li>
+              <li>Full executive exterior detail included</li>
+            </ul>
           </label>
           <label class="option-card" data-group="prep" data-val="two-step">
             <input type="radio" name="prep" value="two-step" />
@@ -379,6 +395,13 @@ END HERO V1 BACKUP -->
             </div>
             <div style="margin-bottom:.5rem;"><span class="option-badge badge-subtle">Maximum Correction</span></div>
             <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before correction. A compound cut followed by a fine polish removes 85–95% of swirl marks and surface defects for maximum paint clarity. Scratches that have cut through the clear coat cannot be removed by polishing and are outside the scope of this service.</div>
+            <ul class="option-includes">
+              <li>Iron remover &amp; clay bar decontamination</li>
+              <li>Compound cut — removes deeper defects</li>
+              <li>Fine polish stage for maximum clarity</li>
+              <li>85–95% swirl mark &amp; defect removal</li>
+              <li>Full executive exterior detail included</li>
+            </ul>
           </label>
         </div>
       </div>
@@ -408,6 +431,14 @@ END HERO V1 BACKUP -->
             </div>
             <div class="coating-card-body">
               <div class="coating-card-desc">Professional-grade 9H ceramic coating with deep gloss, hydrophobic surface, and Boeing-approval tested paint safety. Ideal for vehicles wanting lasting protection at an accessible price point.</div>
+              <ul class="option-includes">
+                <li>9H ceramic hardness — scratch &amp; UV resistant</li>
+                <li>Deep gloss &amp; hydrophobic finish</li>
+                <li>Boeing-approval tested for paint safety</li>
+                <li>Self-cleaning surface</li>
+                <li>2-year manufacturer warranty</li>
+                <li>Reported to Carfax</li>
+              </ul>
               <div class="coating-specs">
                 <span class="coating-spec">9H Hardness</span>
                 <span class="coating-spec">High Gloss</span>
@@ -431,6 +462,14 @@ END HERO V1 BACKUP -->
             </div>
             <div class="coating-card-body">
               <div class="coating-card-desc">Ultra-hydrophobic 9H coating with a thicker film for superior chemical and salt resistance. Boeing-approval tested and SGS laboratory verified for hardness. The most popular long-term protection choice.</div>
+              <ul class="option-includes">
+                <li>9H hardness — 5µm thick film</li>
+                <li>Ultra-hydrophobic surface</li>
+                <li>Superior chemical &amp; salt resistance</li>
+                <li>Boeing tested, SGS lab verified</li>
+                <li>6-year manufacturer warranty</li>
+                <li>Reported to Carfax</li>
+              </ul>
               <div class="coating-specs">
                 <span class="coating-spec">9H Hardness</span>
                 <span class="coating-spec">5µm Film</span>
@@ -454,6 +493,14 @@ END HERO V1 BACKUP -->
             </div>
             <div class="coating-card-body">
               <div class="coating-card-desc">The pinnacle of ceramic protection. 9µm film with outstanding chemical resistance and mirror-like gloss built to last a lifetime. Annual maintenance keeps the lifetime warranty active at $150/yr after year one.</div>
+              <ul class="option-includes">
+                <li>9H hardness — 9µm film (thickest available)</li>
+                <li>Mirror-like gloss, super-slick finish</li>
+                <li>Outstanding chemical resistance</li>
+                <li>Lifetime manufacturer warranty</li>
+                <li>First annual service included free</li>
+                <li>Reported to Carfax</li>
+              </ul>
               <div class="coating-specs">
                 <span class="coating-spec">9H Hardness</span>
                 <span class="coating-spec">9µm Film</span>
@@ -533,6 +580,20 @@ END HERO V1 BACKUP -->
         <span class="estimate-row-label">Windshield Coating</span>
         <span class="estimate-row-val" style="color:#22c55e;font-weight:700;">FREE</span>
       </div>
+      <!-- Discount toggle (internal use) -->
+      <div style="margin-bottom:.75rem;padding:.75rem;background:rgba(212,168,81,.06);border:1px solid rgba(212,168,81,.2);border-radius:10px;">
+        <div style="font-family:var(--fh);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;">Discount</div>
+        <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
+          <button id="disc-pct-btn" onclick="setDiscountType('percent')" style="flex:1;padding:.35rem .5rem;font-family:var(--fh);font-size:.72rem;font-weight:700;border-radius:6px;border:1px solid var(--gold);background:var(--gold);color:#0E0E10;cursor:pointer;transition:all .15s;">% Off</button>
+          <button id="disc-flat-btn" onclick="setDiscountType('flat')" style="flex:1;padding:.35rem .5rem;font-family:var(--fh);font-size:.72rem;font-weight:700;border-radius:6px;border:1px solid rgba(212,168,81,.3);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;">$ Off</button>
+        </div>
+        <div style="display:flex;align-items:center;gap:.4rem;">
+          <span id="disc-prefix" style="font-family:var(--fh);font-size:.85rem;font-weight:700;color:var(--muted);">%</span>
+          <input id="disc-input" type="number" min="0" placeholder="0" oninput="updateEstimate()" style="flex:1;background:var(--surface2,#1a1a1e);border:1px solid var(--border);border-radius:6px;padding:.35rem .6rem;font-family:var(--fh);font-size:.85rem;font-weight:700;color:var(--text);outline:none;width:100%;" />
+          <span style="font-size:.65rem;color:var(--muted);white-space:nowrap;" id="disc-saved"></span>
+        </div>
+      </div>
+
       <div class="estimate-total">
         <div class="estimate-total-label">Estimate</div>
         <div class="estimate-total-val" id="est-total">$750</div>
@@ -728,15 +789,59 @@ END HERO V1 BACKUP -->
   const SIZE_LABELS = { small: 'Small', mid: 'Mid-Size', large: 'Large', van: 'Van / Oversized' };
 
   let sel = { size: 'small', prep: 'polish', coating: 'crystal', lifetime: false };
+  let discountType = 'percent'; // 'percent' | 'flat'
 
   function fmt(n) { return '$' + n.toLocaleString(); }
+
+  function setDiscountType(type) {
+    discountType = type;
+    const pctBtn  = document.getElementById('disc-pct-btn');
+    const flatBtn = document.getElementById('disc-flat-btn');
+    const prefix  = document.getElementById('disc-prefix');
+    if (type === 'percent') {
+      pctBtn.style.background  = 'var(--gold)';
+      pctBtn.style.color       = '#0E0E10';
+      pctBtn.style.borderColor = 'var(--gold)';
+      flatBtn.style.background = 'transparent';
+      flatBtn.style.color      = 'var(--muted)';
+      flatBtn.style.borderColor = 'rgba(212,168,81,.3)';
+      prefix.textContent = '%';
+    } else {
+      flatBtn.style.background  = 'var(--gold)';
+      flatBtn.style.color       = '#0E0E10';
+      flatBtn.style.borderColor = 'var(--gold)';
+      pctBtn.style.background   = 'transparent';
+      pctBtn.style.color        = 'var(--muted)';
+      pctBtn.style.borderColor  = 'rgba(212,168,81,.3)';
+      prefix.textContent = '$';
+    }
+    document.getElementById('disc-input').value = '';
+    document.getElementById('disc-saved').textContent = '';
+    updateEstimate();
+  }
 
   function updateEstimate() {
     const sz = sel.size;
     const prepPrice    = PREP_PRICES[sel.prep][sz];
     const coatingPrice = COATING_PRICES[sel.coating][sz];
     const lifetimePrice = (sel.lifetime && sel.coating === 'max') ? 150 : 0;
-    const total        = prepPrice + coatingPrice + lifetimePrice;
+    const baseTotal    = prepPrice + coatingPrice + lifetimePrice;
+
+    // Calculate discount
+    const discVal = parseFloat(document.getElementById('disc-input')?.value) || 0;
+    let discountAmt = 0;
+    if (discVal > 0) {
+      if (discountType === 'percent') {
+        discountAmt = Math.round(baseTotal * Math.min(discVal, 100) / 100);
+      } else {
+        discountAmt = Math.min(discVal, baseTotal);
+      }
+    }
+    const total = baseTotal - discountAmt;
+
+    // Update discount saved label
+    const savedEl = document.getElementById('disc-saved');
+    if (savedEl) savedEl.textContent = discountAmt > 0 ? `saves $${discountAmt}` : '';
 
     // Update estimate panel
     document.getElementById('est-size').textContent    = SIZE_LABELS[sz];
@@ -762,6 +867,7 @@ END HERO V1 BACKUP -->
     ];
     if (lifetimePrice) rows.push({ label: 'Lifetime Warranty', val: '+$150/yr', cls: ' gold' });
     rows.push({ label: 'Windshield Coating', val: 'FREE', cls: ' green' });
+    if (discountAmt > 0) rows.push({ label: discountType === 'percent' ? `Discount (${discVal}%)` : `Discount ($${discVal} off)`, val: `-$${discountAmt}`, cls: ' green' });
 
     document.getElementById('mob-rows').innerHTML = rows.map(r => `
       <div class="mobile-total-row">
@@ -856,6 +962,7 @@ END HERO V1 BACKUP -->
           phone,
           address,
           service,
+          vehicle: SIZE_LABELS[sel.size] || sel.size,
           timeline,
           platform: 'WEB',
           notes: notesOut,
