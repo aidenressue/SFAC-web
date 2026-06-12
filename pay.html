@@ -35,23 +35,11 @@
     .header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 20px 24px;
+      padding: 18px 24px;
       text-align: center;
     }
-    .header-logo {
-      font-family: var(--font-h);
-      font-size: 1rem;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      color: var(--text);
-    }
-    .header-sub {
-      font-size: 0.7rem;
-      color: var(--muted);
-      margin-top: 2px;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
+    .header-logo { font-family: var(--font-h); font-size: 1rem; font-weight: 800; letter-spacing: 0.04em; }
+    .header-sub  { font-size: 0.68rem; color: var(--muted); margin-top: 2px; letter-spacing: 0.06em; text-transform: uppercase; }
 
     /* ── Main ── */
     .main {
@@ -59,10 +47,10 @@
       max-width: 480px;
       width: 100%;
       margin: 0 auto;
-      padding: 28px 16px 48px;
+      padding: 24px 16px 48px;
       display: flex;
       flex-direction: column;
-      gap: 20px;
+      gap: 16px;
     }
 
     /* ── Invoice card ── */
@@ -73,37 +61,123 @@
       padding: 24px;
       text-align: center;
     }
-    .invoice-for {
-      font-size: 0.75rem;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 6px;
+    .invoice-for    { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .invoice-amount { font-family: var(--font-h); font-size: 2.8rem; font-weight: 800; color: var(--gold); line-height: 1; }
+    .invoice-num    { font-size: 0.68rem; color: var(--muted); margin-top: 8px; font-family: monospace; letter-spacing: 0.05em; }
+    .invoice-note   { font-size: 0.75rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+    /* ── Tip card ── */
+    .tip-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
     }
-    .invoice-amount {
+    .tip-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+    .tip-title {
       font-family: var(--font-h);
-      font-size: 2.8rem;
-      font-weight: 800;
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .tip-charity {
+      font-size: 0.65rem;
       color: var(--gold);
-      line-height: 1;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
     }
-    .invoice-num {
-      font-size: 0.7rem;
+    .tip-presets {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .tip-btn {
+      padding: 10px 4px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg);
       color: var(--muted);
-      margin-top: 8px;
-      font-family: monospace;
-      letter-spacing: 0.05em;
+      font-family: var(--font-h);
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+      -webkit-tap-highlight-color: transparent;
     }
-    .invoice-note {
+    .tip-btn:active { transform: scale(0.95); }
+    .tip-btn.active {
+      border-color: var(--gold);
+      background: rgba(212,168,81,0.1);
+      color: var(--gold);
+    }
+    .tip-custom-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .tip-custom-wrap {
+      position: relative;
+      flex: 1;
+    }
+    .tip-custom-wrap span {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    .tip-custom-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 10px 12px 10px 24px;
+      color: var(--text);
+      font-family: var(--font-b);
+      font-size: 0.9rem;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+    .tip-custom-input:focus { border-color: var(--gold); }
+    .tip-custom-input::placeholder { color: var(--muted); }
+    .tip-clear {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--muted);
+      padding: 10px 14px;
+      cursor: pointer;
       font-size: 0.78rem;
-      color: var(--muted);
-      margin-top: 8px;
-      font-style: italic;
+      font-family: var(--font-b);
+      transition: all 0.15s;
+      white-space: nowrap;
     }
+    .tip-clear:hover { border-color: var(--muted); color: var(--text); }
+
+    .tip-total {
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .tip-total-label { font-size: 0.78rem; color: var(--muted); }
+    .tip-total-amount { font-family: var(--font-h); font-size: 1.2rem; font-weight: 800; color: var(--gold); }
+    .tip-total-note   { font-size: 0.65rem; color: var(--gold); margin-top: 2px; text-align: right; }
 
     /* ── Section label ── */
     .section-label {
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.12em;
@@ -112,17 +186,13 @@
     }
 
     /* ── Payment buttons ── */
-    .payment-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
+    .payment-list { display: flex; flex-direction: column; gap: 10px; }
 
     .pay-btn {
       display: flex;
       align-items: center;
       gap: 16px;
-      padding: 16px 20px;
+      padding: 15px 18px;
       border-radius: 14px;
       border: 1px solid var(--border);
       background: var(--surface);
@@ -135,124 +205,64 @@
     .pay-btn:active { transform: scale(0.97); opacity: 0.85; }
 
     .pay-btn-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      font-weight: 800;
+      width: 42px; height: 42px;
+      border-radius: 11px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; font-weight: 800;
       flex-shrink: 0;
     }
-
     .pay-btn-text { flex: 1; text-align: left; }
-    .pay-btn-name {
+    .pay-btn-name   { font-family: var(--font-h); font-size: 0.85rem; font-weight: 700; }
+    .pay-btn-handle { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
+    .pay-btn-arrow  { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; }
+    .pay-btn-amount {
       font-family: var(--font-h);
-      font-size: 0.88rem;
+      font-size: 0.85rem;
       font-weight: 700;
-    }
-    .pay-btn-handle {
-      font-size: 0.72rem;
-      color: var(--muted);
-      margin-top: 2px;
-    }
-
-    .pay-btn-arrow {
-      color: var(--muted);
-      font-size: 1.1rem;
+      color: var(--gold);
       flex-shrink: 0;
+      margin-right: 4px;
     }
 
-    /* Venmo */
     .btn-venmo  { border-color: #008CFF33; }
     .btn-venmo .pay-btn-icon  { background: #008CFF; color: #fff; }
-    .btn-venmo:active { background: #008CFF11; }
+    .btn-venmo:active  { background: #008CFF0D; }
 
-    /* Cash App */
     .btn-cash   { border-color: #00D64F33; }
     .btn-cash .pay-btn-icon   { background: #00D64F; color: #fff; }
-    .btn-cash:active { background: #00D64F11; }
+    .btn-cash:active   { background: #00D64F0D; }
 
-    /* Zelle */
-    .btn-zelle  { border-color: #6D1ED433; }
+    .btn-zelle  { border-color: #6D1ED433; cursor: default; }
     .btn-zelle .pay-btn-icon  { background: #6D1ED4; color: #fff; }
 
-    /* PayPal */
-    .btn-paypal { border-color: #003087; }
-    .btn-paypal .pay-btn-icon { background: #003087; color: #fff; font-size: 0.75rem; }
-    .btn-paypal:active { background: #00308711; }
-
-
-    /* Zelle note */
-    .zelle-note {
-      font-size: 0.72rem;
-      color: var(--muted);
-      padding: 10px 14px;
-      background: #6D1ED411;
-      border-radius: 8px;
-      border: 1px solid #6D1ED430;
-      margin-top: -4px;
-    }
+    .btn-paypal { border-color: #0070BA33; }
+    .btn-paypal .pay-btn-icon { background: #0070BA; color: #fff; font-size: 0.72rem; font-family: 'Inter', sans-serif; }
+    .btn-paypal:active { background: #0070BA0D; }
 
     /* ── Footer ── */
-    .footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 20px 24px;
-      text-align: center;
-    }
-    .footer p { font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
-    .footer a  { color: var(--gold); text-decoration: none; }
-    .footer a:hover { color: var(--gold-s); }
+    .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; }
+    .footer p { font-size: 0.7rem; color: var(--muted); line-height: 1.7; }
+    .footer a { color: var(--gold); text-decoration: none; }
 
-    /* hidden by default */
-    [data-show="false"] { display: none !important; }
-
-    /* Invalid link screen */
+    /* ── Invalid screen ── */
     .invalid-screen {
-      display: none;
-      flex: 1;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      padding: 48px 24px;
-      gap: 12px;
+      display: none; flex: 1; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center; padding: 48px 24px; gap: 12px;
     }
     .invalid-screen.show { display: flex; }
-    .invalid-icon {
-      width: 56px; height: 56px;
-      border-radius: 50%;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 1.5rem;
-      margin-bottom: 4px;
-    }
-    .invalid-title {
-      font-family: var(--font-h);
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .invalid-sub {
-      font-size: 0.8rem;
-      color: var(--muted);
-      max-width: 280px;
-      line-height: 1.6;
-    }
-    .invalid-contact {
-      margin-top: 8px;
-      font-size: 0.8rem;
-      color: var(--muted);
-    }
+    .invalid-icon  { width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 4px; }
+    .invalid-title { font-family: var(--font-h); font-size: 1.1rem; font-weight: 700; }
+    .invalid-sub   { font-size: 0.8rem; color: var(--muted); max-width: 280px; line-height: 1.6; }
+    .invalid-contact { margin-top: 8px; font-size: 0.8rem; color: var(--muted); }
     .invalid-contact a { color: var(--gold); text-decoration: none; }
+
+    [data-show="false"] { display: none !important; }
   </style>
 </head>
 <body>
 
-  <!-- Invalid link screen (shown when token is missing/wrong) -->
+  <!-- Invalid link screen -->
   <div class="invalid-screen" id="invalid-screen">
     <div class="invalid-icon">&#x1F512;</div>
     <div class="invalid-title">Link Not Valid</div>
@@ -279,43 +289,84 @@
       </div>
     </div>
 
+    <!-- Tip section -->
+    <div class="tip-card" id="tip-card" data-show="false">
+      <div class="tip-header">
+        <div>
+          <div class="tip-title">Add a Tip</div>
+        </div>
+        <div class="tip-charity">100% goes to charity</div>
+      </div>
+
+      <div class="tip-presets">
+        <button class="tip-btn" data-tip="5"  onclick="selectTip(5,  this)">$5</button>
+        <button class="tip-btn" data-tip="10" onclick="selectTip(10, this)">$10</button>
+        <button class="tip-btn" data-tip="20" onclick="selectTip(20, this)">$20</button>
+        <button class="tip-btn" data-tip="0"  onclick="selectTip(0,  this)" id="no-tip-btn">None</button>
+      </div>
+
+      <div class="tip-custom-row">
+        <div class="tip-custom-wrap">
+          <span>$</span>
+          <input
+            type="number"
+            min="1"
+            step="1"
+            placeholder="Custom amount"
+            class="tip-custom-input"
+            id="tip-custom-input"
+            oninput="selectCustomTip(this.value)"
+          />
+        </div>
+      </div>
+
+      <div class="tip-total" id="tip-total" style="display:none;">
+        <div>
+          <div class="tip-total-label">Total with tip</div>
+        </div>
+        <div style="text-align:right;">
+          <div class="tip-total-amount" id="tip-total-amount"></div>
+          <div class="tip-total-note">Thank you for your generosity!</div>
+        </div>
+      </div>
+    </div>
+
     <!-- Payment options -->
     <div class="section-label">Choose a payment method</div>
 
     <div class="payment-list">
 
-      <!-- Venmo -->
       <a id="btn-venmo" href="#" class="pay-btn btn-venmo">
         <div class="pay-btn-icon">V</div>
         <div class="pay-btn-text">
           <div class="pay-btn-name">Venmo</div>
           <div class="pay-btn-handle">@ShineForACause</div>
         </div>
+        <div class="pay-btn-amount" id="venmo-amount" style="display:none;"></div>
         <div class="pay-btn-arrow">›</div>
       </a>
 
-      <!-- Cash App -->
       <a id="btn-cash" href="#" class="pay-btn btn-cash">
         <div class="pay-btn-icon">$</div>
         <div class="pay-btn-text">
           <div class="pay-btn-name">Cash App</div>
           <div class="pay-btn-handle">$ShineForACause</div>
         </div>
+        <div class="pay-btn-amount" id="cash-amount" style="display:none;"></div>
         <div class="pay-btn-arrow">›</div>
       </a>
 
-      <!-- Zelle -->
-      <div class="pay-btn btn-zelle" style="cursor:default;">
+      <div class="pay-btn btn-zelle">
         <div class="pay-btn-icon">Z</div>
         <div class="pay-btn-text">
           <div class="pay-btn-name">Zelle</div>
-          <div class="pay-btn-handle">Send to (970) 295-3577</div>
+          <div class="pay-btn-handle" id="zelle-handle">Send to (970) 295-3577</div>
         </div>
+        <div class="pay-btn-amount" id="zelle-amount" style="display:none;"></div>
       </div>
 
-      <!-- PayPal -->
-      <a id="btn-paypal" href="#" class="pay-btn btn-paypal" data-show="false">
-        <div class="pay-btn-icon" style="font-family:'Inter',sans-serif;">PP</div>
+      <a id="btn-paypal" href="https://www.paypal.biz/shineforacause" class="pay-btn btn-paypal">
+        <div class="pay-btn-icon">PP</div>
         <div class="pay-btn-text">
           <div class="pay-btn-name">PayPal</div>
           <div class="pay-btn-handle">Credit / Debit Card accepted</div>
@@ -323,31 +374,30 @@
         <div class="pay-btn-arrow">›</div>
       </a>
 
-
     </div>
 
   </div>
 
   <!-- Footer -->
   <div class="footer" id="pay-footer" style="display:none;">
-    <p>Questions about your invoice?<br>
-      <a href="sms:9702953577">Text (970) 295-3577</a> &nbsp;&middot;&nbsp;
-      <a href="tel:9702953577">Call</a><br><br>
-      Aiden Ressue &mdash; Shine for a Cause Mobile Detailing
+    <p>
+      Questions about your invoice?<br>
+      <a href="sms:9702953577">Text (970) 295-3577</a> &nbsp;&middot;&nbsp; <a href="tel:9702953577">Call</a><br><br>
+      Aiden Ressue &mdash; Shine for a Cause Mobile Detailing<br>
+      <span style="color:#5a6170;">A portion of every detail goes to charity.</span>
     </p>
   </div>
 
   <script>
-    // ── Access token — must match the key used in the live-job app ────────────
     const ACCESS_KEY = 'sfac2026';
 
     const params  = new URLSearchParams(window.location.search);
-    const token   = params.get('k') || '';
+    const token   = params.get('k')       || '';
     const name    = params.get('name')    || '';
     const amount  = parseFloat(params.get('amount') || '0');
     const invoice = params.get('invoice') || '';
 
-    // Gate: require valid token or show dead screen
+    // Gate
     if (token !== ACCESS_KEY) {
       document.getElementById('invalid-screen').classList.add('show');
     } else {
@@ -357,38 +407,88 @@
     }
 
     // Invoice card
-    if (name) {
-      document.getElementById('invoice-for').textContent = 'Payment for ' + name;
-    }
+    if (name) document.getElementById('invoice-for').textContent = 'Payment for ' + name;
     if (amount > 0) {
-      const amtEl = document.getElementById('invoice-amount');
-      amtEl.textContent = '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-      amtEl.removeAttribute('data-show');
+      const el = document.getElementById('invoice-amount');
+      el.textContent = '$' + fmt(amount);
+      el.removeAttribute('data-show');
     }
     if (invoice) {
-      const numEl = document.getElementById('invoice-num');
-      numEl.textContent = invoice;
-      numEl.removeAttribute('data-show');
+      const el = document.getElementById('invoice-num');
+      el.textContent = invoice;
+      el.removeAttribute('data-show');
     }
-    if (name || amount) {
+    if (name || amount > 0) {
       document.getElementById('invoice-note').removeAttribute('data-show');
     }
 
-    // Venmo deeplink — pre-fills recipient + amount + note
-    const venmoNote = encodeURIComponent('Shine for a Cause' + (invoice ? ' — ' + invoice : ''));
-    const venmoUrl  = 'venmo://paycharge?txn=pay&recipients=ShineForACause'
-      + (amount > 0 ? '&amount=' + amount : '')
-      + '&note=' + venmoNote;
-    document.getElementById('btn-venmo').href = venmoUrl;
+    // Show tip card only when there's an amount
+    if (amount > 0) {
+      document.getElementById('tip-card').removeAttribute('data-show');
+    }
 
-    // Cash App — pre-fills amount
-    const cashUrl = 'https://cash.app/$ShineForACause' + (amount > 0 ? '/' + amount : '');
-    document.getElementById('btn-cash').href = cashUrl;
+    // ── Tip logic ──────────────────────────────────────────────────────────────
+    let tipAmount = 0;
 
-    // PayPal
-    const el = document.getElementById('btn-paypal');
-    el.href = 'https://www.paypal.biz/shineforacause';
-    el.removeAttribute('data-show');
+    function fmt(n) {
+      return n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function selectTip(tip, btn) {
+      tipAmount = tip;
+      document.getElementById('tip-custom-input').value = '';
+      document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      updateAll();
+    }
+
+    function selectCustomTip(val) {
+      const n = parseFloat(val) || 0;
+      tipAmount = n > 0 ? n : 0;
+      document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
+      updateAll();
+    }
+
+    function updateAll() {
+      const total = amount + tipAmount;
+      const venmoNote = encodeURIComponent('Shine for a Cause' + (invoice ? ' — ' + invoice : '') + (tipAmount > 0 ? ' (incl. $' + fmt(tipAmount) + ' tip)' : ''));
+
+      // Venmo
+      document.getElementById('btn-venmo').href =
+        'venmo://paycharge?txn=pay&recipients=ShineForACause'
+        + (total > 0 ? '&amount=' + total : '')
+        + '&note=' + venmoNote;
+
+      // Cash App
+      document.getElementById('btn-cash').href =
+        'https://cash.app/$ShineForACause' + (total > 0 ? '/' + total : '');
+
+      // Show amounts on buttons when amount is known
+      if (amount > 0) {
+        const display = '$' + fmt(total);
+        ['venmo-amount','cash-amount','zelle-amount'].forEach(id => {
+          const el = document.getElementById(id);
+          el.textContent = display;
+          el.style.display = '';
+        });
+        if (tipAmount > 0) {
+          document.getElementById('zelle-handle').textContent = 'Send $' + fmt(total) + ' to (970) 295-3577';
+        } else {
+          document.getElementById('zelle-handle').textContent = 'Send to (970) 295-3577';
+        }
+      }
+
+      // Tip total row
+      if (tipAmount > 0 && amount > 0) {
+        document.getElementById('tip-total').style.display = '';
+        document.getElementById('tip-total-amount').textContent = '$' + fmt(total);
+      } else {
+        document.getElementById('tip-total').style.display = 'none';
+      }
+    }
+
+    // Init payment links
+    updateAll();
   </script>
 
 </body>
