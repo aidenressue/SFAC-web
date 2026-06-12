@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pay — Shine for a Cause</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0B0B0D;
+      --surface: #171A1F;
+      --border:  #2C313A;
+      --gold:    #D4A851;
+      --gold-s:  #E0BF7A;
+      --text:    #F7F5F0;
+      --muted:   #A7ADB5;
+      --font-h:  'Montserrat', sans-serif;
+      --font-b:  'Inter', sans-serif;
+    }
+
+    body {
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ── Header ── */
+    .header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .header-logo {
+      font-family: var(--font-h);
+      font-size: 1rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--text);
+    }
+    .header-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 2px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    /* ── Main ── */
+    .main {
+      flex: 1;
+      max-width: 480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 28px 16px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    /* ── Invoice card ── */
+    .invoice-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+    }
+    .invoice-for {
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 6px;
+    }
+    .invoice-amount {
+      font-family: var(--font-h);
+      font-size: 2.8rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .invoice-num {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 8px;
+      font-family: monospace;
+      letter-spacing: 0.05em;
+    }
+    .invoice-note {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 8px;
+      font-style: italic;
+    }
+
+    /* ── Section label ── */
+    .section-label {
+      font-size: 0.65rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* ── Payment buttons ── */
+    .payment-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .pay-btn {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.1s, opacity 0.1s;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .pay-btn:active { transform: scale(0.97); opacity: 0.85; }
+
+    .pay-btn-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    .pay-btn-text { flex: 1; text-align: left; }
+    .pay-btn-name {
+      font-family: var(--font-h);
+      font-size: 0.88rem;
+      font-weight: 700;
+    }
+    .pay-btn-handle {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .pay-btn-arrow {
+      color: var(--muted);
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    /* Venmo */
+    .btn-venmo  { border-color: #008CFF33; }
+    .btn-venmo .pay-btn-icon  { background: #008CFF; color: #fff; }
+    .btn-venmo:active { background: #008CFF11; }
+
+    /* Cash App */
+    .btn-cash   { border-color: #00D64F33; }
+    .btn-cash .pay-btn-icon   { background: #00D64F; color: #fff; }
+    .btn-cash:active { background: #00D64F11; }
+
+    /* Zelle */
+    .btn-zelle  { border-color: #6D1ED433; }
+    .btn-zelle .pay-btn-icon  { background: #6D1ED4; color: #fff; }
+
+    /* PayPal */
+    .btn-paypal { border-color: #003087; }
+    .btn-paypal .pay-btn-icon { background: #003087; color: #fff; font-size: 0.75rem; }
+    .btn-paypal:active { background: #00308711; }
+
+    /* Stripe / Card */
+    .btn-stripe { border-color: #635BFF33; }
+    .btn-stripe .pay-btn-icon { background: #635BFF; color: #fff; }
+    .btn-stripe:active { background: #635BFF11; }
+
+    /* Zelle note */
+    .zelle-note {
+      font-size: 0.72rem;
+      color: var(--muted);
+      padding: 10px 14px;
+      background: #6D1ED411;
+      border-radius: 8px;
+      border: 1px solid #6D1ED430;
+      margin-top: -4px;
+    }
+
+    /* ── Footer ── */
+    .footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 20px 24px;
+      text-align: center;
+    }
+    .footer p { font-size: 0.72rem; color: var(--muted); line-height: 1.6; }
+    .footer a  { color: var(--gold); text-decoration: none; }
+    .footer a:hover { color: var(--gold-s); }
+
+    /* hidden by default */
+    [data-show="false"] { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <div class="header">
+    <div class="header-logo">Shine for a Cause</div>
+    <div class="header-sub">Mobile Auto Detailing &middot; Northern Colorado</div>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+
+    <!-- Invoice summary -->
+    <div class="invoice-card">
+      <div class="invoice-for" id="invoice-for">Payment Request</div>
+      <div class="invoice-amount" id="invoice-amount" data-show="false"></div>
+      <div class="invoice-num"   id="invoice-num"    data-show="false"></div>
+      <div class="invoice-note"  id="invoice-note"   data-show="false">
+        Please review our work before paying &mdash; we want you to love it!
+      </div>
+    </div>
+
+    <!-- Payment options -->
+    <div class="section-label">Choose a payment method</div>
+
+    <div class="payment-list">
+
+      <!-- Venmo -->
+      <a id="btn-venmo" href="#" class="pay-btn btn-venmo">
+        <div class="pay-btn-icon">V</div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">Venmo</div>
+          <div class="pay-btn-handle">@ShineForACause</div>
+        </div>
+        <div class="pay-btn-arrow">›</div>
+      </a>
+
+      <!-- Cash App -->
+      <a id="btn-cash" href="#" class="pay-btn btn-cash">
+        <div class="pay-btn-icon">$</div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">Cash App</div>
+          <div class="pay-btn-handle">$ShineForACause</div>
+        </div>
+        <div class="pay-btn-arrow">›</div>
+      </a>
+
+      <!-- Zelle -->
+      <div class="pay-btn btn-zelle" style="cursor:default;">
+        <div class="pay-btn-icon">Z</div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">Zelle</div>
+          <div class="pay-btn-handle">Send to (970) 295-3577</div>
+        </div>
+      </div>
+
+      <!-- PayPal -->
+      <a id="btn-paypal" href="PAYPAL_LINK_HERE" class="pay-btn btn-paypal" data-show="false">
+        <div class="pay-btn-icon" style="font-family:'Inter',sans-serif;">PP</div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">PayPal</div>
+          <div class="pay-btn-handle">Tap to open PayPal</div>
+        </div>
+        <div class="pay-btn-arrow">›</div>
+      </a>
+
+      <!-- Credit Card (Stripe) -->
+      <a id="btn-stripe" href="STRIPE_LINK_HERE" class="pay-btn btn-stripe" data-show="false">
+        <div class="pay-btn-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
+          </svg>
+        </div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">Credit / Debit Card</div>
+          <div class="pay-btn-handle">Powered by Stripe &mdash; 3% fee applies</div>
+        </div>
+        <div class="pay-btn-arrow">›</div>
+      </a>
+
+    </div>
+
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Questions about your invoice?<br>
+      <a href="sms:9702953577">Text (970) 295-3577</a> &nbsp;&middot;&nbsp;
+      <a href="tel:9702953577">Call</a><br><br>
+      Aiden Ressue &mdash; Shine for a Cause Mobile Detailing
+    </p>
+  </div>
+
+  <script>
+    const params  = new URLSearchParams(window.location.search);
+    const name    = params.get('name')    || '';
+    const amount  = parseFloat(params.get('amount') || '0');
+    const invoice = params.get('invoice') || '';
+
+    // Invoice card
+    if (name) {
+      document.getElementById('invoice-for').textContent = 'Payment for ' + name;
+    }
+    if (amount > 0) {
+      const amtEl = document.getElementById('invoice-amount');
+      amtEl.textContent = '$' + amount.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+      amtEl.removeAttribute('data-show');
+    }
+    if (invoice) {
+      const numEl = document.getElementById('invoice-num');
+      numEl.textContent = invoice;
+      numEl.removeAttribute('data-show');
+    }
+    if (name || amount) {
+      document.getElementById('invoice-note').removeAttribute('data-show');
+    }
+
+    // Venmo deeplink — pre-fills recipient + amount + note
+    const venmoNote = encodeURIComponent('Shine for a Cause' + (invoice ? ' — ' + invoice : ''));
+    const venmoUrl  = 'venmo://paycharge?txn=pay&recipients=ShineForACause'
+      + (amount > 0 ? '&amount=' + amount : '')
+      + '&note=' + venmoNote;
+    document.getElementById('btn-venmo').href = venmoUrl;
+
+    // Cash App — pre-fills amount
+    const cashUrl = 'https://cash.app/$ShineForACause' + (amount > 0 ? '/' + amount : '');
+    document.getElementById('btn-cash').href = cashUrl;
+
+    // PayPal — show when link is set
+    const paypalLink = 'PAYPAL_LINK_HERE';
+    if (paypalLink && paypalLink !== 'PAYPAL_LINK_HERE') {
+      const el = document.getElementById('btn-paypal');
+      el.href = paypalLink;
+      el.removeAttribute('data-show');
+    }
+
+    // Stripe — show when link is set
+    const stripeLink = 'STRIPE_LINK_HERE';
+    if (stripeLink && stripeLink !== 'STRIPE_LINK_HERE') {
+      const el = document.getElementById('btn-stripe');
+      el.href = stripeLink;
+      el.removeAttribute('data-show');
+    }
+  </script>
+
+</body>
+</html>
