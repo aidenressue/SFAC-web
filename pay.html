@@ -4,6 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Pay — Shine for a Cause</title>
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="googlebot" content="noindex, nofollow" />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -210,18 +212,66 @@
 
     /* hidden by default */
     [data-show="false"] { display: none !important; }
+
+    /* Invalid link screen */
+    .invalid-screen {
+      display: none;
+      flex: 1;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 48px 24px;
+      gap: 12px;
+    }
+    .invalid-screen.show { display: flex; }
+    .invalid-icon {
+      width: 56px; height: 56px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 4px;
+    }
+    .invalid-title {
+      font-family: var(--font-h);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .invalid-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      max-width: 280px;
+      line-height: 1.6;
+    }
+    .invalid-contact {
+      margin-top: 8px;
+      font-size: 0.8rem;
+      color: var(--muted);
+    }
+    .invalid-contact a { color: var(--gold); text-decoration: none; }
   </style>
 </head>
 <body>
 
+  <!-- Invalid link screen (shown when token is missing/wrong) -->
+  <div class="invalid-screen" id="invalid-screen">
+    <div class="invalid-icon">&#x1F512;</div>
+    <div class="invalid-title">Link Not Valid</div>
+    <div class="invalid-sub">This payment link has expired or is not valid. Please check the original message you received from Shine for a Cause.</div>
+    <div class="invalid-contact">Questions? <a href="sms:9702953577">Text (970) 295-3577</a></div>
+  </div>
+
   <!-- Header -->
-  <div class="header">
+  <div class="header" id="pay-header" style="display:none;">
     <div class="header-logo">Shine for a Cause</div>
     <div class="header-sub">Mobile Auto Detailing &middot; Northern Colorado</div>
   </div>
 
   <!-- Main -->
-  <div class="main">
+  <div class="main" id="pay-main" style="display:none;">
 
     <!-- Invoice summary -->
     <div class="invoice-card">
@@ -296,7 +346,7 @@
   </div>
 
   <!-- Footer -->
-  <div class="footer">
+  <div class="footer" id="pay-footer" style="display:none;">
     <p>Questions about your invoice?<br>
       <a href="sms:9702953577">Text (970) 295-3577</a> &nbsp;&middot;&nbsp;
       <a href="tel:9702953577">Call</a><br><br>
@@ -305,10 +355,23 @@
   </div>
 
   <script>
+    // ── Access token — must match the key used in the live-job app ────────────
+    const ACCESS_KEY = 'sfac2026';
+
     const params  = new URLSearchParams(window.location.search);
+    const token   = params.get('k') || '';
     const name    = params.get('name')    || '';
     const amount  = parseFloat(params.get('amount') || '0');
     const invoice = params.get('invoice') || '';
+
+    // Gate: require valid token or show dead screen
+    if (token !== ACCESS_KEY) {
+      document.getElementById('invalid-screen').classList.add('show');
+    } else {
+      document.getElementById('pay-header').style.display = '';
+      document.getElementById('pay-main').style.display   = '';
+      document.getElementById('pay-footer').style.display = '';
+    }
 
     // Invoice card
     if (name) {
