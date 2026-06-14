@@ -3,9 +3,18 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pay — Shine for a Cause</title>
+  <title>Invoice Payment — Shine for a Cause</title>
   <meta name="robots" content="noindex, nofollow" />
   <meta name="googlebot" content="noindex, nofollow" />
+
+  <!-- Open Graph: makes iMessage show a rich link card instead of plain URL -->
+  <meta property="og:title"       content="Shine for a Cause — Invoice" />
+  <meta property="og:description" content="Tap to review your invoice and pay securely." />
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://shineforacause.com/pay" />
+  <meta property="og:image"       content="https://shineforacause.com/og-pay.png" />
+  <meta name="twitter:card"       content="summary" />
+
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -16,89 +25,108 @@
       --border:  #2C313A;
       --gold:    #D4A851;
       --text:    #F7F5F0;
-      --muted:   #A7ADB5;
+      --muted:   #9BA3AD;
       --font-h:  'Montserrat', sans-serif;
       --font-b:  'Inter', sans-serif;
     }
 
     body { font-family: var(--font-b); background: var(--bg); color: var(--text); min-height: 100vh; display: flex; flex-direction: column; }
 
+    /* Header */
     .header { background: var(--surface); border-bottom: 1px solid var(--border); padding: 18px 24px; text-align: center; }
-    .header-logo { font-family: var(--font-h); font-size: 1rem; font-weight: 800; letter-spacing: 0.04em; }
+    .header-logo { font-family: var(--font-h); font-size: 1rem; font-weight: 800; letter-spacing: 0.04em; color: var(--text); }
     .header-sub  { font-size: 0.68rem; color: var(--muted); margin-top: 2px; letter-spacing: 0.06em; text-transform: uppercase; }
 
+    /* Main */
     .main { flex: 1; max-width: 480px; width: 100%; margin: 0 auto; padding: 24px 16px 48px; display: flex; flex-direction: column; gap: 16px; }
 
+    /* Invoice card */
     .invoice-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 24px; text-align: center; }
-    .invoice-for    { font-size: 0.72rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+    .invoice-for    { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
     .invoice-amount { font-family: var(--font-h); font-size: 2.8rem; font-weight: 800; color: var(--gold); line-height: 1; }
-    .invoice-num    { font-size: 0.68rem; color: var(--muted); margin-top: 8px; font-family: monospace; letter-spacing: 0.05em; }
-    .invoice-note   { font-size: 0.75rem; color: var(--muted); margin-top: 8px; font-style: italic; }
+    .invoice-num    { font-size: 0.72rem; color: var(--muted); margin-top: 8px; font-family: monospace; letter-spacing: 0.05em; }
+    .invoice-note   { font-size: 0.78rem; color: var(--muted); margin-top: 10px; font-style: italic; line-height: 1.5; }
 
     /* Tip card */
     .tip-card { background: var(--surface); border: 1px solid var(--border); border-radius: 16px; padding: 20px; }
     .tip-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-    .tip-title   { font-family: var(--font-h); font-size: 0.82rem; font-weight: 700; }
-    .tip-charity { font-size: 0.65rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+    .tip-title   { font-family: var(--font-h); font-size: 0.85rem; font-weight: 700; color: var(--text); }
+    .tip-charity { font-size: 0.68rem; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
     .tip-presets { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 12px; }
     .tip-btn {
-      padding: 10px 4px; border-radius: 10px; border: 1px solid var(--border);
-      background: var(--bg); color: var(--muted);
-      font-family: var(--font-h); font-size: 0.82rem; font-weight: 700;
+      padding: 11px 4px; border-radius: 10px; border: 1px solid #3C424C;
+      background: #222730; color: var(--text);
+      font-family: var(--font-h); font-size: 0.85rem; font-weight: 700;
       cursor: pointer; text-align: center; transition: all 0.15s;
       -webkit-tap-highlight-color: transparent; line-height: 1.3;
     }
-    .tip-btn small { display: block; font-size: 0.58rem; font-weight: 500; margin-top: 1px; color: inherit; opacity: 0.75; }
-    .tip-btn:active { transform: scale(0.95); }
-    .tip-btn.active { border-color: var(--gold); background: rgba(212,168,81,0.1); color: var(--gold); }
+    .tip-btn small { display: block; font-size: 0.62rem; font-weight: 500; margin-top: 2px; color: var(--muted); }
+    .tip-btn:active { transform: scale(0.96); }
+    .tip-btn.active { border-color: var(--gold); background: rgba(212,168,81,0.12); color: var(--gold); }
+    .tip-btn.active small { color: var(--gold); }
     .tip-custom-wrap { position: relative; }
     .tip-custom-wrap em { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--muted); font-size: 0.9rem; font-style: normal; }
     .tip-custom-input {
-      width: 100%; background: var(--bg); border: 1px solid var(--border); border-radius: 10px;
-      padding: 10px 12px 10px 24px; color: var(--text); font-family: var(--font-b); font-size: 0.9rem;
+      width: 100%; background: #222730; border: 1px solid #3C424C; border-radius: 10px;
+      padding: 11px 12px 11px 24px; color: var(--text); font-family: var(--font-b); font-size: 0.9rem;
       outline: none; transition: border-color 0.15s;
     }
     .tip-custom-input:focus { border-color: var(--gold); }
-    .tip-custom-input::placeholder { color: var(--muted); }
+    .tip-custom-input::placeholder { color: #5A6272; }
     .tip-total { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .tip-total-label  { font-size: 0.78rem; color: var(--muted); }
-    .tip-total-amount { font-family: var(--font-h); font-size: 1.2rem; font-weight: 800; color: var(--gold); }
-    .tip-total-note   { font-size: 0.65rem; color: var(--gold); margin-top: 2px; text-align: right; }
+    .tip-total-label  { font-size: 0.82rem; color: var(--muted); }
+    .tip-total-amount { font-family: var(--font-h); font-size: 1.25rem; font-weight: 800; color: var(--gold); }
+    .tip-total-note   { font-size: 0.68rem; color: var(--gold); margin-top: 2px; text-align: right; }
 
-    .section-label { font-size: 0.62rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); text-align: center; }
+    /* Section label */
+    .section-label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--muted); text-align: center; }
+
+    /* Payment buttons */
     .payment-list  { display: flex; flex-direction: column; gap: 10px; }
 
     .pay-btn {
       display: flex; align-items: center; gap: 16px;
-      padding: 15px 18px; border-radius: 14px; border: 1px solid var(--border);
+      padding: 16px 18px; border-radius: 14px; border: 1px solid var(--border);
       background: var(--surface); color: var(--text); text-decoration: none;
       cursor: pointer; transition: transform 0.1s, opacity 0.1s;
       -webkit-tap-highlight-color: transparent;
     }
     .pay-btn:active { transform: scale(0.97); opacity: 0.85; }
-    .pay-btn-icon   { width: 42px; height: 42px; border-radius: 11px; display: flex; align-items: center; justify-content: center; font-size: 1rem; font-weight: 800; flex-shrink: 0; }
+    .pay-btn-icon   { width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.05rem; font-weight: 800; flex-shrink: 0; }
     .pay-btn-text   { flex: 1; text-align: left; }
-    .pay-btn-name   { font-family: var(--font-h); font-size: 0.85rem; font-weight: 700; }
-    .pay-btn-handle { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
-    .pay-btn-arrow  { color: var(--muted); font-size: 1.1rem; flex-shrink: 0; }
-    .pay-btn-amount { font-family: var(--font-h); font-size: 0.85rem; font-weight: 700; color: var(--gold); flex-shrink: 0; margin-right: 4px; }
+    .pay-btn-name   { font-family: var(--font-h); font-size: 0.88rem; font-weight: 700; color: var(--text); }
+    .pay-btn-handle { font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+    .pay-btn-arrow  { color: #5A6272; font-size: 1.2rem; flex-shrink: 0; }
+    .pay-btn-amount { font-family: var(--font-h); font-size: 0.9rem; font-weight: 700; color: var(--gold); flex-shrink: 0; margin-right: 4px; }
 
-    .btn-venmo  { border-color: #008CFF33; } .btn-venmo  .pay-btn-icon { background: #008CFF; color: #fff; } .btn-venmo:active  { background: #008CFF0D; }
-    .btn-cash   { border-color: #00D64F33; } .btn-cash   .pay-btn-icon { background: #00D64F; color: #fff; } .btn-cash:active   { background: #00D64F0D; }
-    .btn-zelle  { border-color: #6D1ED433; cursor: default; } .btn-zelle .pay-btn-icon { background: #6D1ED4; color: #fff; }
-    .btn-paypal { border-color: #0070BA33; } .btn-paypal .pay-btn-icon { background: #0070BA; color: #fff; font-size: 0.72rem; font-family:'Inter',sans-serif; } .btn-paypal:active { background: #0070BA0D; }
+    .btn-venmo  { border-color: #003DA5; } .btn-venmo  .pay-btn-icon { background: #008CFF; color: #fff; } .btn-venmo:active  { background: #00264A; }
+    .btn-cash   { border-color: #005A24; } .btn-cash   .pay-btn-icon { background: #00C244; color: #fff; } .btn-cash:active   { background: #003516; }
+    .btn-paypal { border-color: #003580; } .btn-paypal .pay-btn-icon { background: #0070BA; color: #fff; font-size: 0.72rem; font-family:'Inter',sans-serif; } .btn-paypal:active { background: #001F4D; }
 
+    /* Zelle copy button */
+    .btn-zelle { border-color: #3B1A70; cursor: default; }
+    .btn-zelle .pay-btn-icon { background: #6D1ED4; color: #fff; }
+    .zelle-copy {
+      padding: 6px 12px; border-radius: 8px; border: 1px solid #3C424C;
+      background: #222730; color: var(--text); font-family: var(--font-b);
+      font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
+      white-space: nowrap;
+    }
+    .zelle-copy:active { background: var(--gold); color: #000; border-color: var(--gold); }
+    .zelle-copied { background: rgba(212,168,81,0.15); color: var(--gold); border-color: var(--gold); }
+
+    /* Footer */
     .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 20px 24px; text-align: center; }
-    .footer p { font-size: 0.7rem; color: var(--muted); line-height: 1.7; }
+    .footer p { font-size: 0.72rem; color: var(--muted); line-height: 1.8; }
     .footer a { color: var(--gold); text-decoration: none; }
 
+    /* Invalid screen */
     .invalid-screen { display: none; flex: 1; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 48px 24px; gap: 12px; }
     .invalid-screen.show { display: flex; }
-    .invalid-icon  { width: 56px; height: 56px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; margin-bottom: 4px; }
-    .invalid-title { font-family: var(--font-h); font-size: 1.1rem; font-weight: 700; }
-    .invalid-sub   { font-size: 0.8rem; color: var(--muted); max-width: 280px; line-height: 1.6; }
-    .invalid-contact { margin-top: 8px; font-size: 0.8rem; color: var(--muted); }
-    .invalid-contact a { color: var(--gold); text-decoration: none; }
+    .invalid-icon  { width: 60px; height: 60px; border-radius: 50%; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1.6rem; margin-bottom: 4px; }
+    .invalid-title { font-family: var(--font-h); font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .invalid-sub   { font-size: 0.82rem; color: var(--muted); max-width: 280px; line-height: 1.6; }
+    .invalid-contact a { color: var(--gold); text-decoration: none; font-size: 0.82rem; }
   </style>
 </head>
 <body>
@@ -107,7 +135,7 @@
     <div class="invalid-icon">&#x1F512;</div>
     <div class="invalid-title">Link Not Valid</div>
     <div class="invalid-sub">This payment link has expired or is not valid. Please check the original message from Shine for a Cause.</div>
-    <div class="invalid-contact">Questions? <a href="sms:9702953577">Text (970) 295-3577</a></div>
+    <div class="invalid-contact" style="margin-top:8px;"><a href="sms:9702953577">Text (970) 295-3577</a></div>
   </div>
 
   <div class="header" id="pay-header" style="display:none;">
@@ -117,6 +145,7 @@
 
   <div class="main" id="pay-main" style="display:none;">
 
+    <!-- Invoice summary -->
     <div class="invoice-card">
       <div class="invoice-for" id="invoice-for">Payment Request</div>
       <div class="invoice-amount" id="invoice-amount" style="display:none;"></div>
@@ -126,6 +155,7 @@
       </div>
     </div>
 
+    <!-- Tip section -->
     <div class="tip-card" id="tip-card" style="display:none;">
       <div class="tip-header">
         <div class="tip-title">Add a Tip</div>
@@ -153,29 +183,47 @@
     <div class="section-label">Choose a payment method</div>
     <div class="payment-list">
 
+      <!-- Venmo -->
       <a id="btn-venmo" href="#" class="pay-btn btn-venmo" onclick="trackPay('venmo')">
         <div class="pay-btn-icon">V</div>
-        <div class="pay-btn-text"><div class="pay-btn-name">Venmo</div><div class="pay-btn-handle">@ShineForACause</div></div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">Venmo</div>
+          <div class="pay-btn-handle">@ShineForACause</div>
+        </div>
         <div class="pay-btn-amount" id="amt-venmo" style="display:none;"></div>
         <div class="pay-btn-arrow">›</div>
       </a>
 
+      <!-- Cash App -->
       <a id="btn-cash" href="#" class="pay-btn btn-cash" onclick="trackPay('cash_app')">
         <div class="pay-btn-icon">$</div>
-        <div class="pay-btn-text"><div class="pay-btn-name">Cash App</div><div class="pay-btn-handle">$ShineForACause</div></div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">Cash App</div>
+          <div class="pay-btn-handle">$ShineForACause</div>
+        </div>
         <div class="pay-btn-amount" id="amt-cash" style="display:none;"></div>
         <div class="pay-btn-arrow">›</div>
       </a>
 
-      <div class="pay-btn btn-zelle">
+      <!-- Zelle — no deeplink, show copy button -->
+      <div class="pay-btn btn-zelle" onclick="copyZelle()">
         <div class="pay-btn-icon">Z</div>
-        <div class="pay-btn-text"><div class="pay-btn-name">Zelle</div><div class="pay-btn-handle" id="zelle-handle">Send to (970) 295-3577</div></div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">Zelle</div>
+          <div class="pay-btn-handle" id="zelle-handle">(970) 295-3577</div>
+        </div>
         <div class="pay-btn-amount" id="amt-zelle" style="display:none;"></div>
+        <button class="zelle-copy" id="zelle-copy-btn" onclick="event.stopPropagation(); copyZelle()">Copy</button>
       </div>
 
-      <a id="btn-paypal" href="https://www.paypal.biz/shineforacause" class="pay-btn btn-paypal" onclick="trackPay('paypal')">
+      <!-- PayPal / Card -->
+      <a id="btn-paypal" href="https://www.paypal.me/ShineForACause" class="pay-btn btn-paypal" onclick="trackPay('paypal')">
         <div class="pay-btn-icon">PP</div>
-        <div class="pay-btn-text"><div class="pay-btn-name">PayPal</div><div class="pay-btn-handle">Credit / Debit Card accepted</div></div>
+        <div class="pay-btn-text">
+          <div class="pay-btn-name">PayPal &nbsp;/&nbsp; Card</div>
+          <div class="pay-btn-handle">Credit &amp; Debit accepted</div>
+        </div>
+        <div class="pay-btn-amount" id="amt-paypal" style="display:none;"></div>
         <div class="pay-btn-arrow">›</div>
       </a>
 
@@ -187,13 +235,15 @@
       Questions about your invoice?<br>
       <a href="sms:9702953577">Text (970) 295-3577</a> &nbsp;&middot;&nbsp; <a href="tel:9702953577">Call</a><br><br>
       Aiden Ressue &mdash; Shine for a Cause Mobile Detailing<br>
-      <span style="color:#5a6170;">A portion of every detail goes to charity.</span>
+      <span style="color:#3D4350;">A portion of every detail goes to charity.</span>
     </p>
   </div>
 
   <script>
     const ACCESS_KEY = 'sfac2026';
-    const SFAC_API   = 'https://sfac-mu.vercel.app'; // update if your Vercel URL differs
+    const SFAC_API   = 'https://sfac-mu.vercel.app';
+    // Update your PayPal.me username here if different:
+    const PAYPAL_ME  = 'ShineForACause';
 
     const params  = new URLSearchParams(window.location.search);
     const token   = params.get('k')        || '';
@@ -209,8 +259,6 @@
       document.getElementById('pay-header').style.display = '';
       document.getElementById('pay-main').style.display   = '';
       document.getElementById('pay-footer').style.display = '';
-
-      // Record page view
       ping({ action: 'viewed', client_name: name, base_amount: amount, invoice_number: invoice });
     }
 
@@ -219,17 +267,15 @@
     if (amount > 0) { show('invoice-amount', '$' + fmt(amount)); }
     if (invoice)    { show('invoice-num', invoice); }
     if (name || amount > 0) { document.getElementById('invoice-note').style.display = ''; }
-
     if (amount > 0) {
       document.getElementById('tip-card').style.display = '';
-      // Pre-populate dollar labels on tip percentage buttons
       [10, 15, 20].forEach(p => {
         const el = document.getElementById('tip-lbl-' + p);
         if (el) el.textContent = '$' + fmt(amount * p / 100);
       });
     }
 
-    // ── Tip state ────────────────────────────────────────────────────────────
+    // ── Tip state ─────────────────────────────────────────────────────────────
     let tipPct = 0, tipAmt = 0;
 
     function fmt(n) {
@@ -242,7 +288,7 @@
 
     function selectTip(pct, btn) {
       tipPct = pct;
-      tipAmt = pct > 0 ? Math.round(amount * pct) / 100 : 0;
+      tipAmt = pct > 0 ? parseFloat((amount * pct / 100).toFixed(2)) : 0;
       document.getElementById('tip-custom').value = '';
       document.querySelectorAll('.tip-btn').forEach(b => b.classList.remove('active'));
       if (btn) btn.classList.add('active');
@@ -258,44 +304,70 @@
     }
 
     function render() {
-      const total = amount + tipAmt;
+      const total = parseFloat((amount + tipAmt).toFixed(2));
       const note  = encodeURIComponent(
         'Shine for a Cause'
         + (invoice ? ' — ' + invoice : '')
         + (tipAmt  ? ' (incl. $' + fmt(tipAmt) + ' tip)' : '')
       );
 
+      // Venmo deeplink (opens app on mobile)
       document.getElementById('btn-venmo').href =
         'venmo://paycharge?txn=pay&recipients=ShineForACause'
         + (total > 0 ? '&amount=' + total.toFixed(2) : '')
         + '&note=' + note;
 
+      // Cash App deeplink
       document.getElementById('btn-cash').href =
         'https://cash.app/$ShineForACause' + (total > 0 ? '/' + total.toFixed(2) : '');
 
+      // PayPal.me with pre-filled amount
+      document.getElementById('btn-paypal').href =
+        'https://www.paypal.me/' + PAYPAL_ME + (total > 0 ? '/' + total.toFixed(2) : '');
+
+      // Amount badges on all buttons
       if (amount > 0) {
         const display = '$' + fmt(total);
-        ['amt-venmo', 'amt-cash', 'amt-zelle'].forEach(id => show(id, display));
-        document.getElementById('zelle-handle').textContent =
-          tipAmt > 0 ? 'Send $' + fmt(total) + ' to (970) 295-3577' : 'Send to (970) 295-3577';
+        ['amt-venmo', 'amt-cash', 'amt-zelle', 'amt-paypal'].forEach(id => show(id, display));
+        document.getElementById('zelle-handle').textContent = '(970) 295-3577';
       }
 
-      const tipTotalEl = document.getElementById('tip-total');
+      // Tip total row
       if (tipAmt > 0 && amount > 0) {
         document.getElementById('tip-total-val').textContent = '$' + fmt(total);
-        tipTotalEl.style.display = '';
+        document.getElementById('tip-total').style.display = '';
       } else {
-        tipTotalEl.style.display = 'none';
+        document.getElementById('tip-total').style.display = 'none';
       }
     }
 
+    // ── Zelle copy ───────────────────────────────────────────────────────────
+    function copyZelle() {
+      if (!amount) return;
+      const total = parseFloat((amount + tipAmt).toFixed(2));
+      const text  = 'Send $' + fmt(total) + ' via Zelle to (970) 295-3577';
+      navigator.clipboard.writeText(text).catch(() => {
+        // Fallback for older Safari
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
+      });
+      const btn = document.getElementById('zelle-copy-btn');
+      btn.textContent = 'Copied!';
+      btn.classList.add('zelle-copied');
+      setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('zelle-copied'); }, 2000);
+      trackPay('zelle');
+    }
+
+    // ── Payment tracking ─────────────────────────────────────────────────────
     function trackPay(method) {
       ping({
         action:         'payment_clicked',
         payment_method: method,
         tip_amount:     tipAmt,
         tip_pct:        tipPct,
-        total_amount:   amount + tipAmt,
+        total_amount:   parseFloat((amount + tipAmt).toFixed(2)),
         base_amount:    amount,
         invoice_number: invoice,
         client_name:    name,
@@ -311,7 +383,6 @@
       }).catch(() => {});
     }
 
-    // Init links
     render();
   </script>
 
