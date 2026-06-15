@@ -468,9 +468,8 @@
         <div class="pay-icon">V</div>
         <div class="pay-info">
           <div class="pay-name">Venmo</div>
-          <div class="pay-handle">@ShineForACause</div>
+          <div class="pay-handle" id="h-venmo">@ShineForACause</div>
         </div>
-        <div class="pay-amount" id="a-venmo" style="display:none;"></div>
         <div class="pay-arrow">›</div>
       </a>
 
@@ -479,9 +478,8 @@
         <div class="pay-icon">$</div>
         <div class="pay-info">
           <div class="pay-name">Cash App</div>
-          <div class="pay-handle">$ShineForACause</div>
+          <div class="pay-handle" id="h-cash">$ShineForACause</div>
         </div>
-        <div class="pay-amount" id="a-cash" style="display:none;"></div>
         <div class="pay-arrow">›</div>
       </a>
 
@@ -490,24 +488,18 @@
         <div class="pay-icon">Z</div>
         <div class="pay-info">
           <div class="pay-name">Zelle</div>
-          <div class="pay-handle" id="zelle-sub">(970) 295-3577</div>
+          <div class="pay-handle" id="h-zelle">(970) 295-3577</div>
         </div>
-        <div class="pay-amount" id="a-zelle" style="display:none;"></div>
-        <button
-          id="zelle-copy"
-          class="zelle-copy-btn"
-          onclick="copyZelle()"
-        >Copy</button>
+        <button id="zelle-copy" class="zelle-copy-btn" onclick="copyZelle()">Copy</button>
       </div>
 
       <!-- PayPal / Card -->
-      <a id="btn-paypal" href="https://www.paypal.me/ShineForACause" class="pay-btn btn-paypal" onclick="track('paypal')">
+      <a id="btn-paypal" href="#" class="pay-btn btn-paypal" onclick="track('paypal')">
         <div class="pay-icon">PP</div>
         <div class="pay-info">
           <div class="pay-name">PayPal / Card</div>
-          <div class="pay-handle">Credit &amp; debit accepted</div>
+          <div class="pay-handle" id="h-paypal">Credit &amp; debit accepted</div>
         </div>
-        <div class="pay-amount" id="a-paypal" style="display:none;"></div>
         <div class="pay-arrow">›</div>
       </a>
 
@@ -596,36 +588,45 @@
       render();
     }
 
+    function fmtUrl(n) {
+      // Clean number for URLs — no trailing .00 for whole amounts
+      return n % 1 === 0 ? String(Math.round(n)) : n.toFixed(2);
+    }
+
     function render() {
       const total = round(amount + tipAmt);
+      const amtStr = total > 0 ? '$' + fmt(total) : '';
       const note  = encodeURIComponent([
         'Shine for a Cause',
         invoice  ? '— ' + invoice : '',
         tipAmt   ? '(incl. $' + fmt(tipAmt) + ' tip)' : '',
       ].filter(Boolean).join(' '));
 
-      // Venmo deeplink — opens app on mobile, pre-fills amount + note
+      // Venmo native deeplink — pre-fills amount + recipient in app
       el('btn-venmo').href =
         'venmo://paycharge?txn=pay&recipients=ShineForACause'
-        + (total > 0 ? '&amount=' + total.toFixed(2) : '')
+        + (total > 0 ? '&amount=' + fmtUrl(total) : '')
         + '&note=' + note;
 
-      // Cash App deeplink
+      // Cash App — amount in URL path
       el('btn-cash').href =
-        'https://cash.app/$ShineForACause' + (total > 0 ? '/' + total.toFixed(2) : '');
+        'https://cash.app/$ShineForACause' + (total > 0 ? '/' + fmtUrl(total) : '');
 
-      // PayPal.me — pre-fills amount
+      // PayPal.me — pre-fills amount on their payment page
       el('btn-paypal').href =
-        'https://www.paypal.me/' + PP_USER + (total > 0 ? '/' + total.toFixed(2) : '');
+        'https://www.paypal.me/' + PP_USER + (total > 0 ? '/' + fmtUrl(total) : '');
 
-      // Amount badges on all buttons
+      // Update handle subtitle on every button to show the amount
       if (total > 0) {
-        const display = '$' + fmt(total);
-        ['a-venmo', 'a-cash', 'a-zelle', 'a-paypal'].forEach(id => {
-          const e = el(id);
-          if (e) { e.textContent = display; e.style.display = ''; }
-        });
-        el('zelle-sub').textContent = '(970) 295-3577';
+        el('h-venmo').textContent  = amtStr + ' · @ShineForACause';
+        el('h-cash').textContent   = amtStr + ' · $ShineForACause';
+        el('h-zelle').textContent  = amtStr + ' · (970) 295-3577';
+        el('h-paypal').textContent = amtStr + ' · paypal.me/shineforacause';
+      } else {
+        el('h-venmo').textContent  = '@ShineForACause';
+        el('h-cash').textContent   = '$ShineForACause';
+        el('h-zelle').textContent  = '(970) 295-3577';
+        el('h-paypal').textContent = 'Credit & debit accepted';
       }
 
       // Tip total row
