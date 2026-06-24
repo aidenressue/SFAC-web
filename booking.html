@@ -1024,7 +1024,21 @@
   <div class="success-title">You're Booked!</div>
   <div class="success-sub" id="success-sub">Your appointment has been confirmed. You'll receive an email and text confirmation shortly.</div>
   <div class="success-conf" id="success-conf"></div>
-  <a href="/" class="btn-home">Back to Home</a>
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin:.75rem 0 0;">
+    <a id="gcal-btn" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;background:#171A1F;border:1px solid #2C313A;color:#F7F5F0;text-decoration:none;padding:.6rem 1.25rem;border-radius:9999px;font-size:.82rem;font-weight:600;font-family:var(--fh);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V9h15v10.5zm0-12h-15V4.5h3V6H9V4.5h6V6h1.5V4.5h3V7.5z"/></svg>
+      Add to Google Calendar
+    </a>
+  </div>
+  <div style="margin:1.25rem 0;padding:1rem 1.25rem;background:#111317;border-radius:12px;font-size:.82rem;color:#A7ADB5;line-height:1.7;text-align:left;max-width:380px;">
+    <div style="color:#D4A851;font-weight:700;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;">What to expect</div>
+    <div>📱 We'll text you the morning of to confirm</div>
+    <div>🚗 Please have your vehicle accessible at your address</div>
+    <div>💳 Payment due at end — Cash, Venmo, Zelle, CashApp, or Card</div>
+    <div>❌ Free cancellation up to 24 hours before</div>
+  </div>
+  <div style="font-size:.8rem;color:#A7ADB5;">Questions? <a href="tel:9702953577" style="color:#D4A851;text-decoration:none;font-weight:600;">(970) 295-3577</a></div>
+  <a href="/" class="btn-home" style="margin-top:1.25rem;">Back to Home</a>
 </div>
 
 <script>
@@ -1165,6 +1179,7 @@ const state = {
   // Booking
   calMonth: null,       // Date object for current calendar month
   availableDates: [],
+  blockedDates: [],
   selectedDate: null,
   selectedTime: null,
 
@@ -1724,21 +1739,18 @@ function renderCalendarGrid() {
 }
 
 async function fetchAvailableDates() {
-  const typeId = state.cart[0]?.acuityTypeId;
   const grid = document.getElementById('cal-grid');
-  if (!typeId) {
-    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Online booking coming soon for this service.<br>Please call or text us to book.</div>';
-    return;
-  }
   const m = state.calMonth;
   const monthStr = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
   grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1">Loading availability...</div>';
   try {
-    const resp = await fetch(`/api/acuity/availability/dates?appointmentTypeID=${typeId}&month=${monthStr}&timezone=America%2FDenver`);
-    const dates = await resp.json();
-    state.availableDates = Array.isArray(dates) ? dates.map(d => d.date || d) : [];
+    const resp = await fetch(`https://sfac-mu.vercel.app/api/book/availability?month=${monthStr}`);
+    const data = await resp.json();
+    state.availableDates = Array.isArray(data.available) ? data.available : [];
+    state.blockedDates   = Array.isArray(data.blocked)   ? data.blocked   : [];
   } catch(e) {
     state.availableDates = [];
+    state.blockedDates = [];
     grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Unable to load availability. Please refresh or contact us.</div>';
     return;
   }
@@ -1764,33 +1776,29 @@ async function selectDate(dateStr) {
   renderCalendarGrid();
 
   // Fetch times
-  const typeId = state.cart[0]?.acuityTypeId;
   const timesEl = document.getElementById('time-slots-grid');
   const section = document.getElementById('time-slots-section');
   section.style.display = 'block';
   timesEl.innerHTML = '<div class="no-slots">Loading times...</div>';
 
   try {
-    const resp = await fetch(`/api/acuity/availability/times?appointmentTypeID=${typeId}&date=${dateStr}&timezone=America%2FDenver`);
-    const times = await resp.json();
-    if (!times.length) {
-      timesEl.innerHTML = '<div class="no-slots">No available times on this date.</div>';
+    const resp = await fetch(`https://sfac-mu.vercel.app/api/book/slots?date=${dateStr}`);
+    const data = await resp.json();
+    const slots = Array.isArray(data.slots) ? data.slots : [];
+    if (!slots.length) {
+      timesEl.innerHTML = '<div class="no-slots">No available times on this date. Please try another day.</div>';
       return;
     }
-    // Filter to 15-minute intervals
-    const filtered = times.filter(t => {
-      const dt = new Date(t.time);
-      const mins = parseInt(dt.toLocaleTimeString('en-US', { minute:'2-digit', timeZone:'America/Denver' }));
-      return mins % 15 === 0;
-    });
-    const display = filtered.length ? filtered : times; // fallback to all if none match
-    timesEl.innerHTML = display.map(t => {
-      const dt = new Date(t.time);
-      const label = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
-      return `<div class="time-slot ${state.selectedTime===t.time?'selected':''}" onclick="selectTime('${t.time}', '${label}')">${label}</div>`;
+    timesEl.innerHTML = slots.map(time24 => {
+      const [h, min] = time24.split(':').map(Number);
+      const suffix = h >= 12 ? 'PM' : 'AM';
+      const h12 = h % 12 || 12;
+      const label = `${h12}:${String(min).padStart(2,'0')} ${suffix}`;
+      const isSelected = state.selectedTime === time24;
+      return `<div class="time-slot ${isSelected?'selected':''}" onclick="selectTime('${time24}', '${label}')">${label}</div>`;
     }).join('');
   } catch(e) {
-    timesEl.innerHTML = '<div class="no-slots">Could not load times.</div>';
+    timesEl.innerHTML = '<div class="no-slots">Could not load times. Please refresh or contact us.</div>';
   }
 }
 
@@ -2008,45 +2016,45 @@ async function confirmBooking() {
   }
   if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
 
-  // Build addon IDs for primary item
-  const addonIDs = Object.entries(primary.addons)
-    .filter(([,q])=>q>0)
-    .map(([k])=>ADDON_DEFS[k].id);
+  // Map vehicle key to size label for the API
+  const vehicleSizeMap = { small: 'sedan', mid: 'midsuv', large: 'largetruck', van: 'van' };
+  const vehicleSizeKey = vehicleSizeMap[primary.vehicle] || primary.vehicle;
 
   const payload = {
-    appointmentTypeID: primary.acuityTypeId,
-    datetime: state.selectedTime,
-    firstName: state.firstName,
-    lastName: state.lastName,
-    email: state.email,
-    phone: state.phone,
-    addonIDs,
+    serviceId:    primary.serviceKey || primary.label.toLowerCase().replace(/\s+/g,'-'),
+    serviceName:  primary.label,
+    vehicleSize:  vehicleSizeKey,
+    price:        rawTotal,
+    discount:     multiSavings + promoSavings,
+    total:        finalTotal,
+    date:         state.selectedDate,
+    time:         state.selectedTime,
+    firstName:    state.firstName,
+    lastName:     state.lastName,
+    email:        state.email,
+    phone:        state.phone,
+    address:      state.address?.formatted || '',
+    vehicleYear:  '',
+    vehicleMake:  '',
+    vehicleModel: state.cart.map(i=>i.vehicleLabel).join(', '),
     notes,
-    ...(state.promoCode && { couponCode: state.promoCode })
+    promoCode:    state.promoCode || '',
+    duration:     primary.duration || 120,
   };
 
   try {
-    const resp = await fetch('/api/acuity/appointments', {
+    const resp = await fetch('https://sfac-mu.vercel.app/api/book/create', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     const result = await resp.json();
 
-    if (!resp.ok || result.status_code) {
-      throw new Error(result.message || 'Booking failed. Please try again.');
+    if (!resp.ok || result.error) {
+      throw new Error(result.error || 'Booking failed. Please try again.');
     }
 
     // Success!
-    const rawTotal      = state.cart.reduce((s,i)=>s+i.price,0);
-    const multiVehicle  = state.cart.length > 1;
-    const multiSavings  = multiVehicle ? Math.round(rawTotal * 0.10) : 0;
-    const afterMulti    = rawTotal - multiSavings;
-    const promoSavings  = Math.round(afterMulti * state.promoDiscount);
-    const finalTotal    = afterMulti - promoSavings;
-
-
-
     document.getElementById('success-sub').textContent =
       `Your ${primary.label} has been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
 
@@ -2054,10 +2062,24 @@ async function confirmBooking() {
     if (multiVehicle) discountParts.push('10% multi-vehicle');
     if (state.promoDiscount > 0) discountParts.push(`${Math.round(state.promoDiscount*100)}% promo`);
     const totalLine = discountParts.length > 0
-      ? `Confirmation #${result.id} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
-      : `Confirmation #${result.id} · Estimated Total: $${rawTotal} (due in person)`;
+      ? `Ref: ${result.reference} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
+      : `Ref: ${result.reference} · Estimated Total: $${rawTotal} (due in person)`;
     document.getElementById('success-conf').textContent = totalLine;
     document.getElementById('success-screen').classList.add('show');
+
+    // Build Google Calendar link
+    const gcalDate = state.selectedDate.replace(/-/g,'');
+    const [startH, startMin] = state.selectedTime.split(':').map(Number);
+    const endH = startH + Math.ceil((primary.duration||120)/60);
+    const gcalStart = `${gcalDate}T${String(startH).padStart(2,'0')}${String(startMin).padStart(2,'0')}00`;
+    const gcalEnd   = `${gcalDate}T${String(endH).padStart(2,'0')}${String(startMin).padStart(2,'0')}00`;
+    const gcalUrl   = `https://calendar.google.com/calendar/render?action=TEMPLATE`
+      + `&text=${encodeURIComponent('Shine for a Cause — ' + primary.label)}`
+      + `&dates=${gcalStart}/${gcalEnd}`
+      + `&details=${encodeURIComponent('Ref: ' + result.reference + '\nShine for a Cause Mobile Detailing\n(970) 295-3577\nshineforacause.com')}`
+      + `&location=${encodeURIComponent(state.address?.formatted||'')}`;
+    const gcalBtn = document.getElementById('gcal-btn');
+    if (gcalBtn) gcalBtn.href = gcalUrl;
 
   } catch(e) {
     btn.disabled = false;
