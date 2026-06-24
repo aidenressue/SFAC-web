@@ -1739,18 +1739,21 @@ function renderCalendarGrid() {
 }
 
 async function fetchAvailableDates() {
+  const typeId = state.cart[0]?.acuityTypeId;
   const grid = document.getElementById('cal-grid');
+  if (!typeId) {
+    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Online booking coming soon for this service.<br>Please call or text us to book.</div>';
+    return;
+  }
   const m = state.calMonth;
   const monthStr = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
   grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1">Loading availability...</div>';
   try {
-    const resp = await fetch(`https://sfac-mu.vercel.app/api/book/availability?month=${monthStr}`);
-    const data = await resp.json();
-    state.availableDates = Array.isArray(data.available) ? data.available : [];
-    state.blockedDates   = Array.isArray(data.blocked)   ? data.blocked   : [];
+    const resp = await fetch(`https://sfac-mu.vercel.app/api/acuity/availability?type=dates&appointmentTypeID=${typeId}&month=${monthStr}&timezone=America%2FDenver`);
+    const dates = await resp.json();
+    state.availableDates = Array.isArray(dates) ? dates.map(d => d.date || d) : [];
   } catch(e) {
     state.availableDates = [];
-    state.blockedDates = [];
     grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Unable to load availability. Please refresh or contact us.</div>';
     return;
   }
@@ -1776,29 +1779,27 @@ async function selectDate(dateStr) {
   renderCalendarGrid();
 
   // Fetch times
+  const typeId = state.cart[0]?.acuityTypeId;
   const timesEl = document.getElementById('time-slots-grid');
   const section = document.getElementById('time-slots-section');
   section.style.display = 'block';
   timesEl.innerHTML = '<div class="no-slots">Loading times...</div>';
 
   try {
-    const resp = await fetch(`https://sfac-mu.vercel.app/api/book/slots?date=${dateStr}`);
-    const data = await resp.json();
-    const slots = Array.isArray(data.slots) ? data.slots : [];
-    if (!slots.length) {
-      timesEl.innerHTML = '<div class="no-slots">No available times on this date. Please try another day.</div>';
+    const resp = await fetch(`https://sfac-mu.vercel.app/api/acuity/availability?type=times&appointmentTypeID=${typeId}&date=${dateStr}&timezone=America%2FDenver`);
+    const times = await resp.json();
+    if (!Array.isArray(times) || !times.length) {
+      timesEl.innerHTML = '<div class="no-slots">No available times on this date.</div>';
       return;
     }
-    timesEl.innerHTML = slots.map(time24 => {
-      const [h, min] = time24.split(':').map(Number);
-      const suffix = h >= 12 ? 'PM' : 'AM';
-      const h12 = h % 12 || 12;
-      const label = `${h12}:${String(min).padStart(2,'0')} ${suffix}`;
-      const isSelected = state.selectedTime === time24;
-      return `<div class="time-slot ${isSelected?'selected':''}" onclick="selectTime('${time24}', '${label}')">${label}</div>`;
+    timesEl.innerHTML = times.map(t => {
+      const dt = new Date(t.time);
+      const label = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
+      const isSelected = state.selectedTime === t.time;
+      return `<div class="time-slot ${isSelected?'selected':''}" onclick="selectTime('${t.time}', '${label}')">${label}</div>`;
     }).join('');
   } catch(e) {
-    timesEl.innerHTML = '<div class="no-slots">Could not load times. Please refresh or contact us.</div>';
+    timesEl.innerHTML = '<div class="no-slots">Could not load times.</div>';
   }
 }
 
@@ -2016,42 +2017,33 @@ async function confirmBooking() {
   }
   if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
 
-  // Map vehicle key to size label for the API
-  const vehicleSizeMap = { small: 'sedan', mid: 'midsuv', large: 'largetruck', van: 'van' };
-  const vehicleSizeKey = vehicleSizeMap[primary.vehicle] || primary.vehicle;
+  // Build addon IDs for primary item
+  const addonIDs = Object.entries(primary.addons)
+    .filter(([,q])=>q>0)
+    .map(([k])=>ADDON_DEFS[k].id);
 
   const payload = {
-    serviceId:    primary.serviceKey || primary.label.toLowerCase().replace(/\s+/g,'-'),
-    serviceName:  primary.label,
-    vehicleSize:  vehicleSizeKey,
-    price:        rawTotal,
-    discount:     multiSavings + promoSavings,
-    total:        finalTotal,
-    date:         state.selectedDate,
-    time:         state.selectedTime,
-    firstName:    state.firstName,
-    lastName:     state.lastName,
-    email:        state.email,
-    phone:        state.phone,
-    address:      state.address?.formatted || '',
-    vehicleYear:  '',
-    vehicleMake:  '',
-    vehicleModel: state.cart.map(i=>i.vehicleLabel).join(', '),
+    appointmentTypeID: primary.acuityTypeId,
+    datetime: state.selectedTime,
+    firstName: state.firstName,
+    lastName: state.lastName,
+    email: state.email,
+    phone: state.phone,
+    addonIDs,
     notes,
-    promoCode:    state.promoCode || '',
-    duration:     primary.duration || 120,
+    ...(state.promoCode && { couponCode: state.promoCode })
   };
 
   try {
-    const resp = await fetch('https://sfac-mu.vercel.app/api/book/create', {
+    const resp = await fetch('https://sfac-mu.vercel.app/api/acuity/appointments', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
     const result = await resp.json();
 
-    if (!resp.ok || result.error) {
-      throw new Error(result.error || 'Booking failed. Please try again.');
+    if (!resp.ok || result.status_code) {
+      throw new Error(result.message || 'Booking failed. Please try again.');
     }
 
     // Success!
@@ -2062,21 +2054,19 @@ async function confirmBooking() {
     if (multiVehicle) discountParts.push('10% multi-vehicle');
     if (state.promoDiscount > 0) discountParts.push(`${Math.round(state.promoDiscount*100)}% promo`);
     const totalLine = discountParts.length > 0
-      ? `Ref: ${result.reference} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
-      : `Ref: ${result.reference} · Estimated Total: $${rawTotal} (due in person)`;
+      ? `Confirmation #${result.acuityId} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
+      : `Confirmation #${result.acuityId} · Estimated Total: $${rawTotal} (due in person)`;
     document.getElementById('success-conf').textContent = totalLine;
     document.getElementById('success-screen').classList.add('show');
 
-    // Build Google Calendar link
-    const gcalDate = state.selectedDate.replace(/-/g,'');
-    const [startH, startMin] = state.selectedTime.split(':').map(Number);
-    const endH = startH + Math.ceil((primary.duration||120)/60);
-    const gcalStart = `${gcalDate}T${String(startH).padStart(2,'0')}${String(startMin).padStart(2,'0')}00`;
-    const gcalEnd   = `${gcalDate}T${String(endH).padStart(2,'0')}${String(startMin).padStart(2,'0')}00`;
-    const gcalUrl   = `https://calendar.google.com/calendar/render?action=TEMPLATE`
+    // Build Google Calendar link for the client
+    const startDt = new Date(state.selectedTime);
+    const endDt = new Date(startDt.getTime() + (primary.duration || 120) * 60000);
+    const fmt = d => d.toISOString().replace(/[-:]/g,'').slice(0,15);
+    const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
       + `&text=${encodeURIComponent('Shine for a Cause — ' + primary.label)}`
-      + `&dates=${gcalStart}/${gcalEnd}`
-      + `&details=${encodeURIComponent('Ref: ' + result.reference + '\nShine for a Cause Mobile Detailing\n(970) 295-3577\nshineforacause.com')}`
+      + `&dates=${fmt(startDt)}/${fmt(endDt)}`
+      + `&details=${encodeURIComponent('Shine for a Cause Mobile Detailing\n(970) 295-3577\nshineforacause.com')}`
       + `&location=${encodeURIComponent(state.address?.formatted||'')}`;
     const gcalBtn = document.getElementById('gcal-btn');
     if (gcalBtn) gcalBtn.href = gcalUrl;
