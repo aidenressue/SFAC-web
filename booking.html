@@ -1792,7 +1792,14 @@ async function selectDate(dateStr) {
       timesEl.innerHTML = '<div class="no-slots">No available times on this date.</div>';
       return;
     }
-    timesEl.innerHTML = times.map(t => {
+    // Filter to 15-minute increments only
+    const filtered = times.filter(t => {
+      const dt = new Date(t.time);
+      const mins = dt.toLocaleString('en-US', { minute: '2-digit', timeZone: 'America/Denver' });
+      return parseInt(mins) % 15 === 0;
+    });
+    const display = filtered.length ? filtered : times;
+    timesEl.innerHTML = display.map(t => {
       const dt = new Date(t.time);
       const label = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
       const isSelected = state.selectedTime === t.time;

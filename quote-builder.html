@@ -580,19 +580,6 @@ END HERO V1 BACKUP -->
         <span class="estimate-row-label">Windshield Coating</span>
         <span class="estimate-row-val" style="color:#22c55e;font-weight:700;">FREE</span>
       </div>
-      <!-- Discount toggle (internal use) -->
-      <div style="margin-bottom:.75rem;padding:.75rem;background:rgba(212,168,81,.06);border:1px solid rgba(212,168,81,.2);border-radius:10px;">
-        <div style="font-family:var(--fh);font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem;">Discount</div>
-        <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
-          <button id="disc-pct-btn" onclick="setDiscountType('percent')" style="flex:1;padding:.35rem .5rem;font-family:var(--fh);font-size:.72rem;font-weight:700;border-radius:6px;border:1px solid var(--gold);background:var(--gold);color:#0E0E10;cursor:pointer;transition:all .15s;">% Off</button>
-          <button id="disc-flat-btn" onclick="setDiscountType('flat')" style="flex:1;padding:.35rem .5rem;font-family:var(--fh);font-size:.72rem;font-weight:700;border-radius:6px;border:1px solid rgba(212,168,81,.3);background:transparent;color:var(--muted);cursor:pointer;transition:all .15s;">$ Off</button>
-        </div>
-        <div style="display:flex;align-items:center;gap:.4rem;">
-          <span id="disc-prefix" style="font-family:var(--fh);font-size:.85rem;font-weight:700;color:var(--muted);">%</span>
-          <input id="disc-input" type="number" min="0" placeholder="0" oninput="updateEstimate()" style="flex:1;background:var(--surface2,#1a1a1e);border:1px solid var(--border);border-radius:6px;padding:.35rem .6rem;font-family:var(--fh);font-size:.85rem;font-weight:700;color:var(--text);outline:none;width:100%;" />
-          <span style="font-size:.65rem;color:var(--muted);white-space:nowrap;" id="disc-saved"></span>
-        </div>
-      </div>
 
       <div class="estimate-total">
         <div class="estimate-total-label">Estimate</div>
@@ -815,8 +802,6 @@ END HERO V1 BACKUP -->
       pctBtn.style.borderColor  = 'rgba(212,168,81,.3)';
       prefix.textContent = '$';
     }
-    document.getElementById('disc-input').value = '';
-    document.getElementById('disc-saved').textContent = '';
     updateEstimate();
   }
 
@@ -827,21 +812,7 @@ END HERO V1 BACKUP -->
     const lifetimePrice = (sel.lifetime && sel.coating === 'max') ? 150 : 0;
     const baseTotal    = prepPrice + coatingPrice + lifetimePrice;
 
-    // Calculate discount
-    const discVal = parseFloat(document.getElementById('disc-input')?.value) || 0;
-    let discountAmt = 0;
-    if (discVal > 0) {
-      if (discountType === 'percent') {
-        discountAmt = Math.round(baseTotal * Math.min(discVal, 100) / 100);
-      } else {
-        discountAmt = Math.min(discVal, baseTotal);
-      }
-    }
-    const total = baseTotal - discountAmt;
-
-    // Update discount saved label
-    const savedEl = document.getElementById('disc-saved');
-    if (savedEl) savedEl.textContent = discountAmt > 0 ? `saves $${discountAmt}` : '';
+    const total = baseTotal;
 
     // Update estimate panel
     document.getElementById('est-size').textContent    = SIZE_LABELS[sz];
@@ -867,7 +838,6 @@ END HERO V1 BACKUP -->
     ];
     if (lifetimePrice) rows.push({ label: 'Lifetime Warranty', val: '+$150/yr', cls: ' gold' });
     rows.push({ label: 'Windshield Coating', val: 'FREE', cls: ' green' });
-    if (discountAmt > 0) rows.push({ label: discountType === 'percent' ? `Discount (${discVal}%)` : `Discount ($${discVal} off)`, val: `-$${discountAmt}`, cls: ' green' });
 
     document.getElementById('mob-rows').innerHTML = rows.map(r => `
       <div class="mobile-total-row">
