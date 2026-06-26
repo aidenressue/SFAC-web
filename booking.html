@@ -1738,25 +1738,21 @@ function renderCalendarGrid() {
   grid.innerHTML = html;
 }
 
-async function fetchAvailableDates() {
-  const typeId = state.cart[0]?.acuityTypeId;
-  const grid = document.getElementById('cal-grid');
-  if (!typeId) {
-    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Online booking coming soon for this service.<br>Please call or text us to book.</div>';
-    return;
-  }
+function fetchAvailableDates() {
+  // Working days: Mon(1) Tue(2) Wed(3) Thu(4) Fri(5) Sat(6) — Sun(0) is off
+  const WORKING_DAYS = new Set([1, 2, 3, 4, 5, 6]);
   const m = state.calMonth;
-  const monthStr = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
-  grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1">Loading availability...</div>';
-  try {
-    const resp = await fetch(`https://sfac-mu.vercel.app/api/acuity/availability?type=dates&appointmentTypeID=${typeId}&month=${monthStr}&timezone=America%2FDenver`);
-    const dates = await resp.json();
-    state.availableDates = Array.isArray(dates) ? dates.map(d => d.date || d) : [];
-  } catch(e) {
-    state.availableDates = [];
-    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Unable to load availability. Please refresh or contact us.</div>';
-    return;
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const daysInMonth = new Date(m.getFullYear(), m.getMonth() + 1, 0).getDate();
+  const available = [];
+  for (let d = 1; d <= daysInMonth; d++) {
+    const dt = new Date(m.getFullYear(), m.getMonth(), d);
+    if (dt >= today && WORKING_DAYS.has(dt.getDay())) {
+      available.push(`${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`);
+    }
   }
+  state.availableDates = available;
   renderCalendarGrid();
 }
 
@@ -2029,6 +2025,13 @@ async function confirmBooking() {
     .filter(([,q])=>q>0)
     .map(([k])=>ADDON_DEFS[k].id);
 
+  // Total duration = sum of all vehicles + all addons so Acuity blocks the right time
+  const totalDuration = state.cart.reduce((sum, item) => {
+    const svcMins = getDuration(item.serviceKey, item.vehicle);
+    const addonMins = Object.entries(item.addons).reduce((a, [k, q]) => a + q * (ADDON_DEFS[k]?.duration || 0), 0);
+    return sum + svcMins + addonMins;
+  }, 0);
+
   const payload = {
     appointmentTypeID: primary.acuityTypeId,
     datetime: state.selectedTime,
@@ -2038,6 +2041,7 @@ async function confirmBooking() {
     phone: state.phone,
     addonIDs,
     notes,
+    ...(totalDuration > 0 && { duration: totalDuration }),
     ...(state.promoCode && { couponCode: state.promoCode })
   };
 
