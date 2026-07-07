@@ -156,9 +156,14 @@
     .pkg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; animation:panelIn .35s ease; }
     .pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:stretch; }
     @keyframes panelIn { from { opacity:0; transform:translateY(14px);} to {opacity:1; transform:none;} }
-    .pkg-card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:2rem 1.8rem 1.8rem; display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-card); transition:transform .2s, box-shadow .2s; }
+    .pkg-card { background:#fff; border:1px solid var(--line); border-radius:20px; display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-card); transition:transform .2s, box-shadow .2s; }
     .pkg-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lift); }
     .pkg-card.pop { border:2px solid var(--gold); }
+    .pkg-card-img { aspect-ratio:16/10; border-radius:18px 18px 0 0; overflow:hidden; background:repeating-linear-gradient(45deg,#F1EFEA,#F1EFEA 18px,#ECEAE4 18px,#ECEAE4 36px); display:flex; align-items:center; justify-content:center; }
+    .pkg-card-img img { width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
+    .pkg-card:hover .pkg-card-img img { transform:scale(1.05); }
+    .pkg-card-img span { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#B9B6AE; }
+    .pkg-card-body { padding:1.7rem 1.8rem 1.8rem; display:flex; flex-direction:column; flex:1; }
     .pop-tag { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--gold); color:#141005; font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; padding:.35rem 1rem; border-radius:999px; box-shadow:0 4px 12px rgba(201,151,58,.4); }
     .pkg-tier { font-family:var(--font-d); font-size:.64rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:.4rem; }
     .pkg-name { font-family:var(--font-d); font-size:1.3rem; font-weight:800; letter-spacing:-.02em; margin-bottom:.35rem; }
@@ -419,44 +424,53 @@
 
     <div class="pkg-grid">
       <div class="pkg-card rv">
-        <div class="pkg-tier">Level 1</div>
-        <div class="pkg-name">Maintenance</div>
-        <div class="pkg-time">Approx. time · short description</div>
-        <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-        <ul class="pkg-list">
-          <li>Feature one</li>
-          <li>Feature two</li>
-          <li>Feature three</li>
-          <li>Feature four</li>
-        </ul>
-        <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-maintenance.jpg" alt="Exterior foam wash — Maintenance detail" loading="lazy" onerror="this.remove()" /></div>
+        <div class="pkg-card-body">
+          <div class="pkg-tier">Level 1</div>
+          <div class="pkg-name">Maintenance</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Feature one</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
       </div>
       <div class="pkg-card pop rv">
         <div class="pop-tag">Most Popular</div>
-        <div class="pkg-tier">Level 2</div>
-        <div class="pkg-name">Reset</div>
-        <div class="pkg-time">Approx. time · short description</div>
-        <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-        <ul class="pkg-list">
-          <li>Everything in Level 1</li>
-          <li>Feature two</li>
-          <li>Feature three</li>
-          <li>Feature four</li>
-        </ul>
-        <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
+        <div class="pkg-card-img"><span>Image coming soon</span></div>
+        <div class="pkg-card-body">
+          <div class="pkg-tier">Level 2</div>
+          <div class="pkg-name">Reset</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Everything in Level 1</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
+        </div>
       </div>
       <div class="pkg-card rv">
-        <div class="pkg-tier">Level 3</div>
-        <div class="pkg-name">Executive</div>
-        <div class="pkg-time">Approx. time · short description</div>
-        <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-        <ul class="pkg-list">
-          <li>Everything in Level 2</li>
-          <li>Feature two</li>
-          <li>Feature three</li>
-          <li>Feature four</li>
-        </ul>
-        <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        <div class="pkg-card-img"><span>Image coming soon</span></div>
+        <div class="pkg-card-body">
+          <div class="pkg-tier">Level 3</div>
+          <div class="pkg-name">Executive</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Everything in Level 2</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
       </div>
     </div>
   </div>
