@@ -88,8 +88,9 @@
 
     /* ── Hero ─────────────────────────── */
     .hero { position:relative; min-height:88vh; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
-    .hero video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-    .hero-scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,.96) 0%, rgba(255,255,255,.84) 30%, rgba(255,255,255,.68) 60%, rgba(255,255,255,.9) 100%); }
+    .hero-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, #F1EFEA, #F1EFEA 22px, #ECEAE4 22px, #ECEAE4 44px); }
+    .hero-placeholder span { font-family:var(--font-d); font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#B9B6AE; background:rgba(255,255,255,.7); padding:.5rem 1.1rem; border-radius:999px; }
+    .hero-scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(255,255,255,.72) 40%, rgba(255,255,255,.6) 70%, rgba(255,255,255,.85) 100%); }
     .hero-content { position:relative; z-index:2; max-width:880px; padding:6rem 2rem 5rem; }
     .hero-badge { display:inline-flex; align-items:center; gap:.5rem; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); border-radius:999px; padding:.5rem 1.1rem; font-size:.78rem; font-weight:600; color:var(--ink-2); margin-bottom:1.6rem; }
     .hero-badge .stars { color:var(--gold); letter-spacing:.1em; font-size:.8rem; }
@@ -294,9 +295,9 @@
 
 <!-- ═══ HERO ═══ -->
 <header class="hero" id="home">
-  <video autoplay muted loop playsinline poster="Our.work/RSQ8 POST EXT.jpg">
-    <source src="web.screenshots/Untitled-compressed.mp4" type="video/mp4" />
-  </video>
+  <div class="hero-placeholder" aria-hidden="true">
+    <span>Hero image coming soon</span>
+  </div>
   <div class="hero-scrim"></div>
   <div class="hero-content">
     <div class="hero-badge"><span class="stars">★★★★★</span> 5.0 on Google · Northern Colorado's top-rated mobile detailer</div>
