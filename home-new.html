@@ -96,13 +96,12 @@
     .m-close { position:absolute; top:1.4rem; right:1.6rem; font-size:2rem; line-height:1; color:var(--ink); }
 
     /* ── Hero ─────────────────────────── */
-    .hero { position:relative; isolation:isolate; margin-top:-128px; padding-top:128px; min-height:calc(90vh + 128px); display:flex; align-items:stretch; justify-content:center; text-align:center; overflow:hidden; }
+    .hero { position:relative; isolation:isolate; margin-top:-128px; padding-top:128px; min-height:100vh; display:flex; align-items:stretch; justify-content:center; text-align:center; overflow:hidden; }
     .hero-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, #F1EFEA, #F1EFEA 22px, #ECEAE4 22px, #ECEAE4 44px); }
     .hero-placeholder span { font-family:var(--font-d); font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#B9B6AE; background:rgba(255,255,255,.7); padding:.5rem 1.1rem; border-radius:999px; }
     .hero-scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(255,255,255,.72) 40%, rgba(255,255,255,.6) 70%, rgba(255,255,255,.85) 100%); }
-    .hero-content { position:relative; z-index:2; width:100%; max-width:1300px; padding:1.5rem 2rem 2.5rem; display:flex; flex-direction:column; align-items:center; justify-content:flex-start; }
+    .hero-content { position:relative; z-index:2; width:100%; max-width:1300px; padding:1.5rem 2rem 5.5rem; display:flex; flex-direction:column; align-items:center; justify-content:space-between; }
     .hero-top { display:flex; flex-direction:column; align-items:center; }
-    .hero-ctas { margin-top:.5rem; }
     .hero-badge { display:inline-flex; align-items:center; gap:.7rem; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); border-radius:999px; padding:.7rem 1.5rem; font-family:var(--font-d); font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:1.6rem; transition:transform .18s ease, box-shadow .18s ease; }
     .hero-badge:hover { transform:translateY(-2px); box-shadow:var(--shadow-lift); }
     .hero-badge .stars { color:var(--ink); letter-spacing:.08em; font-size:1.1rem; }
@@ -334,10 +333,10 @@
       <span class="btxt">Trusted by 300+ customers</span>
     </a>
       <h1 class="h-display">Northern Colorado's <span class="accent">Top</span> Mobile Detailing</h1>
-      <div class="hero-ctas">
-        <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
-        <a href="#packages" class="btn btn-ghost">Learn More</a>
-      </div>
+    </div>
+    <div class="hero-ctas">
+      <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
+      <a href="#packages" class="btn btn-ghost">Learn More</a>
     </div>
   </div>
 </header>
