@@ -59,22 +59,24 @@
     /* ── Nav ──────────────────────────── */
     .nav { position:sticky; top:0; z-index:100; padding:1rem 1.5rem; transition:padding .25s ease; }
     .nav.scrolled { padding-top:.65rem; }
-    .nav-inner { max-width:1200px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:1rem;
-      padding:.5rem .6rem .5rem 1.2rem;
+    .nav-inner { position:relative; isolation:isolate; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1rem;
+      padding:.5rem .6rem .5rem 1.2rem; }
+    .nav-inner::before { content:''; position:absolute; inset:0; z-index:-1; border-radius:999px;
       background:rgba(255,255,255,.6); backdrop-filter:blur(20px) saturate(1.5); -webkit-backdrop-filter:blur(20px) saturate(1.5);
-      border:1px solid rgba(255,255,255,.7); border-radius:999px;
+      border:1px solid rgba(255,255,255,.7);
       box-shadow:0 8px 30px rgba(16,17,18,.10), inset 0 1px 0 rgba(255,255,255,.7); transition:box-shadow .25s ease; }
-    .nav.scrolled .nav-inner { box-shadow:0 12px 38px rgba(16,17,18,.16), inset 0 1px 0 rgba(255,255,255,.7); }
-    .nav-logo { display:inline-flex; align-items:center; transition:transform .18s ease; }
+    .nav.scrolled .nav-inner::before { box-shadow:0 12px 38px rgba(16,17,18,.16), inset 0 1px 0 rgba(255,255,255,.7); }
+    .nav-logo { display:inline-flex; align-items:center; justify-self:start; transition:transform .18s ease; }
     .nav-logo:hover { transform:translateY(-1px); }
     .nav-logo img { height:92px; width:auto; display:block; margin:-22px 0; }
-    .nav-links { display:flex; align-items:center; gap:2rem; }
+    .nav-links { display:flex; align-items:center; gap:2rem; justify-self:center; }
+    .nav-cta { justify-self:end; }
     .nav-links > li { position:relative; }
     .nav-links a { font-size:.86rem; font-weight:600; color:var(--ink-2); transition:color .15s; }
     .nav-links a:hover { color:var(--gold-deep); }
     .nav-drop-toggle { display:inline-flex; align-items:center; gap:.35rem; font-size:.86rem; font-weight:600; color:var(--ink-2); }
     .nav-drop-toggle svg { transition:transform .2s; }
-    .nav-drop { position:absolute; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(6px); background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-lift); padding:.5rem; min-width:230px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; }
+    .nav-drop { position:absolute; z-index:300; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(6px); background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-lift); padding:.5rem; min-width:230px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; }
     .nav-links li:hover .nav-drop, .nav-links li:focus-within .nav-drop { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
     .nav-links li:hover .nav-drop-toggle svg { transform:rotate(180deg); }
     .nav-drop a { display:block; padding:.65rem .9rem; border-radius:9px; font-size:.84rem; }
@@ -94,7 +96,7 @@
     .m-close { position:absolute; top:1.4rem; right:1.6rem; font-size:2rem; line-height:1; color:var(--ink); }
 
     /* ── Hero ─────────────────────────── */
-    .hero { position:relative; min-height:88vh; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
+    .hero { position:relative; isolation:isolate; z-index:0; min-height:88vh; display:flex; align-items:center; justify-content:center; text-align:center; overflow:hidden; }
     .hero-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, #F1EFEA, #F1EFEA 22px, #ECEAE4 22px, #ECEAE4 44px); }
     .hero-placeholder span { font-family:var(--font-d); font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#B9B6AE; background:rgba(255,255,255,.7); padding:.5rem 1.1rem; border-radius:999px; }
     .hero-scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(255,255,255,.72) 40%, rgba(255,255,255,.6) 70%, rgba(255,255,255,.85) 100%); }
@@ -272,9 +274,18 @@
           <a href="/maintenance.html">Maintenance Plans <span>Save up to 60% with recurring care</span></a>
         </div>
       </li>
-      <li><a href="#story">About</a></li>
-      <li><a href="#compare">Why Us</a></li>
-      <li><a href="#faq">FAQ</a></li>
+      <li>
+        <button class="nav-drop-toggle">Locations
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-drop">
+          <a href="#areas">Fort Collins <span>Home base — full service</span></a>
+          <a href="#areas">Loveland <span>Mobile detailing &amp; coatings</span></a>
+          <a href="#areas">Greeley <span>Mobile detailing &amp; coatings</span></a>
+          <a href="#areas">Windsor <span>Mobile detailing &amp; coatings</span></a>
+        </div>
+      </li>
+      <li><a href="#story">About Us</a></li>
     </ul>
     <div class="nav-cta">
       <a class="nav-phone" href="tel:+19702953577">
@@ -291,13 +302,12 @@
 <div class="m-menu" id="mMenu">
   <button class="m-close" id="mClose" aria-label="Close">×</button>
   <a href="#home" class="m-link">Home</a>
-  <a href="#packages" class="m-link m-sub">Mobile Detailing</a>
+  <a href="#packages" class="m-sub">Mobile Detailing</a>
   <a href="/quote-builder.html" class="m-sub">Ceramic Coating</a>
-  <a href="#packages" class="m-link m-sub">Paint Correction</a>
+  <a href="#packages" class="m-sub">Paint Correction</a>
   <a href="/maintenance.html" class="m-sub">Maintenance Plans</a>
-  <a href="#story" class="m-link">About</a>
-  <a href="#compare" class="m-link">Why Us</a>
-  <a href="#faq" class="m-link">FAQ</a>
+  <a href="#areas" class="m-link">Locations</a>
+  <a href="#story" class="m-link">About Us</a>
   <a href="/booking.html" class="btn btn-gold" style="margin-top:1.6rem;">Book Now</a>
   <a href="tel:+19702953577" class="btn btn-ghost" style="margin-top:.7rem;">Call (970) 295-3577</a>
 </div>
@@ -677,7 +687,7 @@
         <li><a href="/booking.html">Book Online</a></li>
       </ul>
     </div>
-    <div>
+    <div id="areas">
       <h5>Service Areas</h5>
       <ul>
         <li><a href="#">Fort Collins, CO</a></li>
