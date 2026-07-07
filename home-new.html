@@ -136,7 +136,7 @@
     .wrap { max-width:1280px; margin:0 auto; padding:5.5rem 2rem; }
 
     /* ── Story ────────────────────────── */
-    .story-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:4rem; align-items:center; margin-bottom:3.5rem; }
+    .story-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:4rem; align-items:start; margin-bottom:3.5rem; }
     .story-media { border-radius:22px; overflow:hidden; box-shadow:var(--shadow-lift); aspect-ratio:4/3; }
     .story-media img, .story-media video { width:100%; height:100%; object-fit:cover; display:block; }
     .story-copy p { margin-bottom:1.1rem; }
@@ -154,6 +154,7 @@
     .pkg-panels { position:relative; }
     .pkg-panel { display:none; }
     .pkg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; animation:panelIn .35s ease; }
+    .pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:stretch; }
     @keyframes panelIn { from { opacity:0; transform:translateY(14px);} to {opacity:1; transform:none;} }
     .pkg-card { background:#fff; border:1px solid var(--line); border-radius:20px; padding:2rem 1.8rem 1.8rem; display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-card); transition:transform .2s, box-shadow .2s; }
     .pkg-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lift); }
@@ -239,7 +240,7 @@
     /* ── Responsive ───────────────────── */
     @media (max-width: 1024px) {
       .services-grid { grid-template-columns:repeat(2,1fr); }
-      .pkg-panel.active { grid-template-columns:1fr; max-width:460px; margin:0 auto; }
+      .pkg-panel.active, .pkg-grid { grid-template-columns:1fr; max-width:460px; margin:0 auto; }
       .story-grid { grid-template-columns:1fr; gap:2.2rem; }
       .veh-grid { grid-template-columns:repeat(2,1fr); }
       .stats-inner { grid-template-columns:repeat(2,1fr); }
@@ -416,155 +417,52 @@
 <section class="pkg-sec" id="packages">
   <div class="wrap">
     <div class="pkg-head">
-      <span class="label" style="justify-content:center;">Pricing</span>
-      <h2 class="h-sec" style="margin:.9rem 0 .9rem;">Pick Your Detail</h2>
-      <p class="sub">Transparent starting prices. Every service is 100% mobile — we come to you anywhere in Northern Colorado.</p>
+      <span class="label" style="justify-content:center;">Our Packages</span>
+      <h2 class="h-sec" style="margin:.9rem 0 .9rem;">Choose Your Detail Package</h2>
+      <p class="sub">Three levels of detail — pick the one that fits your vehicle and your goals. Every service is 100% mobile, we come to you.</p>
     </div>
 
-    <div class="tabs" id="pkgTabs">
-      <button class="tab active" data-panel="full">Full Detail</button>
-      <button class="tab" data-panel="ext">Exterior Only</button>
-      <button class="tab" data-panel="int">Interior Only</button>
-    </div>
-
-    <div class="pkg-panels">
-      <!-- FULL -->
-      <div class="pkg-panel active" id="panel-full">
-        <div class="pkg-card rv">
-          <div class="pkg-tier">Express</div>
-          <div class="pkg-name">Express Full Detail</div>
-          <div class="pkg-time">~3 hours · interior + exterior</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$220</span></div>
-          <ul class="pkg-list">
-            <li>Full Express Interior</li>
-            <li>Full Express Exterior</li>
-            <li>Hand wash &amp; dry, wheels and tires dressed</li>
-            <li>Vacuum, wipe-down, windows in &amp; out</li>
-          </ul>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-        <div class="pkg-card pop rv">
-          <div class="pop-tag">Most Popular</div>
-          <div class="pkg-tier">Executive</div>
-          <div class="pkg-name">Executive Full Detail</div>
-          <div class="pkg-time">~5–6 hours · our complete package</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$440</span></div>
-          <ul class="pkg-list">
-            <li>Full Executive Interior — steam clean &amp; leather conditioning</li>
-            <li>Full Executive Exterior — clay bar &amp; decontamination</li>
-            <li>Trim restoration included</li>
-            <li>Showroom-level finish, inside and out</li>
-          </ul>
-          <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
-        </div>
-        <div class="pkg-card rv">
-          <div class="pkg-tier">Protect &amp; Restore</div>
-          <div class="pkg-name">Ceramic + Correction</div>
-          <div class="pkg-time">Full-day service · System X certified</div>
-          <div class="pkg-price"><span class="from">Paint correction from</span><span class="amt">$550</span></div>
-          <ul class="pkg-list">
-            <li>1-step or 2-step machine paint correction</li>
-            <li>System X ceramic coating — up to lifetime warranty</li>
-            <li>Reported to Carfax</li>
-            <li>First annual maintenance visit free</li>
-          </ul>
-          <a href="/quote-builder.html" class="btn btn-dark">Build Your Package</a>
-        </div>
+    <div class="pkg-grid">
+      <div class="pkg-card rv">
+        <div class="pkg-tier">Level 1</div>
+        <div class="pkg-name">Package Name</div>
+        <div class="pkg-time">Approx. time · short description</div>
+        <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+        <ul class="pkg-list">
+          <li>Feature one</li>
+          <li>Feature two</li>
+          <li>Feature three</li>
+          <li>Feature four</li>
+        </ul>
+        <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
       </div>
-
-      <!-- EXTERIOR -->
-      <div class="pkg-panel" id="panel-ext">
-        <div class="pkg-card rv">
-          <div class="pkg-tier">Express</div>
-          <div class="pkg-name">Express Exterior</div>
-          <div class="pkg-time">~45–60 min</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$90</span></div>
-          <ul class="pkg-list">
-            <li>Foam cannon hand wash &amp; dry</li>
-            <li>Wheels, tires &amp; wheel faces cleaned</li>
-            <li>Tires dressed</li>
-            <li>Exterior windows</li>
-          </ul>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-        <div class="pkg-card pop rv">
-          <div class="pop-tag">Most Popular</div>
-          <div class="pkg-tier">Executive</div>
-          <div class="pkg-name">Executive Exterior</div>
-          <div class="pkg-time">~1.5 hours</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$140</span></div>
-          <ul class="pkg-list">
-            <li>All Express Exterior steps</li>
-            <li>Enhanced paint decontamination</li>
-            <li>Trim restoration</li>
-            <li>Wheel well cleaning</li>
-          </ul>
-          <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
-        </div>
-        <div class="pkg-card rv">
-          <div class="pkg-tier">Restore</div>
-          <div class="pkg-name">Paint Correction</div>
-          <div class="pkg-time">1-step or 2-step · sealant finish</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$550</span></div>
-          <ul class="pkg-list">
-            <li>Iron remover &amp; clay bar decontamination</li>
-            <li>1-step: removes 65–75% of swirls ($550)</li>
-            <li>2-step: removes 85–95% of defects ($900)</li>
-            <li>Full Executive Exterior included</li>
-          </ul>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
+      <div class="pkg-card pop rv">
+        <div class="pop-tag">Most Popular</div>
+        <div class="pkg-tier">Level 2</div>
+        <div class="pkg-name">Package Name</div>
+        <div class="pkg-time">Approx. time · short description</div>
+        <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+        <ul class="pkg-list">
+          <li>Everything in Level 1</li>
+          <li>Feature two</li>
+          <li>Feature three</li>
+          <li>Feature four</li>
+        </ul>
+        <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
       </div>
-
-      <!-- INTERIOR -->
-      <div class="pkg-panel" id="panel-int">
-        <div class="pkg-card rv">
-          <div class="pkg-tier">Express</div>
-          <div class="pkg-name">Express Interior</div>
-          <div class="pkg-time">~1.5–2 hours</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$165</span></div>
-          <ul class="pkg-list">
-            <li>Full vacuum — seats, carpets, mats &amp; trunk</li>
-            <li>Wipe-down of all surfaces</li>
-            <li>Interior windows &amp; mirrors</li>
-            <li>Door jambs cleaned</li>
-          </ul>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-        <div class="pkg-card pop rv">
-          <div class="pop-tag">Most Popular</div>
-          <div class="pkg-tier">Executive</div>
-          <div class="pkg-name">Executive Interior</div>
-          <div class="pkg-time">~3 hours · deep clean</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$330</span></div>
-          <ul class="pkg-list">
-            <li>All Express Interior steps</li>
-            <li>Steam cleaning &amp; shampoo extraction</li>
-            <li>Leather cleaned &amp; conditioned</li>
-            <li>Pet hair removal included</li>
-          </ul>
-          <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
-        </div>
-        <div class="pkg-card rv">
-          <div class="pkg-tier">Best Value</div>
-          <div class="pkg-name">Express Full Detail</div>
-          <div class="pkg-time">~3 hours · add the exterior</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$220</span></div>
-          <ul class="pkg-list">
-            <li>Everything in Express Interior</li>
-            <li>Plus the complete Express Exterior</li>
-            <li>One visit, whole car refreshed</li>
-          </ul>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
+      <div class="pkg-card rv">
+        <div class="pkg-tier">Level 3</div>
+        <div class="pkg-name">Package Name</div>
+        <div class="pkg-time">Approx. time · short description</div>
+        <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+        <ul class="pkg-list">
+          <li>Everything in Level 2</li>
+          <li>Feature two</li>
+          <li>Feature three</li>
+          <li>Feature four</li>
+        </ul>
+        <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
       </div>
-    </div>
-
-    <div class="addons-row rv">
-      <div class="addon-chip">Headlight Restoration — <strong>$65</strong></div>
-      <div class="addon-chip">Engine Bay Cleaning — <strong>$50</strong></div>
-      <div class="addon-chip">Trim Restore — <strong>$40</strong> (included in Executive)</div>
-      <div class="addon-chip">Pet Hair Removal — <strong>$40</strong></div>
     </div>
   </div>
 </section>
