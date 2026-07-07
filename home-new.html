@@ -138,7 +138,7 @@
     /* ── Story ────────────────────────── */
     .story-grid { display:grid; grid-template-columns:1.05fr .95fr; gap:4rem; align-items:center; margin-bottom:3.5rem; }
     .story-media { border-radius:22px; overflow:hidden; box-shadow:var(--shadow-lift); aspect-ratio:4/3; }
-    .story-media img { width:100%; height:100%; object-fit:cover; }
+    .story-media img, .story-media video { width:100%; height:100%; object-fit:cover; display:block; }
     .story-copy p { margin-bottom:1.1rem; }
     .story-heart { display:inline-flex; align-items:center; gap:.55rem; background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:999px; padding:.5rem 1.1rem; font-size:.78rem; font-weight:700; color:var(--gold-deep); margin-top:.6rem; }
     .gallery-strip { display:flex; gap:1rem; overflow-x:auto; padding:0 2rem 1.2rem; max-width:1280px; margin:0 auto; scroll-snap-type:x mandatory; scrollbar-width:thin; scrollbar-color:var(--gold) var(--line); }
@@ -397,7 +397,7 @@
         </div>
       </div>
       <div class="story-media rv">
-        <img src="Our.work/BRONCO Foam.jpg" alt="Ford Bronco foam wash — mobile detail in Northern Colorado" loading="lazy" />
+        <video src="web.screenshots/ExampleVID.mp4" autoplay muted loop playsinline poster="web.screenshots/RangeRover.jpg"></video>
       </div>
     </div>
   </div>
