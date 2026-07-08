@@ -8,7 +8,7 @@
   <link rel="icon" href="brand_assets/Shine for a Cause LOGO cropped.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Caveat:wght@600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #FFFFFF;
@@ -150,7 +150,7 @@
     .pkg-head { text-align:center; max-width:640px; margin:0 auto 2.6rem; }
     .tabs { display:flex; justify-content:center; gap:.4rem; background:#fff; border:1px solid var(--line); border-radius:999px; padding:.35rem; width:max-content; margin:0 auto 3rem; box-shadow:var(--shadow-card); }
     .tab { font-family:var(--font-d); font-size:.8rem; font-weight:700; padding:.7rem 1.7rem; border-radius:999px; color:var(--muted); transition:.18s; }
-    .tab.active { background:var(--ink); color:#fff; }
+    .tab.active { background:var(--gold); color:#141005; }
     .pkg-panels { position:relative; }
     .pkg-panel { display:none; }
     .pkg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; animation:panelIn .35s ease; }
@@ -163,6 +163,8 @@
     .pkg-card-img img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform .4s ease; }
     .pkg-card:hover .pkg-card-img img { transform:scale(1.05); }
     .pkg-card-img span { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#B9B6AE; }
+    .pkg-card-img::after { content:''; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,0) 45%); }
+    .pkg-fun { position:absolute; left:1.2rem; bottom:.7rem; z-index:3; font-family:'Caveat',cursive; font-weight:700; font-size:2.3rem; line-height:1; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.55); }
     .pkg-card-body { padding:1.7rem 1.8rem 1.8rem; display:flex; flex-direction:column; flex:1; }
     .pop-tag { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--gold); color:#141005; font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; padding:.35rem 1rem; border-radius:999px; box-shadow:0 4px 12px rgba(201,151,58,.4); }
     .pkg-tier { font-family:var(--font-d); font-size:.64rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:.4rem; }
@@ -422,12 +424,18 @@
       <p class="sub">Three levels of detail — pick the one that fits your vehicle and your goals. Every service is 100% mobile, we come to you.</p>
     </div>
 
-    <div class="pkg-grid">
+    <div class="tabs" id="pkgTabs">
+      <button class="tab active" data-panel="full">Full Detail</button>
+      <button class="tab" data-panel="ext">Exterior Only</button>
+      <button class="tab" data-panel="int">Interior Only</button>
+    </div>
+
+    <div class="pkg-panels">
+      <div class="pkg-panel active" id="panel-full">
       <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-maintenance.jpg" alt="Exterior foam wash — Maintenance detail" loading="lazy" onerror="this.remove()" /></div>
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-maintenance.jpg" alt="Full Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
         <div class="pkg-card-body">
-          <div class="pkg-tier">Level 1</div>
-          <div class="pkg-name">Maintenance</div>
+          <div class="pkg-name">Full Maintenance</div>
           <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
           <ul class="pkg-list">
@@ -439,11 +447,10 @@
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
-      <div class="pkg-card pop rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-reset.jpg" alt="Interior deep clean — Reset detail" loading="lazy" onerror="this.remove()" /></div>
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-reset.jpg" alt="Full Reset" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
-          <div class="pkg-tier">Level 2</div>
-          <div class="pkg-name">Reset</div>
+          <div class="pkg-name">Full Reset</div>
           <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
           <ul class="pkg-list">
@@ -452,14 +459,13 @@
             <li>Feature three</li>
             <li>Feature four</li>
           </ul>
-          <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-executive.jpg" alt="Clay bar paint decontamination — Executive detail" loading="lazy" onerror="this.remove()" /></div>
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-executive.jpg" alt="Full Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
         <div class="pkg-card-body">
-          <div class="pkg-tier">Level 3</div>
-          <div class="pkg-name">Executive</div>
+          <div class="pkg-name">Full Executive</div>
           <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
           <ul class="pkg-list">
@@ -470,6 +476,101 @@
           </ul>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
+      </div>
+      </div>
+      <div class="pkg-panel" id="panel-ext">
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level One</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Exterior Maintenance</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Feature one</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
+      </div>
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level Two</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Exterior Reset</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Everything in Level 1</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
+      </div>
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level Three</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Exterior Executive</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Everything in Level 2</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
+      </div>
+      </div>
+      <div class="pkg-panel" id="panel-int">
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level One</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Interior Maintenance</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Feature one</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
+      </div>
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level Two</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Interior Reset</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Everything in Level 1</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
+      </div>
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level Three</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Interior Executive</div>
+          <div class="pkg-time">Approx. time · short description</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
+          <ul class="pkg-list">
+            <li>Everything in Level 2</li>
+            <li>Feature two</li>
+            <li>Feature three</li>
+            <li>Feature four</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
+      </div>
       </div>
     </div>
   </div>
