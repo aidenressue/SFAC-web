@@ -97,6 +97,8 @@
 
     /* ── Hero ─────────────────────────── */
     .hero { position:relative; isolation:isolate; margin-top:-128px; padding-top:128px; min-height:100vh; display:flex; align-items:stretch; justify-content:center; text-align:center; overflow:hidden; }
+    .scroll-cue { position:absolute; bottom:1.4rem; left:50%; z-index:4; color:var(--ink); animation:bob 1.6s ease-in-out infinite; }
+    @keyframes bob { 0%,100% { transform:translate(-50%,0); } 50% { transform:translate(-50%,10px); } }
     .hero-placeholder { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg, #F1EFEA, #F1EFEA 22px, #ECEAE4 22px, #ECEAE4 44px); }
     .hero-placeholder span { font-family:var(--font-d); font-size:.72rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:#B9B6AE; background:rgba(255,255,255,.7); padding:.5rem 1.1rem; border-radius:999px; }
     .hero-scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,.88) 0%, rgba(255,255,255,.72) 40%, rgba(255,255,255,.6) 70%, rgba(255,255,255,.85) 100%); }
@@ -360,6 +362,9 @@
       <a href="#packages" class="btn btn-ghost">Learn More</a>
     </div>
   </div>
+  <a href="#services" class="scroll-cue" aria-label="Scroll down">
+    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
 </header>
 
 <!-- ═══ OUR MAIN SERVICES ═══ -->
@@ -423,7 +428,6 @@
 <section class="pkg-sec" id="packages">
   <div class="wrap">
     <div class="pkg-head">
-      <span class="label" style="justify-content:center;">Our Packages</span>
       <h2 class="h-sec" style="margin:.9rem 0 .9rem;">Choose Your Detail Package</h2>
       <p class="sub">Three levels of detail — pick the one that fits your vehicle and your goals. Every service is 100% mobile, we come to you.</p>
     </div>
@@ -678,7 +682,6 @@
 <!-- ═══ VEHICLES ═══ -->
 <section id="vehicles">
   <div class="wrap" style="text-align:center;">
-    <span class="label" style="justify-content:center;">Every Ride Welcome</span>
     <h2 class="h-sec" style="margin:.9rem 0 .6rem;">Vehicles We Service</h2>
     <p class="sub" style="max-width:520px;margin:0 auto;">From daily commuters to weekend toys — pricing scales fairly by vehicle size.</p>
     <div class="veh-grid">
@@ -720,7 +723,6 @@
 <section id="compare">
   <div class="wrap">
     <div style="text-align:center;max-width:620px;margin:0 auto;">
-      <span class="label" style="justify-content:center;">The Difference</span>
       <h2 class="h-sec" style="margin:.9rem 0 .6rem;">Tunnel Wash vs. Shine for a Cause</h2>
       <p class="sub">A $20 tunnel wash and a professional detail aren't the same thing — here's why.</p>
     </div>
@@ -740,7 +742,6 @@
 <section id="faq" style="background:var(--bg-soft);border-top:1px solid var(--line);">
   <div class="wrap">
     <div style="text-align:center;margin-bottom:2.6rem;">
-      <span class="label" style="justify-content:center;">Before You Book</span>
       <h2 class="h-sec" style="margin:.9rem 0 0;">Frequently Asked Questions</h2>
     </div>
     <div class="faq-wrap">
