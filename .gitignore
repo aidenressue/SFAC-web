@@ -8,3 +8,4 @@ web.screenshots/*.mp4
 .claude/
 package-lock.json
 serve.mjs
+!web.screenshots/ceramic-pour.mp4
