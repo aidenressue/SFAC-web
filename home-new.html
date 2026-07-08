@@ -153,7 +153,7 @@
     .tab.active { background:var(--gold); color:#141005; }
     .pkg-panels { position:relative; }
     .pkg-panel { display:none; }
-    .pkg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; animation:panelIn .35s ease; }
+    .pkg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:start; animation:panelIn .35s ease; }
     .pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:stretch; }
     @keyframes panelIn { from { opacity:0; transform:translateY(14px);} to {opacity:1; transform:none;} }
     .pkg-card { background:#fff; border:1px solid var(--line); border-radius:20px; display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-card); transition:transform .2s, box-shadow .2s; }
@@ -174,9 +174,12 @@
     .pkg-price { font-family:var(--font-d); margin-bottom:1.3rem; }
     .pkg-price .from { display:block; font-size:.68rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.15rem; }
     .pkg-price .amt { font-size:2.3rem; font-weight:900; letter-spacing:-.03em; color:var(--ink); }
-    .pkg-list { flex:1; display:flex; flex-direction:column; gap:.55rem; margin-bottom:1.6rem; }
-    .pkg-list li { display:flex; gap:.6rem; font-size:.83rem; color:var(--ink-2); line-height:1.5; }
-    .pkg-list li::before { content:''; flex-shrink:0; width:16px; height:16px; margin-top:.12rem; border-radius:50%; background:var(--gold-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23A87B27' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid var(--gold-line); }
+    .pkg-inc { margin-bottom:1.6rem; }
+    .pkg-inc.two { display:grid; grid-template-columns:1fr 1fr; gap:1.3rem 1.2rem; }
+    .pkg-inc-head { font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); margin-bottom:.7rem; padding-bottom:.4rem; border-bottom:1px solid var(--line); }
+    .pkg-list { display:flex; flex-direction:column; gap:.55rem; }
+    .pkg-list li { display:flex; gap:.55rem; font-size:.8rem; color:var(--ink-2); line-height:1.45; }
+    .pkg-list li::before { content:''; flex-shrink:0; width:16px; height:16px; margin-top:.1rem; border-radius:50%; background:rgba(34,163,74,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%2317A34A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(34,163,74,.35); }
     .addons-row { display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center; margin-top:2.4rem; }
     .addon-chip { background:#fff; border:1px solid var(--line); border-radius:999px; padding:.5rem 1.05rem; font-size:.76rem; color:var(--ink-2); }
     .addon-chip strong { color:var(--ink); }
@@ -437,14 +440,29 @@
         <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-maintenance.jpg" alt="Full Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Full Maintenance</div>
-          <div class="pkg-time">Approx. time · short description</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Feature one</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$180</span></div>
+          <div class="pkg-inc two">
+            <div>
+              <div class="pkg-inc-head">Interior</div>
+              <ul class="pkg-list">
+              <li>Interior vacuum</li>
+              <li>Wipe all surfaces</li>
+              <li>Windows & mirrors</li>
+              <li>Door jambs</li>
+              <li>Floor mats</li>
+              <li>Detail trunk</li>
+            </ul>
+            </div>
+            <div>
+              <div class="pkg-inc-head">Exterior</div>
+              <ul class="pkg-list">
+              <li>Quick hand wash</li>
+              <li>Wax protection</li>
+              <li>Clean rims</li>
+              <li>Clean tires</li>
+            </ul>
+            </div>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
@@ -452,14 +470,34 @@
         <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-reset.jpg" alt="Full Reset" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Full Reset</div>
-          <div class="pkg-time">Approx. time · short description</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Everything in Level 1</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$299</span></div>
+          <div class="pkg-inc two">
+            <div>
+              <div class="pkg-inc-head">Interior</div>
+              <ul class="pkg-list">
+              <li>Thorough vacuum interior</li>
+              <li>Clean & protect plastic</li>
+              <li>Stains (spot treatment)</li>
+              <li>Detail floor mats & shine</li>
+              <li>Wipe all surfaces</li>
+              <li>Spot steam cleaning</li>
+              <li>Windows & mirrors</li>
+              <li>Detail trunk</li>
+              <li>Door jambs</li>
+            </ul>
+            </div>
+            <div>
+              <div class="pkg-inc-head">Exterior</div>
+              <ul class="pkg-list">
+              <li>Professional hand wash</li>
+              <li>Wax protection</li>
+              <li>Detail rims</li>
+              <li>Spot polish</li>
+              <li>Wheel wells</li>
+              <li>Detail tires</li>
+            </ul>
+            </div>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
@@ -467,14 +505,40 @@
         <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-executive.jpg" alt="Full Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Full Executive</div>
-          <div class="pkg-time">Approx. time · short description</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Everything in Level 2</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$499</span></div>
+          <div class="pkg-inc two">
+            <div>
+              <div class="pkg-inc-head">Interior</div>
+              <ul class="pkg-list">
+              <li>Thorough vacuum interior</li>
+              <li>Clean & protect plastic</li>
+              <li>Wipe all surfaces</li>
+              <li>Stains (spot treatment)</li>
+              <li>Full carpet shampoo</li>
+              <li>Seat shampoo</li>
+              <li>Leather conditioning</li>
+              <li>Full steam cleaning</li>
+              <li>Trim restoration</li>
+              <li>Detail floor mats & shine</li>
+              <li>Windows & mirrors</li>
+              <li>Detail trunk</li>
+              <li>Door jambs</li>
+            </ul>
+            </div>
+            <div>
+              <div class="pkg-inc-head">Exterior</div>
+              <ul class="pkg-list">
+              <li>Professional hand wash</li>
+              <li>2-step decontamination</li>
+              <li>Full paint enhancement</li>
+              <li>Ceramic sealant (4–6 month)</li>
+              <li>Trim restoration</li>
+              <li>Detail rims</li>
+              <li>Wheel wells</li>
+              <li>Detail tires</li>
+            </ul>
+            </div>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
@@ -484,14 +548,16 @@
         <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level One</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Exterior Maintenance</div>
-          <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Feature one</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">Exterior</div>
+            <ul class="pkg-list">
+              <li>Quick hand wash</li>
+              <li>Wax protection</li>
+              <li>Clean rims</li>
+              <li>Clean tires</li>
+            </ul>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
@@ -499,14 +565,18 @@
         <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Exterior Reset</div>
-          <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Everything in Level 1</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">Exterior</div>
+            <ul class="pkg-list">
+              <li>Professional hand wash</li>
+              <li>Wax protection</li>
+              <li>Detail rims</li>
+              <li>Spot polish</li>
+              <li>Wheel wells</li>
+              <li>Detail tires</li>
+            </ul>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
@@ -514,14 +584,20 @@
         <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level Three</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Exterior Executive</div>
-          <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Everything in Level 2</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">Exterior</div>
+            <ul class="pkg-list">
+              <li>Professional hand wash</li>
+              <li>2-step decontamination</li>
+              <li>Full paint enhancement</li>
+              <li>Ceramic sealant (4–6 month)</li>
+              <li>Trim restoration</li>
+              <li>Detail rims</li>
+              <li>Wheel wells</li>
+              <li>Detail tires</li>
+            </ul>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
@@ -531,14 +607,18 @@
         <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level One</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Interior Maintenance</div>
-          <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Feature one</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">Interior</div>
+            <ul class="pkg-list">
+              <li>Interior vacuum</li>
+              <li>Wipe all surfaces</li>
+              <li>Windows & mirrors</li>
+              <li>Door jambs</li>
+              <li>Floor mats</li>
+              <li>Detail trunk</li>
+            </ul>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
@@ -546,14 +626,21 @@
         <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Interior Reset</div>
-          <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Everything in Level 1</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">Interior</div>
+            <ul class="pkg-list">
+              <li>Thorough vacuum interior</li>
+              <li>Clean & protect plastic</li>
+              <li>Stains (spot treatment)</li>
+              <li>Detail floor mats & shine</li>
+              <li>Wipe all surfaces</li>
+              <li>Spot steam cleaning</li>
+              <li>Windows & mirrors</li>
+              <li>Detail trunk</li>
+              <li>Door jambs</li>
+            </ul>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
@@ -561,14 +648,25 @@
         <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Level Three</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Interior Executive</div>
-          <div class="pkg-time">Approx. time · short description</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <ul class="pkg-list">
-            <li>Everything in Level 2</li>
-            <li>Feature two</li>
-            <li>Feature three</li>
-            <li>Feature four</li>
-          </ul>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">Interior</div>
+            <ul class="pkg-list">
+              <li>Thorough vacuum interior</li>
+              <li>Clean & protect plastic</li>
+              <li>Wipe all surfaces</li>
+              <li>Stains (spot treatment)</li>
+              <li>Full carpet shampoo</li>
+              <li>Seat shampoo</li>
+              <li>Leather conditioning</li>
+              <li>Full steam cleaning</li>
+              <li>Trim restoration</li>
+              <li>Detail floor mats & shine</li>
+              <li>Windows & mirrors</li>
+              <li>Detail trunk</li>
+              <li>Door jambs</li>
+            </ul>
+          </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
