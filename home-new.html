@@ -197,28 +197,31 @@
     .veh-card p { font-size:.74rem; color:var(--muted); }
 
     /* ── Ceramic (System X) ───────────── */
-    .ceramic-sec { background:var(--bg); padding:4.5rem 2rem 5rem; border-top:1px solid var(--line); }
-    .ceramic-wrap { max-width:1100px; margin:0 auto; }
-    .cx-logo { height:54px; width:auto; display:block; }
-    .cx-headline { font-family:var(--font-d); font-weight:900; letter-spacing:-.02em; font-size:clamp(2rem,4.2vw,3.2rem); line-height:1.02; margin:1.3rem 0 0; color:var(--ink); }
-    .cx-headline span { color:var(--sysx-red); }
-    .cx-diagram { position:relative; width:1080px; max-width:100%; height:560px; margin:1.4rem auto 0; }
-    .cx-desc { position:absolute; left:0; top:50%; transform:translateY(-50%); width:340px; z-index:3; }
+    .ceramic-sec { background:var(--bg); padding:2.6rem 2rem 4.5rem; border-top:1px solid var(--line); }
+    .ceramic-wrap { max-width:1080px; margin:0 auto; }
+    .cx-headline { font-family:var(--font-d); font-weight:900; letter-spacing:-.02em; font-size:clamp(2rem,4.2vw,3.2rem); line-height:1.02; margin:0; color:var(--ink); }
+    .cx-headline span { color:var(--gold-deep); }
+    .cx-logo { height:46px; width:auto; display:block; margin:1rem 0 0; }
+    .cx-diagram { position:relative; width:1080px; max-width:100%; height:560px; margin:1.6rem auto 0; }
+    .cx-desc { position:absolute; left:0; top:50%; transform:translateY(-50%); width:300px; z-index:3; }
     .cx-desc h3 { font-family:var(--font-d); font-weight:800; font-size:1.05rem; text-transform:uppercase; letter-spacing:.02em; color:var(--ink); margin-bottom:.8rem; }
-    .cx-desc p { font-size:.9rem; line-height:1.7; color:var(--ink-2); }
-    .cx-car { position:absolute; left:530px; top:50%; transform:translate(-50%,-50%); width:300px; z-index:2; }
+    .cx-desc h3 span { color:var(--gold-deep); }
+    .cx-desc p { font-size:.88rem; line-height:1.68; color:var(--ink-2); }
+    .cx-desc .btn { margin-top:1.3rem; }
+    .cx-car { position:absolute; left:680px; top:50%; transform:translate(-50%,-50%); width:360px; z-index:2; }
     .cx-car img { width:100%; display:block; -webkit-mask-image:radial-gradient(ellipse 56% 84% at 50% 50%, #000 52%, transparent 100%); mask-image:radial-gradient(ellipse 56% 84% at 50% 50%, #000 52%, transparent 100%); }
     .cx-car .cx-placeholder { aspect-ratio:2/3; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg,#F1EFEA,#F1EFEA 20px,#ECEAE4 20px,#ECEAE4 40px); border-radius:12px; font-family:var(--font-d); font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#B9B6AE; }
     .cx-lines { position:absolute; inset:0; width:100%; height:100%; z-index:1; pointer-events:none; overflow:visible; }
-    .cx-feat { position:absolute; left:778px; transform:translateY(-50%); display:flex; align-items:center; gap:.6rem; font-family:var(--font-d); font-weight:700; font-size:.98rem; color:var(--ink); white-space:nowrap; z-index:3; }
-    .cx-feat .chk { flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(--sysx-red); display:flex; align-items:center; justify-content:center; }
+    .cx-feat { position:absolute; display:flex; align-items:center; gap:.55rem; font-family:var(--font-d); font-weight:700; font-size:.95rem; color:var(--ink); white-space:nowrap; z-index:3; }
+    .cx-feat.left { flex-direction:row-reverse; text-align:right; }
+    .cx-feat .chk { flex-shrink:0; width:22px; height:22px; border-radius:50%; background:var(--gold); display:flex; align-items:center; justify-content:center; }
     @media (max-width:1080px) {
       .cx-diagram { width:100%; height:auto; display:flex; flex-direction:column; align-items:center; gap:1.5rem; margin-top:2rem; }
       .cx-lines { display:none; }
-      .cx-desc { position:static; transform:none; width:100%; max-width:560px; text-align:center; }
-      .cx-car { position:static; transform:none; width:min(300px,80%); }
-      .cx-feats { display:flex; flex-direction:column; gap:1rem; }
-      .cx-feat { position:static; transform:none; left:auto; font-size:1.05rem; }
+      .cx-desc { position:static; transform:none; width:100%; max-width:600px; text-align:center; }
+      .cx-car { position:static; transform:none; width:min(320px,80%); }
+      .cx-feats { display:flex; flex-direction:column; gap:1rem; align-items:center; }
+      .cx-feat { position:static; transform:none; left:auto; right:auto; flex-direction:row; text-align:left; font-size:1.05rem; }
     }
 
     /* ── Stats band ───────────────────── */
@@ -709,13 +712,14 @@
 <!-- ═══ CERAMIC (SYSTEM X) ═══ -->
 <section class="ceramic-sec" id="ceramic">
   <div class="ceramic-wrap">
+    <h2 class="cx-headline">Automotive <span>Ceramic Coatings</span></h2>
     <img class="cx-logo" src="web.screenshots/systemx-logo-white-scaled.png" alt="System X Ceramic Protection" />
-    <h2 class="cx-headline">Beauty That <span>Never Fades</span></h2>
 
     <div class="cx-diagram">
       <div class="cx-desc">
-        <h3>Automotive Ceramic Coatings</h3>
+        <h3>Beauty That <span>Never Fades</span></h3>
         <p>We've partnered with System X Ceramic Coatings to bring you the highest-quality, longest-lasting, professional-grade coatings. All of our coatings come with a warranty ranging from 2 years to lifetime. A ceramic coating is a thin, hard layer on top of your car's clearcoat, protecting it from micro-scratches, UV rays, and harsh winters, while also making it far easier to maintain. Other benefits include high gloss, complete hydrophobics, and year-round protection.</p>
+        <a href="/quote-builder.html" class="btn btn-gold">Learn More</a>
       </div>
 
       <div class="cx-car">
@@ -724,28 +728,28 @@
 
       <svg class="cx-lines" viewBox="0 0 1080 560" fill="none" aria-hidden="true">
         <g stroke="#C4C8CE" stroke-width="1.5">
-          <line x1="600" y1="150" x2="760" y2="110"/>
-          <line x1="588" y1="205" x2="760" y2="230"/>
-          <line x1="602" y1="270" x2="760" y2="350"/>
-          <line x1="600" y1="395" x2="760" y2="470"/>
+          <line x1="742" y1="150" x2="845" y2="150"/>
+          <line x1="748" y1="225" x2="845" y2="330"/>
+          <line x1="618" y1="290" x2="505" y2="200"/>
+          <line x1="684" y1="452" x2="505" y2="420"/>
         </g>
-        <g fill="var(--sysx-red)">
-          <circle cx="600" cy="150" r="4.5"/>
-          <circle cx="588" cy="205" r="4.5"/>
-          <circle cx="602" cy="270" r="4.5"/>
-          <circle cx="600" cy="395" r="4.5"/>
-          <circle cx="760" cy="110" r="4"/>
-          <circle cx="760" cy="230" r="4"/>
-          <circle cx="760" cy="350" r="4"/>
-          <circle cx="760" cy="470" r="4"/>
+        <g fill="var(--gold)">
+          <circle cx="742" cy="150" r="4.5"/>
+          <circle cx="748" cy="225" r="4.5"/>
+          <circle cx="618" cy="290" r="4.5"/>
+          <circle cx="684" cy="452" r="4.5"/>
+          <circle cx="845" cy="150" r="4"/>
+          <circle cx="845" cy="330" r="4"/>
+          <circle cx="505" cy="200" r="4"/>
+          <circle cx="505" cy="420" r="4"/>
         </g>
       </svg>
 
       <div class="cx-feats">
-        <div class="cx-feat" style="top:110px"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>High Gloss</div>
-        <div class="cx-feat" style="top:230px"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Glass Coatings Available</div>
-        <div class="cx-feat" style="top:350px"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>UV Ray Protection</div>
-        <div class="cx-feat" style="top:470px"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>9H Hardness</div>
+        <div class="cx-feat right" style="top:150px; left:875px"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>High Gloss</div>
+        <div class="cx-feat right" style="top:330px; left:875px"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>Glass Coatings Available</div>
+        <div class="cx-feat left" style="top:200px; right:600px"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>UV Ray Protection</div>
+        <div class="cx-feat left" style="top:420px; right:600px"><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></span>9H Hardness</div>
       </div>
     </div>
   </div>
