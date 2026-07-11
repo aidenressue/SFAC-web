@@ -242,27 +242,30 @@
     .stat-num sup { font-size:.5em; font-weight:800; }
     .stat-lbl { font-size:.78rem; color:rgba(255,255,255,.65); margin-top:.35rem; letter-spacing:.04em; }
 
-    /* ── Compare ──────────────────────── */
+    /* ── Compare (godetail-style toggle) ── */
     /* Dark sections below ceramic */
     #compare, #faq { background:#000; }
     #compare .h-sec, #faq .h-sec { color:#fff; }
     #compare .sub { color:#B9BCC1; }
-    .cmp-table { max-width:840px; margin:3rem auto 0; background:#fff; border:1px solid var(--line); border-radius:26px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,.45); }
-    .cmp-row { display:grid; grid-template-columns:1.5fr 1fr 1fr; align-items:stretch; }
-    .cmp-row + .cmp-row { border-top:1px solid var(--line); }
-    .cmp-row > div { padding:1.15rem 1.6rem; font-size:.92rem; display:flex; align-items:center; }
-    .cmp-row .feat { font-family:var(--font-d); font-weight:600; color:var(--ink); }
-    .cmp-row > div:nth-child(2), .cmp-row > div:nth-child(3) { justify-content:center; text-align:center; }
-    /* highlighted brand column */
-    .cmp-row > div:nth-child(3) { background:rgba(201,151,58,.09); box-shadow:inset 1px 0 0 rgba(201,151,58,.18), inset -1px 0 0 rgba(201,151,58,.18); }
-    .cmp-head { background:var(--ink); }
-    .cmp-head > div { font-family:var(--font-d); font-weight:800; font-size:.74rem; letter-spacing:.11em; text-transform:uppercase; color:rgba(255,255,255,.55); }
-    .cmp-head > div:nth-child(3) { background:var(--gold); color:#141005; box-shadow:none; }
-    .cmp-head .us { display:inline-flex; align-items:center; gap:.35rem; }
-    /* fun circular badges */
-    .mark-x, .mark-check { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; font-size:1.02rem; font-weight:900; line-height:1; }
+    .vs-toggle { display:flex; gap:1rem; justify-content:center; max-width:620px; margin:2.6rem auto 0; }
+    .vs-tab { flex:1; display:flex; flex-direction:column; gap:.4rem; text-align:center; padding:1.4rem 1rem; border-radius:18px; background:#17181A; border:2px solid transparent; cursor:pointer; transition:border-color .2s, box-shadow .2s, transform .2s; }
+    .vs-tab .vs-label { font-family:var(--font-d); font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#8A8D92; }
+    .vs-tab .vs-name { font-family:var(--font-d); font-size:clamp(1.15rem,2.4vw,1.5rem); font-weight:900; letter-spacing:-.02em; color:#fff; }
+    .vs-tab.gold { background:var(--gold); }
+    .vs-tab.gold .vs-label { color:#6B520F; }
+    .vs-tab.gold .vs-name { color:#141005; }
+    .vs-tab.active { border-color:#fff; }
+    .vs-tab.gold.active { border-color:#fff; box-shadow:0 12px 34px rgba(201,151,58,.4); }
+    .vs-panels { max-width:620px; margin:2.4rem auto 0; }
+    .vs-panel { display:none; }
+    .vs-panel.active { display:block; }
+    .vs-list { list-style:none; }
+    .vs-list li { display:flex; align-items:center; gap:.95rem; padding:1.05rem .3rem; border-bottom:1px solid rgba(255,255,255,.09); font-size:1rem; color:#E7E8EA; }
+    .vs-list li:last-child { border-bottom:none; }
+    /* circular badges */
+    .mark-x, .mark-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; font-size:1.02rem; font-weight:900; line-height:1; }
     .mark-x { background:#FCE7E5; color:#E5433D; }
-    .mark-check { background:#E1F5E9; color:#15A048; box-shadow:0 3px 10px rgba(21,160,72,.22); }
+    .mark-check { background:#E1F5E9; color:#15A048; box-shadow:0 3px 12px rgba(21,160,72,.25); }
 
     /* ── FAQ ──────────────────────────── */
     .faq-wrap { max-width:760px; margin:0 auto; }
@@ -325,8 +328,9 @@
       .services-grid { grid-template-columns:1fr 1fr; gap:1rem; }
       .gallery-strip { padding:0 1.25rem 1rem; }
       .gallery-strip img { height:170px; }
-      .cmp-row > div { padding:.85rem .7rem; font-size:.8rem; }
-      .mark-x, .mark-check { width:28px; height:28px; font-size:.86rem; }
+      .vs-tab { padding:1.1rem .7rem; }
+      .vs-list li { font-size:.9rem; gap:.75rem; }
+      .mark-x, .mark-check { width:30px; height:30px; font-size:.9rem; }
       .tabs { width:100%; }
       .tab { flex:1; padding:.7rem .4rem; font-size:.72rem; text-align:center; }
       .foot-inner { grid-template-columns:1fr; gap:2.2rem; }
@@ -809,14 +813,37 @@
       <h2 class="h-sec" style="margin:.9rem 0 .6rem;">Tunnel Wash vs. Shine for a Cause</h2>
       <p class="sub">A $20 tunnel wash and a professional detail aren't the same thing. Here's why.</p>
     </div>
-    <div class="cmp-table rv">
-      <div class="cmp-row cmp-head"><div></div><div>Tunnel Wash</div><div><span class="us">★ Shine for a Cause</span></div></div>
-      <div class="cmp-row"><div class="feat">Comes to your home or office</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
-      <div class="cmp-row"><div class="feat">Safe hand wash, no swirl-inducing brushes</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
-      <div class="cmp-row"><div class="feat">Full interior deep clean &amp; steam</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
-      <div class="cmp-row"><div class="feat">Paint decontamination &amp; protection</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
-      <div class="cmp-row"><div class="feat">Ceramic coating &amp; paint correction</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
-      <div class="cmp-row"><div class="feat">Supports local recovery programs</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
+    <div class="vs-toggle rv">
+      <button class="vs-tab" data-vs="tunnel" type="button">
+        <span class="vs-label">Not Recommended</span>
+        <span class="vs-name">Tunnel Wash</span>
+      </button>
+      <button class="vs-tab gold active" data-vs="sfac" type="button">
+        <span class="vs-label">Recommended</span>
+        <span class="vs-name">Shine for a Cause</span>
+      </button>
+    </div>
+    <div class="vs-panels">
+      <div class="vs-panel" data-panel="tunnel">
+        <ul class="vs-list">
+          <li><span class="mark-x">✕</span>Comes to your home or office</li>
+          <li><span class="mark-x">✕</span>Safe hand wash, no swirl-inducing brushes</li>
+          <li><span class="mark-x">✕</span>Full interior deep clean &amp; steam</li>
+          <li><span class="mark-x">✕</span>Paint decontamination &amp; protection</li>
+          <li><span class="mark-x">✕</span>Ceramic coating &amp; paint correction</li>
+          <li><span class="mark-x">✕</span>Supports local recovery programs</li>
+        </ul>
+      </div>
+      <div class="vs-panel active" data-panel="sfac">
+        <ul class="vs-list">
+          <li><span class="mark-check">✓</span>Comes to your home or office</li>
+          <li><span class="mark-check">✓</span>Safe hand wash, no swirl-inducing brushes</li>
+          <li><span class="mark-check">✓</span>Full interior deep clean &amp; steam</li>
+          <li><span class="mark-check">✓</span>Paint decontamination &amp; protection</li>
+          <li><span class="mark-check">✓</span>Ceramic coating &amp; paint correction</li>
+          <li><span class="mark-check">✓</span>Supports local recovery programs</li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -948,6 +975,15 @@
     document.querySelectorAll('.pkg-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
     document.querySelectorAll('.pkg-panel.active .rv').forEach(el => el.classList.add('in'));
+  }));
+
+  // Tunnel Wash vs. Shine toggle
+  const vsTabs = document.querySelectorAll('.vs-tab');
+  vsTabs.forEach(tab => tab.addEventListener('click', () => {
+    vsTabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.vs-panel').forEach(p => p.classList.remove('active'));
+    document.querySelector('.vs-panel[data-panel="' + tab.dataset.vs + '"]').classList.add('active');
   }));
 
   // FAQ accordion
