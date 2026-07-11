@@ -46,6 +46,10 @@ await b.close();
 - Logo: `brand_assets/logo-nav.png` (transparent, black+gold, for light backgrounds).
 - Real content (service names, pricing, reviews, areas) comes from `index.html`.
 
+## Copy / writing (required)
+
+- Never use em dashes (—) in copy. They read as AI-written. Use a period, comma, colon, or parentheses instead. This applies to all reader-facing text: body copy, headings, labels, meta descriptions, alt text.
+
 ## Scope discipline (required)
 
 Carry out **exactly** what the user asks — nothing more. Do not add extra features, sections, copy, styling, or "nice to have" enhancements unless explicitly told to. If a change seems to invite an obvious addition, mention it as a suggestion but do not implement it without the go-ahead.
