@@ -243,20 +243,26 @@
     .stat-lbl { font-size:.78rem; color:rgba(255,255,255,.65); margin-top:.35rem; letter-spacing:.04em; }
 
     /* ── Compare ──────────────────────── */
-    .cmp-table { max-width:880px; margin:2.8rem auto 0; background:#fff; border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:var(--shadow-card); }
     /* Dark sections below ceramic */
     #compare, #faq { background:#000; }
     #compare .h-sec, #faq .h-sec { color:#fff; }
     #compare .sub { color:#B9BCC1; }
-    .cmp-row { display:grid; grid-template-columns:1.4fr 1fr 1fr; }
-    .cmp-row > div { padding:1.05rem 1.4rem; font-size:.85rem; display:flex; align-items:center; }
-    .cmp-row:nth-child(even) { background:var(--bg-warm); }
-    .cmp-head { background:var(--ink) !important; }
-    .cmp-head > div { color:rgba(255,255,255,.75); font-family:var(--font-d); font-weight:700; font-size:.76rem; letter-spacing:.1em; text-transform:uppercase; }
-    .cmp-head .us { color:var(--gold) !important; }
+    .cmp-table { max-width:840px; margin:3rem auto 0; background:#fff; border:1px solid var(--line); border-radius:26px; overflow:hidden; box-shadow:0 24px 60px rgba(0,0,0,.45); }
+    .cmp-row { display:grid; grid-template-columns:1.5fr 1fr 1fr; align-items:stretch; }
+    .cmp-row + .cmp-row { border-top:1px solid var(--line); }
+    .cmp-row > div { padding:1.15rem 1.6rem; font-size:.92rem; display:flex; align-items:center; }
+    .cmp-row .feat { font-family:var(--font-d); font-weight:600; color:var(--ink); }
     .cmp-row > div:nth-child(2), .cmp-row > div:nth-child(3) { justify-content:center; text-align:center; }
-    .cmp-yes { color:var(--gold-deep); font-weight:700; }
-    .cmp-no { color:#B4B7BB; }
+    /* highlighted brand column */
+    .cmp-row > div:nth-child(3) { background:rgba(201,151,58,.09); box-shadow:inset 1px 0 0 rgba(201,151,58,.18), inset -1px 0 0 rgba(201,151,58,.18); }
+    .cmp-head { background:var(--ink); }
+    .cmp-head > div { font-family:var(--font-d); font-weight:800; font-size:.74rem; letter-spacing:.11em; text-transform:uppercase; color:rgba(255,255,255,.55); }
+    .cmp-head > div:nth-child(3) { background:var(--gold); color:#141005; box-shadow:none; }
+    .cmp-head .us { display:inline-flex; align-items:center; gap:.35rem; }
+    /* fun circular badges */
+    .mark-x, .mark-check { display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; font-size:1.02rem; font-weight:900; line-height:1; }
+    .mark-x { background:#FCE7E5; color:#E5433D; }
+    .mark-check { background:#E1F5E9; color:#15A048; box-shadow:0 3px 10px rgba(21,160,72,.22); }
 
     /* ── FAQ ──────────────────────────── */
     .faq-wrap { max-width:760px; margin:0 auto; }
@@ -319,7 +325,8 @@
       .services-grid { grid-template-columns:1fr 1fr; gap:1rem; }
       .gallery-strip { padding:0 1.25rem 1rem; }
       .gallery-strip img { height:170px; }
-      .cmp-row > div { padding:.8rem .8rem; font-size:.76rem; }
+      .cmp-row > div { padding:.85rem .7rem; font-size:.8rem; }
+      .mark-x, .mark-check { width:28px; height:28px; font-size:.86rem; }
       .tabs { width:100%; }
       .tab { flex:1; padding:.7rem .4rem; font-size:.72rem; text-align:center; }
       .foot-inner { grid-template-columns:1fr; gap:2.2rem; }
@@ -803,13 +810,13 @@
       <p class="sub">A $20 tunnel wash and a professional detail aren't the same thing. Here's why.</p>
     </div>
     <div class="cmp-table rv">
-      <div class="cmp-row cmp-head"><div></div><div>Tunnel Wash</div><div class="us">Shine for a Cause</div></div>
-      <div class="cmp-row"><div>Comes to your home or office</div><div class="cmp-no">✕</div><div class="cmp-yes">✓</div></div>
-      <div class="cmp-row"><div>Safe hand wash, no swirl-inducing brushes</div><div class="cmp-no">✕</div><div class="cmp-yes">✓</div></div>
-      <div class="cmp-row"><div>Full interior deep clean &amp; steam</div><div class="cmp-no">✕</div><div class="cmp-yes">✓</div></div>
-      <div class="cmp-row"><div>Paint decontamination &amp; protection</div><div class="cmp-no">✕</div><div class="cmp-yes">✓</div></div>
-      <div class="cmp-row"><div>Ceramic coating &amp; paint correction</div><div class="cmp-no">✕</div><div class="cmp-yes">✓</div></div>
-      <div class="cmp-row"><div>Supports local recovery programs</div><div class="cmp-no">✕</div><div class="cmp-yes">✓</div></div>
+      <div class="cmp-row cmp-head"><div></div><div>Tunnel Wash</div><div><span class="us">★ Shine for a Cause</span></div></div>
+      <div class="cmp-row"><div class="feat">Comes to your home or office</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
+      <div class="cmp-row"><div class="feat">Safe hand wash, no swirl-inducing brushes</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
+      <div class="cmp-row"><div class="feat">Full interior deep clean &amp; steam</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
+      <div class="cmp-row"><div class="feat">Paint decontamination &amp; protection</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
+      <div class="cmp-row"><div class="feat">Ceramic coating &amp; paint correction</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
+      <div class="cmp-row"><div class="feat">Supports local recovery programs</div><div><span class="mark-x">✕</span></div><div><span class="mark-check">✓</span></div></div>
     </div>
   </div>
 </section>
