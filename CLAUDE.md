@@ -19,10 +19,12 @@ Public marketing site. Plain HTML/CSS/JS, no framework. Deploys to Vercel on pus
 
 After every visual/layout/CSS change, **take a screenshot with Puppeteer and actually look at it** before reporting done. Do not rely on reading the code alone.
 
+- **Default to ONE screenshot per change** to save tokens. Aim the capture carefully the first time (prefer a document-relative `clip` of the target section over scroll-and-retry). The user will explicitly ask for more shots (mobile, extra states, both breakpoints) on bigger changes when needed.
+
 - Puppeteer is installed in this repo (`node_modules`), so run the script **from the repo root**.
 - Use **`headless: 'shell'`** (the old headless) for screenshots — the newer `headless: 'new'` has a compositor bug that renders `backdrop-filter`/glass/`isolation` layers as falsely translucent in screenshots. `shell` matches real browsers.
 - `page.screenshot({ clip })` coordinates are **document-relative, not viewport-relative** — to capture what's actually visible after scrolling, screenshot the full viewport (no clip) or account for scroll offset.
-- Check **both desktop (1440px) and mobile (390px)** for anything touching layout.
+- Default to **desktop (1440px)** for the single verification shot. Only add **mobile (390px)** when the user asks for it or a change is mobile-specific.
 - For interactive things (dropdowns, tabs, accordion, sticky nav), drive them with `page.hover`/`page.click`/`page.evaluate(scrollTo)` and screenshot the result. Also verify with `elementFromPoint` / `getBoundingClientRect` when stacking or above-the-fold visibility matters.
 - Write the throwaway script to a dotfile at repo root (e.g. `.shot.mjs`), run it, then delete it so it isn't committed.
 
