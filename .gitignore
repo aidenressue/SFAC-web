@@ -10,3 +10,5 @@ package-lock.json
 serve.mjs
 !web.screenshots/ceramic-pour.mp4
 !web.screenshots/revuelto-turntable-web.mp4
+!web.screenshots/boat-turntable-web.mp4
+!web.screenshots/gt3-turntable-web.mp4
