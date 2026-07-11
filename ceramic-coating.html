@@ -686,24 +686,28 @@
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
 </script>
 <script>
-  // Turntable hero: autoplay loop by default; hover or drag to scrub the rotation
+  // Turntable hero: auto-spins (seamless boomerang loop); move the mouse to scrub the rotation, stop and it resumes
   (function () {
     var hero = document.getElementById('home');
     var vid = document.getElementById('ccVid');
     if (!hero || !vid) return;
-    var scrubbing = false;
+    var idle = null;
     function scrubTo(x) {
       var r = hero.getBoundingClientRect();
       var p = Math.min(Math.max((x - r.left) / r.width, 0), 1);
-      if (vid.duration) vid.currentTime = p * vid.duration;
+      var half = (vid.duration || 16) / 2; // forward half = one full rotation sweep
+      vid.currentTime = p * half;
     }
-    function start(x) { scrubbing = true; try { vid.pause(); } catch (e) {} scrubTo(x); }
-    function stop() { if (!scrubbing) return; scrubbing = false; var pl = vid.play(); if (pl && pl.catch) pl.catch(function () {}); }
-    hero.addEventListener('pointerenter', function (e) { if (e.pointerType === 'mouse') start(e.clientX); });
-    hero.addEventListener('pointermove', function (e) { if (scrubbing) scrubTo(e.clientX); });
-    hero.addEventListener('pointerleave', function (e) { if (e.pointerType === 'mouse') stop(); });
-    hero.addEventListener('pointerdown', function (e) { start(e.clientX); });
-    window.addEventListener('pointerup', stop);
+    function resume() { var pl = vid.play(); if (pl && pl.catch) pl.catch(function () {}); }
+    function scrub(x) {
+      try { vid.pause(); } catch (e) {}
+      scrubTo(x);
+      clearTimeout(idle);
+      idle = setTimeout(resume, 1400); // resume auto-spin ~1.4s after they stop moving
+    }
+    hero.addEventListener('pointermove', function (e) { scrub(e.clientX); });
+    hero.addEventListener('pointerdown', function (e) { scrub(e.clientX); });
+    hero.addEventListener('pointerleave', function () { clearTimeout(idle); resume(); });
   })();
 </script>
 </body>
