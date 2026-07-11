@@ -442,7 +442,7 @@
 
 <!-- ═══ HERO ═══ -->
 <header class="cc-hero" id="home">
-  <video class="cc-hero-vid" id="ccVid" autoplay muted loop playsinline poster="web.screenshots/revuelto-turntable-poster.jpg">
+  <video class="cc-hero-vid" id="ccVid" data-boomerang="1" autoplay muted loop playsinline poster="web.screenshots/revuelto-turntable-poster.jpg">
     <source src="web.screenshots/revuelto-turntable-web.mp4" type="video/mp4" />
   </video>
   <div class="cc-hero-inner">
@@ -711,6 +711,19 @@
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', end);
     window.addEventListener('pointercancel', end);
+
+    // Boomerang clips: ease the speed down near each turnaround so the direction change is smooth (no jolt, no freeze)
+    if (vid.dataset.boomerang) {
+      (function tick() {
+        if (!dragging && vid.duration) {
+          var d = vid.duration, t = vid.currentTime, mid = d / 2;
+          var dist = Math.min(t, Math.abs(t - mid), d - t); // seconds to nearest turnaround
+          var W = 1.2;
+          vid.playbackRate = dist < W ? (0.2 + 0.8 * (dist / W)) : 1;
+        }
+        requestAnimationFrame(tick);
+      })();
+    }
   })();
 </script>
 </body>
