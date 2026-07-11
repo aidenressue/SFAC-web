@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Shine for a Cause | Mobile Auto Detailing Fort Collins & Northern Colorado</title>
-  <meta name="description" content="Fort Collins' top-rated mobile auto detailing. Express & Executive details, System X ceramic coating, paint correction. We come to you anywhere in Northern Colorado. Every booking supports local recovery." />
+  <title>Fleet Cleaning | Shine for a Cause</title>
+  <meta name="description" content="Fleet and dealership vehicle cleaning in Northern Colorado. Wholesale service discounts for dealers and fleets." />
   <link rel="icon" href="brand_assets/Shine for a Cause LOGO cropped.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -342,15 +342,61 @@
       .tab { flex:1; padding:.7rem .4rem; font-size:.72rem; text-align:center; }
       .foot-inner { grid-template-columns:1fr; gap:2.2rem; }
     }
+    /* ══ Ceramic Coating service page ══ */
+    body.cc-page { background:#050505; }
+    .cc-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; cursor:grab; }
+    .cc-hero.dragging { cursor:grabbing; }
+    .cc-hero a, .cc-hero button { cursor:pointer; }
+    .cc-hero-vid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
+    .cc-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:radial-gradient(125% 85% at 50% 46%, transparent 42%, rgba(5,5,5,.5) 78%, #050505 100%),
+                 linear-gradient(180deg, rgba(5,5,5,.6) 0%, transparent 24%, transparent 58%, rgba(5,5,5,.9) 100%); }
+    .cc-hero-inner { position:relative; z-index:2; width:100%; max-width:720px; margin:0 auto; min-height:100vh; padding:9.5rem 1.5rem 3rem; display:flex; flex-direction:column; text-align:center; }
+    .cc-title { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(2.6rem,7vw,5.2rem); line-height:1; color:#fff; margin:0; }
+    .cc-sub { margin-top:1rem; font-family:var(--font-d); font-weight:600; font-size:clamp(1rem,2vw,1.3rem); color:#E9DCC2; }
+    .cc-sub .hrt { color:var(--gold); }
+    .cc-hero-cta { margin-top:auto; display:flex; flex-direction:column; align-items:center; gap:.8rem; }
+    .cc-hero-cta .btn { width:100%; max-width:520px; padding:1.15rem; font-size:1rem; }
+    .cc-call { background:#17181A; color:#fff; border:1px solid rgba(255,255,255,.14); }
+    .cc-call:hover { background:#202225; transform:translateY(-2px); }
+    .cc-scrollcue { margin-top:1.5rem; color:rgba(255,255,255,.55); animation:bob 1.6s ease-in-out infinite; }
+    .cc-hint { position:absolute; bottom:1.1rem; left:50%; transform:translateX(-50%); z-index:2; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.32); pointer-events:none; }
+    /* sections */
+    .cc-sec { background:#050505; padding:5.5rem 1.5rem; }
+    .cc-wrap { max-width:1100px; margin:0 auto; }
+    .cc-h2 { text-align:center; font-family:var(--font-d); font-weight:900; letter-spacing:-.02em; font-size:clamp(2rem,4vw,3rem); color:#fff; margin:0; }
+    .cc-h2-sub { text-align:center; color:#9A9DA2; margin-top:.65rem; font-size:1rem; }
+    /* packages */
+    .cc-pkgs { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:3rem; }
+    .cc-pkg { position:relative; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:2.1rem 1.7rem; display:flex; flex-direction:column; }
+    .cc-pkg.feat { border-color:var(--gold-line); box-shadow:0 24px 60px rgba(201,151,58,.16); }
+    .cc-pkg-badge { position:absolute; top:-.75rem; left:50%; transform:translateX(-50%); background:var(--gold); color:#141005; font-family:var(--font-d); font-weight:800; font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; padding:.32rem .9rem; border-radius:999px; white-space:nowrap; }
+    .cc-pkg-tier { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
+    .cc-pkg-name { font-family:var(--font-d); font-size:1.5rem; font-weight:900; color:#fff; margin:.2rem 0 1.3rem; letter-spacing:-.02em; }
+    .cc-pkg ul { list-style:none; display:flex; flex-direction:column; gap:.72rem; margin-bottom:1.7rem; }
+    .cc-pkg li { display:flex; gap:.6rem; font-size:.88rem; color:#C9CBCE; line-height:1.4; }
+    .cc-pkg li::before { content:''; flex:0 0 18px; height:18px; margin-top:1px; border-radius:50%; background:rgba(201,151,58,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23C9973A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(201,151,58,.3); }
+    .cc-pkg .btn { margin-top:auto; width:100%; }
+    /* benefits */
+    .cc-benefits { display:flex; flex-direction:column; gap:1rem; max-width:820px; margin:3rem auto 0; }
+    .cc-benefit { background:#0F1012; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:1.5rem 1.7rem; }
+    .cc-benefit h3 { font-family:var(--font-d); font-size:1.12rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:.6rem; margin:0; }
+    .cc-benefit h3 .dot { color:var(--gold); font-size:.7em; }
+    .cc-benefit p { margin:.5rem 0 0; font-size:.9rem; color:#9A9DA2; line-height:1.6; }
+    .cc-cta-center { text-align:center; margin-top:2.6rem; }
+    @media (max-width:820px) {
+      .cc-pkgs { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; }
+      .cc-hero-vid { object-fit:contain; }
+    }
   </style>
 </head>
-<body>
+<body class="cc-page">
 
 <!-- ═══ PROMO BAR ═══ -->
 <div class="promo-bar">Locally owned in Fort Collins. <strong>A portion of every booking supports Northern Colorado recovery programs</strong></div>
 
 <!-- ═══ NAV ═══ -->
-<nav class="nav" id="nav">
+<nav class="nav nav-dark" id="nav">
   <div class="nav-inner">
     <a href="/" class="nav-logo" aria-label="Shine for a Cause, Home"><img src="brand_assets/logo-nav.png" alt="Shine for a Cause Mobile Detailing" /></a>
     <ul class="nav-links">
@@ -395,518 +441,103 @@
 </div>
 
 <!-- ═══ HERO ═══ -->
-<header class="hero" id="home">
-  <div class="hero-placeholder" aria-hidden="true">
-    <span>Hero image coming soon</span>
+<header id="home" style="min-height:82vh;background:#050505;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:11rem 1.5rem 4.5rem;box-sizing:border-box;">
+  <h1 class="cc-title">Fleet Cleaning</h1>
+  <p class="cc-sub">Wholesale service discounts for dealers &amp; fleets</p>
+  <div class="cc-hero-cta" style="margin-top:1.6rem;width:100%;max-width:520px;">
+    <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
+    <a href="tel:+19702953577" class="btn cc-call">Call Now</a>
   </div>
-  <div class="hero-scrim"></div>
-  <div class="hero-content">
-    <div class="hero-top">
-    <a class="hero-badge" href="https://www.google.com/maps/search/?api=1&query=Shine%20for%20a%20Cause%20Mobile%20Detailing%20Fort%20Collins" target="_blank" rel="noopener" aria-label="Read our Google reviews">
-      <span class="stars">★★★★★</span>
-      <span class="divider"></span>
-      <svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-      <span class="btxt">Trusted by 300+ customers</span>
-    </a>
-      <h1 class="h-display">Northern Colorado's <span class="accent">Top</span> Mobile Detailing</h1>
-    </div>
-    <div class="hero-ctas">
-      <a href="/booking.html" class="btn btn-gold">Get Free Quote</a>
-      <a href="#packages" class="btn btn-ghost">Learn More</a>
-    </div>
-  </div>
-  <a href="#services" class="scroll-cue" aria-label="Scroll down">
-    <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-  </a>
 </header>
 
-<!-- ═══ OUR MAIN SERVICES ═══ -->
-<section class="services-main" id="services">
-  <div class="sec-head-c rv">
-    <h2 class="h-sec">Our Main Services</h2>
-  </div>
-  <div class="services-grid">
-    <a href="/mobile-detailing.html" class="svc-card rv">
-      <div class="svc-img"><span>Image coming soon</span><img src="web.screenshots/Best-Car-Wash-Mitt--Best-Car-Wash-Mitt-to-Avoid-Scratching-Your-Car-Shine-Armor-1686929939156_ed283fd9-75f1-4d2f-839e-c388d087f387_1445x.webp" alt="Mobile detailing, hand washing a blue car with a wash mitt" loading="lazy" onerror="this.remove()" /></div>
-      <div class="svc-overlay">
-        <h3 class="svc-name">Mobile Detailing</h3>
-        <span class="svc-learn">Learn More →</span>
+<!-- ═══ COATING PACKAGES ═══ -->
+<section class="cc-sec" id="packages">
+  <div class="cc-wrap">
+    <h2 class="cc-h2">Our Coating Packages</h2>
+    <p class="cc-h2-sub">The next level of vehicle surface protection.</p>
+    <div class="cc-pkgs">
+      <div class="cc-pkg">
+        <div class="cc-pkg-tier">2-Year</div>
+        <div class="cc-pkg-name">System X Coating</div>
+        <ul>
+          <li>9H surface hardness</li>
+          <li>High-gloss finish</li>
+          <li>Extreme hydrophobics</li>
+          <li>UV &amp; oxidation protection</li>
+          <li>2-year warranty</li>
+          <li>Reported to Carfax</li>
+        </ul>
+        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
       </div>
-    </a>
-    <a href="/ceramic-coating.html" class="svc-card rv">
-      <div class="svc-img"><span>Image coming soon</span><img src="web.screenshots/AdobeStock_578337227.jpeg" alt="Ceramic coating being applied to a blue vehicle" loading="lazy" onerror="this.remove()" /></div>
-      <div class="svc-overlay">
-        <h3 class="svc-name">Ceramic Coating</h3>
-        <span class="svc-learn">Learn More →</span>
+      <div class="cc-pkg feat">
+        <div class="cc-pkg-badge">Most Popular</div>
+        <div class="cc-pkg-tier">6-Year</div>
+        <div class="cc-pkg-name">System X Coating</div>
+        <ul>
+          <li>Everything in the 2-year</li>
+          <li>Thicker multi-layer coat</li>
+          <li>Enhanced gloss &amp; slickness</li>
+          <li>Stronger chemical resistance</li>
+          <li>6-year warranty</li>
+          <li>Free annual maintenance</li>
+        </ul>
+        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
       </div>
-    </a>
-    <a href="#packages" class="svc-card rv">
-      <div class="svc-img"><span>Image coming soon</span><img src="web.screenshots/1 step paint correction.png" alt="1-step paint correction, machine polishing" loading="lazy" onerror="this.remove()" /></div>
-      <div class="svc-overlay">
-        <h3 class="svc-name">Paint Correction</h3>
-        <span class="svc-learn">Learn More →</span>
-      </div>
-    </a>
-    <a href="/maintenance.html" class="svc-card rv">
-      <div class="svc-img"><span>Image coming soon</span><img src="web.screenshots/Immage4.webp" alt="Interior steam cleaning during a maintenance detail" loading="lazy" onerror="this.remove()" /></div>
-      <div class="svc-overlay">
-        <h3 class="svc-name">Maintenance Plans</h3>
-        <span class="svc-learn">Learn More →</span>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ═══ STORY ═══ -->
-<section id="story">
-  <div class="wrap" style="padding-top:1.5rem;padding-bottom:2.5rem;">
-    <div class="story-grid">
-      <div class="story-copy rv">
-        <h2 class="h-sec" style="margin:0 0 1.4rem;">Detailing With a Purpose</h2>
-        <p class="sub">Shine for a Cause is a fully mobile detailing company built in Fort Collins. We show up to your driveway or office with everything we need: water, power, and professional-grade products, then leave your vehicle looking better than the day you bought it.</p>
-        <p class="sub">But the shine is only half the story. A portion of every single booking is donated to local recovery organizations in Northern Colorado: AA and NA groups, the SAFE Foundation, and direct sponsorships of individuals working through rehab programs. When your car shines, so does the community.</p>
-        <div class="story-heart">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="#A87B27"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          Every booking gives back
-        </div>
-      </div>
-      <div class="story-media rv">
-        <video src="web.screenshots/detailing-rangerover.mp4" autoplay muted loop playsinline poster="web.screenshots/RangeRover.jpg"></video>
+      <div class="cc-pkg">
+        <div class="cc-pkg-tier">Lifetime</div>
+        <div class="cc-pkg-name">System X Coating</div>
+        <ul>
+          <li>Everything in the 6-year</li>
+          <li>Maximum durability &amp; depth</li>
+          <li>Top-tier gloss &amp; slickness</li>
+          <li>Lifetime warranty</li>
+          <li>Priority annual service</li>
+          <li>Fully Carfax documented</li>
+        </ul>
+        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PACKAGES ═══ -->
-<section class="pkg-sec" id="packages">
-  <div class="wrap">
-    <div class="pkg-head">
-      <h2 class="h-sec" style="margin:.9rem 0 .9rem;">Choose Your Detail Package</h2>
-      <p class="sub">Three levels of detail. Pick the one that fits your vehicle and your goals. Every service is 100% mobile, we come to you.</p>
-    </div>
-
-    <div class="tabs" id="pkgTabs">
-      <button class="tab active" data-panel="full">Full Detail</button>
-      <button class="tab" data-panel="ext">Exterior Only</button>
-      <button class="tab" data-panel="int">Interior Only</button>
-    </div>
-
-    <div class="pkg-panels">
-      <div class="pkg-panel active" id="panel-full">
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-maintenance.jpg" alt="Full Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Full Maintenance</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$180</span></div>
-          <div class="pkg-inc two">
-            <div>
-              <div class="pkg-inc-head">Interior</div>
-              <ul class="pkg-list">
-              <li>Interior vacuum</li>
-              <li>Wipe all surfaces</li>
-              <li>Floor mats</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-            </div>
-            <div>
-              <div class="pkg-inc-head">Exterior</div>
-              <ul class="pkg-list">
-              <li>Quick hand wash</li>
-              <li>Wax protection</li>
-              <li>Clean rims</li>
-              <li>Clean tires</li>
-            </ul>
-            </div>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
+<!-- ═══ WHY CERAMIC ═══ -->
+<section class="cc-sec" style="padding-top:1rem;">
+  <div class="cc-wrap">
+    <h2 class="cc-h2">Why System X Ceramic</h2>
+    <div class="cc-benefits">
+      <div class="cc-benefit">
+        <h3><span class="dot">&#9670;</span> No BS Guarantee</h3>
+        <p>Our coatings come with a real warranty. If you ever need re-service, bring it in and we'll make it right.</p>
       </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-reset.jpg" alt="Full Reset" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Full Reset</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$299</span></div>
-          <div class="pkg-inc two">
-            <div>
-              <div class="pkg-inc-head">Interior</div>
-              <ul class="pkg-list">
-              <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
-              <li>Wipe all surfaces</li>
-              <li>Stains (spot treatment)</li>
-              <li>Spot steam cleaning</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-            </div>
-            <div>
-              <div class="pkg-inc-head">Exterior</div>
-              <ul class="pkg-list">
-              <li>Professional hand wash</li>
-              <li>Spot polish</li>
-              <li>Wax protection</li>
-              <li>Detail rims</li>
-              <li>Wheel wells</li>
-              <li>Detail tires</li>
-            </ul>
-            </div>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
+      <div class="cc-benefit">
+        <h3><span class="dot">&#9670;</span> Hydrophobic &amp; Self-Cleaning</h3>
+        <p>Water beads up and rolls off the surface, taking dirt and grime with it, so your car stays cleaner for longer.</p>
       </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-executive.jpg" alt="Full Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Full Executive</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$499</span></div>
-          <div class="pkg-inc two">
-            <div>
-              <div class="pkg-inc-head">Interior</div>
-              <ul class="pkg-list">
-              <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
-              <li>Wipe all surfaces</li>
-              <li>Stains (spot treatment)</li>
-              <li>Full carpet shampoo</li>
-              <li>Seat shampoo</li>
-              <li>Leather conditioning</li>
-              <li>Full steam cleaning</li>
-              <li>Trim restoration</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-            </div>
-            <div>
-              <div class="pkg-inc-head">Exterior</div>
-              <ul class="pkg-list">
-              <li>Professional hand wash</li>
-              <li>2-step decontamination</li>
-              <li>Full paint enhancement (polish)</li>
-              <li>Ceramic sealant (4–6 month)</li>
-              <li>Trim restoration</li>
-              <li>Detail rims</li>
-              <li>Wheel wells</li>
-              <li>Detail tires</li>
-            </ul>
-            </div>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
+      <div class="cc-benefit">
+        <h3><span class="dot">&#9670;</span> 9H Surface Hardness</h3>
+        <p>A cured System X coating adds a hard, sacrificial layer that helps resist swirls, light scratches, and etching.</p>
       </div>
+      <div class="cc-benefit">
+        <h3><span class="dot">&#9670;</span> Ultimate Deep Gloss</h3>
+        <p>A candy-like depth and mirror shine that makes the paint pop far beyond a standard wax or sealant.</p>
       </div>
-      <div class="pkg-panel" id="panel-ext">
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-ext-maintenance.jpg" alt="Exterior Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Exterior Maintenance</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Exterior</div>
-            <ul class="pkg-list">
-              <li>Quick hand wash</li>
-              <li>Wax protection</li>
-              <li>Clean rims</li>
-              <li>Clean tires</li>
-            </ul>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-ext-reset.jpg" alt="Exterior Reset" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Exterior Reset</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Exterior</div>
-            <ul class="pkg-list">
-              <li>Professional hand wash</li>
-              <li>Spot polish</li>
-              <li>Wax protection</li>
-              <li>Detail rims</li>
-              <li>Wheel wells</li>
-              <li>Detail tires</li>
-            </ul>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-ext-executive.jpg" alt="Exterior Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Exterior Executive</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Exterior</div>
-            <ul class="pkg-list">
-              <li>Professional hand wash</li>
-              <li>2-step decontamination</li>
-              <li>Full paint enhancement (polish)</li>
-              <li>Ceramic sealant (4–6 month)</li>
-              <li>Trim restoration</li>
-              <li>Detail rims</li>
-              <li>Wheel wells</li>
-              <li>Detail tires</li>
-            </ul>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      </div>
-      <div class="pkg-panel" id="panel-int">
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-int-maintenance.jpg" alt="Interior Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Interior Maintenance</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Interior</div>
-            <ul class="pkg-list">
-              <li>Interior vacuum</li>
-              <li>Wipe all surfaces</li>
-              <li>Floor mats</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-int-reset.jpg" alt="Interior Reset" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Interior Reset</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Interior</div>
-            <ul class="pkg-list">
-              <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
-              <li>Wipe all surfaces</li>
-              <li>Stains (spot treatment)</li>
-              <li>Spot steam cleaning</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-int-executive.jpg" alt="Interior Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Interior Executive</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$—</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Interior</div>
-            <ul class="pkg-list">
-              <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
-              <li>Wipe all surfaces</li>
-              <li>Stains (spot treatment)</li>
-              <li>Full carpet shampoo</li>
-              <li>Seat shampoo</li>
-              <li>Leather conditioning</li>
-              <li>Full steam cleaning</li>
-              <li>Trim restoration</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
+      <div class="cc-benefit">
+        <h3><span class="dot">&#9670;</span> Multi-Surface Application</h3>
+        <p>Paint, glass, wheels, trim, and plastics can all be protected, not just the body panels.</p>
       </div>
     </div>
+    <div class="cc-cta-center"><a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a></div>
   </div>
 </section>
 
-<!-- ═══ CERAMIC (SYSTEM X) ═══ -->
-<section class="ceramic-sec" id="ceramic">
-  <div class="ceramic-wrap">
-    <h2 class="cx-headline">Automotive <span>Ceramic Coatings</span></h2>
-
-    <div class="cx-videorow">
-      <div class="cx-left">
-        <h3 class="cx-h">Experience the best long&#8209;term coating</h3>
-        <span class="cx-trust">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#F5C542" aria-hidden="true"><path d="M12 2l2.9 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l7.1-1.01L12 2z"/></svg>
-          Trusted by <strong>Boeing</strong> and auto manufacturers
-        </span>
-        <p class="cx-copy">Shine for a Cause uses a top professional-grade, crystal-clear liquid nano ceramic coating, the same class of protection found on Boeing aircraft. Once cured, our 9H ceramic coatings transform on the surface into a long-lasting, durable yet flexible glass shield. Think of it as an additional clear coat, with 6x the hardness and self-healing properties.</p>
-        <div class="cx-cta">
-          <a href="/ceramic-coating.html" class="btn btn-gold">Learn More</a>
-          <a href="/booking.html" class="btn btn-ghost-d">Book Now</a>
-        </div>
-      </div>
-      <div class="cx-video">
-        <video src="web.screenshots/ceramic-pour.mp4" autoplay muted loop playsinline poster="web.screenshots/ceramic-pour-poster.jpg"
-          onerror="this.outerHTML='&lt;div class=&quot;cx-vplaceholder&quot;&gt;Video coming soon&lt;/div&gt;'"></video>
-      </div>
-    </div>
-
-    <div class="cx-outro">
-      <h3>Give your car the treatment it deserves</h3>
-      <p>Get service at your home, apartment, work, hotel, or wherever you need it. We provide our own power, water, tools, and chemicals so you don't have to do any work. Occasionally we'll request to use a client's power during a paint correction to save gas in the generator if possible.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ SLIDING GALLERY ═══ -->
-<section class="gallery-sec" id="gallery" aria-label="Photo gallery">
-  <div class="gal-row r">
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-  </div>
-  <div class="gal-row l">
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-  </div>
-</section>
-
-<!-- ═══ COMPARE ═══ -->
-<section id="compare">
-  <div class="wrap">
-    <div style="text-align:center;max-width:620px;margin:0 auto;">
-      <h2 class="h-sec" style="margin:.9rem 0 .6rem;">Tunnel Wash vs. Shine for a Cause</h2>
-      <p class="sub">A $20 tunnel wash and a professional detail aren't the same thing. Here's why.</p>
-    </div>
-    <div class="vs-grid rv">
-      <div class="vs-heads">
-        <div class="vs-spacer"></div>
-        <div class="vs-head">
-          <span class="vs-label">Not Recommended</span>
-          <span class="vs-name">Tunnel Wash</span>
-        </div>
-        <div class="vs-head gold">
-          <span class="vs-label">Recommended</span>
-          <span class="vs-name">Shine for a Cause</span>
-        </div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-topic">Location</div>
-        <div class="vs-cell"><span class="mark-x">✕</span>You drive to them and wait in line</div>
-        <div class="vs-cell"><span class="mark-check">✓</span>We come to your home, office, or anywhere you park</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-topic">Wash method</div>
-        <div class="vs-cell"><span class="mark-x">✕</span>Spinning brushes that swirl and scratch the paint</div>
-        <div class="vs-cell"><span class="mark-check">✓</span>Gentle hand wash that stays completely swirl-free</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-topic">Interior</div>
-        <div class="vs-cell"><span class="mark-x">✕</span>Exterior rinse only, the inside is left untouched</div>
-        <div class="vs-cell"><span class="mark-check">✓</span>Full interior deep clean and hot steam</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-topic">Paint care</div>
-        <div class="vs-cell"><span class="mark-x">✕</span>Surface water only, bonded contaminants stay put</div>
-        <div class="vs-cell"><span class="mark-check">✓</span>Clay decontamination and a protective sealant</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-topic">Coating &amp; correction</div>
-        <div class="vs-cell"><span class="mark-x">✕</span>Not offered anywhere on the menu</div>
-        <div class="vs-cell"><span class="mark-check">✓</span>Paint correction and System X ceramic coating</div>
-      </div>
-      <div class="vs-row">
-        <div class="vs-topic">Bigger picture</div>
-        <div class="vs-cell"><span class="mark-x">✕</span>It's just a quick car wash</div>
-        <div class="vs-cell"><span class="mark-check">✓</span>A share of every booking funds local recovery</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ FAQ ═══ -->
-<section id="faq">
-  <div class="wrap">
-    <div style="text-align:center;margin-bottom:2.6rem;">
-      <h2 class="h-sec" style="margin:.9rem 0 0;">Frequently Asked Questions</h2>
-    </div>
-    <div class="faq-wrap">
-      <div class="faq-item">
-        <button class="faq-q">What areas do you serve?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">We serve anywhere within a 20-mile radius of Fort Collins. If you're not in this radius and would like to book, give us a call at (970) 295-3577 and we'll make it work.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How do I book a service?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Select Book Now, put in your information, choose your package, and then choose a day that works best for you. Super easy and simple process, we'll be cleaning your car before you know it.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Do you need water and/or power?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Nope, we bring everything with us, every time. Water, power, and all supplies are brought in our work vehicles to make it easy and convenient for our customers. Just let us know where to go and we'll handle the rest.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How long does a detail take?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">This is solely based on the package and service you select. Our Level 1 Maintenance takes 1-2 hours, Level 2 Reset takes 2-3 hours, and our Level 3 Executive package takes 3-6 hours. Any paint correction and/or ceramic coating can take up to a full day. We can work around your schedule to make our services as convenient as possible.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">What cause does Shine for a Cause support?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">We support local and national addiction awareness and prevention centers. This year we've donated over $5,000 to local AA/NA meetings, the SAFE Foundation, and much more.
-          <div style="margin-top:1.1rem;"><a href="#story" class="btn btn-gold">Read Our Story</a></div>
-        </div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══ CTA BAND ═══ -->
+<!-- ═══ CLOSING CTA ═══ -->
 <section class="cta-band">
   <div class="wrap">
-    <h2 class="rv">Your Car. Our Craft.<br /><em>A Community That Wins.</em></h2>
-    <p class="rv">Book in two minutes. We'll bring the shine to you, anywhere in Northern Colorado.</p>
-    <div class="hero-ctas rv">
-      <a href="/booking.html" class="btn btn-gold" style="padding:1rem 2.4rem;">Book Your Detail</a>
-      <a href="tel:+19702953577" class="btn" style="border:1.5px solid rgba(255,255,255,.3);color:#fff;">Call (970) 295-3577</a>
+    <h2>Protect Your <em>Investment</em></h2>
+    <p>Lock in a showroom shine that lasts for years. Book a free ceramic coating quote today.</p>
+    <div style="display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;">
+      <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote</a>
+      <a href="tel:+19702953577" class="btn btn-ghost-d">Call (970) 295-3577</a>
     </div>
   </div>
 </section>
@@ -970,7 +601,7 @@
     const probe = r.top + r.height / 2;
     let dark = false;
     darkSecs.forEach(s => { const b = s.getBoundingClientRect(); if (b.top <= probe && b.bottom >= probe) dark = true; });
-    nav.classList.toggle('nav-dark', dark);
+    nav.classList.toggle('nav-dark', true);
   }
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 10);
@@ -1034,6 +665,42 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
+</script>
+<script>
+  // Turntable hero: auto-spins (seamless boomerang loop). Click-and-drag to spin it yourself; release to resume.
+  (function () {
+    var hero = document.getElementById('home');
+    var vid = document.getElementById('ccVid');
+    if (!hero || !vid) return;
+    var dragging = false, lastX = 0, raf = null;
+    function seek() {
+      raf = null;
+      var r = hero.getBoundingClientRect();
+      var p = Math.min(Math.max((lastX - r.left) / r.width, 0), 1);
+      var half = (vid.duration || 16) / 2; // forward half = one full rotation sweep
+      vid.currentTime = p * half;
+    }
+    function resume() { var pl = vid.play(); if (pl && pl.catch) pl.catch(function () {}); }
+    function start(e) {
+      dragging = true; lastX = e.clientX; hero.classList.add('dragging');
+      try { vid.pause(); } catch (err) {}
+      if (!raf) raf = requestAnimationFrame(seek);
+    }
+    function move(e) {
+      if (!dragging) return;              // plain hover does nothing; only drag scrubs
+      lastX = e.clientX;
+      if (!raf) raf = requestAnimationFrame(seek); // throttle seeks to one per frame
+    }
+    function end() {
+      if (!dragging) return;
+      dragging = false; hero.classList.remove('dragging');
+      resume();
+    }
+    hero.addEventListener('pointerdown', start);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', end);
+    window.addEventListener('pointercancel', end);
+  })();
 </script>
 </body>
 </html>
