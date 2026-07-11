@@ -247,17 +247,19 @@
     #compare, #faq { background:#000; }
     #compare .h-sec, #faq .h-sec { color:#fff; }
     #compare .sub { color:#B9BCC1; }
-    .vs-cols { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; max-width:860px; margin:2.6rem auto 0; }
-    .vs-col { display:flex; flex-direction:column; }
+    .vs-grid { max-width:980px; margin:2.6rem auto 0; }
+    .vs-heads, .vs-row { display:grid; grid-template-columns:0.8fr 1.1fr 1.1fr; column-gap:1.1rem; }
+    .vs-heads { margin-bottom:.6rem; }
     .vs-head { display:flex; flex-direction:column; gap:.4rem; text-align:center; padding:1.4rem 1rem; border-radius:18px; background:#17181A; }
     .vs-head .vs-label { font-family:var(--font-d); font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#8A8D92; }
     .vs-head .vs-name { font-family:var(--font-d); font-size:clamp(1.05rem,2.3vw,1.5rem); font-weight:900; letter-spacing:-.02em; color:#fff; }
     .vs-head.gold { background:var(--gold); box-shadow:0 12px 34px rgba(201,151,58,.32); }
     .vs-head.gold .vs-label { color:#6B520F; }
     .vs-head.gold .vs-name { color:#141005; }
-    .vs-list { list-style:none; margin-top:.5rem; }
-    .vs-list li { display:flex; align-items:center; gap:.7rem; padding:.95rem .25rem; border-bottom:1px solid rgba(255,255,255,.09); font-size:.9rem; color:#E7E8EA; }
-    .vs-list li:last-child { border-bottom:none; }
+    .vs-row { border-bottom:1px solid rgba(255,255,255,.09); }
+    .vs-row:last-child { border-bottom:none; }
+    .vs-topic { display:flex; align-items:center; padding:1.05rem .2rem; font-family:var(--font-d); font-weight:700; font-size:.92rem; color:#fff; }
+    .vs-cell { display:flex; align-items:center; gap:.65rem; padding:1.05rem .3rem; font-size:.86rem; line-height:1.4; color:#C9CBCE; }
     /* circular badges */
     .mark-x, .mark-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; font-size:.92rem; font-weight:900; line-height:1; }
     .mark-x { background:#FCE7E5; color:#E5433D; }
@@ -324,7 +326,11 @@
       .services-grid { grid-template-columns:1fr 1fr; gap:1rem; }
       .gallery-strip { padding:0 1.25rem 1rem; }
       .gallery-strip img { height:170px; }
-      .vs-cols { grid-template-columns:1fr; }
+      .vs-heads { grid-template-columns:1fr 1fr; column-gap:.6rem; }
+      .vs-heads .vs-spacer { display:none; }
+      .vs-row { grid-template-columns:1fr; row-gap:.1rem; padding:.4rem 0; }
+      .vs-topic { padding:.7rem .2rem .2rem; font-size:1rem; }
+      .vs-cell { padding:.55rem .2rem; }
       .vs-head { padding:1.1rem .7rem; }
       .mark-x, .mark-check { width:28px; height:28px; font-size:.86rem; }
       .tabs { width:100%; }
@@ -809,34 +815,47 @@
       <h2 class="h-sec" style="margin:.9rem 0 .6rem;">Tunnel Wash vs. Shine for a Cause</h2>
       <p class="sub">A $20 tunnel wash and a professional detail aren't the same thing. Here's why.</p>
     </div>
-    <div class="vs-cols rv">
-      <div class="vs-col">
+    <div class="vs-grid rv">
+      <div class="vs-heads">
+        <div class="vs-spacer"></div>
         <div class="vs-head">
           <span class="vs-label">Not Recommended</span>
           <span class="vs-name">Tunnel Wash</span>
         </div>
-        <ul class="vs-list">
-          <li><span class="mark-x">✕</span>Comes to your home or office</li>
-          <li><span class="mark-x">✕</span>Safe hand wash, no swirl-inducing brushes</li>
-          <li><span class="mark-x">✕</span>Full interior deep clean &amp; steam</li>
-          <li><span class="mark-x">✕</span>Paint decontamination &amp; protection</li>
-          <li><span class="mark-x">✕</span>Ceramic coating &amp; paint correction</li>
-          <li><span class="mark-x">✕</span>Supports local recovery programs</li>
-        </ul>
-      </div>
-      <div class="vs-col">
         <div class="vs-head gold">
           <span class="vs-label">Recommended</span>
           <span class="vs-name">Shine for a Cause</span>
         </div>
-        <ul class="vs-list">
-          <li><span class="mark-check">✓</span>Comes to your home or office</li>
-          <li><span class="mark-check">✓</span>Safe hand wash, no swirl-inducing brushes</li>
-          <li><span class="mark-check">✓</span>Full interior deep clean &amp; steam</li>
-          <li><span class="mark-check">✓</span>Paint decontamination &amp; protection</li>
-          <li><span class="mark-check">✓</span>Ceramic coating &amp; paint correction</li>
-          <li><span class="mark-check">✓</span>Supports local recovery programs</li>
-        </ul>
+      </div>
+      <div class="vs-row">
+        <div class="vs-topic">Location</div>
+        <div class="vs-cell"><span class="mark-x">✕</span>You drive to them and wait in line</div>
+        <div class="vs-cell"><span class="mark-check">✓</span>We come to your home, office, or anywhere you park</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-topic">Wash method</div>
+        <div class="vs-cell"><span class="mark-x">✕</span>Spinning brushes that swirl and scratch the paint</div>
+        <div class="vs-cell"><span class="mark-check">✓</span>Gentle hand wash that stays completely swirl-free</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-topic">Interior</div>
+        <div class="vs-cell"><span class="mark-x">✕</span>Exterior rinse only, the inside is left untouched</div>
+        <div class="vs-cell"><span class="mark-check">✓</span>Full interior deep clean and hot steam</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-topic">Paint care</div>
+        <div class="vs-cell"><span class="mark-x">✕</span>Surface water only, bonded contaminants stay put</div>
+        <div class="vs-cell"><span class="mark-check">✓</span>Clay decontamination and a protective sealant</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-topic">Coating &amp; correction</div>
+        <div class="vs-cell"><span class="mark-x">✕</span>Not offered anywhere on the menu</div>
+        <div class="vs-cell"><span class="mark-check">✓</span>Paint correction and System X ceramic coating</div>
+      </div>
+      <div class="vs-row">
+        <div class="vs-topic">Bigger picture</div>
+        <div class="vs-cell"><span class="mark-x">✕</span>It's just a quick car wash</div>
+        <div class="vs-cell"><span class="mark-check">✓</span>A share of every booking funds local recovery</div>
       </div>
     </div>
   </div>
