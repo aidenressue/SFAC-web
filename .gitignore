@@ -9,3 +9,4 @@ web.screenshots/*.mp4
 package-lock.json
 serve.mjs
 !web.screenshots/ceramic-pour.mp4
+!web.screenshots/revuelto-turntable-web.mp4
