@@ -344,7 +344,9 @@
     }
     /* ══ Ceramic Coating service page ══ */
     body.cc-page { background:#050505; }
-    .cc-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; }
+    .cc-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; cursor:grab; }
+    .cc-hero.dragging { cursor:grabbing; }
+    .cc-hero a, .cc-hero button { cursor:pointer; }
     .cc-hero-vid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
     .cc-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
       background:radial-gradient(125% 85% at 50% 46%, transparent 42%, rgba(5,5,5,.5) 78%, #050505 100%),
@@ -466,7 +468,7 @@
       </a>
     </div>
   </div>
-  <span class="cc-hint">Hover or drag the car to spin</span>
+  <span class="cc-hint">Click &amp; drag to spin</span>
 </header>
 
 <!-- ═══ COATING PACKAGES ═══ -->
@@ -686,28 +688,39 @@
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
 </script>
 <script>
-  // Turntable hero: auto-spins (seamless boomerang loop); move the mouse to scrub the rotation, stop and it resumes
+  // Turntable hero: auto-spins (seamless boomerang loop). Click-and-drag to spin it yourself; release to resume.
   (function () {
     var hero = document.getElementById('home');
     var vid = document.getElementById('ccVid');
     if (!hero || !vid) return;
-    var idle = null;
-    function scrubTo(x) {
+    var dragging = false, lastX = 0, raf = null;
+    function seek() {
+      raf = null;
       var r = hero.getBoundingClientRect();
-      var p = Math.min(Math.max((x - r.left) / r.width, 0), 1);
+      var p = Math.min(Math.max((lastX - r.left) / r.width, 0), 1);
       var half = (vid.duration || 16) / 2; // forward half = one full rotation sweep
       vid.currentTime = p * half;
     }
     function resume() { var pl = vid.play(); if (pl && pl.catch) pl.catch(function () {}); }
-    function scrub(x) {
-      try { vid.pause(); } catch (e) {}
-      scrubTo(x);
-      clearTimeout(idle);
-      idle = setTimeout(resume, 1400); // resume auto-spin ~1.4s after they stop moving
+    function start(e) {
+      dragging = true; lastX = e.clientX; hero.classList.add('dragging');
+      try { vid.pause(); } catch (err) {}
+      if (!raf) raf = requestAnimationFrame(seek);
     }
-    hero.addEventListener('pointermove', function (e) { scrub(e.clientX); });
-    hero.addEventListener('pointerdown', function (e) { scrub(e.clientX); });
-    hero.addEventListener('pointerleave', function () { clearTimeout(idle); resume(); });
+    function move(e) {
+      if (!dragging) return;              // plain hover does nothing; only drag scrubs
+      lastX = e.clientX;
+      if (!raf) raf = requestAnimationFrame(seek); // throttle seeks to one per frame
+    }
+    function end() {
+      if (!dragging) return;
+      dragging = false; hero.classList.remove('dragging');
+      resume();
+    }
+    hero.addEventListener('pointerdown', start);
+    window.addEventListener('pointermove', move);
+    window.addEventListener('pointerup', end);
+    window.addEventListener('pointercancel', end);
   })();
 </script>
 </body>
