@@ -247,23 +247,19 @@
     #compare, #faq { background:#000; }
     #compare .h-sec, #faq .h-sec { color:#fff; }
     #compare .sub { color:#B9BCC1; }
-    .vs-toggle { display:flex; gap:1rem; justify-content:center; max-width:620px; margin:2.6rem auto 0; }
-    .vs-tab { flex:1; display:flex; flex-direction:column; gap:.4rem; text-align:center; padding:1.4rem 1rem; border-radius:18px; background:#17181A; border:2px solid transparent; cursor:pointer; transition:border-color .2s, box-shadow .2s, transform .2s; }
-    .vs-tab .vs-label { font-family:var(--font-d); font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#8A8D92; }
-    .vs-tab .vs-name { font-family:var(--font-d); font-size:clamp(1.15rem,2.4vw,1.5rem); font-weight:900; letter-spacing:-.02em; color:#fff; }
-    .vs-tab.gold { background:var(--gold); }
-    .vs-tab.gold .vs-label { color:#6B520F; }
-    .vs-tab.gold .vs-name { color:#141005; }
-    .vs-tab.active { border-color:#fff; }
-    .vs-tab.gold.active { border-color:#fff; box-shadow:0 12px 34px rgba(201,151,58,.4); }
-    .vs-panels { max-width:620px; margin:2.4rem auto 0; }
-    .vs-panel { display:none; }
-    .vs-panel.active { display:block; }
-    .vs-list { list-style:none; }
-    .vs-list li { display:flex; align-items:center; gap:.95rem; padding:1.05rem .3rem; border-bottom:1px solid rgba(255,255,255,.09); font-size:1rem; color:#E7E8EA; }
+    .vs-cols { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; max-width:860px; margin:2.6rem auto 0; }
+    .vs-col { display:flex; flex-direction:column; }
+    .vs-head { display:flex; flex-direction:column; gap:.4rem; text-align:center; padding:1.4rem 1rem; border-radius:18px; background:#17181A; }
+    .vs-head .vs-label { font-family:var(--font-d); font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#8A8D92; }
+    .vs-head .vs-name { font-family:var(--font-d); font-size:clamp(1.05rem,2.3vw,1.5rem); font-weight:900; letter-spacing:-.02em; color:#fff; }
+    .vs-head.gold { background:var(--gold); box-shadow:0 12px 34px rgba(201,151,58,.32); }
+    .vs-head.gold .vs-label { color:#6B520F; }
+    .vs-head.gold .vs-name { color:#141005; }
+    .vs-list { list-style:none; margin-top:.5rem; }
+    .vs-list li { display:flex; align-items:center; gap:.7rem; padding:.95rem .25rem; border-bottom:1px solid rgba(255,255,255,.09); font-size:.9rem; color:#E7E8EA; }
     .vs-list li:last-child { border-bottom:none; }
     /* circular badges */
-    .mark-x, .mark-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:50%; font-size:1.02rem; font-weight:900; line-height:1; }
+    .mark-x, .mark-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; font-size:.92rem; font-weight:900; line-height:1; }
     .mark-x { background:#FCE7E5; color:#E5433D; }
     .mark-check { background:#E1F5E9; color:#15A048; box-shadow:0 3px 12px rgba(21,160,72,.25); }
 
@@ -328,9 +324,9 @@
       .services-grid { grid-template-columns:1fr 1fr; gap:1rem; }
       .gallery-strip { padding:0 1.25rem 1rem; }
       .gallery-strip img { height:170px; }
-      .vs-tab { padding:1.1rem .7rem; }
-      .vs-list li { font-size:.9rem; gap:.75rem; }
-      .mark-x, .mark-check { width:30px; height:30px; font-size:.9rem; }
+      .vs-cols { grid-template-columns:1fr; }
+      .vs-head { padding:1.1rem .7rem; }
+      .mark-x, .mark-check { width:28px; height:28px; font-size:.86rem; }
       .tabs { width:100%; }
       .tab { flex:1; padding:.7rem .4rem; font-size:.72rem; text-align:center; }
       .foot-inner { grid-template-columns:1fr; gap:2.2rem; }
@@ -813,18 +809,12 @@
       <h2 class="h-sec" style="margin:.9rem 0 .6rem;">Tunnel Wash vs. Shine for a Cause</h2>
       <p class="sub">A $20 tunnel wash and a professional detail aren't the same thing. Here's why.</p>
     </div>
-    <div class="vs-toggle rv">
-      <button class="vs-tab" data-vs="tunnel" type="button">
-        <span class="vs-label">Not Recommended</span>
-        <span class="vs-name">Tunnel Wash</span>
-      </button>
-      <button class="vs-tab gold active" data-vs="sfac" type="button">
-        <span class="vs-label">Recommended</span>
-        <span class="vs-name">Shine for a Cause</span>
-      </button>
-    </div>
-    <div class="vs-panels">
-      <div class="vs-panel" data-panel="tunnel">
+    <div class="vs-cols rv">
+      <div class="vs-col">
+        <div class="vs-head">
+          <span class="vs-label">Not Recommended</span>
+          <span class="vs-name">Tunnel Wash</span>
+        </div>
         <ul class="vs-list">
           <li><span class="mark-x">✕</span>Comes to your home or office</li>
           <li><span class="mark-x">✕</span>Safe hand wash, no swirl-inducing brushes</li>
@@ -834,7 +824,11 @@
           <li><span class="mark-x">✕</span>Supports local recovery programs</li>
         </ul>
       </div>
-      <div class="vs-panel active" data-panel="sfac">
+      <div class="vs-col">
+        <div class="vs-head gold">
+          <span class="vs-label">Recommended</span>
+          <span class="vs-name">Shine for a Cause</span>
+        </div>
         <ul class="vs-list">
           <li><span class="mark-check">✓</span>Comes to your home or office</li>
           <li><span class="mark-check">✓</span>Safe hand wash, no swirl-inducing brushes</li>
@@ -975,15 +969,6 @@
     document.querySelectorAll('.pkg-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
     document.querySelectorAll('.pkg-panel.active .rv').forEach(el => el.classList.add('in'));
-  }));
-
-  // Tunnel Wash vs. Shine toggle
-  const vsTabs = document.querySelectorAll('.vs-tab');
-  vsTabs.forEach(tab => tab.addEventListener('click', () => {
-    vsTabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    document.querySelectorAll('.vs-panel').forEach(p => p.classList.remove('active'));
-    document.querySelector('.vs-panel[data-panel="' + tab.dataset.vs + '"]').classList.add('active');
   }));
 
   // FAQ accordion
