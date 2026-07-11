@@ -224,7 +224,7 @@
 
     /* ── Stats band ───────────────────── */
     /* ── Sliding gallery ──────────────── */
-    .gallery-sec { padding:3rem 0; overflow:hidden; background:var(--bg); }
+    .gallery-sec { padding:3rem 0; overflow:hidden; background:#000; }
     .gal-row { display:flex; gap:1.1rem; width:max-content; }
     .gal-row + .gal-row { margin-top:1.1rem; }
     .gal-row.r { animation:galRight 55s linear infinite; }
@@ -243,7 +243,11 @@
     .stat-lbl { font-size:.78rem; color:rgba(255,255,255,.65); margin-top:.35rem; letter-spacing:.04em; }
 
     /* ── Compare ──────────────────────── */
-    .cmp-table { max-width:880px; margin:2.8rem auto 0; border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:var(--shadow-card); }
+    .cmp-table { max-width:880px; margin:2.8rem auto 0; background:#fff; border:1px solid var(--line); border-radius:20px; overflow:hidden; box-shadow:var(--shadow-card); }
+    /* Dark sections below ceramic */
+    #compare, #faq { background:#000; }
+    #compare .h-sec, #faq .h-sec { color:#fff; }
+    #compare .sub { color:#B9BCC1; }
     .cmp-row { display:grid; grid-template-columns:1.4fr 1fr 1fr; }
     .cmp-row > div { padding:1.05rem 1.4rem; font-size:.85rem; display:flex; align-items:center; }
     .cmp-row:nth-child(even) { background:var(--bg-warm); }
@@ -746,7 +750,7 @@
 
     <div class="cx-outro">
       <h3>Give your car the treatment it deserves</h3>
-      <p>Get service at your home, apartment, work, hotel, or wherever you need it. We provide our own power, water, tools, and chemicals so you don't have to do any work. Occasionally we'll request to use a client's power during a paint correction to save gas on the generator if possible.</p>
+      <p>Get service at your home, apartment, work, hotel, or wherever you need it. We provide our own power, water, tools, and chemicals so you don't have to do any work. Occasionally we'll request to use a client's power during a paint correction to save gas in the generator if possible.</p>
     </div>
   </div>
 </section>
@@ -791,16 +795,6 @@
   </div>
 </section>
 
-<!-- ═══ STATS ═══ -->
-<section class="stats-band">
-  <div class="stats-inner">
-    <div class="rv"><div class="stat-num"><span data-count="250">0</span><sup>+</sup></div><div class="stat-lbl">Vehicles Detailed</div></div>
-    <div class="rv"><div class="stat-num"><span data-count="5">0</span>.0</div><div class="stat-lbl">Google Rating, Every Review 5 Stars</div></div>
-    <div class="rv"><div class="stat-num"><span data-count="100">0</span><sup>%</sup></div><div class="stat-lbl">Mobile, We Come to You</div></div>
-    <div class="rv"><div class="stat-num"><span data-count="6">0</span></div><div class="stat-lbl">Days a Week, Mon–Sat</div></div>
-  </div>
-</section>
-
 <!-- ═══ COMPARE ═══ -->
 <section id="compare">
   <div class="wrap">
@@ -821,7 +815,7 @@
 </section>
 
 <!-- ═══ FAQ ═══ -->
-<section id="faq" style="background:var(--bg-soft);border-top:1px solid var(--line);">
+<section id="faq">
   <div class="wrap">
     <div style="text-align:center;margin-bottom:2.6rem;">
       <h2 class="h-sec" style="margin:.9rem 0 0;">Frequently Asked Questions</h2>
