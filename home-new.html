@@ -187,7 +187,7 @@
     .pkg-price .amt { font-size:2.3rem; font-weight:900; letter-spacing:-.03em; color:var(--ink); }
     .pkg-inc { margin-bottom:1.6rem; }
     .pkg-inc.two { display:grid; grid-template-columns:1fr 1fr; gap:1.3rem 1.2rem; }
-    .pkg-inc-head { font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--ink); margin-bottom:.7rem; padding-bottom:.4rem; border-bottom:1px solid var(--line); }
+    .pkg-inc-head { font-family:var(--font-d); font-size:.78rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin-bottom:.7rem; padding-bottom:.4rem; border-bottom:1px solid var(--line); }
     .pkg-list { display:flex; flex-direction:column; gap:.55rem; }
     .pkg-list li { display:flex; gap:.55rem; font-size:.8rem; color:var(--ink-2); line-height:1.45; }
     .pkg-list li::before { content:''; flex-shrink:0; width:16px; height:16px; margin-top:.1rem; border-radius:50%; background:rgba(34,163,74,.12) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%2317A34A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(34,163,74,.35); }
@@ -345,9 +345,12 @@
       .foot-inner { grid-template-columns:1fr; gap:2.2rem; }
     }
     /* ── Package finder quiz ──────────── */
-    .quiz-sec { background:var(--bg-soft); border-top:1px solid var(--line); }
-    .quiz-head { text-align:center; max-width:640px; margin:0 auto 2.6rem; }
-    .quiz-box { max-width:860px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow-card); padding:2.5rem 2rem; }
+    .quiz-sec { background:var(--bg); }
+    .quiz-sec .wrap { padding-top:1.5rem; }
+    .quiz-layout { display:grid; grid-template-columns:0.85fr 1.15fr; gap:3rem; align-items:center; }
+    .quiz-head { max-width:none; margin:0; }
+    .quiz-box { background:#fff; border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow-card); padding:2.5rem 2rem; }
+    @media (max-width:860px) { .quiz-layout { grid-template-columns:1fr; gap:1.8rem; } .quiz-head { text-align:center; } }
     .quiz-progress { display:flex; gap:.4rem; justify-content:center; margin-bottom:1.9rem; }
     .quiz-progress span { width:34px; height:4px; border-radius:999px; background:var(--line); transition:background .25s; }
     .quiz-progress span.on { background:var(--gold); }
@@ -771,9 +774,10 @@
 <!-- ═══ PACKAGE FINDER QUIZ ═══ -->
 <section class="quiz-sec" id="finder">
   <div class="wrap">
+    <div class="quiz-layout">
     <div class="quiz-head">
-      <h2 class="h-sec">Not Sure Which to Pick?</h2>
-      <p class="sub">Answer two quick questions and we'll point you to the right package. No photos to send, no waiting.</p>
+      <h2 class="h-sec">30&#8209;Second Quote</h2>
+      <p class="sub">Answer two quick questions and we'll point you straight to the right package. No photos to send, no waiting.</p>
     </div>
     <div class="quiz-box" id="quizBox">
       <div class="quiz-progress"><span class="on"></span><span></span><span></span></div>
@@ -809,6 +813,7 @@
           </div>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </section>
