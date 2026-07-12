@@ -344,6 +344,35 @@
       .tab { flex:1; padding:.7rem .4rem; font-size:.72rem; text-align:center; }
       .foot-inner { grid-template-columns:1fr; gap:2.2rem; }
     }
+    /* ── Package finder quiz ──────────── */
+    .quiz-sec { background:var(--bg-soft); border-top:1px solid var(--line); }
+    .quiz-head { text-align:center; max-width:640px; margin:0 auto 2.6rem; }
+    .quiz-box { max-width:860px; margin:0 auto; background:#fff; border:1px solid var(--line); border-radius:24px; box-shadow:var(--shadow-card); padding:2.5rem 2rem; }
+    .quiz-progress { display:flex; gap:.4rem; justify-content:center; margin-bottom:1.9rem; }
+    .quiz-progress span { width:34px; height:4px; border-radius:999px; background:var(--line); transition:background .25s; }
+    .quiz-progress span.on { background:var(--gold); }
+    .quiz-step { display:none; }
+    .quiz-step.active { display:block; animation:quizIn .3s ease; }
+    @keyframes quizIn { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none; } }
+    .quiz-q { text-align:center; font-family:var(--font-d); font-weight:800; font-size:1.35rem; color:var(--ink); margin-bottom:1.6rem; letter-spacing:-.02em; }
+    .quiz-opts { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; }
+    .quiz-opt { display:flex; flex-direction:column; text-align:left; border:1.5px solid var(--line); border-radius:16px; overflow:hidden; background:#fff; cursor:pointer; transition:border-color .18s, transform .18s, box-shadow .18s; }
+    .quiz-opt:hover { border-color:var(--gold); transform:translateY(-3px); box-shadow:var(--shadow-lift); }
+    .quiz-opt-img { aspect-ratio:4/3; background:repeating-linear-gradient(45deg,#F1EFEA,#F1EFEA 14px,#ECEAE4 14px,#ECEAE4 28px); display:flex; align-items:center; justify-content:center; color:var(--muted); }
+    .quiz-opt-img .ico { width:44px; height:44px; color:var(--gold-deep); }
+    .quiz-opt-img .ph { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; }
+    .quiz-opt-body { padding:.9rem 1rem 1.1rem; }
+    .quiz-opt-body strong { display:block; font-family:var(--font-d); font-size:1rem; font-weight:800; color:var(--ink); margin-bottom:.2rem; }
+    .quiz-opt-body span { font-size:.78rem; color:var(--muted); line-height:1.4; }
+    .quiz-back { display:inline-flex; align-items:center; gap:.4rem; margin-top:1.6rem; font-family:var(--font-d); font-weight:700; font-size:.82rem; color:var(--muted); background:none; }
+    .quiz-back:hover { color:var(--ink); }
+    .quiz-result { text-align:center; padding:.6rem 0; }
+    .quiz-rec-label { font-family:var(--font-d); font-size:.68rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; color:var(--gold-deep); }
+    .quiz-rec { font-family:var(--font-d); font-weight:900; font-size:clamp(1.6rem,3.2vw,2.2rem); color:var(--ink); margin:.5rem 0 .5rem; letter-spacing:-.02em; }
+    .quiz-rec em { font-style:normal; color:var(--gold-deep); }
+    .quiz-rec-desc { max-width:520px; margin:0 auto 1.7rem; font-size:.95rem; color:var(--ink-2); line-height:1.6; }
+    .quiz-cta { display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; align-items:center; }
+    @media (max-width:640px) { .quiz-opts { grid-template-columns:1fr; } .quiz-box { padding:1.8rem 1.2rem; } }
   </style>
 </head>
 <body>
@@ -736,6 +765,51 @@
   </div>
 </section>
 
+<!-- ═══ PACKAGE FINDER QUIZ ═══ -->
+<section class="quiz-sec" id="finder">
+  <div class="wrap">
+    <div class="quiz-head">
+      <h2 class="h-sec">Not Sure Which to Pick?</h2>
+      <p class="sub">Answer two quick questions and we'll point you to the right package. No photos to send, no waiting.</p>
+    </div>
+    <div class="quiz-box" id="quizBox">
+      <div class="quiz-progress"><span class="on"></span><span></span><span></span></div>
+
+      <div class="quiz-step active" data-step="1">
+        <div class="quiz-q">What do you want detailed?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-service="full"><div class="quiz-opt-img"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 17h2c.6 0 1-.4 1-1v-3c0-.9-.7-1.7-1.5-1.9C18.7 10.6 16 10 16 10s-1.3-1.4-2.2-2.3c-.5-.4-1.1-.7-1.8-.7H5c-.6 0-1.1.4-1.4.9l-1.4 2.9A3.7 3.7 0 0 0 2 12v4c0 .6.4 1 1 1h2"/><circle cx="7" cy="17" r="2"/><path d="M9 17h6"/><circle cx="17" cy="17" r="2"/></svg></div><div class="quiz-opt-body"><strong>Full Detail</strong><span>Inside &amp; out</span></div></button>
+          <button class="quiz-opt" data-service="int"><div class="quiz-opt-img"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 9V6a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v3"/><path d="M3 11v5a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-5a2 2 0 0 0-4 0v2H7v-2a2 2 0 0 0-4 0Z"/><path d="M5 18v2M19 18v2"/></svg></div><div class="quiz-opt-body"><strong>Interior</strong><span>Inside only</span></div></button>
+          <button class="quiz-opt" data-service="ext"><div class="quiz-opt-img"><svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.9 5.8a2 2 0 0 1-1.3 1.3L3 12l5.8 1.9a2 2 0 0 1 1.3 1.3L12 21l1.9-5.8a2 2 0 0 1 1.3-1.3L21 12l-5.8-1.9a2 2 0 0 1-1.3-1.3Z"/></svg></div><div class="quiz-opt-body"><strong>Exterior</strong><span>Outside only</span></div></button>
+        </div>
+      </div>
+
+      <div class="quiz-step" data-step="2">
+        <div class="quiz-q">What kind of shape is it in?</div>
+        <div class="quiz-opts">
+          <button class="quiz-opt" data-cond="light"><div class="quiz-opt-img"><span class="ph">Example photo</span></div><div class="quiz-opt-body"><strong>Light</strong><span>Kept up regularly, just needs a refresh</span></div></button>
+          <button class="quiz-opt" data-cond="moderate"><div class="quiz-opt-img"><span class="ph">Example photo</span></div><div class="quiz-opt-body"><strong>Moderate</strong><span>A few months of use, visible dirt &amp; dust</span></div></button>
+          <button class="quiz-opt" data-cond="heavy"><div class="quiz-opt-img"><span class="ph">Example photo</span></div><div class="quiz-opt-body"><strong>Heavy</strong><span>Really needs it, stains, pet hair, buildup</span></div></button>
+        </div>
+        <button class="quiz-back" id="quizBack">&larr; Back</button>
+      </div>
+
+      <div class="quiz-step" data-step="3">
+        <div class="quiz-result">
+          <span class="quiz-rec-label">Our recommendation</span>
+          <h2 class="quiz-rec" id="quizRec">&mdash;</h2>
+          <p class="quiz-rec-desc" id="quizDesc">&mdash;</p>
+          <div class="quiz-cta">
+            <a href="/booking.html" class="btn btn-gold">Book This Detail</a>
+            <a href="#packages" class="btn btn-ghost" id="quizSee">See what's included</a>
+            <button class="quiz-back" id="quizRestart" style="margin-top:0;">Start over</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ═══ CERAMIC (SYSTEM X) ═══ -->
 <section class="ceramic-sec" id="ceramic">
   <div class="ceramic-wrap">
@@ -1038,6 +1112,38 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
+
+  // Package finder quiz
+  (function () {
+    var box = document.getElementById('quizBox'); if (!box) return;
+    var steps = box.querySelectorAll('.quiz-step');
+    var prog = box.querySelectorAll('.quiz-progress span');
+    var state = { service: null, cond: null };
+    var svcLabel = { full: 'Full Detail', int: 'Interior Detail', ext: 'Exterior Detail' };
+    var svcTab = { full: 'full', int: 'int', ext: 'ext' };
+    var levels = {
+      light:    { n: 'Level 1', name: 'Maintenance', d: 'A regular upkeep clean to keep a well-kept vehicle looking its best.' },
+      moderate: { n: 'Level 2', name: 'Reset',       d: 'A deeper clean that resets the dirt, dust, and grime built up over a few months of use.' },
+      heavy:    { n: 'Level 3', name: 'Executive',   d: 'Our most thorough detail, fully resetting heavy stains, pet hair, and built-up grime.' }
+    };
+    function show(n) {
+      steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
+      prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
+      box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+    function result() {
+      var L = levels[state.cond], svc = svcLabel[state.service];
+      document.getElementById('quizRec').innerHTML = svc + ' &middot; <em>' + L.n + ' ' + L.name + '</em>';
+      document.getElementById('quizDesc').textContent = L.d;
+    }
+    box.querySelectorAll('[data-service]').forEach(function (b) { b.addEventListener('click', function () { state.service = b.dataset.service; show(2); }); });
+    box.querySelectorAll('[data-cond]').forEach(function (b) { b.addEventListener('click', function () { state.cond = b.dataset.cond; result(); show(3); }); });
+    document.getElementById('quizBack').addEventListener('click', function () { show(1); });
+    document.getElementById('quizRestart').addEventListener('click', function () { state = { service: null, cond: null }; show(1); });
+    document.getElementById('quizSee').addEventListener('click', function () {
+      var t = document.querySelector('#pkgTabs .tab[data-panel="' + svcTab[state.service] + '"]'); if (t) t.click();
+    });
+  })();
 </script>
 </body>
 </html>
