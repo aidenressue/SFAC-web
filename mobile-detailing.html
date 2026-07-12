@@ -77,10 +77,12 @@
     .nav-links a:hover { color:var(--gold-deep); }
     .nav-drop-toggle { display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-d); font-size:1.05rem; font-weight:700; letter-spacing:-.01em; color:var(--ink-2); transition:color .3s ease; }
     .nav-drop-toggle svg { transition:transform .2s; }
-    .nav-drop { position:absolute; z-index:300; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(6px); background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-lift); padding:.5rem; min-width:230px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; }
+    .nav-drop { position:absolute; z-index:300; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(6px); background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-lift); padding:.5rem; min-width:190px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; }
     .nav-links li:hover .nav-drop, .nav-links li:focus-within .nav-drop { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
     .nav-links li:hover .nav-drop-toggle svg { transform:rotate(180deg); }
-    .nav-drop a { display:block; padding:.65rem .9rem; border-radius:9px; font-size:.84rem; }
+    .nav-drop::before { content:''; position:absolute; left:0; right:0; top:-18px; height:18px; }
+    .nav-drop a { display:block; padding:.6rem 1rem; border-radius:9px; font-size:.92rem; font-weight:600; color:var(--ink); }
+    .nav-dark .nav-links .nav-drop a { color:var(--ink); }
     .nav-drop a:hover { background:var(--bg-soft); }
     .nav-drop a span { display:block; font-size:.7rem; font-weight:400; color:var(--muted); margin-top:.15rem; }
     .nav-cta { display:flex; align-items:center; gap:.9rem; }
@@ -406,10 +408,10 @@
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="nav-drop">
-          <a href="/mobile-detailing.html">Mobile Detailing <span>Express & Executive packages, we come to you</span></a>
-          <a href="/ceramic-coating.html">Ceramic Coating <span>System X certified, up to lifetime warranty</span></a>
-          <a href="/boat-services.html">Boat Services <span>Wash, wax &amp; ceramic for your boat</span></a>
-          <a href="/fleet-cleaning.html">Fleet Cleaning <span>Wholesale rates for dealers &amp; fleets</span></a>
+          <a href="/mobile-detailing.html">Mobile Detailing</a>
+          <a href="/ceramic-coating.html">Ceramic Coating</a>
+          <a href="/boat-services.html">Boat Services</a>
+          <a href="/fleet-cleaning.html">Fleet Cleaning</a>
         </div>
       </li>
       <li><a href="/maintenance.html">Maintenance Plans</a></li>
