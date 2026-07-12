@@ -346,8 +346,7 @@
     }
     /* ══ Ceramic Coating service page ══ */
     body.cc-page { background:#050505; }
-    .cc-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; cursor:grab; }
-    .cc-hero.dragging { cursor:grabbing; }
+    .cc-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; }
     .cc-hero a, .cc-hero button { cursor:pointer; }
     .cc-hero-vid { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
     .cc-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
@@ -462,7 +461,6 @@
       </a>
     </div>
   </div>
-  <span class="cc-hint">Click &amp; drag to spin</span>
 </header>
 
 <!-- ═══ COATING PACKAGES ═══ -->
@@ -680,55 +678,6 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
-</script>
-<script>
-  // Turntable hero: auto-spins (seamless boomerang loop). Click-and-drag to spin it yourself; release to resume.
-  (function () {
-    var hero = document.getElementById('home');
-    var vid = document.getElementById('ccVid');
-    if (!hero || !vid) return;
-    var dragging = false, lastX = 0, raf = null;
-    function seek() {
-      raf = null;
-      var r = hero.getBoundingClientRect();
-      var p = Math.min(Math.max((lastX - r.left) / r.width, 0), 1);
-      var half = (vid.duration || 16) / 2; // forward half = one full rotation sweep
-      vid.currentTime = p * half;
-    }
-    function resume() { var pl = vid.play(); if (pl && pl.catch) pl.catch(function () {}); }
-    function start(e) {
-      dragging = true; lastX = e.clientX; hero.classList.add('dragging');
-      try { vid.pause(); } catch (err) {}
-      if (!raf) raf = requestAnimationFrame(seek);
-    }
-    function move(e) {
-      if (!dragging) return;              // plain hover does nothing; only drag scrubs
-      lastX = e.clientX;
-      if (!raf) raf = requestAnimationFrame(seek); // throttle seeks to one per frame
-    }
-    function end() {
-      if (!dragging) return;
-      dragging = false; hero.classList.remove('dragging');
-      resume();
-    }
-    hero.addEventListener('pointerdown', start);
-    window.addEventListener('pointermove', move);
-    window.addEventListener('pointerup', end);
-    window.addEventListener('pointercancel', end);
-
-    // Boomerang clips: ease the speed down near each turnaround so the direction change is smooth (no jolt, no freeze)
-    if (vid.dataset.boomerang) {
-      (function tick() {
-        if (!dragging && vid.duration) {
-          var d = vid.duration, t = vid.currentTime, mid = d / 2;
-          var dist = Math.min(t, Math.abs(t - mid), d - t); // seconds to nearest turnaround
-          var W = 1.2;
-          vid.playbackRate = dist < W ? (0.2 + 0.8 * (dist / W)) : 1;
-        }
-        requestAnimationFrame(tick);
-      })();
-    }
-  })();
 </script>
 </body>
 </html>
