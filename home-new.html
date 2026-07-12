@@ -373,6 +373,17 @@
     .quiz-rec-desc { max-width:520px; margin:0 auto 1.7rem; font-size:.95rem; color:var(--ink-2); line-height:1.6; }
     .quiz-cta { display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; align-items:center; }
     @media (max-width:640px) { .quiz-opts { grid-template-columns:1fr; } .quiz-box { padding:1.8rem 1.2rem; } }
+    /* cumulative package cards */
+    .pkg-prev { font-family:var(--font-d); font-size:.8rem; font-weight:700; color:var(--gold-deep); margin-bottom:.9rem; display:flex; align-items:center; gap:.4rem; }
+    .pkg-prev svg { flex-shrink:0; }
+    .pkg-more { margin:1rem 0 0; font-family:var(--font-d); font-size:.76rem; font-weight:700; color:var(--ink-2); background:none; display:inline-flex; align-items:center; gap:.35rem; }
+    .pkg-more:hover { color:var(--gold-deep); }
+    .pkg-more svg { transition:transform .2s; }
+    .pkg-card.open .pkg-more svg { transform:rotate(180deg); }
+    .pkg-full { display:none; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--line); }
+    .pkg-card.open .pkg-full { display:block; }
+    .pkg-inc-head2 { font-family:var(--font-d); font-size:.6rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--muted); margin-bottom:.7rem; }
+    .pkg-card .btn { margin-top:auto; }
   </style>
 </head>
 <body>
@@ -525,70 +536,52 @@
     </div>
 
     <div class="pkg-panels">
-      <div class="pkg-panel active" id="panel-full">
+            <div class="pkg-panel active" id="panel-full">
       <div class="pkg-card rv">
         <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-maintenance.jpg" alt="Full Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Full Maintenance</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$180</span></div>
-          <div class="pkg-inc two">
-            <div>
-              <div class="pkg-inc-head">Interior</div>
-              <ul class="pkg-list">
-              <li>Interior vacuum</li>
-              <li>Wipe all surfaces</li>
-              <li>Floor mats</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-            </div>
-            <div>
-              <div class="pkg-inc-head">Exterior</div>
-              <ul class="pkg-list">
-              <li>Quick hand wash</li>
-              <li>Wax protection</li>
-              <li>Clean rims</li>
-              <li>Clean tires</li>
-            </ul>
-            </div>
-          </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <ul class="pkg-list">
+            <li>Interior vacuum &amp; wipe-down</li>
+            <li>Clean windows &amp; mirrors</li>
+            <li>Floor mats &amp; door jambs</li>
+            <li>Detail trunk</li>
+            <li>Exterior hand wash</li>
+            <li>Wax protection</li>
+            <li>Clean rims &amp; tires</li>
+          </ul>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
         </div>
       </div>
-      <div class="pkg-card rv">
+      <div class="pkg-card rv pop">
         <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-reset.jpg" alt="Full Reset" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Full Reset</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$299</span></div>
-          <div class="pkg-inc two">
-            <div>
-              <div class="pkg-inc-head">Interior</div>
-              <ul class="pkg-list">
-              <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
-              <li>Wipe all surfaces</li>
-              <li>Stains (spot treatment)</li>
-              <li>Spot steam cleaning</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
+          <div class="pkg-prev"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A87B27" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Everything in Maintenance, plus:</div>
+          <ul class="pkg-list">
+            <li>Deep steam clean interior</li>
+            <li>Clean &amp; protect all plastics</li>
+            <li>Spot-treat stains</li>
+            <li>Shampoo &amp; shine floor mats</li>
+            <li>Professional foam hand wash</li>
+            <li>Spot polish &amp; wheel wells</li>
+          </ul>
+          <button class="pkg-more" type="button">See full list <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="pkg-full">
+            <div class="pkg-inc-head2">Also includes (from Maintenance)</div>
+            <ul class="pkg-list">
+              <li>Interior vacuum &amp; wipe-down</li>
+              <li>Clean windows &amp; mirrors</li>
+              <li>Floor mats &amp; door jambs</li>
               <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-            </div>
-            <div>
-              <div class="pkg-inc-head">Exterior</div>
-              <ul class="pkg-list">
-              <li>Professional hand wash</li>
-              <li>Spot polish</li>
+              <li>Exterior hand wash</li>
               <li>Wax protection</li>
-              <li>Detail rims</li>
-              <li>Wheel wells</li>
-              <li>Detail tires</li>
+              <li>Clean rims &amp; tires</li>
             </ul>
-            </div>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -596,42 +589,29 @@
         <div class="pkg-card-body">
           <div class="pkg-name">Full Executive</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$499</span></div>
-          <div class="pkg-inc two">
-            <div>
-              <div class="pkg-inc-head">Interior</div>
-              <ul class="pkg-list">
-              <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
-              <li>Wipe all surfaces</li>
-              <li>Stains (spot treatment)</li>
-              <li>Full carpet shampoo</li>
-              <li>Seat shampoo</li>
-              <li>Leather conditioning</li>
-              <li>Full steam cleaning</li>
-              <li>Trim restoration</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
+          <div class="pkg-prev"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#A87B27" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg> Everything in Reset, plus:</div>
+          <ul class="pkg-list">
+            <li>Full carpet &amp; seat shampoo</li>
+            <li>Leather clean &amp; conditioning</li>
+            <li>Full interior steam sanitation</li>
+            <li>1-step paint enhancement (polish)</li>
+            <li>Ceramic spray sealant (4&ndash;6 mo)</li>
+            <li>Trim restoration</li>
+          </ul>
+          <button class="pkg-more" type="button">See full list <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+          <div class="pkg-full">
+            <div class="pkg-inc-head2">Also includes (from Reset)</div>
+            <ul class="pkg-list">
+              <li>Deep steam clean interior</li>
+              <li>Clean &amp; protect all plastics</li>
+              <li>Spot-treat stains &amp; shampoo mats</li>
+              <li>Professional foam hand wash</li>
+              <li>Spot polish &amp; wheel wells</li>
+              <li>+ all Full Maintenance items</li>
             </ul>
-            </div>
-            <div>
-              <div class="pkg-inc-head">Exterior</div>
-              <ul class="pkg-list">
-              <li>Professional hand wash</li>
-              <li>2-step decontamination</li>
-              <li>Full paint enhancement (polish)</li>
-              <li>Ceramic sealant (4–6 month)</li>
-              <li>Trim restoration</li>
-              <li>Detail rims</li>
-              <li>Wheel wells</li>
-              <li>Detail tires</li>
-            </ul>
-            </div>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
         </div>
-      </div>
       </div>
       <div class="pkg-panel" id="panel-ext">
       <div class="pkg-card rv">
@@ -1144,6 +1124,11 @@
       var t = document.querySelector('#pkgTabs .tab[data-panel="' + svcTab[state.service] + '"]'); if (t) t.click();
     });
   })();
+
+  // Package card "see full list" toggles
+  document.querySelectorAll('.pkg-more').forEach(function (b) {
+    b.addEventListener('click', function () { b.closest('.pkg-card').classList.toggle('open'); });
+  });
 </script>
 </body>
 </html>
