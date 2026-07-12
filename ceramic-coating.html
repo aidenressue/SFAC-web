@@ -368,16 +368,22 @@
     .cc-h2 { text-align:center; font-family:var(--font-d); font-weight:900; letter-spacing:-.02em; font-size:clamp(2rem,4vw,3rem); color:#fff; margin:0; }
     .cc-h2-sub { text-align:center; color:#9A9DA2; margin-top:.65rem; font-size:1rem; }
     /* packages */
-    .cc-pkgs { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:3rem; }
-    .cc-pkg { position:relative; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:2.1rem 1.7rem; display:flex; flex-direction:column; }
-    .cc-pkg.feat { border-color:var(--gold-line); box-shadow:0 24px 60px rgba(201,151,58,.16); }
-    .cc-pkg-badge { position:absolute; top:-.75rem; left:50%; transform:translateX(-50%); background:var(--gold); color:#141005; font-family:var(--font-d); font-weight:800; font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; padding:.32rem .9rem; border-radius:999px; white-space:nowrap; }
-    .cc-pkg-tier { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
-    .cc-pkg-name { font-family:var(--font-d); font-size:1.5rem; font-weight:900; color:#fff; margin:.2rem 0 1.3rem; letter-spacing:-.02em; }
-    .cc-pkg ul { list-style:none; display:flex; flex-direction:column; gap:.72rem; margin-bottom:1.7rem; }
-    .cc-pkg li { display:flex; gap:.6rem; font-size:.88rem; color:#C9CBCE; line-height:1.4; }
-    .cc-pkg li::before { content:''; flex:0 0 18px; height:18px; margin-top:1px; border-radius:50%; background:rgba(201,151,58,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23C9973A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(201,151,58,.3); }
-    .cc-pkg .btn { margin-top:auto; width:100%; }
+    .cc-pkgs { display:grid; grid-template-columns:repeat(3,1fr); gap:1.6rem; margin-top:4rem; }
+    .coat-card { position:relative; }
+    .coat-glow { position:absolute; top:-30px; left:6%; right:6%; height:120px; border-radius:50%; background:radial-gradient(60% 100% at 50% 100%, var(--c), transparent 72%); filter:blur(24px); opacity:.6; z-index:0; pointer-events:none; }
+    .coat-inner { position:relative; z-index:1; height:100%; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg,#181A1F 0%,#0B0C0E 50%,#000 100%); display:flex; flex-direction:column; }
+    .coat-line { height:3px; background:var(--c); box-shadow:0 0 18px var(--c); }
+    .coat-body { padding:1.9rem 1.7rem 1.4rem; }
+    .coat-name { font-family:var(--font-d); font-size:1.6rem; font-weight:900; color:#fff; letter-spacing:-.02em; margin:0 0 1.3rem; }
+    .coat-list { list-style:none; display:flex; flex-direction:column; gap:.75rem; }
+    .coat-list li { display:flex; align-items:flex-start; gap:.6rem; font-size:.9rem; color:#D2D4D8; line-height:1.4; }
+    .coat-list li::before { content:''; flex:0 0 18px; height:18px; margin-top:1px; background:var(--c); -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat; }
+    .coat-cta { padding:0 1.7rem 1.5rem; }
+    .coat-cta .btn { width:100%; }
+    .coat-img { position:relative; margin-top:auto; aspect-ratio:16/10; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .coat-img img { width:100%; height:100%; object-fit:cover; object-position:center bottom; }
+    .coat-img::before { content:''; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,#000 0%,transparent 42%); pointer-events:none; }
+    .coat-img .ph { position:relative; z-index:2; font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#54575c; }
     /* benefits */
     .cc-benefits { display:flex; flex-direction:column; gap:1rem; max-width:820px; margin:3rem auto 0; }
     .cc-benefit { background:#0F1012; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:1.5rem 1.7rem; }
@@ -386,7 +392,7 @@
     .cc-benefit p { margin:.5rem 0 0; font-size:.9rem; color:#9A9DA2; line-height:1.6; }
     .cc-cta-center { text-align:center; margin-top:2.6rem; }
     @media (max-width:820px) {
-      .cc-pkgs { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; }
+      .cc-pkgs { grid-template-columns:1fr; max-width:400px; margin-left:auto; margin-right:auto; }
       .cc-hero-vid { object-fit:contain; }
     }
   </style>
@@ -468,45 +474,62 @@
     <h2 class="cc-h2">Our Coating Packages</h2>
     <p class="cc-h2-sub">The next level of vehicle surface protection.</p>
     <div class="cc-pkgs">
-      <div class="cc-pkg">
-        <div class="cc-pkg-tier">2-Year</div>
-        <div class="cc-pkg-name">System X Coating</div>
-        <ul>
+      <div class="coat-card" style="--c:#3BA7FF;">
+        <div class="coat-glow"></div>
+        <div class="coat-inner">
+          <div class="coat-line"></div>
+          <div class="coat-body">
+            <h3 class="coat-name">2 Year Shield</h3>
+            <ul class="coat-list">
           <li>9H surface hardness</li>
           <li>High-gloss finish</li>
           <li>Extreme hydrophobics</li>
           <li>UV &amp; oxidation protection</li>
-          <li>2-year warranty</li>
+          <li>2 year warranty</li>
           <li>Reported to Carfax</li>
-        </ul>
-        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
+            </ul>
+          </div>
+          <div class="coat-cta"><a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a></div>
+          <div class="coat-img"><span class="ph">Image coming soon</span></div>
+        </div>
       </div>
-      <div class="cc-pkg feat">
-        <div class="cc-pkg-badge">Most Popular</div>
-        <div class="cc-pkg-tier">6-Year</div>
-        <div class="cc-pkg-name">System X Coating</div>
-        <ul>
-          <li>Everything in the 2-year</li>
+      <div class="coat-card" style="--c:#9B6BFF;">
+        <div class="coat-glow"></div>
+        <div class="coat-inner">
+          <div class="coat-line"></div>
+          <div class="coat-body">
+            <h3 class="coat-name">6 Year Armor</h3>
+            <ul class="coat-list">
+          <li>Everything in the 2 year</li>
           <li>Thicker multi-layer coat</li>
           <li>Enhanced gloss &amp; slickness</li>
           <li>Stronger chemical resistance</li>
-          <li>6-year warranty</li>
+          <li>6 year warranty</li>
           <li>Free annual maintenance</li>
-        </ul>
-        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
+            </ul>
+          </div>
+          <div class="coat-cta"><a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a></div>
+          <div class="coat-img"><span class="ph">Image coming soon</span></div>
+        </div>
       </div>
-      <div class="cc-pkg">
-        <div class="cc-pkg-tier">Lifetime</div>
-        <div class="cc-pkg-name">System X Coating</div>
-        <ul>
-          <li>Everything in the 6-year</li>
+      <div class="coat-card" style="--c:#F5B740;">
+        <div class="coat-glow"></div>
+        <div class="coat-inner">
+          <div class="coat-line"></div>
+          <div class="coat-body">
+            <h3 class="coat-name">Lifetime Diamond</h3>
+            <ul class="coat-list">
+          <li>Everything in the 6 year</li>
           <li>Maximum durability &amp; depth</li>
           <li>Top-tier gloss &amp; slickness</li>
           <li>Lifetime warranty</li>
           <li>Priority annual service</li>
           <li>Fully Carfax documented</li>
-        </ul>
-        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
+            </ul>
+          </div>
+          <div class="coat-cta"><a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a></div>
+          <div class="coat-img"><span class="ph">Image coming soon</span></div>
+        </div>
       </div>
     </div>
   </div>
