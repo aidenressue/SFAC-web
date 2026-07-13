@@ -386,15 +386,39 @@
     .coat-img img { width:100%; height:100%; object-fit:cover; object-position:center bottom; }
     .coat-img::before { content:''; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,#000 0%,transparent 42%); pointer-events:none; }
     .coat-img .ph { position:relative; z-index:2; font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#54575c; }
-    /* protect your investment cluster */
-    .pi-sec { position:relative; overflow:hidden; }
-    .pi-cluster { position:relative; max-width:1000px; margin:3.2rem auto 0; display:flex; flex-wrap:wrap; justify-content:center; gap:1rem; }
-    .pi-cluster::before { content:''; position:absolute; top:50%; left:50%; width:660px; height:440px; transform:translate(-50%,-50%); background:radial-gradient(ellipse at center, rgba(201,151,58,.5), rgba(201,151,58,0) 70%); filter:blur(42px); z-index:0; pointer-events:none; }
-    .pi-bubble { position:relative; z-index:1; flex:0 0 300px; max-width:300px; background:rgba(20,21,24,.72); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.1); border-radius:22px; padding:1.7rem 1.6rem; box-shadow:0 12px 34px rgba(0,0,0,.4); }
-    .pi-bubble h3 { font-family:var(--font-d); font-size:1.1rem; font-weight:800; color:#fff; display:flex; align-items:center; gap:.55rem; margin:0; }
-    .pi-bubble h3 .dot { color:var(--gold); font-size:.7em; }
-    .pi-bubble p { margin:.55rem 0 0; font-size:.88rem; color:#A6A9AE; line-height:1.6; }
-    @media (max-width:720px){ .pi-bubble { flex:0 0 100%; max-width:340px; } }
+    /* ceramic quote builder */
+    .cqb { max-width:720px; margin:3rem auto 0; background:linear-gradient(180deg,#181A1F 0%,#0B0C0E 100%); border:1px solid rgba(255,255,255,.09); border-radius:24px; padding:2.6rem 2.2rem; box-shadow:0 24px 60px rgba(0,0,0,.5); }
+    .cqb-progress { display:flex; gap:.4rem; justify-content:center; margin-bottom:2rem; }
+    .cqb-progress span { width:34px; height:4px; border-radius:999px; background:rgba(255,255,255,.14); transition:background .25s; }
+    .cqb-progress span.on { background:var(--gold); }
+    .cqb-step { display:none; }
+    .cqb-step.active { display:block; animation:cqbIn .3s ease; }
+    @keyframes cqbIn { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none; } }
+    .cqb-q { text-align:center; font-family:var(--font-d); font-weight:800; font-size:1.35rem; color:#fff; margin-bottom:1.7rem; letter-spacing:-.02em; }
+    .cqb-opts { display:grid; gap:.9rem; }
+    .cqb-opts.cols-2 { grid-template-columns:repeat(2,1fr); }
+    .cqb-opts.cols-3 { grid-template-columns:repeat(3,1fr); }
+    .cqb-opt { position:relative; display:flex; flex-direction:column; text-align:left; gap:.3rem; border:1.5px solid rgba(255,255,255,.12); border-radius:16px; background:rgba(255,255,255,.03); padding:1.1rem 1.15rem; cursor:pointer; transition:border-color .18s, transform .18s, background .18s; }
+    .cqb-opt:hover { border-color:var(--c,var(--gold)); background:rgba(255,255,255,.06); transform:translateY(-3px); }
+    .cqb-opt strong { font-family:var(--font-d); font-size:1.02rem; font-weight:800; color:#fff; letter-spacing:-.01em; }
+    .cqb-opt span { font-size:.8rem; color:#9A9DA2; line-height:1.45; }
+    .cqb-warr { display:inline-block; align-self:flex-start; font-family:var(--font-d); font-size:.56rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:var(--c,var(--gold)); border:1px solid var(--c,var(--gold)); border-radius:999px; padding:.2rem .5rem; margin-bottom:.35rem; }
+    .cqb-back { display:inline-flex; align-items:center; gap:.4rem; margin-top:1.6rem; font-family:var(--font-d); font-weight:700; font-size:.82rem; color:#9A9DA2; background:none; cursor:pointer; }
+    .cqb-back:hover { color:#fff; }
+    .cqb-result { text-align:center; }
+    .cqb-rec-label { font-family:var(--font-d); font-size:.66rem; font-weight:800; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); }
+    .cqb-rec { font-family:var(--font-d); font-weight:900; font-size:clamp(1.5rem,3.2vw,2rem); color:#fff; margin:.5rem 0 1.5rem; letter-spacing:-.02em; }
+    .cqb-lines { max-width:400px; margin:0 auto; display:flex; flex-direction:column; gap:.7rem; }
+    .cqb-line { display:flex; justify-content:space-between; align-items:center; font-size:.92rem; color:#D2D4D8; }
+    .cqb-line .lbl { color:#9A9DA2; }
+    .cqb-line .val { font-family:var(--font-d); font-weight:700; color:#fff; }
+    .cqb-line .val.free { color:#57C878; }
+    .cqb-total { max-width:400px; margin:1.2rem auto 0; padding-top:1.1rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; align-items:baseline; }
+    .cqb-total span { font-family:var(--font-d); font-weight:800; font-size:.95rem; color:#fff; }
+    .cqb-total strong { font-family:var(--font-d); font-weight:900; font-size:1.9rem; color:var(--gold); letter-spacing:-.02em; }
+    .cqb-note { max-width:440px; margin:1.1rem auto 0; font-size:.78rem; color:#84878C; line-height:1.6; }
+    .cqb-cta { display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; align-items:center; margin-top:1.8rem; }
+    @media (max-width:640px) { .cqb { padding:1.9rem 1.3rem; } .cqb-opts.cols-2, .cqb-opts.cols-3 { grid-template-columns:1fr; } }
     /* sliding gallery (matches homepage) */
     .gallery-sec { padding:3rem 0; overflow:hidden; background:#000; }
     .gal-row { display:flex; gap:.5rem; width:max-content; }
@@ -552,16 +576,63 @@
   </div>
 </section>
 
-<!-- ═══ PROTECT YOUR INVESTMENT ═══ -->
-<section class="cc-sec pi-sec" style="padding-top:1rem;">
+<!-- ═══ CERAMIC QUOTE BUILDER ═══ -->
+<section class="cc-sec" id="quote">
   <div class="cc-wrap">
-    <h2 class="cc-h2">Protect Your Investment</h2>
-    <div class="pi-cluster">
-      <div class="pi-bubble"><h3><span class="dot">&#9670;</span> Worry-Free Guarantee</h3><p>All of our ceramic coatings come with a warranty. If your coating ever fails early, give us a call and we will replace it completely for free, with a brand new warranty.</p></div>
-      <div class="pi-bubble"><h3><span class="dot">&#9670;</span> Hydrophobic and Self-Cleaning</h3><p>Maintaining your car has never been easier. Our coating creates a slick, water-resistant surface with self-cleaning properties.</p></div>
-      <div class="pi-bubble"><h3><span class="dot">&#9670;</span> Ultimate Deep Gloss</h3><p>Nano particles fill the smallest pores in the paint, giving your car year-round showroom shine.</p></div>
-      <div class="pi-bubble"><h3><span class="dot">&#9670;</span> 9H+ Hardness</h3><p>Prevents bird droppings, bugs, dirt, tar, tree sap, and paint from bonding to the surface.</p></div>
-      <div class="pi-bubble"><h3><span class="dot">&#9670;</span> UV and Chemical Protection</h3><p>Prevents unsightly damage associated with aging and color fading, and rejects harmful chemicals.</p></div>
+    <h2 class="cc-h2">Build Your Coating Quote</h2>
+    <p class="cc-h2-sub">Answer three quick questions and see your estimate instantly.</p>
+
+    <div class="cqb" id="cqb">
+      <div class="cqb-progress"><span class="on"></span><span></span><span></span></div>
+
+      <!-- STEP 1: vehicle size -->
+      <div class="cqb-step active" data-step="1">
+        <div class="cqb-q">What size is your vehicle?</div>
+        <div class="cqb-opts cols-2">
+          <button class="cqb-opt" data-key="size" data-val="small"><strong>Small</strong><span>Coupe, sedan, or compact</span></button>
+          <button class="cqb-opt" data-key="size" data-val="mid"><strong>Mid-Size</strong><span>Crossover, small SUV, or wagon</span></button>
+          <button class="cqb-opt" data-key="size" data-val="large"><strong>Large</strong><span>Full-size SUV or truck</span></button>
+          <button class="cqb-opt" data-key="size" data-val="van"><strong>Van / Oversized</strong><span>Van, lifted, or extended</span></button>
+        </div>
+      </div>
+
+      <!-- STEP 2: paint prep / condition -->
+      <div class="cqb-step" data-step="2">
+        <div class="cqb-q">What shape is your paint in?</div>
+        <div class="cqb-opts cols-3">
+          <button class="cqb-opt" data-key="prep" data-val="polish"><strong>Good</strong><span>Decontamination and a gloss-enhancing polish. No correction needed.</span></button>
+          <button class="cqb-opt" data-key="prep" data-val="one-step"><strong>Light Swirls</strong><span>1-step correction removes 65 to 75% of swirls, water spots, and light scratches.</span></button>
+          <button class="cqb-opt" data-key="prep" data-val="two-step"><strong>Heavy Defects</strong><span>2-step correction for maximum clarity before the coating locks it in.</span></button>
+        </div>
+        <button class="cqb-back" data-back="1">&larr; Back</button>
+      </div>
+
+      <!-- STEP 3: coating tier -->
+      <div class="cqb-step" data-step="3">
+        <div class="cqb-q">How long do you want it protected?</div>
+        <div class="cqb-opts cols-3">
+          <button class="cqb-opt" data-key="coating" data-val="crystal" style="--c:#3BA7FF;"><span class="cqb-warr">2-Year Warranty</span><strong>2 Year Shield</strong><span>9H+ deep gloss, hydrophobic, UV protection.</span></button>
+          <button class="cqb-opt" data-key="coating" data-val="pro" style="--c:#9B6BFF;"><span class="cqb-warr">6-Year Warranty</span><strong>6 Year Armor</strong><span>Thicker multi-layer coat with stronger chemical resistance.</span></button>
+          <button class="cqb-opt" data-key="coating" data-val="max" style="--c:#F5B740;"><span class="cqb-warr">Lifetime Warranty</span><strong>Lifetime Diamond</strong><span>Maximum durability and thickness, plus a free first annual inspection.</span></button>
+        </div>
+        <button class="cqb-back" data-back="2">&larr; Back</button>
+      </div>
+
+      <!-- RESULT -->
+      <div class="cqb-step" data-step="4">
+        <div class="cqb-result">
+          <span class="cqb-rec-label">Your estimate</span>
+          <h3 class="cqb-rec" id="cqbRec">&mdash;</h3>
+          <div class="cqb-lines" id="cqbLines"></div>
+          <div class="cqb-total"><span>Estimated total</span><strong id="cqbTotal">&mdash;</strong></div>
+          <p class="cqb-note">Final price is confirmed after we see your vehicle. Every coating includes a free windshield coating and a free first-year inspection.</p>
+          <div class="cqb-cta">
+            <a href="/booking.html" class="btn btn-gold">Book Now</a>
+            <a href="/quote-builder.html" class="btn btn-ghost-d">Full Quote Builder</a>
+            <button class="cqb-back" id="cqbRestart" style="margin-top:0;">Start over</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -832,6 +903,64 @@
     });
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
+
+  // Ceramic quote builder
+  (function () {
+    var box = document.getElementById('cqb'); if (!box) return;
+    var steps = box.querySelectorAll('.cqb-step');
+    var prog = box.querySelectorAll('.cqb-progress span');
+
+    var PREP_PRICES = {
+      'polish':   { small: 300, mid: 350,  large: 400,  van: 500  },
+      'one-step': { small: 550, mid: 650,  large: 750,  van: 900  },
+      'two-step': { small: 900, mid: 1000, large: 1100, van: 1400 }
+    };
+    var COATING_PRICES = {
+      crystal: { small: 199, mid: 225, large: 250, van: 300 },
+      pro:     { small: 350, mid: 450, large: 550, van: 600 },
+      max:     { small: 400, mid: 500, large: 600, van: 750 }
+    };
+    var SIZE_LABELS = { small: 'Small', mid: 'Mid-Size', large: 'Large', van: 'Van / Oversized' };
+    var PREP_LABELS = { 'polish': 'Enhancement Polish', 'one-step': '1-Step Correction', 'two-step': '2-Step Correction' };
+    var COAT_LABELS = { crystal: '2 Year Shield', pro: '6 Year Armor', max: 'Lifetime Diamond' };
+
+    var state = { size: null, prep: null, coating: null };
+    function fmt(n) { return '$' + n.toLocaleString(); }
+
+    function show(n) {
+      steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
+      prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
+      box.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    }
+
+    function result() {
+      var prep = PREP_PRICES[state.prep][state.size];
+      var coat = COATING_PRICES[state.coating][state.size];
+      var total = prep + coat;
+      document.getElementById('cqbRec').textContent = COAT_LABELS[state.coating] + ' on a ' + SIZE_LABELS[state.size] + ' vehicle';
+      document.getElementById('cqbLines').innerHTML =
+        '<div class="cqb-line"><span class="lbl">Paint Prep (' + PREP_LABELS[state.prep] + ')</span><span class="val">' + fmt(prep) + '</span></div>' +
+        '<div class="cqb-line"><span class="lbl">Ceramic Coating (' + COAT_LABELS[state.coating] + ')</span><span class="val">' + fmt(coat) + '</span></div>' +
+        '<div class="cqb-line"><span class="lbl">Windshield Coating</span><span class="val free">FREE</span></div>';
+      document.getElementById('cqbTotal').textContent = fmt(total);
+      show(4);
+    }
+
+    box.querySelectorAll('.cqb-opt').forEach(function (b) {
+      b.addEventListener('click', function () {
+        state[b.dataset.key] = b.dataset.val;
+        if (b.dataset.key === 'size') show(2);
+        else if (b.dataset.key === 'prep') show(3);
+        else result();
+      });
+    });
+    box.querySelectorAll('.cqb-back[data-back]').forEach(function (b) {
+      b.addEventListener('click', function () { show(parseInt(b.dataset.back, 10)); });
+    });
+    document.getElementById('cqbRestart').addEventListener('click', function () {
+      state = { size: null, prep: null, coating: null }; show(1);
+    });
+  })();
 </script>
 </body>
 </html>
