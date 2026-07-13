@@ -282,6 +282,8 @@
     .faq-item.open .chev svg path { stroke:#141005; }
     .faq-a { max-height:0; overflow:hidden; transition:max-height .32s ease; }
     .faq-a-inner { padding:0 1.5rem 1.3rem; font-size:.87rem; color:var(--muted); line-height:1.75; }
+    .faq-cols { display:grid; grid-template-columns:1fr 1fr; gap:0 1.4rem; max-width:1060px; margin:3rem auto 0; align-items:start; }
+    @media (max-width:760px){ .faq-cols { grid-template-columns:1fr; gap:0; } }
 
     /* ── CTA band ─────────────────────── */
     .cta-band { background:linear-gradient(120deg, #14120C 0%, #211A0D 60%, #2A2010 100%); color:#fff; text-align:center; }
@@ -601,6 +603,103 @@
         <div class="gal-box"></div>
         <div class="gal-box"></div>
         <div class="gal-box"></div>
+  </div>
+</section>
+
+<!-- ═══ FAQ ═══ -->
+<section class="cc-sec" id="faq" style="padding-top:1rem;">
+  <div class="cc-wrap">
+    <h2 class="cc-h2">Frequently Asked Questions</h2>
+    <div class="faq-cols">
+      <div class="faq-col">
+      <div class="faq-item">
+        <button class="faq-q">What is a ceramic coating?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">A liquid nano-ceramic that chemically bonds to your paint and forms a durable, semi-permanent layer of protection that a wax or sealant simply can't match.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How long does a ceramic coating last?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Depending on the package you choose, our System X coatings last anywhere from 2 years up to a lifetime, as long as the vehicle is properly maintained.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Do you come to me, or do I come to you?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">We offer ceramic coatings both at your home and at our shop. Coatings need a clean, controlled environment, so we'll help you pick the option that's best for your vehicle.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How long does the process take?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">A full ceramic coating usually takes a full day. The paint has to be washed, decontaminated, polished, and then coated. Larger or heavily corrected vehicles can take longer.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Does my paint need correction first?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">A coating locks in whatever is underneath it, so we always prep the paint first. Swirls and light scratches are removed before coating so you get a flawless finish, not sealed-in defects.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is a ceramic coating scratch proof?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">No coating is scratch proof, but a 9H+ coating adds a hard, sacrificial layer that resists swirls, light scratches, and etching far better than bare paint.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can you coat more than just the paint?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. We can coat glass, wheels, trim, and plastics, not just the body panels, for complete protection.</div></div>
+      </div>
+      </div>
+      <div class="faq-col">
+      <div class="faq-item">
+        <button class="faq-q">How do I maintain a coated car?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Maintenance is easy. Just keep it clean with regular washes. The hydrophobic surface sheds dirt and water, so your car stays cleaner with far less effort.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Can I still wash my car normally?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. Once the coating has fully cured (about 7 days) you can wash it as usual. We recommend a gentle hand wash or a touchless wash to keep the finish looking its best.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Is the coating covered by a warranty?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Every coating comes with a warranty. If it ever fails early, give us a call and we'll replace it completely for free, with a brand new warranty.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">What comes with the Lifetime package?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Everything in the 6 Year, plus maximum durability and thickness, the strongest chemical resistance, a free first annual inspection, and a lifetime warranty.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How much does a ceramic coating cost?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Pricing depends on the package and the size and condition of your vehicle. Request a free quote and we'll give you an exact price with no surprises.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">Will it protect against sun and chemicals?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">Yes. The coating blocks the UV rays that cause fading and oxidation, and it rejects harmful chemicals, bird droppings, bugs, and tree sap.</div></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">How soon can I drive after coating?
+          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+        </button>
+        <div class="faq-a"><div class="faq-a-inner">You can drive right away, but keep the car dry and out of the rain for the first 24 to 48 hours while the coating cures.</div></div>
+      </div>
+      </div>
+    </div>
   </div>
 </section>
 
