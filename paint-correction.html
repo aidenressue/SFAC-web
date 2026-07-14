@@ -389,18 +389,38 @@
       .cc-pkgs { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; }
       .cc-hero-vid { object-fit:contain; }
     }
-    /* Condition guide */
-    .guide-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:3rem; }
-    .guide-card { background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; }
-    .guide-img { aspect-ratio:4/3; background:repeating-linear-gradient(45deg,#151517,#151517 16px,#1b1b1e 16px,#1b1b1e 32px); display:flex; align-items:center; justify-content:center; }
-    .guide-img img { width:100%; height:100%; object-fit:cover; }
-    .guide-img .ph { font-family:var(--font-d); font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#6A6D72; }
-    .guide-body { padding:1.5rem 1.6rem 1.7rem; }
-    .guide-tag { display:inline-block; font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#141005; background:var(--gold); padding:.32rem .85rem; border-radius:999px; margin-bottom:.9rem; }
-    .guide-card h3 { font-family:var(--font-d); font-size:1.2rem; font-weight:800; color:#fff; margin:0 0 .5rem; letter-spacing:-.01em; }
-    .guide-card p { font-size:.9rem; color:#9A9DA2; line-height:1.55; margin:0 0 1rem; }
-    .guide-match { font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--gold); }
+    /* Condition guide - compact numbered diagnostic strip (visually distinct from package cards below) */
+    .guide-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:2.4rem; }
+    .guide-card { display:flex; gap:1rem; align-items:flex-start; background:transparent; border:1px solid rgba(255,255,255,.1); border-radius:16px; padding:1.4rem 1.5rem; }
+    .guide-num { flex:0 0 auto; font-family:var(--font-d); font-weight:900; font-size:1.7rem; line-height:1; color:var(--gold); opacity:.5; }
+    .guide-card h3 { font-family:var(--font-d); font-size:1.02rem; font-weight:800; color:#fff; margin:0 0 .4rem; letter-spacing:-.01em; }
+    .guide-card p { font-size:.82rem; color:#9A9DA2; line-height:1.5; margin:0 0 .7rem; }
+    .guide-match { font-family:var(--font-d); font-weight:800; font-size:.8rem; color:var(--gold); }
     @media (max-width:820px) { .guide-grid { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; } }
+
+    /* Correction package cards - full detail, visually heavier than the guide strip above */
+    .pc-desc { font-size:.86rem; color:#B9BCC1; line-height:1.6; margin-bottom:1.4rem; }
+    .pc-for { margin-bottom:1.1rem; }
+    .pc-for-head { font-family:var(--font-d); font-size:.64rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.6rem; }
+    .pc-for-head.good { color:#3FCB7C; }
+    .pc-for-head.bad { color:#E5615A; }
+    .pc-for-list { display:flex; flex-direction:column; gap:.45rem; margin-bottom:1.1rem; }
+    .pc-for-list li { display:flex; gap:.55rem; font-size:.82rem; color:#C9CBCE; line-height:1.4; }
+    .pc-for-list.good li::before { content:''; flex:0 0 16px; height:16px; margin-top:2px; border-radius:50%; background:rgba(63,203,124,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 24 24' fill='none' stroke='%233FCB7C' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/8px no-repeat; border:1px solid rgba(63,203,124,.35); }
+    .pc-for-list.bad li::before { content:''; flex:0 0 16px; height:16px; margin-top:2px; border-radius:50%; background:rgba(229,97,90,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 24 24' fill='none' stroke='%23E5615A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cline x1='18' y1='6' x2='6' y2='18'/%3E%3Cline x1='6' y1='6' x2='18' y2='18'/%3E%3C/svg%3E") center/8px no-repeat; border:1px solid rgba(229,97,90,.35); }
+    .pc-pricing { display:grid; grid-template-columns:repeat(4,1fr); gap:.5rem; margin:0 0 1.4rem; padding-top:1.1rem; border-top:1px solid rgba(255,255,255,.09); }
+    .pc-price { text-align:center; }
+    .pc-price .pc-size { display:block; font-family:var(--font-d); font-size:.6rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:#7A7D82; margin-bottom:.3rem; }
+    .pc-price strong { font-family:var(--font-d); font-size:1.05rem; font-weight:900; color:var(--gold); letter-spacing:-.02em; }
+    @media (max-width:480px) { .pc-pricing { grid-template-columns:repeat(2,1fr); row-gap:.9rem; } }
+
+    /* Seal with ceramic recommendation banner */
+    .seal-cta { display:flex; align-items:center; justify-content:space-between; gap:2rem; background:linear-gradient(120deg, #14120C 0%, #211A0D 60%, #2A2010 100%); border:1px solid var(--gold-line); border-radius:24px; padding:2.4rem 2.6rem; }
+    .seal-cta-text .label { color:var(--gold); margin-bottom:.7rem; }
+    .seal-cta-text h3 { font-family:var(--font-d); font-weight:900; font-size:clamp(1.3rem,2.4vw,1.8rem); color:#fff; margin:0 0 .6rem; letter-spacing:-.02em; }
+    .seal-cta-text p { font-size:.9rem; color:rgba(255,255,255,.65); line-height:1.6; max-width:520px; margin:0; }
+    .seal-cta .btn { flex-shrink:0; }
+    @media (max-width:760px) { .seal-cta { flex-direction:column; text-align:center; padding:2.2rem 1.7rem; } .seal-cta-text p { max-width:none; } }
   </style>
 </head>
 <body class="cc-page">
@@ -476,36 +496,33 @@
 </header>
 
 <!-- ═══ CONDITION GUIDE ═══ -->
-<section class="cc-sec" id="guide">
+<section class="cc-sec" id="guide" style="padding-bottom:2.5rem;">
   <div class="cc-wrap">
     <h2 class="cc-h2">Which Level Does Your Paint Need?</h2>
     <p class="cc-h2-sub">Match your paint's condition to the right correction. Not sure? Call or text us a photo and we'll tell you.</p>
     <div class="guide-grid">
       <div class="guide-card">
-        <div class="guide-img"><span class="ph">Example photo</span></div>
+        <div class="guide-num">01</div>
         <div class="guide-body">
-          <span class="guide-tag">Light</span>
-          <h3>Swirls &amp; Haze</h3>
-          <p>Fine spider-web swirls show up under direct sun and the paint looks a little dull, but there are no deep scratches.</p>
-          <div class="guide-match">&rarr; 1-Step Enhancement</div>
+          <h3>Lightly Faded Paint</h3>
+          <p>Minimal scratches and swirls. The paint still looks decent but has lost some of its original shine.</p>
+          <div class="guide-match">&rarr; Polish</div>
         </div>
       </div>
       <div class="guide-card">
-        <div class="guide-img"><span class="ph">Example photo</span></div>
+        <div class="guide-num">02</div>
         <div class="guide-body">
-          <span class="guide-tag">Moderate</span>
-          <h3>Scratches &amp; Marring</h3>
-          <p>Noticeable scratches, wash marring, and dull spots you can see in most light. The shine is clearly gone.</p>
+          <h3>Scratches &amp; Swirls</h3>
+          <p>Visible swirl marks and light scratches show up in the sun. The paint has lost its depth and clarity.</p>
+          <div class="guide-match">&rarr; 1-Step Correction</div>
+        </div>
+      </div>
+      <div class="guide-card">
+        <div class="guide-num">03</div>
+        <div class="guide-body">
+          <h3>Deep Defects</h3>
+          <p>Heavy scratching, oxidation, or paint that hasn't been corrected in years. Needs the most work to bring back.</p>
           <div class="guide-match">&rarr; 2-Step Correction</div>
-        </div>
-      </div>
-      <div class="guide-card">
-        <div class="guide-img"><span class="ph">Example photo</span></div>
-        <div class="guide-body">
-          <span class="guide-tag">Heavy</span>
-          <h3>Oxidation &amp; Deep Defects</h3>
-          <p>Chalky, oxidized, or heavily scratched paint that hasn't been corrected in years. Needs the most work.</p>
-          <div class="guide-match">&rarr; Multi-Step Show Finish</div>
         </div>
       </div>
     </div>
@@ -513,48 +530,100 @@
 </section>
 
 <!-- ═══ CORRECTION PACKAGES ═══ -->
-<section class="cc-sec" id="packages">
+<section class="cc-sec" id="packages" style="padding-top:2rem;">
   <div class="cc-wrap">
     <h2 class="cc-h2">Our Correction Packages</h2>
     <p class="cc-h2-sub">Cut, polish, and refine your paint back to a flawless finish.</p>
     <div class="cc-pkgs">
       <div class="cc-pkg">
-        <div class="cc-pkg-tier">1-Step</div>
-        <div class="cc-pkg-name">Paint Enhancement</div>
-        <ul>
-          <li>Single machine polish stage</li>
-          <li>Removes ~60-70% of swirls</li>
-          <li>Boosts gloss &amp; clarity</li>
-          <li>Great for newer or maintained paint</li>
-          <li>Ideal prep before a ceramic coating</li>
-        </ul>
+        <div class="cc-pkg-tier">Level 1</div>
+        <div class="cc-pkg-name">Polish</div>
+        <p class="pc-desc">A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls. It won't fully correct deeper defects, but it brings back the depth and clarity that daily driving and washing dull down over time, and it sets up a flawless surface before sealing it in with a ceramic coating.</p>
+        <div class="pc-for">
+          <div class="pc-for-head good">Perfect For</div>
+          <ul class="pc-for-list good">
+            <li>Newer cars</li>
+            <li>Hand washed and well-maintained paint</li>
+            <li>Good paint condition</li>
+          </ul>
+          <div class="pc-for-head bad">Not For</div>
+          <ul class="pc-for-list bad">
+            <li>Scratches and swirls</li>
+            <li>Poorly maintained paint</li>
+          </ul>
+        </div>
+        <div class="pc-pricing">
+          <div class="pc-price"><span class="pc-size">Small</span><strong>$300</strong></div>
+          <div class="pc-price"><span class="pc-size">Mid</span><strong>$350</strong></div>
+          <div class="pc-price"><span class="pc-size">Large</span><strong>$400</strong></div>
+          <div class="pc-price"><span class="pc-size">Van</span><strong>$500</strong></div>
+        </div>
         <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
       </div>
       <div class="cc-pkg feat">
         <div class="cc-pkg-badge">Most Popular</div>
-        <div class="cc-pkg-tier">2-Step</div>
-        <div class="cc-pkg-name">Paint Correction</div>
-        <ul>
-          <li>Compound + polish stages</li>
-          <li>Removes ~85-90% of defects</li>
-          <li>Clears deeper scratches &amp; marring</li>
-          <li>Show-ready depth and gloss</li>
-          <li>The sweet spot for most cars</li>
-        </ul>
+        <div class="cc-pkg-tier">Level 2</div>
+        <div class="cc-pkg-name">1-Step Correction</div>
+        <p class="pc-desc">A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. It's the level most cars need to go from dull and marred to a genuine showroom shine.</p>
+        <div class="pc-for">
+          <div class="pc-for-head good">For</div>
+          <ul class="pc-for-list good">
+            <li>Clients who want a true paint correction</li>
+            <li>Little to no deeper scratches</li>
+            <li>Showroom shine</li>
+          </ul>
+          <div class="pc-for-head bad">Not Recommended For</div>
+          <ul class="pc-for-list bad">
+            <li>Paint with heavy, deep scratching a single pass can't fully remove</li>
+            <li>Years of built-up swirling that need a second, heavier stage</li>
+          </ul>
+        </div>
+        <div class="pc-pricing">
+          <div class="pc-price"><span class="pc-size">Small</span><strong>$550</strong></div>
+          <div class="pc-price"><span class="pc-size">Mid</span><strong>$650</strong></div>
+          <div class="pc-price"><span class="pc-size">Large</span><strong>$750</strong></div>
+          <div class="pc-price"><span class="pc-size">Van</span><strong>$900</strong></div>
+        </div>
         <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
       </div>
       <div class="cc-pkg">
-        <div class="cc-pkg-tier">Multi-Step</div>
-        <div class="cc-pkg-name">Show Finish</div>
-        <ul>
-          <li>Three or more refining stages</li>
-          <li>Removes 95%+ of defects</li>
-          <li>For heavy oxidation &amp; deep defects</li>
-          <li>Near-flawless, mirror finish</li>
-          <li>Built for show cars &amp; exotics</li>
-        </ul>
+        <div class="cc-pkg-tier">Level 3</div>
+        <div class="cc-pkg-name">2-Step Correction</div>
+        <p class="pc-desc">Our highest level of paint correction. Two full stages of compounding and polishing cut through even the deepest defects, leaving a showroom shine and paint that's about as close to perfect as it gets.</p>
+        <div class="pc-for">
+          <div class="pc-for-head good">For</div>
+          <ul class="pc-for-list good">
+            <li>Extremely poor paint condition</li>
+            <li>Clients who want their paint to be nearly perfect</li>
+          </ul>
+          <div class="pc-for-head bad">Not For</div>
+          <ul class="pc-for-list bad">
+            <li>Lower budgets</li>
+            <li>Minor scratches and swirls</li>
+          </ul>
+        </div>
+        <div class="pc-pricing">
+          <div class="pc-price"><span class="pc-size">Small</span><strong>$900</strong></div>
+          <div class="pc-price"><span class="pc-size">Mid</span><strong>$1,000</strong></div>
+          <div class="pc-price"><span class="pc-size">Large</span><strong>$1,100</strong></div>
+          <div class="pc-price"><span class="pc-size">Van</span><strong>$1,400</strong></div>
+        </div>
         <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SEAL WITH CERAMIC ═══ -->
+<section class="cc-sec" style="padding-top:1rem;">
+  <div class="cc-wrap">
+    <div class="seal-cta">
+      <div class="seal-cta-text">
+        <span class="label">Next Step</span>
+        <h3>Seal Your Freshly Corrected Paint</h3>
+        <p>Correction brings your paint back to life. A ceramic coating keeps it that way. Protect your results for years with a professional System X ceramic coating.</p>
+      </div>
+      <a href="/ceramic-coating.html" class="btn btn-gold">Explore Ceramic Coating &rarr;</a>
     </div>
   </div>
 </section>
