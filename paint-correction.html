@@ -368,8 +368,8 @@
     .cc-h2 { text-align:center; font-family:var(--font-d); font-weight:900; letter-spacing:-.02em; font-size:clamp(2rem,4vw,3rem); color:#fff; margin:0; }
     .cc-h2-sub { text-align:center; color:#9A9DA2; margin-top:.65rem; font-size:1rem; }
     /* packages */
-    .cc-pkgs { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:3rem; }
-    .cc-pkg { position:relative; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:2.1rem 1.7rem; display:flex; flex-direction:column; }
+    .cc-pkgs { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto auto auto auto auto auto; gap:1.3rem; margin-top:3rem; }
+    .cc-pkg { position:relative; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:2.1rem 1.7rem; display:grid; grid-template-rows:subgrid; grid-row:span 6; row-gap:0; }
     .cc-pkg.feat { border-color:var(--gold-line); box-shadow:0 24px 60px rgba(201,151,58,.16); }
     .cc-pkg-badge { position:absolute; top:-.75rem; left:50%; transform:translateX(-50%); background:var(--gold); color:#141005; font-family:var(--font-d); font-weight:800; font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; padding:.32rem .9rem; border-radius:999px; white-space:nowrap; }
     .cc-pkg-tier { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
@@ -377,7 +377,7 @@
     .cc-pkg ul { list-style:none; display:flex; flex-direction:column; gap:.72rem; margin-bottom:1.7rem; }
     .cc-pkg li { display:flex; gap:.6rem; font-size:.88rem; color:#C9CBCE; line-height:1.4; }
     .cc-pkg li::before { content:''; flex:0 0 18px; height:18px; margin-top:1px; border-radius:50%; background:rgba(201,151,58,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23C9973A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(201,151,58,.3); }
-    .cc-pkg .btn { margin-top:auto; width:100%; }
+    .cc-pkg .btn { width:100%; align-self:end; }
     /* benefits */
     .cc-benefits { display:flex; flex-direction:column; gap:1rem; max-width:820px; margin:3rem auto 0; }
     .cc-benefit { background:#0F1012; border:1px solid rgba(255,255,255,.08); border-radius:16px; padding:1.5rem 1.7rem; }
@@ -568,7 +568,7 @@
             <li>Hand washed and well-maintained paint</li>
             <li>Good paint condition</li>
           </ul>
-          <div class="pc-for-head bad">Not For</div>
+          <div class="pc-for-head bad">Not Recommended For</div>
           <ul class="pc-for-list bad">
             <li>Scratches and swirls</li>
             <li>Poorly maintained paint</li>
@@ -586,7 +586,7 @@
         <div class="cc-pkg-name">1-Step Correction</div>
         <p class="pc-desc">A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. It's the level most cars need to go from dull and marred to a genuine showroom shine.</p>
         <div class="pc-for">
-          <div class="pc-for-head good">For</div>
+          <div class="pc-for-head good">Perfect For</div>
           <ul class="pc-for-list good">
             <li>Clients who want a true paint correction</li>
             <li>Little to no deeper scratches</li>
@@ -609,12 +609,12 @@
         <div class="cc-pkg-name">2-Step Correction</div>
         <p class="pc-desc">Our highest level of paint correction. Two full stages of compounding and polishing cut through even the deepest defects, leaving a showroom shine and paint that's about as close to perfect as it gets.</p>
         <div class="pc-for">
-          <div class="pc-for-head good">For</div>
+          <div class="pc-for-head good">Perfect For</div>
           <ul class="pc-for-list good">
             <li>Extremely poor paint condition</li>
             <li>Clients who want their paint to be nearly perfect</li>
           </ul>
-          <div class="pc-for-head bad">Not For</div>
+          <div class="pc-for-head bad">Not Recommended For</div>
           <ul class="pc-for-list bad">
             <li>Lower budgets</li>
             <li>Minor scratches and swirls</li>
