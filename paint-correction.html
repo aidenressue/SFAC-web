@@ -434,6 +434,56 @@
     .seal-cta-text p { font-size:.9rem; color:rgba(255,255,255,.65); line-height:1.6; max-width:520px; margin:0; }
     .seal-cta .btn { flex-shrink:0; }
     @media (max-width:760px) { .seal-cta { flex-direction:column; text-align:center; padding:2.2rem 1.7rem; } .seal-cta-text p { max-width:none; } }
+
+    /* ═══ WHITE THEME TEST (remove this block to revert to the dark page) ═══ */
+    body.cc-page { background:var(--bg); }
+    .cc-hero { background:var(--bg); }
+    .cc-hero::after {
+      background:
+        radial-gradient(130% 92% at 50% 36%, transparent 46%, rgba(5,5,5,.40) 84%),
+        linear-gradient(180deg, rgba(5,5,5,.55) 0%, transparent 22%, transparent 50%, var(--bg) 100%);
+    }
+    .cc-scrollcue { color:var(--gold-deep); }
+    .cc-sec { background:var(--bg); }
+    .cc-h2 { color:var(--ink); }
+    .cc-h2-sub { color:var(--muted); }
+    /* condition guide */
+    .guide-grid::before { background:radial-gradient(ellipse at center, rgba(201,151,58,.20), rgba(201,151,58,0) 70%); }
+    .guide-card { background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .guide-img { background:repeating-linear-gradient(45deg,#F1EFEA,#F1EFEA 16px,#ECEAE4 16px,#ECEAE4 32px); }
+    .guide-img .ph { color:#B9B6AE; }
+    .guide-card h3 { color:var(--ink); }
+    .guide-card p { color:var(--muted); }
+    .guide-match { color:var(--gold-deep); }
+    /* size selector */
+    .pc-sizebar-label { color:var(--muted); }
+    .pc-sizes { background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .pc-size-btn { color:var(--muted); }
+    .pc-size-btn:hover:not(.active) { color:var(--ink); }
+    /* package cards */
+    .cc-pkg { background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .cc-pkg.feat { border:2px solid var(--gold); box-shadow:var(--shadow-lift); }
+    .cc-pkg-tier { color:var(--gold-deep); }
+    .cc-pkg-name { color:var(--ink); }
+    .pc-desc { color:var(--ink-2); }
+    .pc-for-head.good { color:#1F9D57; }
+    .pc-for-head.bad { color:#D64B45; }
+    .pc-for-list li { color:var(--ink-2); }
+    .pc-price-big { border-top:1px solid var(--line); }
+    .pc-price-big .from { color:var(--muted); }
+    .pc-price-big .amt { color:var(--gold-deep); }
+    .pc-price-big .sz { color:var(--muted); }
+    /* seal-with-ceramic -> light gold panel with dark button */
+    .seal-cta { background:linear-gradient(120deg,#FBF6EC 0%,#F5E9CF 100%); border:1px solid var(--gold-line); }
+    .seal-cta-text .label { color:var(--gold-deep); }
+    .seal-cta-text h3 { color:var(--ink); }
+    .seal-cta-text p { color:var(--ink-2); }
+    .seal-cta .btn-gold { background:var(--ink); color:#fff; box-shadow:none; }
+    .seal-cta .btn-gold:hover { background:#26282B; }
+    /* why paint correction */
+    .cc-benefit { background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .cc-benefit h3 { color:var(--ink); }
+    .cc-benefit p { color:var(--muted); }
   </style>
 </head>
 <body class="cc-page">
@@ -739,13 +789,13 @@
   // Sticky nav shadow
   const nav = document.getElementById('nav');
   // Switch nav to white (text + logo) when it floats over a dark section
-  const darkSecs = document.querySelectorAll('.ceramic-sec, .gallery-sec, #compare, #faq, .cta-band, footer');
+  const darkSecs = document.querySelectorAll('#home, .cta-band, footer');
   function updateNavTheme() {
     const r = nav.querySelector('.nav-inner').getBoundingClientRect();
     const probe = r.top + r.height / 2;
     let dark = false;
     darkSecs.forEach(s => { const b = s.getBoundingClientRect(); if (b.top <= probe && b.bottom >= probe) dark = true; });
-    nav.classList.toggle('nav-dark', true);
+    nav.classList.toggle('nav-dark', dark);
   }
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 10);
