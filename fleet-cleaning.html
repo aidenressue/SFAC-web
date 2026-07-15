@@ -396,6 +396,58 @@
       .cc-pkgs { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; }
       .cc-hero-vid { object-fit:contain; }
     }
+
+    /* ── Fleet: Dealership & Fleet examples carousel ── */
+    .fleet-ex { background:#050505; padding:5.5rem 1.5rem 4.5rem; overflow:hidden; }
+    .fleet-ex-head { text-align:center; max-width:720px; margin:0 auto 3rem; }
+    .fleet-viewport { position:relative; max-width:1180px; margin:0 auto; }
+    .fleet-viewport::before { content:''; position:absolute; top:50%; left:50%; width:1000px; height:540px; transform:translate(-50%,-50%); background:radial-gradient(ellipse at center, rgba(201,151,58,.24), rgba(201,151,58,0) 70%); filter:blur(72px); z-index:0; pointer-events:none; }
+    .fleet-mask { overflow:hidden; position:relative; z-index:1; }
+    .fleet-track { display:flex; gap:1.3rem; }
+    .fleet-card { flex:0 0 calc((100% - 2.6rem) / 3); background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; }
+    .fleet-card-body { padding:1.6rem 1.6rem 1.3rem; }
+    .fleet-card h3 { font-family:var(--font-d); font-size:1.25rem; font-weight:800; color:#fff; margin:0 0 1rem; letter-spacing:-.01em; }
+    .fleet-card ul { list-style:none; display:flex; flex-direction:column; gap:.55rem; margin:0 0 1.4rem; }
+    .fleet-card li { display:flex; gap:.55rem; font-size:.85rem; color:#C9CBCE; line-height:1.4; }
+    .fleet-card li::before { content:''; flex:0 0 17px; height:17px; margin-top:1px; border-radius:50%; background:rgba(201,151,58,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23C9973A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(201,151,58,.3); }
+    .fleet-card .btn { width:100%; }
+    .fleet-card-img { margin-top:auto; aspect-ratio:16/10; background:repeating-linear-gradient(45deg,#141416,#141416 16px,#1a1a1d 16px,#1a1a1d 32px); display:flex; align-items:center; justify-content:center; }
+    .fleet-card-img .ph { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#5B5E63; }
+    .fleet-dots { display:flex; justify-content:center; gap:.5rem; margin-top:2.4rem; position:relative; z-index:1; }
+    .fleet-dot { width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.2); transition:width .3s, background .3s; cursor:pointer; padding:0; }
+    .fleet-dot.on { width:24px; background:var(--gold); }
+    @media (max-width:900px) { .fleet-card { flex-basis:calc((100% - 1.3rem) / 2); } }
+    @media (max-width:600px) { .fleet-card { flex-basis:100%; } }
+
+    /* ── Fleet: Experience section ── */
+    .fleet-exp { background:#050505; padding:1rem 1.5rem 5.5rem; }
+    .fleet-exp-wrap { max-width:800px; margin:0 auto; text-align:center; }
+    .fleet-exp-media { aspect-ratio:16/9; border-radius:20px; overflow:hidden; margin:2.4rem 0; background:repeating-linear-gradient(45deg,#141416,#141416 18px,#1a1a1d 18px,#1a1a1d 36px); display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.07); }
+    .fleet-exp-media .ph { font-family:var(--font-d); font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#5B5E63; }
+    .fleet-exp p { font-size:1rem; line-height:1.7; color:#B9BCC1; }
+    .fleet-exp-cta { display:flex; flex-wrap:wrap; gap:.8rem; justify-content:center; margin-top:2rem; }
+
+    /* ── Fleet: Quote form ── */
+    .fleet-quote { background:#050505; padding:5.5rem 1.5rem; }
+    .fleet-quote-wrap { max-width:680px; margin:0 auto; text-align:center; }
+    .fleet-form-card { position:relative; margin-top:2.6rem; text-align:left; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:2.4rem 2.2rem; }
+    .fleet-form { display:grid; grid-template-columns:1fr 1fr; gap:1.1rem; }
+    .ff-field { display:flex; flex-direction:column; gap:.4rem; }
+    .ff-field.full { grid-column:1 / -1; }
+    .ff-field label { font-family:var(--font-d); font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#8A8D92; }
+    .ff-field input, .ff-field textarea { background:#08090A; border:1px solid rgba(255,255,255,.12); border-radius:11px; padding:.8rem .95rem; font-family:var(--font-b); font-size:.9rem; color:#fff; transition:border-color .18s; }
+    .ff-field input:focus, .ff-field textarea:focus { outline:none; border-color:var(--gold); }
+    .ff-field textarea { resize:vertical; min-height:96px; }
+    .ff-field input::placeholder, .ff-field textarea::placeholder { color:#5B5E63; }
+    .fleet-form .btn { grid-column:1 / -1; margin-top:.4rem; }
+    .fleet-form-note { grid-column:1 / -1; text-align:center; font-size:.76rem; color:#7A7D82; line-height:1.6; margin:0; }
+    .fleet-form-success { display:none; text-align:center; color:#fff; font-size:.95rem; line-height:1.6; padding:1.5rem .5rem; }
+    .fleet-form-success.show { display:block; }
+    @media (max-width:560px) { .fleet-form { grid-template-columns:1fr; } .fleet-form-card { padding:1.8rem 1.3rem; } }
+
+    /* ── Fleet: two-column FAQ ── */
+    .faq-cols { display:grid; grid-template-columns:1fr 1fr; gap:0 1.5rem; max-width:1000px; margin:2.6rem auto 0; }
+    @media (max-width:820px) { .faq-cols { grid-template-columns:1fr; gap:0; } }
   </style>
 </head>
 <body class="cc-page">
@@ -417,7 +469,6 @@
           <a href="/#packages">Mobile Detailing</a>
           <a href="/ceramic-coating.html">Ceramic Coating</a>
           <a href="/paint-correction.html">Paint Correction</a>
-          <a href="/boat-services.html">Boat Services</a>
           <a href="/fleet-cleaning.html">Fleet Cleaning</a>
         </div>
       </li>
@@ -442,7 +493,6 @@
   <a href="/#packages" class="m-sub">Mobile Detailing</a>
   <a href="/ceramic-coating.html" class="m-sub">Ceramic Coating</a>
   <a href="/paint-correction.html" class="m-sub">Paint Correction</a>
-  <a href="/boat-services.html" class="m-sub">Boat Services</a>
   <a href="/fleet-cleaning.html" class="m-sub">Fleet Cleaning</a>
   <a href="/maintenance.html" class="m-link">Maintenance Plans</a>
   <a href="/#story" class="m-link">About Us</a>
@@ -463,94 +513,196 @@
   </div>
 </header>
 
-<!-- ═══ COATING PACKAGES ═══ -->
-<section class="cc-sec" id="packages">
-  <div class="cc-wrap">
-    <h2 class="cc-h2">Our Coating Packages</h2>
-    <p class="cc-h2-sub">The next level of vehicle surface protection.</p>
-    <div class="cc-pkgs">
-      <div class="cc-pkg">
-        <div class="cc-pkg-tier">2-Year</div>
-        <div class="cc-pkg-name">System X Coating</div>
-        <ul>
-          <li>9H surface hardness</li>
-          <li>High-gloss finish</li>
-          <li>Extreme hydrophobics</li>
-          <li>UV &amp; oxidation protection</li>
-          <li>2-year warranty</li>
-          <li>Reported to Carfax</li>
-        </ul>
-        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
+<!-- ═══ DEALERSHIP & FLEET CLEANING (rotating examples) ═══ -->
+<section class="fleet-ex" id="services">
+  <div class="fleet-ex-head">
+    <h2 class="cc-h2">Dealership &amp; Fleet Cleaning</h2>
+    <p class="cc-h2-sub">From trade-ins to loaner cars and full commercial fleets, we keep every vehicle showroom ready.</p>
+  </div>
+  <div class="fleet-viewport">
+    <div class="fleet-mask">
+      <div class="fleet-track" id="fleetTrack">
+        <div class="fleet-card">
+          <div class="fleet-card-body">
+            <h3>Reconditioning</h3>
+            <ul>
+              <li>Full interior &amp; exterior reset</li>
+              <li>Restores trade-in value</li>
+              <li>Showroom-ready finish</li>
+            </ul>
+            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
+          </div>
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-card-body">
+            <h3>Loaner Cars</h3>
+            <ul>
+              <li>Quick turnaround</li>
+              <li>Fresh for every customer</li>
+              <li>Interior &amp; exterior clean</li>
+            </ul>
+            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
+          </div>
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-card-body">
+            <h3>Used Trade-Ins</h3>
+            <ul>
+              <li>Deep clean &amp; deodorize</li>
+              <li>Maximizes resale value</li>
+              <li>Photo-ready detail</li>
+            </ul>
+            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
+          </div>
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-card-body">
+            <h3>Government Fleet Maintenance</h3>
+            <ul>
+              <li>Scheduled routine service</li>
+              <li>High-volume capacity</li>
+              <li>Consistent standards</li>
+            </ul>
+            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
+          </div>
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-card-body">
+            <h3>Exterior Wash</h3>
+            <ul>
+              <li>Hand wash &amp; dry</li>
+              <li>Wheels, tires &amp; trim</li>
+              <li>Spot-free finish</li>
+            </ul>
+            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
+          </div>
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
+        </div>
+        <div class="fleet-card">
+          <div class="fleet-card-body">
+            <h3>Semi Deep Cleaning</h3>
+            <ul>
+              <li>Interior vacuum &amp; wipe-down</li>
+              <li>Exterior hand wash</li>
+              <li>Perfect between full details</li>
+            </ul>
+            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
+          </div>
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
+        </div>
       </div>
-      <div class="cc-pkg feat">
-        <div class="cc-pkg-badge">Most Popular</div>
-        <div class="cc-pkg-tier">6-Year</div>
-        <div class="cc-pkg-name">System X Coating</div>
-        <ul>
-          <li>Everything in the 2-year</li>
-          <li>Thicker multi-layer coat</li>
-          <li>Enhanced gloss &amp; slickness</li>
-          <li>Stronger chemical resistance</li>
-          <li>6-year warranty</li>
-          <li>Free annual maintenance</li>
-        </ul>
-        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
-      </div>
-      <div class="cc-pkg">
-        <div class="cc-pkg-tier">Lifetime</div>
-        <div class="cc-pkg-name">System X Coating</div>
-        <ul>
-          <li>Everything in the 6-year</li>
-          <li>Maximum durability &amp; depth</li>
-          <li>Top-tier gloss &amp; slickness</li>
-          <li>Lifetime warranty</li>
-          <li>Priority annual service</li>
-          <li>Fully Carfax documented</li>
-        </ul>
-        <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
-      </div>
+    </div>
+  </div>
+  <div class="fleet-dots" id="fleetDots"></div>
+</section>
+
+<!-- ═══ EXPERIENCE THE BEST FLEET DETAILING ═══ -->
+<section class="fleet-exp">
+  <div class="fleet-exp-wrap">
+    <h2 class="cc-h2">Experience the Best Fleet Detailing</h2>
+    <div class="fleet-exp-media"><span class="ph">Image coming soon</span></div>
+    <p>Shine for a Cause provides high-efficiency fleet detailing services across Northern Colorado, designed specifically for dealerships and commercial vehicle operations. We go beyond a simple wash. Our process restores, cleans, and maintains every vehicle to showroom-ready condition, helping you present inventory at its absolute best. From exterior decontamination and paint-safe cleaning to deep interior detailing, we ensure every unit is consistently spotless, protected, and ready for sale or delivery.</p>
+    <div class="fleet-exp-cta">
+      <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
+      <a href="tel:+19702953577" class="btn btn-ghost-d">(970) 295-3577</a>
     </div>
   </div>
 </section>
 
-<!-- ═══ WHY CERAMIC ═══ -->
-<section class="cc-sec" style="padding-top:1rem;">
-  <div class="cc-wrap">
-    <h2 class="cc-h2">Why System X Ceramic</h2>
-    <div class="cc-benefits">
-      <div class="cc-benefit">
-        <h3><span class="dot">&#9670;</span> No BS Guarantee</h3>
-        <p>Our coatings come with a real warranty. If you ever need re-service, bring it in and we'll make it right.</p>
-      </div>
-      <div class="cc-benefit">
-        <h3><span class="dot">&#9670;</span> Hydrophobic &amp; Self-Cleaning</h3>
-        <p>Water beads up and rolls off the surface, taking dirt and grime with it, so your car stays cleaner for longer.</p>
-      </div>
-      <div class="cc-benefit">
-        <h3><span class="dot">&#9670;</span> 9H Surface Hardness</h3>
-        <p>A cured System X coating adds a hard, sacrificial layer that helps resist swirls, light scratches, and etching.</p>
-      </div>
-      <div class="cc-benefit">
-        <h3><span class="dot">&#9670;</span> Ultimate Deep Gloss</h3>
-        <p>A candy-like depth and mirror shine that makes the paint pop far beyond a standard wax or sealant.</p>
-      </div>
-      <div class="cc-benefit">
-        <h3><span class="dot">&#9670;</span> Multi-Surface Application</h3>
-        <p>Paint, glass, wheels, trim, and plastics can all be protected, not just the body panels.</p>
-      </div>
+<!-- ═══ GET A FREE FLEET QUOTE ═══ -->
+<section class="fleet-quote" id="fleet-quote">
+  <div class="fleet-quote-wrap">
+    <h2 class="cc-h2">Get a Free Fleet Quote</h2>
+    <p class="cc-h2-sub">Tell us about your fleet and we'll get back to you with pricing.</p>
+    <div class="fleet-form-card">
+      <form class="fleet-form" id="fleetForm">
+        <div class="ff-field"><label>Name</label><input type="text" name="name" placeholder="Your name" required /></div>
+        <div class="ff-field"><label>Company Name</label><input type="text" name="company" placeholder="Dealership or company" /></div>
+        <div class="ff-field"><label>Email</label><input type="email" name="email" placeholder="you@company.com" required /></div>
+        <div class="ff-field"><label>Phone</label><input type="tel" name="phone" placeholder="(970) 000-0000" required /></div>
+        <div class="ff-field full"><label>Fleet Size / Vehicles</label><input type="text" name="fleet" placeholder="e.g. 15 vehicles, mixed cars &amp; trucks" /></div>
+        <div class="ff-field full"><label>How can we help?</label><textarea name="message" placeholder="Tell us what you need..."></textarea></div>
+        <button type="submit" class="btn btn-gold">Request My Quote &rarr;</button>
+        <p class="fleet-form-note">We'll never share your info. A portion of every booking supports Northern Colorado recovery programs.</p>
+      </form>
+      <div class="fleet-form-success" id="fleetSuccess">Thanks! Your request is ready to send from your email app. We'll be in touch shortly.</div>
     </div>
-    <div class="cc-cta-center"><a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a></div>
   </div>
 </section>
 
-<!-- ═══ CLOSING CTA ═══ -->
-<section class="cta-band">
-  <div class="wrap">
-    <h2>Protect Your <em>Investment</em></h2>
-    <p>Lock in a showroom shine that lasts for years. Book a free ceramic coating quote today.</p>
-    <div style="display:flex;flex-wrap:wrap;gap:.7rem;justify-content:center;">
-      <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote</a>
-      <a href="tel:+19702953577" class="btn btn-ghost-d">Call (970) 295-3577</a>
+<!-- ═══ FAQ ═══ -->
+<section class="cc-sec" id="faq" style="padding-top:1rem;">
+  <div class="cc-wrap">
+    <h2 class="cc-h2">Frequently Asked Questions</h2>
+    <div class="faq-cols">
+      <div class="faq-col">
+        <div class="faq-item">
+          <button class="faq-q">Do you offer wholesale or volume pricing for dealerships?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. We offer discounted per-vehicle rates for dealerships and fleets based on your volume and how often you need service. The more vehicles you send us, the better the rate.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Can you set up a dedicated team at our lot?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">For higher-volume dealerships we can arrange a regular on-site schedule so your inventory stays consistently clean and photo-ready without you having to think about it.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">How many vehicles can you handle per day?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Capacity depends on the service level and your location, but we scale to your needs and build a schedule that keeps up with your turnover.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What does reconditioning include?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">A full interior and exterior reset: wash, decontamination, interior deep clean, and a showroom-ready finish that restores trade-in value.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do you come to us?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. We're fully mobile and bring our own power, water, and equipment to your dealership or lot.</div></div>
+        </div>
+      </div>
+      <div class="faq-col">
+        <div class="faq-item">
+          <button class="faq-q">Can you detail loaner cars on a schedule?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Absolutely. We keep your loaner fleet fresh with regular quick-turnaround cleans so every customer gets a spotless vehicle.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do you handle used trade-ins?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. We deep clean and deodorize trade-ins to maximize resale value and get them photo-ready for your listings.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">How soon can you start?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Reach out with your fleet details and we'll get you a quote and a start date quickly, often within the same week.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">Do you service government and commercial fleets?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. We provide scheduled maintenance cleaning for government and commercial fleets with consistent standards across every vehicle.</div></div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q">What areas do you serve?
+            <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">We serve dealerships and fleets across Northern Colorado, including Fort Collins, Loveland, Greeley, and Windsor.</div></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -680,39 +832,83 @@
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
 </script>
 <script>
-  // Turntable hero: auto-spins (seamless boomerang loop). Click-and-drag to spin it yourself; release to resume.
+  // Fleet examples carousel: auto-rotates one card to the right every 5s (seamless loop)
   (function () {
-    var hero = document.getElementById('home');
-    var vid = document.getElementById('ccVid');
-    if (!hero || !vid) return;
-    var dragging = false, lastX = 0, raf = null;
-    function seek() {
-      raf = null;
-      var r = hero.getBoundingClientRect();
-      var p = Math.min(Math.max((lastX - r.left) / r.width, 0), 1);
-      var half = (vid.duration || 16) / 2; // forward half = one full rotation sweep
-      vid.currentTime = p * half;
+    var track = document.getElementById('fleetTrack');
+    var dotsWrap = document.getElementById('fleetDots');
+    if (!track) return;
+    var originals = Array.prototype.slice.call(track.children);
+    var COUNT = originals.length;
+    // clone the first 3 so the loop-around is seamless
+    for (var i = 0; i < 3; i++) track.appendChild(originals[i].cloneNode(true));
+    // build dots
+    for (var d = 0; d < COUNT; d++) {
+      var b = document.createElement('button');
+      b.className = 'fleet-dot' + (d === 0 ? ' on' : '');
+      b.setAttribute('aria-label', 'Go to slide ' + (d + 1));
+      (function (n) { b.addEventListener('click', function () { goTo(n); restart(); }); })(d);
+      dotsWrap.appendChild(b);
     }
-    function resume() { var pl = vid.play(); if (pl && pl.catch) pl.catch(function () {}); }
-    function start(e) {
-      dragging = true; lastX = e.clientX; hero.classList.add('dragging');
-      try { vid.pause(); } catch (err) {}
-      if (!raf) raf = requestAnimationFrame(seek);
+    var dots = Array.prototype.slice.call(dotsWrap.children);
+    var idx = 0, step = 0, timer = null;
+
+    function measure() {
+      var c = track.children[0];
+      var gap = parseFloat(getComputedStyle(track).gap) || 0;
+      step = c.getBoundingClientRect().width + gap;
+      apply(false);
     }
-    function move(e) {
-      if (!dragging) return;              // plain hover does nothing; only drag scrubs
-      lastX = e.clientX;
-      if (!raf) raf = requestAnimationFrame(seek); // throttle seeks to one per frame
+    function apply(anim) {
+      track.style.transition = anim ? 'transform .7s cubic-bezier(.4,0,.2,1)' : 'none';
+      track.style.transform = 'translateX(' + (-idx * step) + 'px)';
     }
-    function end() {
-      if (!dragging) return;
-      dragging = false; hero.classList.remove('dragging');
-      resume();
+    function setDots() {
+      var active = ((idx % COUNT) + COUNT) % COUNT;
+      dots.forEach(function (dot, n) { dot.classList.toggle('on', n === active); });
     }
-    hero.addEventListener('pointerdown', start);
-    window.addEventListener('pointermove', move);
-    window.addEventListener('pointerup', end);
-    window.addEventListener('pointercancel', end);
+    function goTo(n) { idx = n; apply(true); setDots(); }
+    function next() {
+      idx++;
+      apply(true);
+      setDots();
+      if (idx >= COUNT) {
+        setTimeout(function () { idx = 0; apply(false); }, 720);
+      }
+    }
+    function start() { timer = setInterval(next, 5000); }
+    function restart() { clearInterval(timer); start(); }
+
+    measure();
+    start();
+    window.addEventListener('resize', measure, { passive: true });
+    var vp = track.closest('.fleet-viewport');
+    vp.addEventListener('mouseenter', function () { clearInterval(timer); });
+    vp.addEventListener('mouseleave', start);
+  })();
+
+  // Fleet quote form -> opens a pre-filled email to the business (no backend needed yet)
+  (function () {
+    var form = document.getElementById('fleetForm');
+    if (!form) return;
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var f = form.elements;
+      var lines = [
+        'Name: ' + f.name.value,
+        'Company: ' + f.company.value,
+        'Email: ' + f.email.value,
+        'Phone: ' + f.phone.value,
+        'Fleet: ' + f.fleet.value,
+        '',
+        f.message.value
+      ];
+      var mailto = 'mailto:shineforacausemd@gmail.com'
+        + '?subject=' + encodeURIComponent('Fleet Quote Request - ' + (f.company.value || f.name.value))
+        + '&body=' + encodeURIComponent(lines.join('\n'));
+      form.style.display = 'none';
+      document.getElementById('fleetSuccess').classList.add('show');
+      window.location.href = mailto;
+    });
   })();
 </script>
 </body>

@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1080">
+<title>SFAC Purpose Post — Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #D4A851;
+    --gold-soft: #E0BF7A;
+    --bg: #0A0A0C;
+    --text: #F7F5F0;
+    --muted: #7A7580;
+  }
+
+  html, body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    background: var(--bg);
+  }
+
+  .post {
+    width: 1080px;
+    height: 1350px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Noise texture */
+  .post::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Ambient glows */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+  }
+  .glow-1 {
+    width: 700px; height: 700px;
+    top: -200px; left: -150px;
+    background: radial-gradient(circle, rgba(212,168,81,0.09) 0%, transparent 70%);
+  }
+  .glow-2 {
+    width: 500px; height: 500px;
+    bottom: 100px; right: -100px;
+    background: radial-gradient(circle, rgba(212,168,81,0.06) 0%, transparent 70%);
+  }
+
+  /* Rules */
+  .top-rule {
+    position: absolute;
+    top: 80px;
+    left: 80px; right: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,168,81,0.5), transparent);
+    z-index: 2;
+  }
+  .bottom-rule {
+    position: absolute;
+    bottom: 80px;
+    left: 80px; right: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(212,168,81,0.5), transparent);
+    z-index: 2;
+  }
+
+  /* Corner accents */
+  .corner {
+    position: absolute;
+    width: 32px; height: 32px;
+    z-index: 3;
+    opacity: 0.4;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner-tl { top: 68px; left: 68px; }
+  .corner-tr { top: 68px; right: 68px; transform: scaleX(-1); }
+  .corner-bl { bottom: 68px; left: 68px; transform: scaleY(-1); }
+  .corner-br { bottom: 68px; right: 68px; transform: scale(-1); }
+
+  /* Logo */
+  .logo-area {
+    position: absolute;
+    top: 108px;
+    left: 0; right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 3;
+  }
+  .logo-img {
+    height: 60px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+
+  /* Content */
+  .content {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 240px 90px 200px;
+    z-index: 3;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 52px;
+  }
+
+  .statement {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 82px;
+    font-weight: 300;
+    line-height: 1.08;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 60px;
+  }
+  .statement em {
+    color: var(--gold);
+    font-style: italic;
+  }
+
+  .dot-divider {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin: 0 auto 56px;
+  }
+
+  .sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.85;
+    color: var(--muted);
+    max-width: 560px;
+    letter-spacing: 0.025em;
+  }
+
+  /* Bottom */
+  .bottom-area {
+    position: absolute;
+    bottom: 108px;
+    left: 0; right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    z-index: 3;
+  }
+  .tagline-bottom {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .handle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+  }
+</style>
+</head>
+<body>
+<div class="post">
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="top-rule"></div>
+  <div class="bottom-rule"></div>
+
+  <div class="corner corner-tl">
+    <svg viewBox="0 0 32 32" fill="none"><path d="M1 31 L1 1 L31 1" stroke="#D4A851" stroke-width="1.5"/></svg>
+  </div>
+  <div class="corner corner-tr">
+    <svg viewBox="0 0 32 32" fill="none"><path d="M1 31 L1 1 L31 1" stroke="#D4A851" stroke-width="1.5"/></svg>
+  </div>
+  <div class="corner corner-bl">
+    <svg viewBox="0 0 32 32" fill="none"><path d="M1 31 L1 1 L31 1" stroke="#D4A851" stroke-width="1.5"/></svg>
+  </div>
+  <div class="corner corner-br">
+    <svg viewBox="0 0 32 32" fill="none"><path d="M1 31 L1 1 L31 1" stroke="#D4A851" stroke-width="1.5"/></svg>
+  </div>
+
+  <div class="logo-area">
+    <img class="logo-img" src="../brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause">
+  </div>
+
+  <div class="content">
+    <p class="eyebrow">Our Purpose</p>
+    <div class="statement">
+      We don't just<br>
+      detail cars.<br>
+      We shine for<br>
+      <em>a cause.</em>
+    </div>
+    <div class="dot-divider"></div>
+    <p class="sub">
+      Every car we detail is a chance to do<br>
+      something bigger — give back to<br>
+      those who need it most.
+    </p>
+  </div>
+
+  <div class="bottom-area">
+    <p class="tagline-bottom">Premium Detailing · Giving Back</p>
+    <p class="handle">@shineforacause</p>
+  </div>
+</div>
+</body>
+</html>

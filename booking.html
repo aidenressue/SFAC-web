@@ -1992,20 +1992,8 @@ async function confirmBooking() {
 
   state.comments = document.getElementById('f-comments').value.trim();
 
-  const primary = state.cart[0];
-  const extraItems = state.cart.slice(1);
-
-  // Build notes
-  let notes = `Service Address: ${state.address?.formatted}\n`;
-  if (extraItems.length) {
-    notes += `\nAdditional Vehicles (same appointment):\n`;
-    extraItems.forEach(item => {
-      const addons = Object.keys(item.addons).map(k=>ADDON_DEFS[k].name).join(', ');
-      notes += `- ${item.label} (${item.vehicleLabel})${addons ? ' + '+addons : ''} — $${item.price}\n`;
-    });
-  }
-  const rawTotal = state.cart.reduce((s,i)=>s+i.price,0);
   const multiVehicle = state.cart.length > 1;
+  const rawTotal = state.cart.reduce((s,i) => s + i.price, 0);
   const multiSavings = multiVehicle ? Math.round(rawTotal * 0.10) : 0;
   const afterMulti = rawTotal - multiSavings;
   const promoSavings = state.promoDiscount > 0
@@ -2013,65 +2001,93 @@ async function confirmBooking() {
     : Math.min(state.promoFlatAmount, afterMulti);
   const finalTotal = afterMulti - promoSavings;
 
-  if (multiVehicle || state.promoCode) {
-    notes += `\nPricing Summary:\nSubtotal: $${rawTotal}`;
-    if (multiVehicle) notes += `\nMulti-Vehicle Discount (10%): -$${multiSavings}`;
-    if (state.promoCode) {
-      if (state.promoDiscount > 0) notes += `\nPromo Code (${state.promoCode}, ${Math.round(state.promoDiscount*100)}% off): -$${promoSavings}`;
-      else notes += `\nPromo Code (${state.promoCode}, $${state.promoFlatAmount} off): -$${promoSavings}`;
-    }
-    notes += `\nTotal Due: $${finalTotal} (due in person)`;
+  // Duration in minutes for a single cart item (base + addons)
+  function itemDuration(item) {
+    return getDuration(item.serviceKey, item.vehicle)
+      + Object.entries(item.addons).reduce((a,[k,q]) => a + q * ADDON_DEFS[k].duration, 0);
   }
-  if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
 
-  // Build addon IDs for primary item
-  const addonIDs = Object.entries(primary.addons)
-    .filter(([,q])=>q>0)
-    .map(([k])=>ADDON_DEFS[k].id);
-
-  const payload = {
-    appointmentTypeID: primary.acuityTypeId,
-    datetime: state.selectedTime,
-    firstName: state.firstName,
-    lastName: state.lastName,
-    email: state.email,
-    phone: state.phone,
-    addonIDs,
-    notes,
-    ...(state.promoCode && { couponCode: state.promoCode })
-  };
+  // Pricing block appended to every appointment note
+  let pricingNotes = '';
+  if (multiVehicle || state.promoCode) {
+    pricingNotes += `\nPricing Summary:\nSubtotal: $${rawTotal}`;
+    if (multiVehicle) pricingNotes += `\nMulti-Vehicle Discount (10%): -$${multiSavings}`;
+    if (state.promoCode) {
+      if (state.promoDiscount > 0) pricingNotes += `\nPromo Code (${state.promoCode}, ${Math.round(state.promoDiscount*100)}% off): -$${promoSavings}`;
+      else pricingNotes += `\nPromo Code (${state.promoCode}, $${state.promoFlatAmount} off): -$${promoSavings}`;
+    }
+    pricingNotes += `\nTotal Due: $${finalTotal} (due in person)`;
+  }
 
   try {
-    const resp = await fetch('https://sfac-mu.vercel.app/api/acuity/appointments', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const result = await resp.json();
+    let cumulativeOffset = 0; // minutes from selectedTime
+    let firstAcuityId = null;
 
-    if (!resp.ok || result.status_code) {
-      throw new Error(result.message || 'Booking failed. Please try again.');
+    for (let i = 0; i < state.cart.length; i++) {
+      const item = state.cart[i];
+      const dur = itemDuration(item);
+      const startMs = new Date(state.selectedTime).getTime() + cumulativeOffset * 60000;
+      const datetime = new Date(startMs).toISOString();
+
+      const addonIDs = Object.entries(item.addons)
+        .filter(([,q]) => q > 0)
+        .map(([k]) => ADDON_DEFS[k].id);
+
+      let notes = `Service Address: ${state.address?.formatted}`;
+      if (multiVehicle) notes += `\nVehicle ${i + 1} of ${state.cart.length}`;
+      notes += pricingNotes;
+      if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
+
+      const payload = {
+        appointmentTypeID: item.acuityTypeId,
+        datetime,
+        firstName: state.firstName,
+        lastName: state.lastName,
+        email: state.email,
+        phone: state.phone,
+        addonIDs,
+        notes,
+        ...(i === 0 && state.promoCode && { couponCode: state.promoCode }),
+      };
+
+      const resp = await fetch('https://sfac-mu.vercel.app/api/acuity/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await resp.json();
+
+      if (!resp.ok || result.status_code) {
+        throw new Error(result.message || `Booking failed for vehicle ${i + 1}. Please try again.`);
+      }
+
+      if (i === 0) firstAcuityId = result.acuityId;
+      cumulativeOffset += dur;
     }
 
     // Success!
+    const primary = state.cart[0];
+    const vehicleWord = multiVehicle ? `${state.cart.length} vehicle appointments` : primary.label;
     document.getElementById('success-sub').textContent =
-      `Your ${primary.label} has been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
+      `Your ${vehicleWord} ${multiVehicle ? 'have' : 'has'} been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
 
     let discountParts = [];
     if (multiVehicle) discountParts.push('10% multi-vehicle');
     if (state.promoDiscount > 0) discountParts.push(`${Math.round(state.promoDiscount*100)}% promo`);
     const totalLine = discountParts.length > 0
-      ? `Confirmation #${result.acuityId} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
-      : `Confirmation #${result.acuityId} · Estimated Total: $${rawTotal} (due in person)`;
+      ? `Confirmation #${firstAcuityId} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
+      : `Confirmation #${firstAcuityId} · Estimated Total: $${rawTotal} (due in person)`;
     document.getElementById('success-conf').textContent = totalLine;
     document.getElementById('success-screen').classList.add('show');
 
-    // Build Google Calendar link for the client
+    // Google Calendar link spanning entire multi-vehicle block
+    const totalMins = state.cart.reduce((s, item) => s + itemDuration(item), 0);
     const startDt = new Date(state.selectedTime);
-    const endDt = new Date(startDt.getTime() + (primary.duration || 120) * 60000);
+    const endDt = new Date(startDt.getTime() + totalMins * 60000);
     const fmt = d => d.toISOString().replace(/[-:]/g,'').slice(0,15);
+    const calLabel = multiVehicle ? `Shine for a Cause — ${state.cart.length} Vehicles` : `Shine for a Cause — ${primary.label}`;
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
-      + `&text=${encodeURIComponent('Shine for a Cause — ' + primary.label)}`
+      + `&text=${encodeURIComponent(calLabel)}`
       + `&dates=${fmt(startDt)}/${fmt(endDt)}`
       + `&details=${encodeURIComponent('Shine for a Cause Mobile Detailing\n(970) 295-3577\nshineforacause.com')}`
       + `&location=${encodeURIComponent(state.address?.formatted||'')}`;

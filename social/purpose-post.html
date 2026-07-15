@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SFAC — Purpose Post</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --gold: #D4A851;
+    --gold-soft: #E0BF7A;
+    --bg: #0A0A0C;
+    --surface: #111215;
+    --text: #F7F5F0;
+    --muted: #7A7580;
+  }
+
+  body {
+    background: #1a1a1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+    gap: 24px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .controls {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .controls button {
+    background: var(--gold);
+    color: #0a0a0c;
+    border: none;
+    border-radius: 999px;
+    padding: 10px 24px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+  .controls button:hover { opacity: 0.8; }
+  .controls button.secondary {
+    background: transparent;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+  }
+
+  /* ── THE POST CARD ── */
+  .post {
+    width: 1080px;
+    height: 1350px;
+    background: var(--bg);
+    position: relative;
+    overflow: hidden;
+    transform-origin: top center;
+  }
+
+  /* Scale down for screen preview */
+  @media (max-width: 1200px) {
+    .post { transform: scale(0.6); margin: -270px auto; }
+  }
+  @media (max-width: 700px) {
+    .post { transform: scale(0.32); margin: -459px auto; }
+  }
+
+  /* Noise texture overlay */
+  .post::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    background-size: 256px 256px;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  /* Ambient glow */
+  .glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+  }
+  .glow-1 {
+    width: 700px; height: 700px;
+    top: -200px; left: -150px;
+    background: radial-gradient(circle, rgba(212,168,81,0.07) 0%, transparent 70%);
+  }
+  .glow-2 {
+    width: 500px; height: 500px;
+    bottom: 100px; right: -100px;
+    background: radial-gradient(circle, rgba(212,168,81,0.05) 0%, transparent 70%);
+  }
+
+  /* Thin gold horizontal rule — top */
+  .top-rule {
+    position: absolute;
+    top: 80px;
+    left: 80px;
+    right: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+    z-index: 2;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: ruleIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.3s forwards;
+  }
+  .bottom-rule {
+    position: absolute;
+    bottom: 80px;
+    left: 80px;
+    right: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    opacity: 0.4;
+    z-index: 2;
+    transform: scaleX(0);
+    transform-origin: right;
+    animation: ruleIn 0.8s cubic-bezier(0.22,1,0.36,1) 0.5s forwards;
+  }
+  @keyframes ruleIn {
+    to { transform: scaleX(1); }
+  }
+
+  /* Logo area */
+  .logo-area {
+    position: absolute;
+    top: 108px;
+    left: 0; right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 3;
+    opacity: 0;
+    animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) 0.8s forwards;
+  }
+  .logo-img {
+    height: 64px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+
+  /* Main content */
+  .content {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 220px 90px 200px;
+    z-index: 3;
+    text-align: center;
+  }
+
+  .eyebrow {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 48px;
+    opacity: 0;
+    animation: fadeUp 0.6s cubic-bezier(0.22,1,0.36,1) 1.0s forwards;
+  }
+
+  /* Big quote / statement */
+  .statement {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 78px;
+    font-weight: 300;
+    line-height: 1.05;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 56px;
+  }
+
+  .statement .word {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1), transform 0.5s cubic-bezier(0.22,1,0.36,1);
+  }
+  .statement .word.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .statement .gold-word {
+    color: var(--gold);
+    font-style: italic;
+  }
+  .statement .break { display: block; height: 0.1em; }
+
+  /* Divider dot */
+  .dot-divider {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    margin: 0 auto 56px;
+    opacity: 0;
+    transform: scale(0);
+    animation: dotIn 0.4s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-play-state: paused;
+  }
+  .dot-divider.show {
+    animation-play-state: running;
+  }
+  @keyframes dotIn {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.8;
+    color: var(--muted);
+    max-width: 560px;
+    letter-spacing: 0.02em;
+    opacity: 0;
+    animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-play-state: paused;
+  }
+  .sub.show {
+    animation-play-state: running;
+  }
+
+  /* Bottom */
+  .bottom-area {
+    position: absolute;
+    bottom: 108px;
+    left: 0; right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+    z-index: 3;
+    opacity: 0;
+    animation: fadeUp 0.7s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-play-state: paused;
+  }
+  .bottom-area.show {
+    animation-play-state: running;
+  }
+
+  .tagline-bottom {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .handle {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+  }
+
+  /* Corner accents */
+  .corner {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    z-index: 3;
+    opacity: 0;
+    animation: fadeIn 0.6s ease 1.2s forwards;
+  }
+  .corner svg { width: 100%; height: 100%; }
+  .corner-tl { top: 68px; left: 68px; }
+  .corner-tr { top: 68px; right: 68px; transform: scaleX(-1); }
+  .corner-bl { bottom: 68px; left: 68px; transform: scaleY(-1); }
+  .corner-br { bottom: 68px; right: 68px; transform: scale(-1); }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    to { opacity: 0.35; }
+  }
+
+  .hint {
+    color: #555;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    font-family: 'Montserrat', sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <button onclick="replay()">↺ Replay Animation</button>
+  <button class="secondary" onclick="window.print()">Export / Print</button>
+</div>
+
+<div class="post" id="post">
+
+  <!-- Ambient glows -->
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+
+  <!-- Rules -->
+  <div class="top-rule"></div>
+  <div class="bottom-rule"></div>
+
+  <!-- Corner accents -->
+  <div class="corner corner-tl">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 31 L1 1 L31 1" stroke="#D4A851" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="corner corner-tr">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 31 L1 1 L31 1" stroke="#D4A851" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="corner corner-bl">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 31 L1 1 L31 1" stroke="#D4A851" stroke-width="1.5"/>
+    </svg>
+  </div>
+  <div class="corner corner-br">
+    <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M1 31 L1 1 L31 1" stroke="#D4A851" stroke-width="1.5"/>
+    </svg>
+  </div>
+
+  <!-- Logo -->
+  <div class="logo-area">
+    <img class="logo-img" src="../brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause">
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <p class="eyebrow">Our Purpose</p>
+
+    <div class="statement" id="statement">
+      <!-- Words injected by JS -->
+    </div>
+
+    <div class="dot-divider" id="dot"></div>
+
+    <p class="sub" id="sub">
+      Every car we detail is a chance to do something bigger —<br>
+      give back to those who need it most.
+    </p>
+  </div>
+
+  <!-- Bottom -->
+  <div class="bottom-area" id="bottom">
+    <p class="tagline-bottom">Premium Detailing · Giving Back</p>
+    <p class="handle">@shineforacause</p>
+  </div>
+
+</div>
+
+<p class="hint">↑ Screen-record this tab to capture the animated version for Reels/TikTok</p>
+
+<script>
+  // The statement — broken into word groups for staggered reveal
+  const lines = [
+    { words: ['We', 'don\'t', 'just'], gold: false },
+    { words: ['detail', 'cars.'], gold: false },
+    { words: ['We', 'shine', 'for'], gold: false },
+    { words: ['a', 'cause.'], gold: true },
+  ];
+
+  function buildStatement() {
+    const el = document.getElementById('statement');
+    el.innerHTML = '';
+    lines.forEach((line, li) => {
+      const lineEl = document.createElement('span');
+      lineEl.style.display = 'block';
+      lineEl.style.marginBottom = li < lines.length - 1 ? '0.08em' : '0';
+      line.words.forEach((w, wi) => {
+        const span = document.createElement('span');
+        span.className = 'word' + (line.gold ? ' gold-word' : '');
+        span.textContent = w + (wi < line.words.length - 1 ? '\u00A0' : '');
+        span.dataset.index = li * 10 + wi;
+        lineEl.appendChild(span);
+      });
+      el.appendChild(lineEl);
+    });
+  }
+
+  function animateWords() {
+    const words = document.querySelectorAll('.word');
+    let delay = 1400;
+    words.forEach((w) => {
+      setTimeout(() => {
+        w.classList.add('visible');
+      }, delay);
+      delay += 160;
+    });
+
+    // After all words, show dot, sub, bottom
+    setTimeout(() => {
+      document.getElementById('dot').classList.add('show');
+    }, delay + 100);
+    setTimeout(() => {
+      document.getElementById('sub').classList.add('show');
+    }, delay + 300);
+    setTimeout(() => {
+      document.getElementById('bottom').classList.add('show');
+    }, delay + 600);
+  }
+
+  function replay() {
+    // Reset
+    document.querySelectorAll('.word').forEach(w => w.classList.remove('visible'));
+    const dot = document.getElementById('dot');
+    const sub = document.getElementById('sub');
+    const bottom = document.getElementById('bottom');
+    dot.classList.remove('show');
+    sub.classList.remove('show');
+    bottom.classList.remove('show');
+    void dot.offsetWidth; // force reflow
+    setTimeout(animateWords, 100);
+  }
+
+  buildStatement();
+  animateWords();
+</script>
+</body>
+</html>

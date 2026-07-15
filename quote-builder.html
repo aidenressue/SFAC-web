@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Build Your Coating Package | Shine for a Cause — Fort Collins</title>
-  <meta name="description" content="Build your custom ceramic coating package — choose your paint prep level, System X coating tier, and get an instant estimate. Serving Fort Collins and Northern Colorado." />
+  <title>Get an Instant Quote | Shine for a Cause — Fort Collins</title>
+  <meta name="description" content="Get an instant price estimate for auto detailing or ceramic coating — choose your service, vehicle size, and see pricing instantly. Serving Fort Collins and Northern Colorado." />
   <meta name="robots" content="index, follow" />
   <link rel="icon" type="image/png" href="/brand_assets/Shine for a Cause LOGO.png" />
   <link rel="canonical" href="https://shineforacause.com/quote-builder.html" />
@@ -234,6 +234,23 @@
       .builder-wrap { padding-bottom: 100px; }
     }
 
+    /* TABS */
+    .tab-bar { max-width: 1100px; margin: 0 auto; padding: 0 2rem; display: flex; gap: 0; border-bottom: 1px solid var(--border); }
+    .tab-btn { background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -1px; padding: 1.1rem 1.75rem; font-family: var(--fh); font-size: .73rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); cursor: pointer; transition: color .2s, border-color .2s; }
+    .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+    .tab-btn:hover:not(.active) { color: var(--text); }
+
+    /* DETAIL CALC SIDEBAR */
+    .dtl-book-btn { display: block; width: 100%; margin-top: 1.25rem; background: var(--gold); color: #0B0B0D; border: none; border-radius: 10px; font-family: var(--fh); font-weight: 800; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; padding: 1rem 1.5rem; cursor: pointer; text-align: center; text-decoration: none; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 18px rgba(212,168,81,.25); }
+    .dtl-book-btn:hover { background: var(--gold-soft); transform: translateY(-1px); box-shadow: 0 8px 26px rgba(212,168,81,.38); }
+
+    /* DETAIL MOBILE STICKY BAR */
+    @media (max-width: 900px) {
+      #dtl-estimate-panel { display: none; }
+      #dtl-mobile-bar { display: block; position: fixed; bottom: 0; left: 0; right: 0; z-index: 200; background: rgba(20,22,24,0.97); backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    }
+    @media (min-width: 901px) { #dtl-mobile-bar { display: none; } }
+
     /* RESPONSIVE */
     @media (max-width: 900px) {
       .builder-wrap { grid-template-columns: 1fr; }
@@ -290,9 +307,9 @@ END HERO V1 BACKUP -->
 
 <div class="page-hero">
   <div class="page-hero-inner">
-    <div class="page-hero-label">System X Certified Installer</div>
-    <h1>Build your<br><em>coating package.</em></h1>
-    <p>Choose your paint prep level and coating tier. We'll send you a confirmed quote and set up your appointment.</p>
+    <div class="page-hero-label">Fort Collins &amp; Northern Colorado</div>
+    <h1>Get an instant<br><em>price estimate.</em></h1>
+    <p>Select your service and vehicle size to see pricing right away — then book online or give us a call.</p>
     <div style="margin-top:1.75rem;display:flex;align-items:center;justify-content:center;gap:.75rem;flex-wrap:wrap;">
       <a href="tel:+19702953577" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:#0B0B0D;border-radius:999px;padding:.6rem 1.4rem;font-family:var(--fh);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 18px rgba(212,168,81,.3);transition:background .2s,transform .15s;">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.37a16 16 0 0 0 6 6l1.27-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.05z"/></svg>
@@ -303,8 +320,159 @@ END HERO V1 BACKUP -->
   </div>
 </div>
 
-<!-- BUILDER -->
-<div class="builder-wrap">
+<!-- TAB BAR -->
+<div class="tab-bar">
+  <button class="tab-btn active" id="tab-detail" onclick="switchTab('detail')">Detailing</button>
+  <button class="tab-btn" id="tab-ceramic" onclick="switchTab('ceramic')">Ceramic Coating</button>
+</div>
+
+<!-- DETAIL CALCULATOR -->
+<div id="detail-calc" class="builder-wrap">
+  <div class="builder-steps">
+
+    <!-- STEP 1: TIER -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">1</div>
+        <div>
+          <div class="step-title">Service Tier</div>
+          <div class="step-sub">Express is thorough and efficient — Executive is our premium deep clean</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="option-grid cols2">
+          <label class="option-card selected" data-dtl-group="tier" data-dtl-val="express">
+            <input type="radio" name="dtl-tier" value="express" checked />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Express</div></div>
+            <div class="option-desc">Professional wash, vacuum, wipe-down, and glass clean. Fast, clean, complete. (~1–3 hrs)</div>
+          </label>
+          <label class="option-card" data-dtl-group="tier" data-dtl-val="executive">
+            <input type="radio" name="dtl-tier" value="executive" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Executive</div></div>
+            <div class="option-desc">Clay bar, machine polish, steam clean, leather conditioning &amp; ceramic-grade sealant. (~3–6 hrs)</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 2: PACKAGE -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">2</div>
+        <div>
+          <div class="step-title">Package</div>
+          <div class="step-sub">Choose what's included in your appointment</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="option-grid cols3">
+          <label class="option-card" data-dtl-group="pkg" data-dtl-val="exterior">
+            <input type="radio" name="dtl-pkg" value="exterior" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Exterior</div></div>
+            <div class="option-desc">Outside only — wash, wheels, tires, glass &amp; paint protection</div>
+          </label>
+          <label class="option-card" data-dtl-group="pkg" data-dtl-val="interior">
+            <input type="radio" name="dtl-pkg" value="interior" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Interior</div></div>
+            <div class="option-desc">Inside only — vacuum, all surfaces, windows &amp; door panels</div>
+          </label>
+          <label class="option-card selected" data-dtl-group="pkg" data-dtl-val="full">
+            <input type="radio" name="dtl-pkg" value="full" checked />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Full Detail</div></div>
+            <div class="option-desc">Complete interior + exterior in one appointment</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: VEHICLE SIZE -->
+    <div class="step">
+      <div class="step-header">
+        <div class="step-num">3</div>
+        <div>
+          <div class="step-title">Vehicle Size</div>
+          <div class="step-sub">Select your vehicle — pricing adjusts automatically</div>
+        </div>
+      </div>
+      <div class="step-body">
+        <div class="option-grid cols2">
+          <label class="option-card selected" data-dtl-group="size" data-dtl-val="small">
+            <input type="radio" name="dtl-size" value="small" checked />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Small</div></div>
+            <div class="option-desc">Coupe / Sedan / Hatchback</div>
+          </label>
+          <label class="option-card" data-dtl-group="size" data-dtl-val="mid">
+            <input type="radio" name="dtl-size" value="mid" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Mid-Size</div></div>
+            <div class="option-desc">Crossover / Mid-Size SUV / Standard Pickup</div>
+          </label>
+          <label class="option-card" data-dtl-group="size" data-dtl-val="large">
+            <input type="radio" name="dtl-size" value="large" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Large</div></div>
+            <div class="option-desc">Full-Size SUV / Crew Cab / Large Truck</div>
+          </label>
+          <label class="option-card" data-dtl-group="size" data-dtl-val="van">
+            <input type="radio" name="dtl-size" value="van" />
+            <div class="option-check"></div>
+            <div class="option-card-top"><div class="option-name">Van / Oversized</div></div>
+            <div class="option-desc">Minivan / Full-Size Van / Cargo Van / Sprinter</div>
+          </label>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end builder-steps -->
+
+  <!-- DETAIL ESTIMATE SIDEBAR -->
+  <div>
+    <div class="estimate-panel" id="dtl-estimate-panel">
+      <div class="estimate-header">
+        <div class="estimate-icon">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <div class="estimate-title">Your Estimate</div>
+      </div>
+      <div class="estimate-body">
+        <div class="estimate-row">
+          <span class="estimate-row-label">Service</span>
+          <span class="estimate-row-val" id="dtl-service-label">Express Full Detail</span>
+        </div>
+        <div class="estimate-row">
+          <span class="estimate-row-label">Vehicle</span>
+          <span class="estimate-row-val" id="dtl-size-label">Small</span>
+        </div>
+        <div class="estimate-total" style="margin-top:1rem;">
+          <div class="estimate-total-label">Estimated Price</div>
+          <div class="estimate-total-val" id="dtl-price">$220</div>
+        </div>
+        <p class="estimate-note">Pricing based on standard vehicle condition. Final price confirmed at booking — some vehicles may vary.</p>
+        <a href="/booking.html" class="dtl-book-btn">Book This Service →</a>
+        <p style="font-size:.65rem;color:var(--muted);text-align:center;margin-top:.75rem;">Or call / text <a href="tel:+19702953577" style="color:var(--gold);text-decoration:none;">(970) 295-3577</a></p>
+      </div>
+    </div>
+  </div>
+</div><!-- end detail-calc -->
+
+<!-- DETAIL MOBILE STICKY BAR -->
+<div id="dtl-mobile-bar" style="display:none;">
+  <div>
+    <div style="font-size:.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Estimate</div>
+    <div style="font-family:var(--fh);font-size:1.5rem;font-weight:800;color:var(--gold);letter-spacing:-.03em;line-height:1;" id="dtl-mob-price">$220</div>
+    <div style="font-size:.65rem;color:var(--muted);margin-top:2px;" id="dtl-mob-label">Express Full Detail · Small</div>
+  </div>
+  <a href="/booking.html" style="background:var(--gold);color:#0B0B0D;border:none;border-radius:8px;font-family:var(--fh);font-weight:800;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;padding:.65rem 1.2rem;text-decoration:none;white-space:nowrap;">Book Now →</a>
+</div>
+
+<!-- CERAMIC BUILDER -->
+<div id="ceramic-builder" class="builder-wrap" style="display:none;">
   <div class="builder-steps" id="builderForm">
 
     <!-- STEP 1: VEHICLE SIZE -->
@@ -607,9 +775,9 @@ END HERO V1 BACKUP -->
     </div>
   </div>
 
-</div><!-- /builder-wrap -->
+</div><!-- /ceramic-builder -->
 
-<!-- MOBILE STICKY TOTAL BAR -->
+<!-- MOBILE STICKY TOTAL BAR (ceramic) -->
 <div class="mobile-total-bar" id="mobileTotalBar">
   <div class="mobile-total-collapsed" onclick="toggleMobileBar()">
     <div class="mobile-total-left">
@@ -881,6 +1049,79 @@ END HERO V1 BACKUP -->
 
   // Init
   updateEstimate();
+
+  // ─── DETAIL CALCULATOR ───────────────────────────────────────────
+
+  const DETAIL_PRICES = {
+    'express-exterior': { small:90,  mid:100, large:110, van:140 },
+    'express-interior': { small:165, mid:190, large:210, van:250 },
+    'express-full':     { small:220, mid:250, large:275, van:300 },
+    'executive-exterior': { small:140, mid:165, large:195, van:250 },
+    'executive-interior': { small:330, mid:360, large:385, van:440 },
+    'executive-full':     { small:440, mid:470, large:500, van:550 },
+  };
+  const PKG_LABELS = { exterior: 'Exterior', interior: 'Interior', full: 'Full Detail' };
+
+  let dtl = { tier: 'express', pkg: 'full', size: 'small' };
+
+  function updateDetailEstimate() {
+    const key = dtl.tier + '-' + dtl.pkg;
+    const price = DETAIL_PRICES[key]?.[dtl.size] ?? 0;
+    const tierLabel = dtl.tier === 'express' ? 'Express' : 'Executive';
+    const pkgLabel = PKG_LABELS[dtl.pkg];
+    const sizeLabel = SIZE_LABELS[dtl.size];
+    const serviceName = tierLabel + ' ' + pkgLabel;
+    const priceStr = '$' + price;
+
+    document.getElementById('dtl-service-label').textContent = serviceName;
+    document.getElementById('dtl-size-label').textContent = sizeLabel;
+    document.getElementById('dtl-price').textContent = priceStr;
+    document.getElementById('dtl-mob-price').textContent = priceStr;
+    document.getElementById('dtl-mob-label').textContent = serviceName + ' · ' + sizeLabel;
+  }
+
+  document.querySelectorAll('[data-dtl-group]').forEach(card => {
+    card.addEventListener('click', () => {
+      const group = card.dataset.dtlGroup;
+      const val = card.dataset.dtlVal;
+      document.querySelectorAll(`[data-dtl-group="${group}"]`).forEach(c => c.classList.remove('selected'));
+      card.classList.add('selected');
+      const radio = card.querySelector('input[type=radio]');
+      if (radio) radio.checked = true;
+      dtl[group] = val;
+      updateDetailEstimate();
+    });
+  });
+
+  updateDetailEstimate();
+
+  // ─── TAB SWITCHING ───────────────────────────────────────────────
+
+  function switchTab(tab) {
+    const detailEl = document.getElementById('detail-calc');
+    const ceramicEl = document.getElementById('ceramic-builder');
+    const dtlMobileBar = document.getElementById('dtl-mobile-bar');
+    const ceramicMobileBar = document.getElementById('mobileTotalBar');
+
+    if (tab === 'detail') {
+      detailEl.style.display = '';
+      ceramicEl.style.display = 'none';
+      dtlMobileBar.style.display = '';
+      ceramicMobileBar.style.display = 'none';
+      document.getElementById('tab-detail').classList.add('active');
+      document.getElementById('tab-ceramic').classList.remove('active');
+    } else {
+      detailEl.style.display = 'none';
+      ceramicEl.style.display = '';
+      dtlMobileBar.style.display = 'none';
+      ceramicMobileBar.style.display = '';
+      document.getElementById('tab-detail').classList.remove('active');
+      document.getElementById('tab-ceramic').classList.add('active');
+    }
+  }
+
+  // Start on detail tab — hide ceramic mobile bar initially
+  document.getElementById('mobileTotalBar').style.display = 'none';
 
   // Modal open/close
   function openQuoteModal() {
