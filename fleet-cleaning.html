@@ -8,7 +8,7 @@
   <link rel="icon" href="brand_assets/Shine for a Cause LOGO cropped.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Caveat:wght@600;700&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Caveat:wght@600;700&family=Inter:wght@800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #FFFFFF;
@@ -405,8 +405,10 @@
       .cc-hero-vid { object-fit:contain; }
     }
 
+    /* GoDetail-style title (preview) */
+    .cc-h2.gd { font-family:'Inter', sans-serif; font-size:34px; font-weight:800; letter-spacing:-0.04em; line-height:120%; text-transform:capitalize; }
     /* ── Fleet: Dealership & Fleet examples carousel (edge-to-edge, green) ── */
-    .fleet-ex { --card-w:440px; background:#050505; padding:5.5rem 0 4.5rem; overflow:hidden; }
+    .fleet-ex { --card-w:clamp(270px, 22vw, 330px); background:#050505; padding:5.5rem 0 4.5rem; overflow:hidden; }
     .fleet-ex-head { text-align:center; max-width:720px; margin:0 auto 4rem; padding:0 1.5rem; }
     .fleet-viewport { position:relative; width:100%; }
     .fleet-mask { overflow:hidden; }
@@ -414,12 +416,12 @@
     .fleet-card { position:relative; flex:0 0 var(--card-w); padding-top:16px; }
     .fleet-card::before { content:''; position:absolute; left:4%; right:4%; top:-10px; height:96px; background:radial-gradient(ellipse at center, rgba(53,204,90,.8), rgba(53,204,90,0) 70%); filter:blur(15px); z-index:0; pointer-events:none; }
     .fleet-card-inner { position:relative; z-index:1; height:100%; display:flex; flex-direction:column; background:#0F1012; border:1px solid rgba(255,255,255,.08); border-top:2.5px solid var(--green-line); border-radius:20px; overflow:hidden; box-shadow:0 0 0 1px rgba(53,204,90,.08); }
-    .fleet-card-body { padding:1.5rem 1.5rem 1.1rem; }
-    .fleet-card h3 { font-family:var(--font-d); font-size:1.7rem; font-weight:900; color:#fff; margin:0 0 .9rem; letter-spacing:-.02em; }
-    .fleet-card ul { list-style:none; display:flex; flex-direction:column; gap:.4rem; margin:0; }
-    .fleet-card li { display:flex; align-items:center; gap:.55rem; font-size:.92rem; font-weight:500; color:#EAECEE; line-height:1.3; }
-    .fleet-card li::before { content:''; flex:0 0 20px; height:20px; border-radius:50%; background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23083016' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/11px no-repeat; }
-    .fleet-card-img { position:relative; margin-top:auto; aspect-ratio:16/11; background:radial-gradient(120% 100% at 50% 100%, #1c1c1f 0%, #0d0d0f 70%); display:flex; align-items:center; justify-content:center; }
+    .fleet-card-body { padding:1.3rem 1.4rem 1rem; }
+    .fleet-card h3 { font-family:var(--font-d); font-size:1.35rem; font-weight:900; color:#fff; margin:0 0 .75rem; letter-spacing:-.02em; }
+    .fleet-card ul { list-style:none; display:flex; flex-direction:column; gap:.38rem; margin:0; }
+    .fleet-card li { display:flex; align-items:center; gap:.5rem; font-size:.83rem; font-weight:500; color:#EAECEE; line-height:1.3; }
+    .fleet-card li::before { content:''; flex:0 0 18px; height:18px; border-radius:50%; background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='10' viewBox='0 0 24 24' fill='none' stroke='%23083016' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/10px no-repeat; }
+    .fleet-card-img { position:relative; margin-top:auto; aspect-ratio:16/9; background:radial-gradient(120% 100% at 50% 100%, #1c1c1f 0%, #0d0d0f 70%); display:flex; align-items:center; justify-content:center; }
     .fleet-card-img img { width:100%; height:100%; object-fit:cover; object-position:center bottom; }
     .fleet-card-img .ph { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#4E5155; }
     .fleet-card-quote { position:absolute; right:.9rem; bottom:.9rem; z-index:3; font-family:var(--font-d); font-weight:700; font-size:.82rem; color:#fff; padding:.6rem 1.15rem; border-radius:999px; background:rgba(12,14,16,.55); backdrop-filter:blur(12px) saturate(1.3); -webkit-backdrop-filter:blur(12px) saturate(1.3); border:1px solid rgba(255,255,255,.22); transition:background .18s, transform .18s; }
@@ -427,8 +429,8 @@
     .fleet-dots { display:flex; justify-content:center; gap:.5rem; margin-top:2.6rem; }
     .fleet-dot { width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.2); transition:width .3s, background .3s; cursor:pointer; padding:0; }
     .fleet-dot.on { width:24px; background:var(--green); }
-    @media (max-width:900px) { .fleet-ex { --card-w:64vw; } }
-    @media (max-width:600px) { .fleet-ex { --card-w:82vw; } .fleet-card h3 { font-size:1.5rem; } }
+    @media (max-width:900px) { .fleet-ex { --card-w:56vw; } }
+    @media (max-width:600px) { .fleet-ex { --card-w:80vw; } }
 
     /* ── Fleet: Experience section (image left, text right) ── */
     .fleet-exp { background:#050505; padding:2rem 1.5rem 5.5rem; }
@@ -529,7 +531,7 @@
 <!-- ═══ DEALERSHIP & FLEET CLEANING (rotating examples) ═══ -->
 <section class="fleet-ex" id="services">
   <div class="fleet-ex-head">
-    <h2 class="cc-h2">Dealership &amp; Fleet Cleaning</h2>
+    <h2 class="cc-h2 gd">Dealership &amp; Fleet Cleaning</h2>
     <p class="cc-h2-sub">From trade-ins to loaner cars and full commercial fleets, we keep every vehicle showroom ready.</p>
   </div>
   <div class="fleet-viewport">
@@ -636,7 +638,7 @@
         <div class="ff-field full"><label>Fleet Size / Vehicles</label><input type="text" name="fleet" placeholder="e.g. 15 vehicles, mixed cars &amp; trucks" /></div>
         <div class="ff-field full"><label>How can we help?</label><textarea name="message" placeholder="Tell us what you need..."></textarea></div>
         <button type="submit" class="btn btn-green">Request My Quote &rarr;</button>
-        <p class="fleet-form-note">We'll never share your info. A portion of every booking supports Northern Colorado recovery programs.</p>
+        <p class="fleet-form-note">We'll never share your info.</p>
       </form>
       <div class="fleet-form-success" id="fleetSuccess">Thanks! Your request is ready to send from your email app. We'll be in touch shortly.</div>
     </div>
