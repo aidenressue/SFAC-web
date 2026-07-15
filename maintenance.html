@@ -100,25 +100,32 @@
 
     /* How it works */
     .steps-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; margin-top:3rem; }
-    .step-card { background:#0F1012; border:1px solid rgba(255,255,255,.08); border-radius:18px; padding:2rem 1.8rem; }
-    .step-num { font-family:var(--font-d); font-weight:900; font-size:1rem; color:#141005; background:var(--gold); width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:1.2rem; }
+    .step-card { background:#0F1012; border:1px solid rgba(255,255,255,.08); border-radius:18px; overflow:hidden; display:flex; flex-direction:column; }
+    .step-img { aspect-ratio:16/10; background:repeating-linear-gradient(45deg,#141416,#141416 16px,#1a1a1d 16px,#1a1a1d 32px); display:flex; align-items:center; justify-content:center; }
+    .step-img .ph { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#4E5155; }
+    .step-body { padding:1.7rem 1.7rem 1.9rem; }
+    .step-num { font-family:var(--font-d); font-weight:900; font-size:1rem; color:#141005; background:var(--gold); width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-bottom:1rem; }
     .step-card h3 { font-family:var(--font-d); font-size:1.2rem; font-weight:800; color:#fff; margin:0 0 .5rem; letter-spacing:-.01em; }
     .step-card p { font-size:.9rem; color:#9A9DA2; line-height:1.6; }
 
-    /* Plan cards */
-    .plan-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-top:3rem; align-items:stretch; }
-    .plan-card { position:relative; display:flex; flex-direction:column; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:20px; padding:1.9rem 1.5rem 1.6rem; }
-    .plan-card.feat { border-color:var(--gold-line); box-shadow:0 24px 60px rgba(201,151,58,.16); }
-    .plan-badge { position:absolute; top:-.75rem; left:50%; transform:translateX(-50%); background:var(--gold); color:#141005; font-family:var(--font-d); font-weight:800; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; padding:.32rem .9rem; border-radius:999px; white-space:nowrap; }
-    .plan-freq { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
-    .plan-name { font-family:var(--font-d); font-size:1.5rem; font-weight:900; color:#fff; margin:.25rem 0 1.1rem; letter-spacing:-.02em; }
-    .plan-save { display:flex; align-items:baseline; gap:.35rem; padding-bottom:1.1rem; margin-bottom:1.1rem; border-bottom:1px solid rgba(255,255,255,.09); }
-    .plan-save strong { font-family:var(--font-d); font-weight:900; font-size:2.6rem; color:#fff; line-height:1; letter-spacing:-.03em; }
-    .plan-save span { font-family:var(--font-d); font-weight:700; font-size:.8rem; color:#9A9DA2; }
-    .plan-card ul { display:flex; flex-direction:column; gap:.6rem; margin-bottom:1.6rem; }
-    .plan-card li { display:flex; gap:.55rem; font-size:.85rem; color:#C9CBCE; line-height:1.4; }
+    /* Plan cards (service-page style: content + image + glass CTA) */
+    .plan-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-top:3.5rem; align-items:stretch; }
+    .plan-card { position:relative; }
+    .plan-inner { height:100%; display:flex; flex-direction:column; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:20px; overflow:hidden; }
+    .plan-card.feat .plan-inner { border-color:var(--gold-line); box-shadow:0 24px 60px rgba(201,151,58,.16); }
+    .plan-badge { position:absolute; top:-.7rem; left:50%; transform:translateX(-50%); z-index:2; background:var(--gold); color:#141005; font-family:var(--font-d); font-weight:800; font-size:.6rem; letter-spacing:.12em; text-transform:uppercase; padding:.32rem .9rem; border-radius:999px; white-space:nowrap; }
+    .plan-body { padding:1.7rem 1.4rem 1.2rem; }
+    .plan-name { font-family:var(--font-d); font-size:1.5rem; font-weight:900; color:#fff; margin:0 0 .7rem; letter-spacing:-.02em; }
+    .plan-save { display:flex; align-items:baseline; gap:.35rem; margin-bottom:1.1rem; }
+    .plan-save strong { font-family:var(--font-d); font-weight:900; font-size:2.4rem; color:var(--gold); line-height:1; letter-spacing:-.03em; }
+    .plan-save span { font-family:var(--font-d); font-weight:700; font-size:.76rem; color:#9A9DA2; }
+    .plan-card ul { display:flex; flex-direction:column; gap:.5rem; }
+    .plan-card li { display:flex; gap:.5rem; font-size:.83rem; color:#C9CBCE; line-height:1.35; }
     .plan-card li::before { content:''; flex:0 0 17px; height:17px; margin-top:1px; border-radius:50%; background:rgba(201,151,58,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23C9973A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(201,151,58,.3); }
-    .plan-card .btn { margin-top:auto; width:100%; }
+    .plan-img { position:relative; margin-top:auto; aspect-ratio:16/11; background:radial-gradient(120% 100% at 50% 100%, #1c1c1f 0%, #0d0d0f 70%); display:flex; align-items:center; justify-content:center; }
+    .plan-img .ph { font-family:var(--font-d); font-size:.55rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#4E5155; }
+    .plan-quote { position:absolute; right:.8rem; bottom:.8rem; z-index:3; font-family:var(--font-d); font-weight:700; font-size:.78rem; color:#fff; padding:.52rem 1.05rem; border-radius:999px; background:rgba(12,14,16,.55); backdrop-filter:blur(12px) saturate(1.3); -webkit-backdrop-filter:blur(12px) saturate(1.3); border:1px solid rgba(255,255,255,.22); transition:background .18s, transform .18s; }
+    .plan-quote:hover { background:rgba(201,151,58,.92); color:#141005; transform:translateY(-2px); }
 
     /* Split image + text */
     .mt-split { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:center; }
@@ -264,45 +271,13 @@
 <header class="mt-hero" id="home">
   <div class="mt-hero-glow"></div>
   <div class="mt-hero-inner">
-    <span class="label">Recurring Detailing Memberships</span>
-    <h1 class="mt-title">Keep It <em>Showroom</em> Clean, Year Round</h1>
-    <p class="mt-hero-sub">A maintenance plan keeps your vehicle protected and spotless on a schedule that works for you. We come to you, and the more often we visit, the more you save.</p>
+    <h1 class="mt-title">Maintenance Plans</h1>
     <div class="mt-hero-cta">
       <a href="#plans" class="btn btn-gold">See the Plans &rarr;</a>
       <a href="#contact" class="btn btn-ghost-d">Contact Us</a>
     </div>
-    <div class="mt-hero-stats">
-      <div class="mt-stat"><strong>Up to 60%</strong><span>Off every visit</span></div>
-      <div class="mt-stat"><strong>4</strong><span>Flexible schedules</span></div>
-      <div class="mt-stat"><strong>100%</strong><span>Mobile, we come to you</span></div>
-    </div>
   </div>
 </header>
-
-<!-- ═══ HOW IT WORKS ═══ -->
-<section class="cc-sec" id="how">
-  <div class="cc-wrap">
-    <h2 class="cc-h2">How Maintenance Plans Work</h2>
-    <p class="cc-h2-sub">Set it once and forget it. We keep your vehicle on a recurring schedule so it always looks its best.</p>
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <h3>Pick Your Schedule</h3>
-        <p>Choose how often you want us out, from every two weeks to once a quarter. The more frequent the plan, the bigger your discount.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <h3>We Come to You</h3>
-        <p>We arrive at your home or work with our own power and water. You keep your keys and your day, we handle the rest.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <h3>Stay Effortlessly Clean</h3>
-        <p>Your vehicle never gets a chance to build up dirt or grime, and small issues get caught early. Pause or cancel anytime with 48 hours notice.</p>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══ PLANS ═══ -->
 <section class="cc-sec" id="plans" style="padding-top:1rem;">
@@ -312,52 +287,94 @@
     <div class="plan-grid">
       <div class="plan-card feat">
         <div class="plan-badge">Best Value</div>
-        <div class="plan-freq">Every 2 Weeks</div>
-        <div class="plan-name">Bi-Weekly</div>
-        <div class="plan-save"><strong>60%</strong><span>off every visit</span></div>
-        <ul>
-          <li>Full maintenance detail</li>
-          <li>Locked-in lowest rate</li>
-          <li>Priority scheduling</li>
-          <li>Always showroom clean</li>
-        </ul>
-        <a href="#contact" class="btn btn-gold">Get Started</a>
+        <div class="plan-inner">
+          <div class="plan-body">
+            <h3 class="plan-name">Bi-Weekly</h3>
+            <div class="plan-save"><strong>60%</strong><span>off every visit</span></div>
+            <ul>
+              <li>Full maintenance detail</li>
+              <li>Locked-in lowest rate</li>
+              <li>Priority scheduling</li>
+            </ul>
+          </div>
+          <div class="plan-img"><span class="ph">Image coming soon</span><a href="#contact" class="plan-quote">Get Started</a></div>
+        </div>
       </div>
       <div class="plan-card">
-        <div class="plan-freq">Every Month</div>
-        <div class="plan-name">Monthly</div>
-        <div class="plan-save"><strong>50%</strong><span>off every visit</span></div>
-        <ul>
-          <li>Full maintenance detail</li>
-          <li>Great all-around upkeep</li>
-          <li>Priority scheduling</li>
-          <li>Most popular cadence</li>
-        </ul>
-        <a href="#contact" class="btn btn-gold">Get Started</a>
+        <div class="plan-inner">
+          <div class="plan-body">
+            <h3 class="plan-name">Monthly</h3>
+            <div class="plan-save"><strong>50%</strong><span>off every visit</span></div>
+            <ul>
+              <li>Full maintenance detail</li>
+              <li>Great all-around upkeep</li>
+              <li>Priority scheduling</li>
+            </ul>
+          </div>
+          <div class="plan-img"><span class="ph">Image coming soon</span><a href="#contact" class="plan-quote">Get Started</a></div>
+        </div>
       </div>
       <div class="plan-card">
-        <div class="plan-freq">Every 2 Months</div>
-        <div class="plan-name">Bi-Monthly</div>
-        <div class="plan-save"><strong>30%</strong><span>off every visit</span></div>
-        <ul>
-          <li>Full maintenance detail</li>
-          <li>Light, budget-friendly upkeep</li>
-          <li>Flexible scheduling</li>
-          <li>Keeps buildup in check</li>
-        </ul>
-        <a href="#contact" class="btn btn-gold">Get Started</a>
+        <div class="plan-inner">
+          <div class="plan-body">
+            <h3 class="plan-name">Bi-Monthly</h3>
+            <div class="plan-save"><strong>30%</strong><span>off every visit</span></div>
+            <ul>
+              <li>Full maintenance detail</li>
+              <li>Budget-friendly upkeep</li>
+              <li>Flexible scheduling</li>
+            </ul>
+          </div>
+          <div class="plan-img"><span class="ph">Image coming soon</span><a href="#contact" class="plan-quote">Get Started</a></div>
+        </div>
       </div>
       <div class="plan-card">
-        <div class="plan-freq">Every 3 Months</div>
-        <div class="plan-name">Quarterly</div>
-        <div class="plan-save"><strong>20%</strong><span>off every visit</span></div>
-        <ul>
-          <li>Full maintenance detail</li>
-          <li>Seasonal refresh</li>
-          <li>Flexible scheduling</li>
-          <li>A great place to start</li>
-        </ul>
-        <a href="#contact" class="btn btn-gold">Get Started</a>
+        <div class="plan-inner">
+          <div class="plan-body">
+            <h3 class="plan-name">Quarterly</h3>
+            <div class="plan-save"><strong>20%</strong><span>off every visit</span></div>
+            <ul>
+              <li>Full maintenance detail</li>
+              <li>Seasonal refresh</li>
+              <li>Flexible scheduling</li>
+            </ul>
+          </div>
+          <div class="plan-img"><span class="ph">Image coming soon</span><a href="#contact" class="plan-quote">Get Started</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ HOW IT WORKS ═══ -->
+<section class="cc-sec" id="how" style="padding-top:1rem;">
+  <div class="cc-wrap">
+    <h2 class="cc-h2">How Maintenance Plans Work</h2>
+    <p class="cc-h2-sub">Set it once and forget it. We keep your vehicle on a recurring schedule so it always looks its best.</p>
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-img"><span class="ph">Image coming soon</span></div>
+        <div class="step-body">
+          <div class="step-num">1</div>
+          <h3>Pick Your Schedule</h3>
+          <p>Choose how often you want us out, from every two weeks to once a quarter. The more frequent the plan, the bigger your discount.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-img"><span class="ph">Image coming soon</span></div>
+        <div class="step-body">
+          <div class="step-num">2</div>
+          <h3>We Come to You</h3>
+          <p>We arrive at your home or work with our own power and water. You keep your keys and your day, we handle the rest.</p>
+        </div>
+      </div>
+      <div class="step-card">
+        <div class="step-img"><span class="ph">Image coming soon</span></div>
+        <div class="step-body">
+          <div class="step-num">3</div>
+          <h3>Stay Effortlessly Clean</h3>
+          <p>Your vehicle never gets a chance to build up dirt or grime, and small issues get caught early. Pause or cancel anytime with 48 hours notice.</p>
+        </div>
       </div>
     </div>
   </div>
