@@ -8,7 +8,7 @@
   <link rel="icon" href="brand_assets/Shine for a Cause LOGO cropped.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Caveat:wght@600;700&family=Inter:wght@800&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Caveat:wght@600;700&family=Inter:wght@600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
       --bg: #FFFFFF;
@@ -405,16 +405,14 @@
       .cc-hero-vid { object-fit:contain; }
     }
 
-    /* GoDetail-style title (preview) */
-    .cc-h2.gd { font-family:'Inter', sans-serif; font-size:34px; font-weight:800; letter-spacing:-0.04em; line-height:120%; text-transform:capitalize; }
     /* ── Fleet: Dealership & Fleet examples carousel (edge-to-edge, green) ── */
     .fleet-ex { --card-w:clamp(270px, 22vw, 330px); background:#050505; padding:5.5rem 0 4.5rem; overflow:hidden; }
-    .fleet-ex-head { text-align:center; max-width:720px; margin:0 auto 4rem; padding:0 1.5rem; }
+    .fleet-ex-head { text-align:center; max-width:720px; margin:0 auto 1.6rem; padding:0 1.5rem; }
     .fleet-viewport { position:relative; width:100%; }
-    .fleet-mask { overflow:hidden; }
+    .fleet-mask { overflow:hidden; padding-top:44px; }
     .fleet-track { display:flex; gap:1.4rem; will-change:transform; }
-    .fleet-card { position:relative; flex:0 0 var(--card-w); padding-top:16px; }
-    .fleet-card::before { content:''; position:absolute; left:4%; right:4%; top:-10px; height:96px; background:radial-gradient(ellipse at center, rgba(53,204,90,.8), rgba(53,204,90,0) 70%); filter:blur(15px); z-index:0; pointer-events:none; }
+    .fleet-card { position:relative; flex:0 0 var(--card-w); padding-top:8px; }
+    .fleet-card::before { content:''; position:absolute; left:3%; right:3%; top:-14px; height:96px; background:radial-gradient(ellipse at center, rgba(53,204,90,.85), rgba(53,204,90,0) 72%); filter:blur(16px); z-index:0; pointer-events:none; }
     .fleet-card-inner { position:relative; z-index:1; height:100%; display:flex; flex-direction:column; background:#0F1012; border:1px solid rgba(255,255,255,.08); border-top:2.5px solid var(--green-line); border-radius:20px; overflow:hidden; box-shadow:0 0 0 1px rgba(53,204,90,.08); }
     .fleet-card-body { padding:1.3rem 1.4rem 1rem; }
     .fleet-card h3 { font-family:var(--font-d); font-size:1.35rem; font-weight:900; color:#fff; margin:0 0 .75rem; letter-spacing:-.02em; }
@@ -463,6 +461,15 @@
     /* ── Fleet: two-column FAQ ── */
     .faq-cols { display:grid; grid-template-columns:1fr 1fr; gap:0 1.5rem; max-width:1000px; margin:2.6rem auto 0; }
     @media (max-width:820px) { .faq-cols { grid-template-columns:1fr; gap:0; } }
+    /* ── Inter headers, site-wide ─────── */
+    h1, h2, h3, h4,
+    .h-display, .h-sec, .cc-title, .cc-h2, .sec-head-c h2, .cta-band h2,
+    .cx-headline, .cx-h, .cx-outro h3, .hero h1,
+    .pkg-name, .cc-pkg-name, .coat-name, .fleet-card h3, .guide-card h3,
+    .quiz-q, .quiz-rec, .cqb-q, .cqb-rec, .faq-q, .vs-name,
+    .seal-cta-text h3, .cc-benefit h3, .foot-inner h5 {
+      font-family: 'Inter', sans-serif;
+    }
   </style>
 </head>
 <body class="cc-page">
@@ -531,7 +538,7 @@
 <!-- ═══ DEALERSHIP & FLEET CLEANING (rotating examples) ═══ -->
 <section class="fleet-ex" id="services">
   <div class="fleet-ex-head">
-    <h2 class="cc-h2 gd">Dealership &amp; Fleet Cleaning</h2>
+    <h2 class="cc-h2">Dealership &amp; Fleet Cleaning</h2>
     <p class="cc-h2-sub">From trade-ins to loaner cars and full commercial fleets, we keep every vehicle showroom ready.</p>
   </div>
   <div class="fleet-viewport">
@@ -893,7 +900,7 @@
       setDots();
       if (idx >= N + LEAD) { setTimeout(function () { idx = LEAD; apply(false); }, 720); }
     }
-    function start() { timer = setInterval(next, 5000); }
+    function start() { timer = setInterval(next, 3000); }
     function restart() { clearInterval(timer); start(); }
 
     measure();
