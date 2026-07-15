@@ -22,6 +22,10 @@
       --gold-deep: #A87B27;
       --gold-soft: rgba(201, 151, 58, 0.10);
       --gold-line: rgba(201, 151, 58, 0.32);
+      --green: #35CC5A;
+      --green-deep: #23A847;
+      --green-line: rgba(53, 204, 90, 0.9);
+      --green-glow: rgba(53, 204, 90, 0.55);
       --sysx-red: #D81E05;
       --radius: 18px;
       --font-d: 'Archivo', sans-serif;
@@ -48,6 +52,10 @@
     .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; font-family:var(--font-d); font-weight:700; font-size:.82rem; letter-spacing:.02em; padding:.9rem 1.9rem; border-radius:999px; transition:transform .18s ease, box-shadow .18s ease, background .18s ease; white-space:nowrap; }
     .btn-gold { background:var(--gold); color:#141005; box-shadow:0 4px 16px rgba(201,151,58,.35); }
     .btn-gold:hover { background:#D6A648; transform:translateY(-2px); box-shadow:0 8px 24px rgba(201,151,58,.45); }
+    .btn-green { background:var(--green); color:#08210D; box-shadow:0 4px 16px rgba(53,204,90,.32); }
+    .btn-green:hover { background:var(--green-deep); transform:translateY(-2px); box-shadow:0 8px 24px rgba(53,204,90,.42); }
+    .btn-green-ghost { border:1.5px solid rgba(53,204,90,.5); color:var(--green); background:transparent; }
+    .btn-green-ghost:hover { border-color:var(--green); background:rgba(53,204,90,.1); transform:translateY(-2px); }
     .btn-dark { background:var(--ink); color:#fff; }
     .btn-dark:hover { background:#26282B; transform:translateY(-2px); }
     .btn-ghost { border:1.5px solid var(--line); color:var(--ink); background:#fff; }
@@ -397,35 +405,40 @@
       .cc-hero-vid { object-fit:contain; }
     }
 
-    /* ── Fleet: Dealership & Fleet examples carousel ── */
-    .fleet-ex { background:#050505; padding:5.5rem 1.5rem 4.5rem; overflow:hidden; }
-    .fleet-ex-head { text-align:center; max-width:720px; margin:0 auto 3rem; }
-    .fleet-viewport { position:relative; max-width:1180px; margin:0 auto; }
-    .fleet-viewport::before { content:''; position:absolute; top:50%; left:50%; width:1000px; height:540px; transform:translate(-50%,-50%); background:radial-gradient(ellipse at center, rgba(201,151,58,.24), rgba(201,151,58,0) 70%); filter:blur(72px); z-index:0; pointer-events:none; }
-    .fleet-mask { overflow:hidden; position:relative; z-index:1; }
-    .fleet-track { display:flex; gap:1.3rem; }
-    .fleet-card { flex:0 0 calc((100% - 2.6rem) / 3); background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; }
-    .fleet-card-body { padding:1.6rem 1.6rem 1.3rem; }
-    .fleet-card h3 { font-family:var(--font-d); font-size:1.25rem; font-weight:800; color:#fff; margin:0 0 1rem; letter-spacing:-.01em; }
-    .fleet-card ul { list-style:none; display:flex; flex-direction:column; gap:.55rem; margin:0 0 1.4rem; }
-    .fleet-card li { display:flex; gap:.55rem; font-size:.85rem; color:#C9CBCE; line-height:1.4; }
-    .fleet-card li::before { content:''; flex:0 0 17px; height:17px; margin-top:1px; border-radius:50%; background:rgba(201,151,58,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23C9973A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(201,151,58,.3); }
-    .fleet-card .btn { width:100%; }
-    .fleet-card-img { margin-top:auto; aspect-ratio:16/10; background:repeating-linear-gradient(45deg,#141416,#141416 16px,#1a1a1d 16px,#1a1a1d 32px); display:flex; align-items:center; justify-content:center; }
-    .fleet-card-img .ph { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#5B5E63; }
-    .fleet-dots { display:flex; justify-content:center; gap:.5rem; margin-top:2.4rem; position:relative; z-index:1; }
+    /* ── Fleet: Dealership & Fleet examples carousel (edge-to-edge, green) ── */
+    .fleet-ex { --card-w:440px; background:#050505; padding:5.5rem 0 4.5rem; overflow:hidden; }
+    .fleet-ex-head { text-align:center; max-width:720px; margin:0 auto 4rem; padding:0 1.5rem; }
+    .fleet-viewport { position:relative; width:100%; }
+    .fleet-mask { overflow:hidden; }
+    .fleet-track { display:flex; gap:1.4rem; will-change:transform; }
+    .fleet-card { position:relative; flex:0 0 var(--card-w); padding-top:16px; }
+    .fleet-card::before { content:''; position:absolute; left:4%; right:4%; top:-10px; height:96px; background:radial-gradient(ellipse at center, rgba(53,204,90,.8), rgba(53,204,90,0) 70%); filter:blur(15px); z-index:0; pointer-events:none; }
+    .fleet-card-inner { position:relative; z-index:1; height:100%; display:flex; flex-direction:column; background:#0F1012; border:1px solid rgba(255,255,255,.08); border-top:2.5px solid var(--green-line); border-radius:20px; overflow:hidden; box-shadow:0 0 0 1px rgba(53,204,90,.08); }
+    .fleet-card-body { padding:1.5rem 1.5rem 1.1rem; }
+    .fleet-card h3 { font-family:var(--font-d); font-size:1.7rem; font-weight:900; color:#fff; margin:0 0 .9rem; letter-spacing:-.02em; }
+    .fleet-card ul { list-style:none; display:flex; flex-direction:column; gap:.4rem; margin:0; }
+    .fleet-card li { display:flex; align-items:center; gap:.55rem; font-size:.92rem; font-weight:500; color:#EAECEE; line-height:1.3; }
+    .fleet-card li::before { content:''; flex:0 0 20px; height:20px; border-radius:50%; background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='11' height='11' viewBox='0 0 24 24' fill='none' stroke='%23083016' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/11px no-repeat; }
+    .fleet-card-img { position:relative; margin-top:auto; aspect-ratio:16/11; background:radial-gradient(120% 100% at 50% 100%, #1c1c1f 0%, #0d0d0f 70%); display:flex; align-items:center; justify-content:center; }
+    .fleet-card-img img { width:100%; height:100%; object-fit:cover; object-position:center bottom; }
+    .fleet-card-img .ph { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#4E5155; }
+    .fleet-card-quote { position:absolute; right:.9rem; bottom:.9rem; z-index:3; font-family:var(--font-d); font-weight:700; font-size:.82rem; color:#fff; padding:.6rem 1.15rem; border-radius:999px; background:rgba(12,14,16,.55); backdrop-filter:blur(12px) saturate(1.3); -webkit-backdrop-filter:blur(12px) saturate(1.3); border:1px solid rgba(255,255,255,.22); transition:background .18s, transform .18s; }
+    .fleet-card-quote:hover { background:rgba(53,204,90,.9); color:#08210D; transform:translateY(-2px); }
+    .fleet-dots { display:flex; justify-content:center; gap:.5rem; margin-top:2.6rem; }
     .fleet-dot { width:8px; height:8px; border-radius:999px; background:rgba(255,255,255,.2); transition:width .3s, background .3s; cursor:pointer; padding:0; }
-    .fleet-dot.on { width:24px; background:var(--gold); }
-    @media (max-width:900px) { .fleet-card { flex-basis:calc((100% - 1.3rem) / 2); } }
-    @media (max-width:600px) { .fleet-card { flex-basis:100%; } }
+    .fleet-dot.on { width:24px; background:var(--green); }
+    @media (max-width:900px) { .fleet-ex { --card-w:64vw; } }
+    @media (max-width:600px) { .fleet-ex { --card-w:82vw; } .fleet-card h3 { font-size:1.5rem; } }
 
-    /* ── Fleet: Experience section ── */
-    .fleet-exp { background:#050505; padding:1rem 1.5rem 5.5rem; }
-    .fleet-exp-wrap { max-width:800px; margin:0 auto; text-align:center; }
-    .fleet-exp-media { aspect-ratio:16/9; border-radius:20px; overflow:hidden; margin:2.4rem 0; background:repeating-linear-gradient(45deg,#141416,#141416 18px,#1a1a1d 18px,#1a1a1d 36px); display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.07); }
-    .fleet-exp-media .ph { font-family:var(--font-d); font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#5B5E63; }
-    .fleet-exp p { font-size:1rem; line-height:1.7; color:#B9BCC1; }
-    .fleet-exp-cta { display:flex; flex-wrap:wrap; gap:.8rem; justify-content:center; margin-top:2rem; }
+    /* ── Fleet: Experience section (image left, text right) ── */
+    .fleet-exp { background:#050505; padding:2rem 1.5rem 5.5rem; }
+    .fleet-exp-grid { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:center; }
+    .fleet-exp-media { aspect-ratio:4/3; border-radius:22px; overflow:hidden; background:repeating-linear-gradient(45deg,#141416,#141416 18px,#1a1a1d 18px,#1a1a1d 36px); display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.07); box-shadow:0 24px 60px rgba(0,0,0,.5); }
+    .fleet-exp-media .ph { font-family:var(--font-d); font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#4E5155; }
+    .fleet-exp-copy h2 { text-align:left; }
+    .fleet-exp-copy p { font-size:1rem; line-height:1.7; color:#B9BCC1; margin-top:1.3rem; }
+    .fleet-exp-cta { display:flex; flex-wrap:wrap; gap:.8rem; margin-top:2rem; }
+    @media (max-width:820px) { .fleet-exp-grid { grid-template-columns:1fr; gap:2.2rem; } .fleet-exp-copy h2 { text-align:center; } .fleet-exp-cta { justify-content:center; } }
 
     /* ── Fleet: Quote form ── */
     .fleet-quote { background:#050505; padding:5.5rem 1.5rem; }
@@ -436,7 +449,7 @@
     .ff-field.full { grid-column:1 / -1; }
     .ff-field label { font-family:var(--font-d); font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#8A8D92; }
     .ff-field input, .ff-field textarea { background:#08090A; border:1px solid rgba(255,255,255,.12); border-radius:11px; padding:.8rem .95rem; font-family:var(--font-b); font-size:.9rem; color:#fff; transition:border-color .18s; }
-    .ff-field input:focus, .ff-field textarea:focus { outline:none; border-color:var(--gold); }
+    .ff-field input:focus, .ff-field textarea:focus { outline:none; border-color:var(--green); }
     .ff-field textarea { resize:vertical; min-height:96px; }
     .ff-field input::placeholder, .ff-field textarea::placeholder { color:#5B5E63; }
     .fleet-form .btn { grid-column:1 / -1; margin-top:.4rem; }
@@ -480,7 +493,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         (970) 295-3577
       </a>
-      <a href="/booking.html" class="btn btn-gold" style="padding:.7rem 1.5rem;">Book Now</a>
+      <a href="/booking.html" class="btn btn-green" style="padding:.7rem 1.5rem;">Book Now</a>
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
@@ -496,7 +509,7 @@
   <a href="/fleet-cleaning.html" class="m-sub">Fleet Cleaning</a>
   <a href="/maintenance.html" class="m-link">Maintenance Plans</a>
   <a href="/#story" class="m-link">About Us</a>
-  <a href="/booking.html" class="btn btn-gold" style="margin-top:1.6rem;">Book Now</a>
+  <a href="/booking.html" class="btn btn-green" style="margin-top:1.6rem;">Book Now</a>
   <a href="tel:+19702953577" class="btn btn-ghost" style="margin-top:.7rem;">Call (970) 295-3577</a>
 </div>
 
@@ -507,8 +520,8 @@
     <h1 class="cc-title">Fleet Cleaning</h1>
     <p class="cc-sub">Wholesale service discounts for dealers &amp; fleets</p>
     <div class="cc-hero-cta" style="margin-top:1.8rem;">
-      <a href="/quote-builder.html" class="btn btn-gold">Get Free Quote &rarr;</a>
-      <a href="tel:+19702953577" class="btn cc-call">Call Now</a>
+      <a href="/quote-builder.html" class="btn btn-green">Get Free Quote &rarr;</a>
+      <a href="tel:+19702953577" class="btn btn-green-ghost">Call Now</a>
     </div>
   </div>
 </header>
@@ -522,31 +535,29 @@
   <div class="fleet-viewport">
     <div class="fleet-mask">
       <div class="fleet-track" id="fleetTrack">
-        <div class="fleet-card">
+        <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
             <h3>Reconditioning</h3>
             <ul>
-              <li>Full interior &amp; exterior reset</li>
-              <li>Restores trade-in value</li>
-              <li>Showroom-ready finish</li>
+              <li>Inside &amp; outside</li>
+              <li>Dedicated team</li>
+              <li>Wholesale prices</li>
             </ul>
-            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
-        </div>
-        <div class="fleet-card">
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+        </div></div>
+        <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
             <h3>Loaner Cars</h3>
             <ul>
               <li>Quick turnaround</li>
               <li>Fresh for every customer</li>
-              <li>Interior &amp; exterior clean</li>
+              <li>Inside &amp; outside</li>
             </ul>
-            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
-        </div>
-        <div class="fleet-card">
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+        </div></div>
+        <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
             <h3>Used Trade-Ins</h3>
             <ul>
@@ -554,23 +565,21 @@
               <li>Maximizes resale value</li>
               <li>Photo-ready detail</li>
             </ul>
-            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
-        </div>
-        <div class="fleet-card">
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+        </div></div>
+        <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
-            <h3>Government Fleet Maintenance</h3>
+            <h3>Government Fleet</h3>
             <ul>
-              <li>Scheduled routine service</li>
+              <li>Scheduled service</li>
               <li>High-volume capacity</li>
               <li>Consistent standards</li>
             </ul>
-            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
-        </div>
-        <div class="fleet-card">
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+        </div></div>
+        <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
             <h3>Exterior Wash</h3>
             <ul>
@@ -578,22 +587,20 @@
               <li>Wheels, tires &amp; trim</li>
               <li>Spot-free finish</li>
             </ul>
-            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
-        </div>
-        <div class="fleet-card">
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+        </div></div>
+        <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
-            <h3>Semi Deep Cleaning</h3>
+            <h3>Semi Deep Clean</h3>
             <ul>
-              <li>Interior vacuum &amp; wipe-down</li>
+              <li>Interior vacuum &amp; wipe</li>
               <li>Exterior hand wash</li>
-              <li>Perfect between full details</li>
+              <li>Between full details</li>
             </ul>
-            <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span></div>
-        </div>
+          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+        </div></div>
       </div>
     </div>
   </div>
@@ -602,13 +609,15 @@
 
 <!-- ═══ EXPERIENCE THE BEST FLEET DETAILING ═══ -->
 <section class="fleet-exp">
-  <div class="fleet-exp-wrap">
-    <h2 class="cc-h2">Experience the Best Fleet Detailing</h2>
+  <div class="fleet-exp-grid">
     <div class="fleet-exp-media"><span class="ph">Image coming soon</span></div>
-    <p>Shine for a Cause provides high-efficiency fleet detailing services across Northern Colorado, designed specifically for dealerships and commercial vehicle operations. We go beyond a simple wash. Our process restores, cleans, and maintains every vehicle to showroom-ready condition, helping you present inventory at its absolute best. From exterior decontamination and paint-safe cleaning to deep interior detailing, we ensure every unit is consistently spotless, protected, and ready for sale or delivery.</p>
-    <div class="fleet-exp-cta">
-      <a href="#fleet-quote" class="btn btn-gold">Get Free Quote &rarr;</a>
-      <a href="tel:+19702953577" class="btn btn-ghost-d">(970) 295-3577</a>
+    <div class="fleet-exp-copy">
+      <h2 class="cc-h2">Experience the Best Fleet Detailing</h2>
+      <p>Shine for a Cause provides high-efficiency fleet detailing services across Northern Colorado, designed specifically for dealerships and commercial vehicle operations. We go beyond a simple wash. Our process restores, cleans, and maintains every vehicle to showroom-ready condition, helping you present inventory at its absolute best. From exterior decontamination and paint-safe cleaning to deep interior detailing, we ensure every unit is consistently spotless, protected, and ready for sale or delivery.</p>
+      <div class="fleet-exp-cta">
+        <a href="#fleet-quote" class="btn btn-green">Get Free Quote &rarr;</a>
+        <a href="tel:+19702953577" class="btn btn-green-ghost">(970) 295-3577</a>
+      </div>
     </div>
   </div>
 </section>
@@ -626,7 +635,7 @@
         <div class="ff-field"><label>Phone</label><input type="tel" name="phone" placeholder="(970) 000-0000" required /></div>
         <div class="ff-field full"><label>Fleet Size / Vehicles</label><input type="text" name="fleet" placeholder="e.g. 15 vehicles, mixed cars &amp; trucks" /></div>
         <div class="ff-field full"><label>How can we help?</label><textarea name="message" placeholder="Tell us what you need..."></textarea></div>
-        <button type="submit" class="btn btn-gold">Request My Quote &rarr;</button>
+        <button type="submit" class="btn btn-green">Request My Quote &rarr;</button>
         <p class="fleet-form-note">We'll never share your info. A portion of every booking supports Northern Colorado recovery programs.</p>
       </form>
       <div class="fleet-form-success" id="fleetSuccess">Thanks! Your request is ready to send from your email app. We'll be in touch shortly.</div>
@@ -832,38 +841,47 @@
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
 </script>
 <script>
-  // Fleet examples carousel: auto-rotates one card to the right every 5s (seamless loop)
+  // Fleet examples carousel: centered peek, auto-rotates one card right every 5s (seamless infinite loop)
   (function () {
     var track = document.getElementById('fleetTrack');
     var dotsWrap = document.getElementById('fleetDots');
     if (!track) return;
     var originals = Array.prototype.slice.call(track.children);
-    var COUNT = originals.length;
-    // clone the first 3 so the loop-around is seamless
-    for (var i = 0; i < 3; i++) track.appendChild(originals[i].cloneNode(true));
-    // build dots
-    for (var d = 0; d < COUNT; d++) {
+    var N = originals.length;
+    var LEAD = 2, TRAIL = 2;
+    // prepend clones of the last LEAD cards and append clones of the first TRAIL cards
+    var lead = [], trail = [];
+    for (var i = N - LEAD; i < N; i++) lead.push(originals[i].cloneNode(true));
+    for (var j = 0; j < TRAIL; j++) trail.push(originals[j].cloneNode(true));
+    track.innerHTML = '';
+    lead.forEach(function (c) { track.appendChild(c); });
+    originals.forEach(function (o) { track.appendChild(o); });
+    trail.forEach(function (c) { track.appendChild(c); });
+    // dots
+    for (var d = 0; d < N; d++) {
       var b = document.createElement('button');
       b.className = 'fleet-dot' + (d === 0 ? ' on' : '');
       b.setAttribute('aria-label', 'Go to slide ' + (d + 1));
-      (function (n) { b.addEventListener('click', function () { goTo(n); restart(); }); })(d);
+      (function (n) { b.addEventListener('click', function () { goTo(LEAD + n); restart(); }); })(d);
       dotsWrap.appendChild(b);
     }
     var dots = Array.prototype.slice.call(dotsWrap.children);
-    var idx = 0, step = 0, timer = null;
+    var idx = LEAD, cardW = 0, step = 0, vpW = 0, timer = null;
 
     function measure() {
       var c = track.children[0];
       var gap = parseFloat(getComputedStyle(track).gap) || 0;
-      step = c.getBoundingClientRect().width + gap;
+      cardW = c.getBoundingClientRect().width;
+      step = cardW + gap;
+      vpW = track.parentElement.getBoundingClientRect().width;
       apply(false);
     }
     function apply(anim) {
       track.style.transition = anim ? 'transform .7s cubic-bezier(.4,0,.2,1)' : 'none';
-      track.style.transform = 'translateX(' + (-idx * step) + 'px)';
+      track.style.transform = 'translateX(' + ((vpW - cardW) / 2 - idx * step) + 'px)';
     }
     function setDots() {
-      var active = ((idx % COUNT) + COUNT) % COUNT;
+      var active = (((idx - LEAD) % N) + N) % N;
       dots.forEach(function (dot, n) { dot.classList.toggle('on', n === active); });
     }
     function goTo(n) { idx = n; apply(true); setDots(); }
@@ -871,9 +889,7 @@
       idx++;
       apply(true);
       setDots();
-      if (idx >= COUNT) {
-        setTimeout(function () { idx = 0; apply(false); }, 720);
-      }
+      if (idx >= N + LEAD) { setTimeout(function () { idx = LEAD; apply(false); }, 720); }
     }
     function start() { timer = setInterval(next, 5000); }
     function restart() { clearInterval(timer); start(); }
