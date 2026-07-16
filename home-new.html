@@ -184,9 +184,11 @@
     /* ── Packages ─────────────────────── */
     .pkg-sec { background:var(--bg); }
     .pkg-head { text-align:center; max-width:640px; margin:0 auto 2.6rem; }
-    .tabs { display:flex; justify-content:center; gap:.4rem; background:#fff; border:1px solid var(--line); border-radius:999px; padding:.35rem; width:max-content; margin:0 auto 3rem; box-shadow:var(--shadow-card); }
-    .tab { font-family:var(--font-d); font-size:.8rem; font-weight:700; padding:.7rem 1.7rem; border-radius:999px; color:var(--muted); transition:.18s; }
-    .tab.active { background:var(--gold); color:#141005; }
+    .tabs { display:flex; justify-content:center; flex-wrap:wrap; gap:.4rem; background:var(--ink); border:1px solid var(--ink); border-radius:16px; padding:.4rem; width:max-content; max-width:100%; margin:0 auto 2.4rem; box-shadow:var(--shadow-card); }
+    .tab { font-family:var(--font-d); font-size:.8rem; font-weight:700; padding:.7rem 1.5rem; border-radius:11px; color:#fff; transition:background .18s ease, box-shadow .18s ease; }
+    .tab:hover { background:rgba(255,255,255,.08); }
+    .tab.active { background:rgba(201,151,58,.28); color:#fff; box-shadow:0 0 0 1px rgba(201,151,58,.6), 0 0 16px rgba(201,151,58,.5); animation:tabGlow 1.9s ease-in-out infinite; }
+    @keyframes tabGlow { 0%,100% { box-shadow:0 0 0 1px rgba(201,151,58,.5), 0 0 9px rgba(201,151,58,.32); } 50% { box-shadow:0 0 0 1px rgba(201,151,58,.85), 0 0 22px rgba(201,151,58,.68); } }
     .pkg-panels { position:relative; }
     .pkg-panel { display:none; }
     .pkg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:start; animation:panelIn .35s ease; }
@@ -570,19 +572,81 @@
 
 <!-- ═══ PACKAGES ═══ -->
 <section class="pkg-sec" id="packages">
-  <div class="wrap">
+  <div class="wrap" style="padding-top:2rem;">
     <div class="pkg-head">
-      <h2 class="h-sec" style="margin:.9rem 0 .9rem;">Choose Your Detail Package</h2>
-      <p class="sub">Three levels of detail. Pick the one that fits your vehicle and your goals. Every service is 100% mobile, we come to you.</p>
+      <h2 class="h-sec" style="margin:0 0 1.4rem;font-size:clamp(1.55rem,2.7vw,2.25rem);">Choose Your Detail Package</h2>
     </div>
 
     <div class="tabs" id="pkgTabs">
+      <button class="tab" data-panel="ceramic">Ceramic Coatings</button>
       <button class="tab active" data-panel="full">Full Detail</button>
       <button class="tab" data-panel="ext">Exterior Only</button>
       <button class="tab" data-panel="int">Interior Only</button>
     </div>
 
     <div class="pkg-panels">
+      <div class="pkg-panel" id="panel-ceramic">
+        <div class="pkg-card rv">
+          <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">2 Year</div></div>
+          <div class="pkg-card-body">
+            <div class="pkg-name">2 Year Shield</div>
+            <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$499</span></div>
+            <div class="pkg-inc">
+              <div>
+                <div class="pkg-inc-head">What's Included</div>
+                <ul class="pkg-list">
+                  <li>9H+ ceramic coating</li>
+                  <li>Hydrophobic, self-cleaning finish</li>
+                  <li>UV and chemical protection</li>
+                  <li>Enhancement polish prep</li>
+                  <li>2-year warranty</li>
+                </ul>
+              </div>
+            </div>
+            <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
+          </div>
+        </div>
+        <div class="pkg-card rv">
+          <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">6 Year</div></div>
+          <div class="pkg-card-body">
+            <div class="pkg-name">6 Year Armor</div>
+            <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$650</span></div>
+            <div class="pkg-inc">
+              <div>
+                <div class="pkg-inc-head">What's Included</div>
+                <ul class="pkg-list">
+                  <li>Thicker multi-layer coating</li>
+                  <li>Stronger chemical resistance</li>
+                  <li>Hydrophobic, self-cleaning finish</li>
+                  <li>Enhancement polish prep</li>
+                  <li>6-year warranty</li>
+                </ul>
+              </div>
+            </div>
+            <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
+          </div>
+        </div>
+        <div class="pkg-card rv">
+          <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Lifetime</div></div>
+          <div class="pkg-card-body">
+            <div class="pkg-name">Lifetime Diamond</div>
+            <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$700</span></div>
+            <div class="pkg-inc">
+              <div>
+                <div class="pkg-inc-head">What's Included</div>
+                <ul class="pkg-list">
+                  <li>Maximum durability and thickness</li>
+                  <li>Strongest chemical resistance</li>
+                  <li>Free first annual inspection</li>
+                  <li>Enhancement polish prep</li>
+                  <li>Lifetime warranty</li>
+                </ul>
+              </div>
+            </div>
+            <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
+          </div>
+        </div>
+      </div>
             <div class="pkg-panel active" id="panel-full">
       <div class="pkg-card rv">
         <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-maintenance.jpg" alt="Full Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
@@ -1164,6 +1228,12 @@
     const N = originals.length;
     // clone first two so the loop wraps seamlessly
     originals.slice(0, 2).forEach(c => track.appendChild(c.cloneNode(true)));
+    // only show "Read more" when the review text is actually clipped
+    track.querySelectorAll('.gr-card').forEach(card => {
+      const txt = card.querySelector('.gr-text');
+      const btn = card.querySelector('.gr-readmore');
+      if (txt && btn && txt.scrollHeight - txt.clientHeight < 4) btn.style.display = 'none';
+    });
     const GAP = 20;
     let idx = 0, timer = null;
     const stepPx = () => track.children[0].getBoundingClientRect().width + GAP;
