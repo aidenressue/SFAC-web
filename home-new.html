@@ -153,6 +153,30 @@
     .story-media img, .story-media video { width:100%; height:100%; object-fit:cover; display:block; }
     .story-copy p { margin-bottom:1.1rem; }
     .story-heart { display:inline-flex; align-items:center; gap:.55rem; background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:999px; padding:.5rem 1.1rem; font-size:.78rem; font-weight:700; color:var(--gold-deep); margin-top:.6rem; }
+    .story-title { font-size:clamp(1.5rem,2.7vw,2.2rem) !important; }
+    /* Google reviews widget */
+    .greviews { margin-top:3.2rem; }
+    .gr-head { display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:.7rem; margin-bottom:1.6rem; }
+    .gr-excellent { font-family:var(--font-d); font-weight:800; font-size:1.15rem; color:var(--ink); letter-spacing:-.01em; }
+    .gr-stars { color:#FBBC05; font-size:1.25rem; letter-spacing:.06em; }
+    .gr-rating { font-size:.95rem; color:var(--ink-2); }
+    .gr-rating strong { color:var(--ink); font-weight:800; }
+    .gr-google { display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-d); font-weight:700; font-size:1rem; color:var(--ink); }
+    .gr-viewport { overflow:hidden; }
+    .gr-track { display:grid; grid-auto-flow:column; grid-auto-columns:calc((100% - 20px)/2); gap:20px; transition:transform .7s cubic-bezier(.4,0,.2,1); }
+    .gr-card { background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-card); padding:1.3rem 1.4rem; display:flex; flex-direction:column; }
+    .gr-top { display:flex; align-items:center; gap:.7rem; }
+    .gr-avatar { width:42px; height:42px; flex-shrink:0; border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-family:var(--font-d); font-weight:700; font-size:1.15rem; }
+    .gr-who { display:flex; flex-direction:column; line-height:1.25; flex:1; min-width:0; }
+    .gr-name { font-family:var(--font-d); font-weight:700; font-size:.95rem; color:var(--ink); }
+    .gr-date { font-size:.78rem; color:var(--ink-3, #9a9a9a); }
+    .gr-gicon { width:20px; height:20px; flex-shrink:0; }
+    .gr-cardstars { color:#FBBC05; font-size:1.02rem; letter-spacing:.05em; margin:.7rem 0 .5rem; }
+    .gr-text { font-size:.9rem; line-height:1.6; color:var(--ink-2); margin:0; overflow:hidden; display:-webkit-box; -webkit-box-orient:vertical; -webkit-line-clamp:4; }
+    .gr-card.open .gr-text { -webkit-line-clamp:unset; display:block; }
+    .gr-readmore { align-self:flex-start; margin-top:.45rem; background:none; border:none; padding:0; cursor:pointer; font-family:var(--font-b); font-size:.82rem; font-weight:600; color:var(--gold-deep); }
+    .gr-readmore:hover { text-decoration:underline; }
+    .gr-note { display:flex; align-items:center; justify-content:center; gap:.4rem; margin-top:1.3rem; font-size:.78rem; color:var(--ink-3, #9a9a9a); }
     .gallery-strip { display:flex; gap:1rem; overflow-x:auto; padding:0 2rem 1.2rem; max-width:1280px; margin:0 auto; scroll-snap-type:x mandatory; scrollbar-width:thin; scrollbar-color:var(--gold) var(--line); }
     .gallery-strip img { height:230px; width:auto; border-radius:14px; scroll-snap-align:start; flex-shrink:0; object-fit:cover; aspect-ratio:4/3; transition:transform .25s; }
     .gallery-strip img:hover { transform:scale(1.025); }
@@ -502,20 +526,44 @@
 
 <!-- ═══ STORY ═══ -->
 <section id="story">
-  <div class="wrap" style="padding-top:1.5rem;padding-bottom:2.5rem;">
+  <div class="wrap story-wrap" style="max-width:1139px;padding-top:1.5rem;padding-bottom:3.5rem;">
     <div class="story-grid">
       <div class="story-copy rv">
-        <h2 class="h-sec" style="margin:0 0 1.4rem;">Detailing With a Purpose</h2>
+        <h2 class="h-sec story-title" style="margin:0 0 1.4rem;">Detailing With a Purpose</h2>
         <p class="sub">Shine for a Cause is a fully mobile detailing company built in Fort Collins. We show up to your driveway or office with everything we need: water, power, and professional-grade products, then leave your vehicle looking better than the day you bought it.</p>
         <p class="sub">But the shine is only half the story. A portion of every single booking is donated to local recovery organizations in Northern Colorado: AA and NA groups, the SAFE Foundation, and direct sponsorships of individuals working through rehab programs. When your car shines, so does the community.</p>
-        <div class="story-heart">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="#A87B27"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
-          Every booking gives back
-        </div>
       </div>
       <div class="story-media rv">
-        <video src="web.screenshots/detailing-rangerover.mp4" autoplay muted loop playsinline poster="web.screenshots/RangeRover.jpg"></video>
+        <video src="/brand_assets/story-detailing.mp4" autoplay muted loop playsinline poster="/brand_assets/story-detailing-poster.jpg"></video>
       </div>
+    </div>
+
+    <!-- ═══ GOOGLE REVIEWS ═══ -->
+    <div class="greviews rv">
+      <div class="gr-head">
+        <span class="gr-excellent">Excellent</span>
+        <span class="gr-stars" aria-hidden="true">★★★★★</span>
+        <span class="gr-rating"><strong>5.0</strong> rating</span>
+        <span class="gr-google">
+          <svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+          <span>Google</span>
+        </span>
+      </div>
+      <div class="gr-viewport">
+        <div class="gr-track" id="grTrack">
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#1A73E8">M</span><div class="gr-who"><span class="gr-name">Marcus Reyes</span><span class="gr-date">2 weeks ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">These guys came right to my driveway and made my truck look better than the day I drove it off the lot. The paint was covered in water spots and swirls, and now it looks glass smooth. Super professional and easy to work with, I have already booked them again for next month.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#E8710A">J</span><div class="gr-who"><span class="gr-name">Jenna Whitfield</span><span class="gr-date">1 month ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">Booked the full interior and exterior detail and I am blown away. Every cup holder, vent, and seat crease was spotless. It also feels great knowing part of what I paid goes back to recovery programs here in Fort Collins.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#34A853">T</span><div class="gr-who"><span class="gr-name">Tyler Brooks</span><span class="gr-date">3 weeks ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">On time, fair price, and the results speak for themselves. My black sedan finally looks black again instead of hazy gray. Highly recommend for anyone in Northern Colorado.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#9334E6">P</span><div class="gr-who"><span class="gr-name">Priya Nair</span><span class="gr-date">2 months ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">I had a ceramic coating done and the water just sheets right off now. Washing takes half the time and the gloss is unreal. The team explained the whole process and the aftercare clearly. Worth every penny.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#D93025">D</span><div class="gr-who"><span class="gr-name">Derek Olsen</span><span class="gr-date">1 week ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">Fantastic mobile service. They set up in my office parking lot and had my SUV looking showroom fresh by the time I finished work. Zero hassle on my end.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#12B5CB">A</span><div class="gr-who"><span class="gr-name">Amanda Cortez</span><span class="gr-date">1 month ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">Detailed my minivan after a long road trip with the kids. Crumbs, spills, the works. It came back looking and smelling brand new. So thankful for a company that also gives back to the community.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#F439A0">K</span><div class="gr-who"><span class="gr-name">Kevin Zhang</span><span class="gr-date">3 months ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">Paint correction on my older coupe turned out incredible. Years of swirl marks gone. The before and after honestly looked like two different cars.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#F9AB00">S</span><div class="gr-who"><span class="gr-name">Sarah Lindqvist</span><span class="gr-date">2 weeks ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">Reliable, friendly, and detail obsessed in the best way. I have used them three times now and the quality is always consistent. Cannot recommend enough.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#7B61FF">B</span><div class="gr-who"><span class="gr-name">Brandon Mercer</span><span class="gr-date">1 month ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">Great communication from booking to finish. They texted when they were on the way and walked me through everything after. My wife thought I bought a new car.</p><button class="gr-readmore" type="button">Read more</button></article>
+          <article class="gr-card"><div class="gr-top"><span class="gr-avatar" style="background:#00897B">N</span><div class="gr-who"><span class="gr-name">Nicole Franklin</span><span class="gr-date">4 days ago</span></div><svg class="gr-gicon" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></div><span class="gr-cardstars" aria-hidden="true">★★★★★</span><p class="gr-text">Absolutely thrilled with my detail. The attention to detail is next level and the customer service is warm and genuine. Supporting a local business that gives back makes it even better.</p><button class="gr-readmore" type="button">Read more</button></article>
+        </div>
+      </div>
+      <div class="gr-note"><svg viewBox="0 0 48 48" width="13" height="13" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg> Posted on Google</div>
     </div>
   </div>
 </section>
@@ -1107,6 +1155,45 @@
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
   }, { threshold: 0.12 });
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+  // Google reviews carousel + read more
+  (function () {
+    const track = document.getElementById('grTrack');
+    if (!track) return;
+    const originals = Array.from(track.children);
+    const N = originals.length;
+    // clone first two so the loop wraps seamlessly
+    originals.slice(0, 2).forEach(c => track.appendChild(c.cloneNode(true)));
+    const GAP = 20;
+    let idx = 0, timer = null;
+    const stepPx = () => track.children[0].getBoundingClientRect().width + GAP;
+    function go(animate) {
+      track.style.transition = animate ? '' : 'none';
+      track.style.transform = 'translateX(' + (-idx * stepPx()) + 'px)';
+    }
+    function next() {
+      idx++;
+      go(true);
+      if (idx === N) {
+        setTimeout(() => { idx = 0; go(false); }, 720);
+      }
+    }
+    function start() { stop(); timer = setInterval(next, 3500); }
+    function stop() { if (timer) clearInterval(timer); timer = null; }
+    // read more (event delegation, works on clones too)
+    track.addEventListener('click', function (e) {
+      const btn = e.target.closest('.gr-readmore');
+      if (!btn) return;
+      const card = btn.closest('.gr-card');
+      const open = card.classList.toggle('open');
+      btn.textContent = open ? 'Read less' : 'Read more';
+    });
+    const wrap = track.closest('.greviews');
+    wrap.addEventListener('mouseenter', stop);
+    wrap.addEventListener('mouseleave', start);
+    window.addEventListener('resize', () => go(false), { passive: true });
+    start();
+  })();
 
   // Count-up stats
   const statIO = new IntersectionObserver(entries => {
