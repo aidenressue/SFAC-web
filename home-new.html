@@ -376,77 +376,64 @@
     .qc { background:var(--bg-soft); }
     .qc .qc-head { text-align:center; margin-bottom:1.8rem; }
     .qc .qc-head p { color:var(--ink-2); font-size:1.02rem; max-width:540px; margin:.7rem auto 0; line-height:1.6; }
-    .qc-tabs { display:inline-flex; gap:.35rem; background:#fff; border:1px solid var(--line); border-radius:16px; padding:.35rem; box-shadow:var(--shadow-card); margin:0 auto 1.8rem; }
-    .qc-tab-wrap { text-align:center; }
-    .qc-tab { font-family:var(--font-d); font-size:1rem; font-weight:700; color:var(--ink-2); padding:.72rem 1.7rem; border-radius:12px; transition:background .18s, color .18s, box-shadow .18s; }
-    .qc-tab:hover { background:rgba(0,0,0,.03); }
-    .qc-tab.active { background:var(--gold); color:#fff; box-shadow:0 4px 14px rgba(201,151,58,.4); }
-    .qc-config { display:grid; grid-template-columns:1.08fr .92fr; gap:2.2rem; align-items:start; }
-    /* Preview */
-    .qc-preview { position:sticky; top:100px; border-radius:22px; overflow:hidden; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-lift); }
-    .qc-media { position:relative; aspect-ratio:4/3; overflow:hidden; background:#ECEAE4; }
+    .qc-config { display:grid; grid-template-columns:0.82fr 1.18fr; gap:2.2rem; align-items:start; max-width:1060px; margin:0 auto; }
+    /* Preview (compact) */
+    .qc-preview { position:sticky; top:100px; border-radius:18px; overflow:hidden; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .qc-media { position:relative; aspect-ratio:5/4; max-height:290px; overflow:hidden; background:#ECEAE4; }
     .qc-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-    .qc-scrim { position:absolute; inset:0; background:linear-gradient(to top, rgba(12,12,13,.82) 0%, rgba(12,12,13,.30) 42%, rgba(12,12,13,0) 68%); }
-    .qc-cap { position:absolute; left:0; right:0; bottom:0; padding:1.6rem 1.7rem; color:#fff; display:flex; justify-content:space-between; align-items:flex-end; gap:1rem; }
-    .qc-cap-title { font-family:var(--font-d); font-weight:800; font-size:1.35rem; letter-spacing:-.02em; line-height:1.15; }
-    .qc-cap-sub { font-size:.82rem; color:rgba(255,255,255,.78); margin-top:.25rem; }
-    .qc-price-label { font-family:var(--font-d); font-size:.56rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.7); text-align:right; }
-    .qc-price { font-family:var(--font-d); font-weight:900; font-size:2.5rem; letter-spacing:-.03em; color:#F0C06A; line-height:1; text-align:right; }
-    .qc-foot { display:flex; align-items:center; gap:.7rem; padding:.85rem 1.4rem; border-top:1px solid var(--line); background:var(--bg-warm); }
-    .qc-foot span { font-size:.72rem; color:var(--muted); line-height:1.45; }
-    /* Questions */
-    .qc-panel { display:flex; flex-direction:column; gap:1.7rem; }
-    .qc-glabel { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); display:flex; align-items:center; gap:.6rem; margin-bottom:.75rem; }
+    .qc-scrim { position:absolute; inset:0; background:linear-gradient(to top, rgba(12,12,13,.85) 0%, rgba(12,12,13,.28) 46%, rgba(12,12,13,0) 72%); }
+    .qc-cap { position:absolute; left:0; right:0; bottom:0; padding:1.1rem 1.2rem; color:#fff; }
+    .qc-cap-title { font-family:var(--font-d); font-weight:800; font-size:1.1rem; letter-spacing:-.02em; line-height:1.15; }
+    .qc-cap-sub { font-size:.76rem; color:rgba(255,255,255,.8); margin-top:.2rem; }
+    .qc-price-wrap { display:flex; align-items:baseline; justify-content:space-between; margin-top:.65rem; }
+    .qc-price-label { font-family:var(--font-d); font-size:.54rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.72); }
+    .qc-price { font-family:var(--font-d); font-weight:900; font-size:1.85rem; letter-spacing:-.03em; color:#F0C06A; line-height:1; }
+    .qc-foot { display:flex; align-items:center; gap:.6rem; padding:.7rem 1.1rem; border-top:1px solid var(--line); background:var(--bg-warm); }
+    .qc-foot span { font-size:.68rem; color:var(--muted); line-height:1.4; }
+    /* Progress */
+    .qc-progress { display:flex; gap:.4rem; margin-bottom:1.4rem; }
+    .qc-progress span { height:4px; flex:1; border-radius:999px; background:var(--line); transition:background .3s; }
+    .qc-progress span.on { background:var(--gold); }
+    /* Steps (progressive reveal) */
+    .qc-step { display:none; margin-bottom:1.5rem; }
+    .qc-step.show { display:block; animation:qcIn .32s ease; }
+    @keyframes qcIn { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:none; } }
+    .qc-glabel { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); display:flex; align-items:center; gap:.6rem; margin-bottom:.8rem; }
     .qc-glabel .qc-num { width:22px; height:22px; border-radius:50%; background:var(--gold-soft); border:1px solid var(--gold-line); color:var(--gold-deep); font-size:.68rem; display:flex; align-items:center; justify-content:center; }
     .qc-hint { font-size:.78rem; color:var(--muted); font-weight:400; letter-spacing:0; text-transform:none; font-family:var(--font-b); margin-left:auto; }
     .qc-grid { display:grid; gap:.65rem; }
     .qc-grid.c2 { grid-template-columns:1fr 1fr; }
-    .qc-grid.c3 { grid-template-columns:1fr 1fr 1fr; }
     .qc-opt { position:relative; background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:1rem 1.1rem; cursor:pointer; transition:border-color .16s, background .16s, box-shadow .16s; }
     .qc-opt:hover { border-color:var(--gold-line); }
     .qc-opt.selected { border-color:var(--gold); background:var(--gold-soft); box-shadow:0 4px 16px rgba(201,151,58,.14); }
-    .qc-check { position:absolute; top:.85rem; right:.85rem; width:18px; height:18px; border-radius:50%; border:1.5px solid var(--line); background:#fff; transition:all .16s; }
+    .qc-check { position:absolute; top:.8rem; right:.8rem; width:18px; height:18px; border-radius:50%; border:1.5px solid var(--line); background:#fff; transition:all .16s; }
     .qc-opt.selected .qc-check { border-color:var(--gold); background:var(--gold); }
     .qc-opt.selected .qc-check::after { content:''; position:absolute; top:4px; left:4px; width:8px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); }
     .qc-check.sq { border-radius:5px; }
-    .qc-name { font-family:var(--font-d); font-weight:800; font-size:.98rem; color:var(--ink); padding-right:1.4rem; }
-    .qc-desc { font-size:.78rem; color:var(--ink-2); line-height:1.5; margin-top:.3rem; }
+    .qc-name { font-family:var(--font-d); font-weight:800; font-size:.98rem; color:var(--ink); }
+    .qc-opt:not(.row) .qc-name { padding-right:1.4rem; }
+    .qc-desc { font-size:.76rem; color:var(--ink-2); line-height:1.45; margin-top:.25rem; }
     .qc-addprice { display:inline-block; font-family:var(--font-d); font-weight:800; font-size:.8rem; color:var(--gold-deep); margin-top:.45rem; background:var(--gold-soft); border:1px solid var(--gold-line); padding:.12rem .5rem; border-radius:999px; }
-    .qc-coat { position:relative; background:#fff; border:1.5px solid var(--line); border-radius:16px; padding:1.15rem 1.25rem; cursor:pointer; transition:border-color .16s, background .16s, box-shadow .16s; }
-    .qc-coat:hover { border-color:var(--gold-line); }
-    .qc-coat.selected { border-color:var(--gold); background:var(--gold-soft); box-shadow:0 6px 20px rgba(201,151,58,.15); }
-    .qc-coat-head { display:flex; justify-content:space-between; align-items:flex-start; gap:.8rem; }
-    .qc-coat-name { font-family:var(--font-d); font-weight:800; font-size:1.05rem; letter-spacing:-.01em; }
-    .qc-coat-tag { font-size:.7rem; color:var(--muted); margin-top:.12rem; }
-    .qc-badge { flex-shrink:0; font-family:var(--font-d); font-size:.58rem; font-weight:800; letter-spacing:.08em; text-transform:uppercase; padding:.28rem .6rem; border-radius:999px; white-space:nowrap; }
-    .qc-badge.b2 { background:rgba(139,135,130,.12); border:1px solid var(--line); color:var(--muted); }
-    .qc-badge.b6 { background:var(--gold-soft); border:1px solid var(--gold-line); color:var(--gold-deep); }
-    .qc-badge.blife { background:var(--gold); color:#fff; }
-    .qc-incl { margin-top:.75rem; display:grid; gap:.35rem; }
-    .qc-incl li { font-size:.76rem; color:var(--ink-2); line-height:1.4; padding-left:1.15rem; position:relative; }
-    .qc-incl li::before { content:''; position:absolute; left:0; top:.32rem; width:12px; height:12px; border-radius:50%; background:var(--gold-soft) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8' viewBox='0 0 24 24' fill='none' stroke='%23A87B27' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/8px no-repeat; }
-    .qc-callout { display:flex; gap:.85rem; align-items:flex-start; border-radius:14px; padding:.95rem 1.1rem; }
-    .qc-callout.gold { background:var(--gold-soft); border:1px solid var(--gold-line); }
-    .qc-callout.green { background:rgba(34,163,74,.07); border:1px solid rgba(34,163,74,.28); }
-    .qc-callout svg { flex-shrink:0; margin-top:.1rem; }
-    .qc-callout-title { font-family:var(--font-d); font-size:.78rem; font-weight:700; color:var(--ink); margin-bottom:.2rem; display:flex; align-items:center; gap:.5rem; flex-wrap:wrap; }
-    .qc-callout-body { font-size:.75rem; color:var(--ink-2); line-height:1.55; }
-    .qc-tag-limited { font-family:var(--font-d); font-size:.5rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; background:#22A34A; color:#fff; padding:.16rem .45rem; border-radius:999px; }
-    .qc-est { background:#fff; border:1px solid var(--line); border-radius:16px; padding:1.2rem 1.3rem; box-shadow:var(--shadow-card); }
-    .qc-est-row { display:flex; justify-content:space-between; align-items:center; padding:.45rem 0; border-bottom:1px solid var(--line); }
+    /* Rows with thumbnails (package + tier) */
+    .qc-opt.row { display:flex; align-items:center; gap:.9rem; padding:.7rem .85rem; }
+    .qc-thumb { width:82px; height:64px; border-radius:10px; object-fit:cover; flex-shrink:0; background:#ECEAE4; }
+    .qc-opt.row .qc-body { flex:1; padding-right:1.3rem; }
+    .qc-optprice { font-family:var(--font-d); font-weight:800; font-size:.92rem; color:var(--gold-deep); margin-top:.28rem; }
+    .qc-optprice small { font-weight:600; font-size:.64rem; color:var(--muted); letter-spacing:.04em; text-transform:uppercase; }
+    /* Estimate + finish (revealed at end) */
+    .qc-tail { display:none; }
+    .qc-tail.show { display:block; animation:qcIn .32s ease; }
+    .qc-est { background:#fff; border:1px solid var(--line); border-radius:16px; padding:1.2rem 1.3rem; box-shadow:var(--shadow-card); margin-bottom:1.1rem; }
+    .qc-est-row { display:flex; justify-content:space-between; align-items:center; padding:.45rem 0; border-bottom:1px solid var(--line); gap:1rem; }
     .qc-est-row:last-of-type { border-bottom:none; }
     .qc-est-label { font-size:.78rem; color:var(--muted); }
-    .qc-est-val { font-family:var(--font-d); font-size:.82rem; font-weight:700; color:var(--ink); }
-    .qc-est-val.green { color:#22A34A; }
+    .qc-est-val { font-family:var(--font-d); font-size:.82rem; font-weight:700; color:var(--ink); text-align:right; }
     .qc-est-total { display:flex; justify-content:space-between; align-items:center; margin-top:.9rem; padding:.85rem 1rem; background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:11px; }
     .qc-est-total-label { font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-deep); }
     .qc-est-total-val { font-family:var(--font-d); font-size:1.55rem; font-weight:900; color:var(--gold-deep); letter-spacing:-.02em; }
     .qc-est-note { font-size:.68rem; color:var(--muted); line-height:1.55; margin-top:.7rem; }
     .qc-finish { width:100%; background:var(--ink); color:#fff; font-family:var(--font-d); font-weight:800; font-size:1rem; padding:1.05rem 1.5rem; border-radius:13px; transition:background .18s, transform .18s; display:flex; align-items:center; justify-content:center; gap:.5rem; }
     .qc-finish:hover { background:#000; transform:translateY(-1px); }
-    .qc-trust { display:flex; align-items:center; gap:.85rem; padding:.8rem 1rem; background:var(--bg-warm); border:1px solid var(--line); border-radius:12px; }
-    .qc-trust img { height:18px; width:auto; }
-    .qc-trust span { font-size:.68rem; color:var(--muted); line-height:1.4; }
     /* Modal */
     .qc-modal { display:none; position:fixed; inset:0; z-index:500; background:rgba(16,17,18,.55); backdrop-filter:blur(6px); overflow-y:auto; padding:1.5rem; }
     .qc-modal.open { display:block; }
@@ -468,10 +455,11 @@
     .qc-field input:focus, .qc-field select:focus, .qc-field textarea:focus { outline:none; border-color:var(--gold); }
     .qc-field textarea { min-height:80px; resize:vertical; }
     @media (max-width:900px) {
-      .qc-config { grid-template-columns:1fr; gap:1.5rem; }
+      .qc-config { grid-template-columns:1fr; gap:1.4rem; max-width:560px; }
       .qc-preview { position:static; }
+      .qc-media { max-height:230px; }
     }
-    @media (max-width:560px) { .qc-grid.c3 { grid-template-columns:1fr; } .qc-fgrid { grid-template-columns:1fr; } }
+    @media (max-width:560px) { .qc-fgrid { grid-template-columns:1fr; } }
     /* Full detail: interior on top, exterior below; items two per row */
     #panel-full .pkg-inc.two { display:flex; flex-direction:column; gap:1.4rem; }
     #panel-full .pkg-list { display:grid; grid-template-columns:1fr 1fr; gap:.55rem 1.2rem; }
@@ -900,29 +888,20 @@
   <div class="wrap">
     <div class="qc-head rv">
       <h2 class="h-sec">Build Your Instant Quote</h2>
-      <p>Choose your service and watch your price update live. No email needed to see it.</p>
+      <p>Answer a few quick questions and watch your price build. No email needed to see it.</p>
     </div>
-    <div class="qc-tab-wrap">
-      <div class="qc-tabs">
-        <button class="qc-tab active" data-qc-tab="detail">Detailing</button>
-        <button class="qc-tab" data-qc-tab="ceramic">Ceramic Coating</button>
-      </div>
-    </div>
-
-    <!-- DETAILING -->
-    <div class="qc-config" id="qc-panel-detail">
+    <div class="qc-config">
+      <!-- PREVIEW -->
       <div class="qc-preview">
         <div class="qc-media">
-          <img id="qc-dtl-img" src="/brand_assets/svc-mobile-detailing.jpg" alt="Detailing preview" />
+          <img id="qc-img" src="/brand_assets/svc-mobile-detailing.jpg" alt="Detailing preview" />
           <div class="qc-scrim"></div>
           <div class="qc-cap">
-            <div>
-              <div class="qc-cap-title" id="qc-dtl-title">Express · Full Detail</div>
-              <div class="qc-cap-sub" id="qc-dtl-sub">Small</div>
-            </div>
-            <div>
-              <div class="qc-price-label">Estimate</div>
-              <div class="qc-price" id="qc-dtl-price">$220</div>
+            <div class="qc-cap-title" id="qc-title">Mobile Detailing</div>
+            <div class="qc-cap-sub" id="qc-sub">Build your quote</div>
+            <div class="qc-price-wrap">
+              <span class="qc-price-label">Estimate</span>
+              <span class="qc-price" id="qc-price">—</span>
             </div>
           </div>
         </div>
@@ -931,32 +910,40 @@
           <span>Fully mobile — we come to your driveway or office. Final price confirmed at booking.</span>
         </div>
       </div>
+
+      <!-- QUESTIONS -->
       <div class="qc-panel">
-        <div>
-          <div class="qc-glabel"><span class="qc-num">1</span> Service Tier</div>
+        <div class="qc-progress"><span class="on" id="qc-p1"></span><span id="qc-p2"></span><span id="qc-p3"></span><span id="qc-p4"></span></div>
+
+        <!-- STEP 1: VEHICLE SIZE -->
+        <div class="qc-step show" id="qc-step-size">
+          <div class="qc-glabel"><span class="qc-num">1</span> Vehicle Size <span class="qc-hint">Pricing adjusts by vehicle</span></div>
           <div class="qc-grid c2">
-            <label class="qc-opt selected" data-dtl-group="tier" data-dtl-val="express"><div class="qc-check"></div><div class="qc-name">Express</div><div class="qc-desc">Professional wash, vacuum, wipe-down and glass clean. Fast, clean, complete. (~1 to 3 hrs)</div></label>
-            <label class="qc-opt" data-dtl-group="tier" data-dtl-val="executive"><div class="qc-check"></div><div class="qc-name">Executive</div><div class="qc-desc">Clay bar, machine polish, steam clean, leather conditioning and ceramic-grade sealant. (~3 to 6 hrs)</div></label>
+            <label class="qc-opt" data-q="size" data-v="small"><div class="qc-check"></div><div class="qc-name">Small</div><div class="qc-desc">Coupe / Sedan / Hatchback</div></label>
+            <label class="qc-opt" data-q="size" data-v="mid"><div class="qc-check"></div><div class="qc-name">Mid-Size</div><div class="qc-desc">Crossover / Mid-Size SUV / Standard Pickup</div></label>
+            <label class="qc-opt" data-q="size" data-v="large"><div class="qc-check"></div><div class="qc-name">Large</div><div class="qc-desc">Full-Size SUV / Crew Cab / Large Truck</div></label>
+            <label class="qc-opt" data-q="size" data-v="van"><div class="qc-check"></div><div class="qc-name">Van / Oversized</div><div class="qc-desc">Minivan / Full-Size Van / Cargo Van / Sprinter</div></label>
           </div>
         </div>
-        <div>
+
+        <!-- STEP 2: PACKAGE -->
+        <div class="qc-step" id="qc-step-pkg">
           <div class="qc-glabel"><span class="qc-num">2</span> Package</div>
-          <div class="qc-grid c3">
-            <label class="qc-opt" data-dtl-group="pkg" data-dtl-val="exterior"><div class="qc-check"></div><div class="qc-name">Exterior</div><div class="qc-desc">Outside only. Wash, wheels, tires, glass and paint protection.</div></label>
-            <label class="qc-opt" data-dtl-group="pkg" data-dtl-val="interior"><div class="qc-check"></div><div class="qc-name">Interior</div><div class="qc-desc">Inside only. Vacuum, all surfaces, windows and door panels.</div></label>
-            <label class="qc-opt selected" data-dtl-group="pkg" data-dtl-val="full"><div class="qc-check"></div><div class="qc-name">Full Detail</div><div class="qc-desc">Complete interior and exterior in one appointment.</div></label>
+          <div class="qc-grid">
+            <label class="qc-opt row" data-q="pkg" data-v="full"><img class="qc-thumb" src="web.screenshots/pkg-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Full Detail</div><div class="qc-desc">Complete interior and exterior in one appointment.</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt row" data-q="pkg" data-v="exterior"><img class="qc-thumb" src="web.screenshots/pkg-ext-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Exterior Only</div><div class="qc-desc">Outside only. Wash, wheels, tires, paint and protection.</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt row" data-q="pkg" data-v="interior"><img class="qc-thumb" src="web.screenshots/pkg-int-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Interior Only</div><div class="qc-desc">Inside only. Vacuum, all surfaces, windows and door panels.</div></div><div class="qc-check"></div></label>
           </div>
         </div>
-        <div>
-          <div class="qc-glabel"><span class="qc-num">3</span> Vehicle Size <span class="qc-hint">Pricing adjusts automatically</span></div>
-          <div class="qc-grid c2">
-            <label class="qc-opt selected" data-dtl-group="size" data-dtl-val="small"><div class="qc-check"></div><div class="qc-name">Small</div><div class="qc-desc">Coupe / Sedan / Hatchback</div></label>
-            <label class="qc-opt" data-dtl-group="size" data-dtl-val="mid"><div class="qc-check"></div><div class="qc-name">Mid-Size</div><div class="qc-desc">Crossover / Mid-Size SUV / Standard Pickup</div></label>
-            <label class="qc-opt" data-dtl-group="size" data-dtl-val="large"><div class="qc-check"></div><div class="qc-name">Large</div><div class="qc-desc">Full-Size SUV / Crew Cab / Large Truck</div></label>
-            <label class="qc-opt" data-dtl-group="size" data-dtl-val="van"><div class="qc-check"></div><div class="qc-name">Van / Oversized</div><div class="qc-desc">Minivan / Full-Size Van / Cargo Van / Sprinter</div></label>
-          </div>
+
+        <!-- STEP 3: PACKAGE LEVEL (rendered by JS) -->
+        <div class="qc-step" id="qc-step-tier">
+          <div class="qc-glabel"><span class="qc-num">3</span> Package Level</div>
+          <div class="qc-grid" id="qc-tier-grid"></div>
         </div>
-        <div>
+
+        <!-- STEP 4: ADD-ONS -->
+        <div class="qc-step" id="qc-step-add">
           <div class="qc-glabel"><span class="qc-num">4</span> Add-ons <span class="qc-hint">Optional</span></div>
           <div class="qc-grid c2">
             <label class="qc-opt qc-addon" data-addon="pet-hair"><div class="qc-check sq"></div><div class="qc-name">Pet Hair Removal</div><div class="qc-desc">Deep extraction of embedded pet hair from carpets and upholstery.</div><span class="qc-addprice">+$35</span></label>
@@ -965,98 +952,18 @@
             <label class="qc-opt qc-addon" data-addon="trim"><div class="qc-check sq"></div><div class="qc-name">Trim Restoration</div><div class="qc-desc">Restore faded plastic and rubber exterior trim to a rich finish.</div><span class="qc-addprice">+$30</span></label>
           </div>
         </div>
-        <div class="qc-est">
-          <div class="qc-est-row"><span class="qc-est-label">Service</span><span class="qc-est-val" id="qc-dtl-service">Express Full Detail</span></div>
-          <div class="qc-est-row"><span class="qc-est-label">Vehicle</span><span class="qc-est-val" id="qc-dtl-esize">Small</span></div>
-          <div class="qc-est-row" id="qc-dtl-addons-row" style="display:none;"><span class="qc-est-label" id="qc-dtl-addons-label">Add-ons</span><span class="qc-est-val" id="qc-dtl-addons-val">+$0</span></div>
-          <div class="qc-est-total"><span class="qc-est-total-label">Estimated Price</span><span class="qc-est-total-val" id="qc-dtl-total">$220</span></div>
-          <p class="qc-est-note">Based on standard vehicle condition. Final price confirmed at booking — some vehicles may vary.</p>
-        </div>
-        <button class="qc-finish" data-qc-finish>Finish Quote →</button>
-      </div>
-    </div>
 
-    <!-- CERAMIC -->
-    <div class="qc-config" id="qc-panel-ceramic" style="display:none;">
-      <div class="qc-preview">
-        <div class="qc-media">
-          <img id="qc-cer-img" src="web.screenshots/pkg-ext-ceramic.jpg" alt="Ceramic coating preview" />
-          <div class="qc-scrim"></div>
-          <div class="qc-cap">
-            <div>
-              <div class="qc-cap-title" id="qc-cer-title">System X Crystal+</div>
-              <div class="qc-cap-sub" id="qc-cer-sub">Enhancement · Small</div>
-            </div>
-            <div>
-              <div class="qc-price-label">Estimate</div>
-              <div class="qc-price" id="qc-cer-price">$499</div>
-            </div>
+        <!-- ESTIMATE + FINISH -->
+        <div class="qc-tail" id="qc-tail">
+          <div class="qc-est">
+            <div class="qc-est-row"><span class="qc-est-label">Package</span><span class="qc-est-val" id="qc-e-pkg">—</span></div>
+            <div class="qc-est-row"><span class="qc-est-label">Vehicle</span><span class="qc-est-val" id="qc-e-size">—</span></div>
+            <div class="qc-est-row" id="qc-e-add-row" style="display:none;"><span class="qc-est-label" id="qc-e-add-label">Add-ons</span><span class="qc-est-val" id="qc-e-add-val">+$0</span></div>
+            <div class="qc-est-total"><span class="qc-est-total-label">Starting Price</span><span class="qc-est-total-val" id="qc-e-total">—</span></div>
+            <p class="qc-est-note">Starting price shown. Final price varies by vehicle size and condition, and is confirmed when we reach out.</p>
           </div>
+          <button class="qc-finish" data-qc-finish>Finish Quote →</button>
         </div>
-        <div class="qc-foot">
-          <img src="brand_assets/systemx-logo-black-transparent.png" alt="System X" style="height:16px;width:auto;" onerror="this.remove()" />
-          <span>Certified System X installer — every coating is 9H hardness and reported to Carfax.</span>
-        </div>
-      </div>
-      <div class="qc-panel">
-        <div>
-          <div class="qc-glabel"><span class="qc-num">1</span> Vehicle Size <span class="qc-hint">Pricing adjusts automatically</span></div>
-          <div class="qc-grid c2">
-            <label class="qc-opt selected" data-cer-group="size" data-cer-val="small"><div class="qc-check"></div><div class="qc-name">Small</div><div class="qc-desc">Coupe / Sedan / Hatchback</div></label>
-            <label class="qc-opt" data-cer-group="size" data-cer-val="mid"><div class="qc-check"></div><div class="qc-name">Mid-Size</div><div class="qc-desc">Crossover / Mid-Size SUV / Standard Pickup</div></label>
-            <label class="qc-opt" data-cer-group="size" data-cer-val="large"><div class="qc-check"></div><div class="qc-name">Large</div><div class="qc-desc">Full-Size SUV / Crew Cab / Large Truck</div></label>
-            <label class="qc-opt" data-cer-group="size" data-cer-val="van"><div class="qc-check"></div><div class="qc-name">Van / Oversized</div><div class="qc-desc">Minivan / Full-Size Van / Cargo Van / Sprinter</div></label>
-          </div>
-        </div>
-        <div>
-          <div class="qc-glabel"><span class="qc-num">2</span> Paint Correction</div>
-          <div class="qc-grid">
-            <label class="qc-opt selected" data-cer-group="prep" data-cer-val="polish"><div class="qc-check"></div><div class="qc-name">Enhancement</div><div class="qc-desc">Iron remover and clay bar decontamination, then a fine machine polish to enhance gloss and clarity. Best for paint already in good condition. Does not remove swirl marks or scratches.</div></label>
-            <label class="qc-opt" data-cer-group="prep" data-cer-val="one-step"><div class="qc-check"></div><div class="qc-name">1-Step Correction</div><div class="qc-desc">Full decontamination plus a single-stage machine polish removing 65 to 75% of swirl marks, water spots and light scratches. Includes a full executive exterior detail. (Most common)</div></label>
-            <label class="qc-opt" data-cer-group="prep" data-cer-val="two-step"><div class="qc-check"></div><div class="qc-name">2-Step Correction</div><div class="qc-desc">Full decontamination, a compound cut and a fine polish removing 85 to 95% of swirl marks and defects for maximum clarity. Includes a full executive exterior detail. (Maximum correction)</div></label>
-          </div>
-        </div>
-        <div>
-          <div class="qc-glabel"><span class="qc-num">3</span> Ceramic Coating</div>
-          <div class="qc-grid">
-            <label class="qc-coat selected" data-cer-group="coating" data-cer-val="crystal">
-              <div class="qc-check"></div>
-              <div class="qc-coat-head"><div><div class="qc-coat-name">System X Crystal+</div><div class="qc-coat-tag">Entry-level professional ceramic protection</div></div><span class="qc-badge b2">2-Year</span></div>
-              <ul class="qc-incl"><li>9H ceramic hardness, scratch and UV resistant</li><li>Deep gloss and hydrophobic finish</li><li>Self-cleaning surface, Boeing-approval tested</li><li>2-year manufacturer warranty, reported to Carfax</li></ul>
-            </label>
-            <label class="qc-coat" data-cer-group="coating" data-cer-val="pro">
-              <div class="qc-check"></div>
-              <div class="qc-coat-head"><div><div class="qc-coat-name">System X Pro+</div><div class="qc-coat-tag">Long-term ultra-hydrophobic protection</div></div><span class="qc-badge b6">6-Year</span></div>
-              <ul class="qc-incl"><li>9H hardness, thicker 5µm film</li><li>Ultra-hydrophobic, superior chemical and salt resistance</li><li>Boeing tested, SGS lab verified</li><li>6-year manufacturer warranty, reported to Carfax</li></ul>
-            </label>
-            <label class="qc-coat" data-cer-group="coating" data-cer-val="max">
-              <div class="qc-check"></div>
-              <div class="qc-coat-head"><div><div class="qc-coat-name">System X Max G+</div><div class="qc-coat-tag">The thickest, most durable coating available</div></div><span class="qc-badge blife">Lifetime</span></div>
-              <ul class="qc-incl"><li>9H hardness, thickest 9µm film</li><li>Mirror-like, super-slick gloss</li><li>Outstanding chemical resistance, first annual service free</li><li>Lifetime manufacturer warranty, reported to Carfax</li></ul>
-            </label>
-          </div>
-        </div>
-        <div class="qc-callout green">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-          <div><div class="qc-callout-title">Free Windshield Ceramic Coating <span class="qc-tag-limited">Limited Offer</span></div><div class="qc-callout-body">Book any coating package now and we coat your windshield for free — same 9H protection and rain-beading clarity. A $150 value, included at no charge.</div></div>
-        </div>
-        <div class="qc-callout gold">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-          <div><div class="qc-callout-title">First Year of Warranty Maintenance Free</div><div class="qc-callout-body">Every coating includes a free first-year inspection and topcoat to keep your warranty valid. After year one, annual maintenance is $150/yr and we come to you. Opt out anytime.</div></div>
-        </div>
-        <div class="qc-est">
-          <div class="qc-est-row"><span class="qc-est-label">Vehicle Size</span><span class="qc-est-val" id="qc-cer-esize">Small</span></div>
-          <div class="qc-est-row"><span class="qc-est-label" id="qc-cer-eprep">Enhancement</span><span class="qc-est-val" id="qc-cer-eprep-val">$300</span></div>
-          <div class="qc-est-row"><span class="qc-est-label" id="qc-cer-ecoat">System X Crystal+</span><span class="qc-est-val" id="qc-cer-ecoat-val">$199</span></div>
-          <div class="qc-est-row"><span class="qc-est-label">Windshield Coating</span><span class="qc-est-val green">FREE</span></div>
-          <div class="qc-est-total"><span class="qc-est-total-label">Estimate</span><span class="qc-est-total-val" id="qc-cer-total">$499</span></div>
-          <p class="qc-est-note">Starting estimate — final price confirmed when we reach out. Varies by vehicle condition and any extra prep needed on the day.</p>
-        </div>
-        <div class="qc-trust">
-          <div style="background:#fff;border:1px solid var(--line);border-radius:6px;padding:3px 6px;flex-shrink:0;"><img src="brand_assets/carfax-logo.svg" alt="CARFAX" /></div>
-          <span>Your coating is <strong style="color:var(--ink);">reported to Carfax</strong> — adding verified, documented value to your vehicle history.</span>
-        </div>
-        <button class="qc-finish" data-qc-finish>Finish Quote →</button>
       </div>
     </div>
   </div>
@@ -1069,8 +976,8 @@
       <h2 class="qc-modal-h">Lock in your quote</h2>
       <p class="qc-modal-sub">We'll reach out within 12 hours to confirm pricing and get you on the schedule.</p>
       <div class="qc-modal-summary" id="qcModalSummary">
-        <div><div class="qc-ms-lbl">Your Package</div><div class="qc-ms-pkg" id="qcModalPkg">Express Full Detail · Small</div></div>
-        <div><div class="qc-ms-lbl" style="text-align:right;">Estimate</div><div class="qc-ms-total" id="qcModalTotal">$220</div></div>
+        <div><div class="qc-ms-lbl">Your Package</div><div class="qc-ms-pkg" id="qcModalPkg">—</div></div>
+        <div><div class="qc-ms-lbl" style="text-align:right;">Starting At</div><div class="qc-ms-total" id="qcModalTotal">—</div></div>
       </div>
       <div id="qcModalSuccess" style="display:none;text-align:center;padding:1.5rem 0;">
         <div style="width:52px;height:52px;background:rgba(34,163,74,.12);border:1.5px solid rgba(34,163,74,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22A34A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
@@ -1445,145 +1352,157 @@
     var $ = function (id) { return document.getElementById(id); };
     var fmt = function (n) { return '$' + n.toLocaleString(); };
 
-    var DETAIL_PRICES = {
-      'express-exterior':   { small:90,  mid:100, large:110, van:140 },
-      'express-interior':   { small:165, mid:190, large:210, van:250 },
-      'express-full':       { small:220, mid:250, large:275, van:300 },
-      'executive-exterior': { small:140, mid:165, large:195, van:250 },
-      'executive-interior': { small:330, mid:360, large:385, van:440 },
-      'executive-full':     { small:440, mid:470, large:500, van:550 }
+    var SIZE_LABELS = { small:'Small', mid:'Mid-Size', large:'Large', van:'Van / Oversized' };
+    var PACKAGES = {
+      full: { label:'Full Detail', thumb:'web.screenshots/pkg-reset.jpg', levels:[
+        { v:'l1', name:'Full Maintenance', level:'Level 1', price:180, img:'web.screenshots/pkg-maintenance.jpg', desc:'Regular upkeep clean, inside and out.' },
+        { v:'l2', name:'Full Reset',       level:'Level 2', price:299, img:'web.screenshots/pkg-reset.jpg',       desc:'Deeper reset of built-up dirt and grime, inside and out.' },
+        { v:'l3', name:'Full Executive',   level:'Level 3', price:499, img:'web.screenshots/pkg-executive.jpg',   desc:'Our most thorough detail, with paint enhancement and a full interior reset.' }
+      ]},
+      exterior: { label:'Exterior', thumb:'web.screenshots/pkg-ext-reset.jpg', levels:[
+        { v:'l1', name:'Exterior Reset',     level:'Level 1', price:99,  img:'/brand_assets/svc-mobile-detailing.jpg', desc:'Exterior wash, wheels, tires and paint protection.' },
+        { v:'l2', name:'Exterior Executive', level:'Level 2', price:225, img:'web.screenshots/pkg-ext-reset.jpg',      desc:'Deep exterior with decontamination, polish and sealant.' },
+        { v:'l3', name:'Ceramic Coating',    level:'Level 3', price:499, img:'web.screenshots/pkg-ext-ceramic.jpg',    desc:'Paint correction plus a System X ceramic coating.' }
+      ]},
+      interior: { label:'Interior', thumb:'web.screenshots/pkg-int-reset.jpg', levels:[
+        { v:'l1', name:'Interior Maintenance', level:'Level 1', price:125, img:'web.screenshots/pkg-int-maintenance.jpg', desc:'Interior vacuum, wipe-down, windows and door panels.' },
+        { v:'l2', name:'Interior Reset',       level:'Level 2', price:225, img:'web.screenshots/pkg-int-reset.jpg',       desc:'Deep interior reset with steam and spot treatment.' },
+        { v:'l3', name:'Interior Executive',   level:'Level 3', price:325, img:'web.screenshots/pkg-int-executive.jpg',   desc:'Full interior reset with shampoo, leather care and steam.' }
+      ]}
     };
-    var PREP_PRICES = {
-      polish:     { small:300, mid:350,  large:400,  van:500  },
-      'one-step': { small:550, mid:650,  large:750,  van:900  },
-      'two-step': { small:900, mid:1000, large:1100, van:1400 }
-    };
-    var COATING_PRICES = {
-      crystal: { small:199, mid:225, large:250, van:300 },
-      pro:     { small:350, mid:450, large:550, van:600 },
-      max:     { small:400, mid:500, large:600, van:750 }
-    };
-    var SIZE_LABELS    = { small:'Small', mid:'Mid-Size', large:'Large', van:'Van / Oversized' };
-    var PKG_LABELS     = { exterior:'Exterior', interior:'Interior', full:'Full Detail' };
-    var PREP_LABELS    = { polish:'Enhancement', 'one-step':'1-Step Correction', 'two-step':'2-Step Correction' };
-    var COATING_LABELS = { crystal:'System X Crystal+', pro:'System X Pro+', max:'System X Max G+' };
     var ADDONS = {
       'pet-hair':   { label:'Pet Hair Removal',      price:35 },
       'headlight':  { label:'Headlight Restoration', price:70 },
       'engine-bay': { label:'Engine Bay Detail',     price:50 },
       'trim':       { label:'Trim Restoration',      price:30 }
     };
-    var DTL_IMG = { exterior:'web.screenshots/pkg-ext-reset.jpg', interior:'web.screenshots/pkg-int-reset.jpg', full:'/brand_assets/svc-mobile-detailing.jpg' };
-    var CER_IMG = { polish:'web.screenshots/pkg-ext-ceramic.jpg', 'one-step':'web.screenshots/1 step paint correction.png', 'two-step':'web.screenshots/1 step paint correction.png' };
 
-    var activeTab = 'detail';
-    var dtl = { tier:'express', pkg:'full', size:'small' };
-    var sel = { size:'small', prep:'polish', coating:'crystal' };
+    var st = { size:null, pkg:null, tier:null };
 
+    function currentTier() {
+      if (!st.pkg || !st.tier) return null;
+      var lv = PACKAGES[st.pkg].levels;
+      for (var i = 0; i < lv.length; i++) { if (lv[i].v === st.tier) return lv[i]; }
+      return null;
+    }
     function getAddons() {
       var total = 0, labels = [];
-      root.querySelectorAll('#qc-panel-detail [data-addon].selected').forEach(function (c) {
+      root.querySelectorAll('[data-addon].selected').forEach(function (c) {
         var a = ADDONS[c.dataset.addon]; if (a) { total += a.price; labels.push(a.label); }
       });
       return { total: total, labels: labels };
     }
+    function setStep(id, on) { $(id).classList.toggle('show', on); }
+    function setProg(id, on) { $(id).classList.toggle('on', on); }
 
-    function updateDetail() {
-      var key = dtl.tier + '-' + dtl.pkg;
-      var base = (DETAIL_PRICES[key] && DETAIL_PRICES[key][dtl.size]) || 0;
+    function renderTiers() {
+      var grid = $('qc-tier-grid');
+      var pkg = PACKAGES[st.pkg];
+      grid.innerHTML = pkg.levels.map(function (l) {
+        return '<label class="qc-opt row" data-q="tier" data-v="' + l.v + '">' +
+          '<img class="qc-thumb" src="' + l.img + '" alt="" loading="lazy" />' +
+          '<div class="qc-body"><div class="qc-name">' + l.name + '</div>' +
+          '<div class="qc-desc">' + l.desc + '</div>' +
+          '<div class="qc-optprice">' + fmt(l.price) + ' <small>starting</small></div></div>' +
+          '<div class="qc-check"></div></label>';
+      }).join('');
+      grid.querySelectorAll('[data-q="tier"]').forEach(function (card) {
+        card.addEventListener('click', function () { selectTier(card); });
+      });
+    }
+
+    function updatePreview() {
+      var t = currentTier();
+      if (t) {
+        $('qc-img').src = t.img;
+        $('qc-title').textContent = t.name;
+        $('qc-sub').textContent = PACKAGES[st.pkg].label + (st.size ? ' · ' + SIZE_LABELS[st.size] : '');
+        var add = getAddons();
+        $('qc-price').textContent = fmt(t.price + add.total);
+      } else if (st.pkg) {
+        $('qc-img').src = PACKAGES[st.pkg].thumb;
+        $('qc-title').textContent = PACKAGES[st.pkg].label;
+        $('qc-sub').textContent = 'Choose a package level';
+        $('qc-price').textContent = '—';
+      } else {
+        $('qc-img').src = '/brand_assets/svc-mobile-detailing.jpg';
+        $('qc-title').textContent = 'Mobile Detailing';
+        $('qc-sub').textContent = st.size ? SIZE_LABELS[st.size] : 'Build your quote';
+        $('qc-price').textContent = '—';
+      }
+    }
+
+    function updateEstimate() {
+      var t = currentTier();
+      if (!t) { setStep('qc-tail', false); return; }
       var add = getAddons();
-      var price = base + add.total;
-      var tierLabel = dtl.tier === 'express' ? 'Express' : 'Executive';
-      var service = tierLabel + ' ' + PKG_LABELS[dtl.pkg];
-      $('qc-dtl-img').src = DTL_IMG[dtl.pkg];
-      $('qc-dtl-title').textContent = tierLabel + ' · ' + PKG_LABELS[dtl.pkg];
-      $('qc-dtl-sub').textContent   = SIZE_LABELS[dtl.size];
-      $('qc-dtl-price').textContent = '$' + price;
-      $('qc-dtl-service').textContent = service;
-      $('qc-dtl-esize').textContent = SIZE_LABELS[dtl.size];
-      $('qc-dtl-total').textContent = '$' + price;
-      var row = $('qc-dtl-addons-row');
+      $('qc-e-pkg').textContent = t.name + ' (' + PACKAGES[st.pkg].label + ')';
+      $('qc-e-size').textContent = SIZE_LABELS[st.size];
+      $('qc-e-total').textContent = fmt(t.price + add.total);
+      var row = $('qc-e-add-row');
       if (add.total) {
         row.style.display = 'flex';
-        $('qc-dtl-addons-label').textContent = add.labels.length + ' Add-on' + (add.labels.length > 1 ? 's' : '');
-        $('qc-dtl-addons-val').textContent = '+$' + add.total;
+        $('qc-e-add-label').textContent = add.labels.length + ' Add-on' + (add.labels.length > 1 ? 's' : '');
+        $('qc-e-add-val').textContent = '+$' + add.total;
       } else { row.style.display = 'none'; }
+      setStep('qc-tail', true);
     }
 
-    function updateCeramic() {
-      var sz = sel.size;
-      var prepPrice = PREP_PRICES[sel.prep][sz];
-      var coatingPrice = COATING_PRICES[sel.coating][sz];
-      var total = prepPrice + coatingPrice;
-      $('qc-cer-img').src = CER_IMG[sel.prep];
-      $('qc-cer-title').textContent = COATING_LABELS[sel.coating];
-      $('qc-cer-sub').textContent   = PREP_LABELS[sel.prep] + ' · ' + SIZE_LABELS[sz];
-      $('qc-cer-price').textContent = fmt(total);
-      $('qc-cer-esize').textContent = SIZE_LABELS[sz];
-      $('qc-cer-eprep').textContent = PREP_LABELS[sel.prep];
-      $('qc-cer-eprep-val').textContent = fmt(prepPrice);
-      $('qc-cer-ecoat').textContent = COATING_LABELS[sel.coating];
-      $('qc-cer-ecoat-val').textContent = fmt(coatingPrice);
-      $('qc-cer-total').textContent = fmt(total);
+    function selectSize(card) {
+      root.querySelectorAll('[data-q="size"]').forEach(function (c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      st.size = card.dataset.v;
+      setProg('qc-p2', true);
+      setStep('qc-step-pkg', true);
+      updatePreview();
+      updateEstimate();
+    }
+    function selectPkg(card) {
+      root.querySelectorAll('[data-q="pkg"]').forEach(function (c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      st.pkg = card.dataset.v;
+      st.tier = null;
+      renderTiers();
+      setProg('qc-p3', true);
+      setProg('qc-p4', false);
+      setStep('qc-step-tier', true);
+      setStep('qc-step-add', false);
+      setStep('qc-tail', false);
+      updatePreview();
+    }
+    function selectTier(card) {
+      root.querySelectorAll('[data-q="tier"]').forEach(function (c) { c.classList.remove('selected'); });
+      card.classList.add('selected');
+      st.tier = card.dataset.v;
+      setProg('qc-p4', true);
+      setStep('qc-step-add', true);
+      updatePreview();
+      updateEstimate();
     }
 
-    root.querySelectorAll('[data-dtl-group]').forEach(function (card) {
-      card.addEventListener('click', function () {
-        var g = card.dataset.dtlGroup, v = card.dataset.dtlVal;
-        root.querySelectorAll('[data-dtl-group="' + g + '"]').forEach(function (c) { c.classList.remove('selected'); });
-        card.classList.add('selected');
-        dtl[g] = v; updateDetail();
-      });
-    });
-    root.querySelectorAll('[data-cer-group]').forEach(function (card) {
-      card.addEventListener('click', function () {
-        var g = card.dataset.cerGroup, v = card.dataset.cerVal;
-        root.querySelectorAll('[data-cer-group="' + g + '"]').forEach(function (c) { c.classList.remove('selected'); });
-        card.classList.add('selected');
-        sel[g] = v; updateCeramic();
-      });
-    });
-    root.querySelectorAll('[data-addon]').forEach(function (card) {
-      card.addEventListener('click', function () { card.classList.toggle('selected'); updateDetail(); });
-    });
-
-    root.querySelectorAll('[data-qc-tab]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        activeTab = btn.dataset.qcTab;
-        $('qc-panel-detail').style.display  = activeTab === 'detail'  ? '' : 'none';
-        $('qc-panel-ceramic').style.display = activeTab === 'ceramic' ? '' : 'none';
-        root.querySelectorAll('[data-qc-tab]').forEach(function (b) { b.classList.toggle('active', b === btn); });
-      });
+    root.querySelectorAll('[data-q="size"]').forEach(function (c) { c.addEventListener('click', function () { selectSize(c); }); });
+    root.querySelectorAll('[data-q="pkg"]').forEach(function (c) { c.addEventListener('click', function () { selectPkg(c); }); });
+    root.querySelectorAll('[data-addon]').forEach(function (c) {
+      c.addEventListener('click', function () { c.classList.toggle('selected'); updatePreview(); updateEstimate(); });
     });
 
     function currentQuote() {
-      if (activeTab === 'detail') {
-        var key = dtl.tier + '-' + dtl.pkg;
-        var base = (DETAIL_PRICES[key] && DETAIL_PRICES[key][dtl.size]) || 0;
-        var add = getAddons();
-        var tierLabel = dtl.tier === 'express' ? 'Express' : 'Executive';
-        var addStr = add.labels.length ? ' + ' + add.labels.join(', ') : '';
-        return {
-          total: base + add.total,
-          pkg: tierLabel + ' ' + PKG_LABELS[dtl.pkg] + ' · ' + SIZE_LABELS[dtl.size],
-          service: tierLabel + ' ' + PKG_LABELS[dtl.pkg] + ' — ' + SIZE_LABELS[dtl.size] + addStr,
-          vehicle: SIZE_LABELS[dtl.size],
-          prefix: '[Detail Quote]'
-        };
-      } else {
-        var total = PREP_PRICES[sel.prep][sel.size] + COATING_PRICES[sel.coating][sel.size];
-        return {
-          total: total,
-          pkg: PREP_LABELS[sel.prep] + ' · ' + COATING_LABELS[sel.coating],
-          service: COATING_LABELS[sel.coating] + ' — ' + PREP_LABELS[sel.prep] + ' — ' + SIZE_LABELS[sel.size],
-          vehicle: SIZE_LABELS[sel.size],
-          prefix: '[Coating Quote]'
-        };
-      }
+      var t = currentTier();
+      var add = getAddons();
+      var addStr = add.labels.length ? ' + ' + add.labels.join(', ') : '';
+      return {
+        total: t.price + add.total,
+        pkg: t.name + ' · ' + SIZE_LABELS[st.size],
+        service: t.name + ' (' + PACKAGES[st.pkg].label + ') — ' + SIZE_LABELS[st.size] + addStr,
+        vehicle: SIZE_LABELS[st.size],
+        prefix: '[Detail Quote]'
+      };
     }
 
     var modal = $('qcModal');
     function openModal() {
+      var t = currentTier();
+      if (!t) { return; }
       var q = currentQuote();
       $('qcModalPkg').textContent = q.pkg;
       $('qcModalTotal').textContent = fmt(q.total);
@@ -1606,7 +1525,7 @@
       if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
       var btn = $('qcSubmit'); btn.textContent = 'Sending…'; btn.disabled = true;
       var q = currentQuote();
-      var notesOut = q.prefix + ' ' + q.service + ' | Estimate: $' + q.total.toLocaleString() + (timeline ? ' | Timeline: ' + timeline : '') + (notes ? ' | Notes: ' + notes : '');
+      var notesOut = q.prefix + ' ' + q.service + ' | Starting: $' + q.total.toLocaleString() + (timeline ? ' | Timeline: ' + timeline : '') + (notes ? ' | Notes: ' + notes : '');
       fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ full_name: name, phone: phone, address: address, service: q.service, vehicle: q.vehicle, timeline: timeline, platform: 'WEB', notes: notesOut })
@@ -1621,9 +1540,6 @@
         alert('Something went wrong — please call or text us at (970) 295-3577.');
       });
     });
-
-    updateDetail();
-    updateCeramic();
   })();
 </script>
 </body>
