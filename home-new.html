@@ -86,7 +86,7 @@
     .nav-drop a:hover { background:var(--bg-soft); }
     .nav-drop a span { display:block; font-size:.7rem; font-weight:400; color:var(--muted); margin-top:.15rem; }
     .nav-cta { display:flex; align-items:center; gap:.9rem; }
-    .nav-phone { display:inline-flex; align-items:center; gap:.45rem; font-family:var(--font-d); font-weight:800; font-size:.92rem; color:var(--ink); transition:color .3s ease; }
+    .nav-phone { display:inline-flex; align-items:center; gap:.45rem; font-family:var(--font-d); font-weight:800; font-size:.92rem; color:var(--ink); white-space:nowrap; transition:color .3s ease; }
     .nav-phone:hover { color:var(--gold-deep); }
     .hamburger { display:none; flex-direction:column; gap:5px; padding:.5rem; }
     .hamburger span { width:24px; height:2.5px; background:var(--ink); border-radius:2px; transition:.25s; }
@@ -372,94 +372,6 @@
       .tab { flex:1; padding:.72rem .4rem; font-size:.82rem; text-align:center; }
       .foot-inner { grid-template-columns:1fr; gap:2.2rem; }
     }
-    /* ── Live quote configurator ──────────── */
-    .qc { background:var(--bg-soft); }
-    .qc .qc-head { text-align:center; margin-bottom:1.8rem; }
-    .qc .qc-head p { color:var(--ink-2); font-size:1.02rem; max-width:540px; margin:.7rem auto 0; line-height:1.6; }
-    .qc-config { display:grid; grid-template-columns:0.82fr 1.18fr; gap:2.2rem; align-items:start; max-width:1060px; margin:0 auto; }
-    /* Preview (compact) */
-    .qc-preview { position:sticky; top:100px; border-radius:18px; overflow:hidden; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
-    .qc-media { position:relative; aspect-ratio:5/4; max-height:290px; overflow:hidden; background:#ECEAE4; }
-    .qc-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
-    .qc-scrim { position:absolute; inset:0; background:linear-gradient(to top, rgba(12,12,13,.85) 0%, rgba(12,12,13,.28) 46%, rgba(12,12,13,0) 72%); }
-    .qc-cap { position:absolute; left:0; right:0; bottom:0; padding:1.1rem 1.2rem; color:#fff; }
-    .qc-cap-title { font-family:var(--font-d); font-weight:800; font-size:1.1rem; letter-spacing:-.02em; line-height:1.15; }
-    .qc-cap-sub { font-size:.76rem; color:rgba(255,255,255,.8); margin-top:.2rem; }
-    .qc-price-wrap { display:flex; align-items:baseline; justify-content:space-between; margin-top:.65rem; }
-    .qc-price-label { font-family:var(--font-d); font-size:.54rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.72); }
-    .qc-price { font-family:var(--font-d); font-weight:900; font-size:1.85rem; letter-spacing:-.03em; color:#F0C06A; line-height:1; }
-    .qc-foot { display:flex; align-items:center; gap:.6rem; padding:.7rem 1.1rem; border-top:1px solid var(--line); background:var(--bg-warm); }
-    .qc-foot span { font-size:.68rem; color:var(--muted); line-height:1.4; }
-    /* Progress */
-    .qc-progress { display:flex; gap:.4rem; margin-bottom:1.4rem; }
-    .qc-progress span { height:4px; flex:1; border-radius:999px; background:var(--line); transition:background .3s; }
-    .qc-progress span.on { background:var(--gold); }
-    /* Steps (progressive reveal) */
-    .qc-step { display:none; margin-bottom:1.5rem; }
-    .qc-step.show { display:block; animation:qcIn .32s ease; }
-    @keyframes qcIn { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:none; } }
-    .qc-glabel { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); display:flex; align-items:center; gap:.6rem; margin-bottom:.8rem; }
-    .qc-glabel .qc-num { width:22px; height:22px; border-radius:50%; background:var(--gold-soft); border:1px solid var(--gold-line); color:var(--gold-deep); font-size:.68rem; display:flex; align-items:center; justify-content:center; }
-    .qc-hint { font-size:.78rem; color:var(--muted); font-weight:400; letter-spacing:0; text-transform:none; font-family:var(--font-b); margin-left:auto; }
-    .qc-grid { display:grid; gap:.65rem; }
-    .qc-grid.c2 { grid-template-columns:1fr 1fr; }
-    .qc-opt { position:relative; background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:1rem 1.1rem; cursor:pointer; transition:border-color .16s, background .16s, box-shadow .16s; }
-    .qc-opt:hover { border-color:var(--gold-line); }
-    .qc-opt.selected { border-color:var(--gold); background:var(--gold-soft); box-shadow:0 4px 16px rgba(201,151,58,.14); }
-    .qc-check { position:absolute; top:.8rem; right:.8rem; width:18px; height:18px; border-radius:50%; border:1.5px solid var(--line); background:#fff; transition:all .16s; }
-    .qc-opt.selected .qc-check { border-color:var(--gold); background:var(--gold); }
-    .qc-opt.selected .qc-check::after { content:''; position:absolute; top:4px; left:4px; width:8px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); }
-    .qc-check.sq { border-radius:5px; }
-    .qc-name { font-family:var(--font-d); font-weight:800; font-size:.98rem; color:var(--ink); }
-    .qc-opt:not(.row) .qc-name { padding-right:1.4rem; }
-    .qc-desc { font-size:.76rem; color:var(--ink-2); line-height:1.45; margin-top:.25rem; }
-    .qc-addprice { display:inline-block; font-family:var(--font-d); font-weight:800; font-size:.8rem; color:var(--gold-deep); margin-top:.45rem; background:var(--gold-soft); border:1px solid var(--gold-line); padding:.12rem .5rem; border-radius:999px; }
-    /* Rows with thumbnails (package + tier) */
-    .qc-opt.row { display:flex; align-items:center; gap:.9rem; padding:.7rem .85rem; }
-    .qc-thumb { width:82px; height:64px; border-radius:10px; object-fit:cover; flex-shrink:0; background:#ECEAE4; }
-    .qc-opt.row .qc-body { flex:1; padding-right:1.3rem; }
-    .qc-optprice { font-family:var(--font-d); font-weight:800; font-size:.92rem; color:var(--gold-deep); margin-top:.28rem; }
-    .qc-optprice small { font-weight:600; font-size:.64rem; color:var(--muted); letter-spacing:.04em; text-transform:uppercase; }
-    /* Estimate + finish (revealed at end) */
-    .qc-tail { display:none; }
-    .qc-tail.show { display:block; animation:qcIn .32s ease; }
-    .qc-est { background:#fff; border:1px solid var(--line); border-radius:16px; padding:1.2rem 1.3rem; box-shadow:var(--shadow-card); margin-bottom:1.1rem; }
-    .qc-est-row { display:flex; justify-content:space-between; align-items:center; padding:.45rem 0; border-bottom:1px solid var(--line); gap:1rem; }
-    .qc-est-row:last-of-type { border-bottom:none; }
-    .qc-est-label { font-size:.78rem; color:var(--muted); }
-    .qc-est-val { font-family:var(--font-d); font-size:.82rem; font-weight:700; color:var(--ink); text-align:right; }
-    .qc-est-total { display:flex; justify-content:space-between; align-items:center; margin-top:.9rem; padding:.85rem 1rem; background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:11px; }
-    .qc-est-total-label { font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-deep); }
-    .qc-est-total-val { font-family:var(--font-d); font-size:1.55rem; font-weight:900; color:var(--gold-deep); letter-spacing:-.02em; }
-    .qc-est-note { font-size:.68rem; color:var(--muted); line-height:1.55; margin-top:.7rem; }
-    .qc-finish { width:100%; background:var(--ink); color:#fff; font-family:var(--font-d); font-weight:800; font-size:1rem; padding:1.05rem 1.5rem; border-radius:13px; transition:background .18s, transform .18s; display:flex; align-items:center; justify-content:center; gap:.5rem; }
-    .qc-finish:hover { background:#000; transform:translateY(-1px); }
-    /* Modal */
-    .qc-modal { display:none; position:fixed; inset:0; z-index:500; background:rgba(16,17,18,.55); backdrop-filter:blur(6px); overflow-y:auto; padding:1.5rem; }
-    .qc-modal.open { display:block; }
-    .qc-modal-card { background:#fff; border:1px solid var(--line); border-radius:22px; max-width:520px; margin:2.5rem auto; padding:2rem 2rem 2.4rem; position:relative; box-shadow:0 30px 80px rgba(16,17,18,.3); }
-    .qc-modal-close { position:absolute; top:1.2rem; right:1.2rem; color:var(--muted); padding:4px; display:flex; }
-    .qc-modal-close:hover { color:var(--ink); }
-    .qc-modal-eyebrow { font-family:var(--font-d); font-size:.65rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:.4rem; }
-    .qc-modal-h { font-family:var(--font-d); font-size:1.5rem; font-weight:900; letter-spacing:-.02em; margin-bottom:.5rem; }
-    .qc-modal-sub { font-size:.85rem; color:var(--ink-2); line-height:1.6; }
-    .qc-modal-summary { display:flex; justify-content:space-between; align-items:center; gap:1rem; background:var(--bg-warm); border:1px solid var(--gold-line); border-radius:12px; padding:.9rem 1.1rem; margin:1.4rem 0; }
-    .qc-ms-lbl { font-size:.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:3px; }
-    .qc-ms-pkg { font-family:var(--font-d); font-size:.85rem; font-weight:700; color:var(--ink); }
-    .qc-ms-total { font-family:var(--font-d); font-size:1.4rem; font-weight:900; color:var(--gold-deep); text-align:right; }
-    .qc-fgrid { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
-    .qc-field { display:flex; flex-direction:column; gap:.35rem; }
-    .qc-field.full { grid-column:1 / -1; }
-    .qc-field label { font-family:var(--font-d); font-size:.72rem; font-weight:700; color:var(--ink-2); }
-    .qc-field input, .qc-field select, .qc-field textarea { font-family:var(--font-b); font-size:.9rem; color:var(--ink); background:var(--bg-warm); border:1.5px solid var(--line); border-radius:10px; padding:.7rem .85rem; transition:border-color .15s; }
-    .qc-field input:focus, .qc-field select:focus, .qc-field textarea:focus { outline:none; border-color:var(--gold); }
-    .qc-field textarea { min-height:80px; resize:vertical; }
-    @media (max-width:900px) {
-      .qc-config { grid-template-columns:1fr; gap:1.4rem; max-width:560px; }
-      .qc-preview { position:static; }
-      .qc-media { max-height:230px; }
-    }
-    @media (max-width:560px) { .qc-fgrid { grid-template-columns:1fr; } }
     /* Full detail: interior on top, exterior below; items two per row */
     #panel-full .pkg-inc.two { display:flex; flex-direction:column; gap:1.4rem; }
     #panel-full .pkg-list { display:grid; grid-template-columns:1fr 1fr; gap:.55rem 1.2rem; }
@@ -502,6 +414,7 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         (970) 295-3577
       </a>
+      <a href="/quote-builder.html" class="btn btn-ghost" style="padding:.7rem 1.4rem;">Free Quote</a>
       <a href="/booking.html" class="btn btn-gold" style="padding:.7rem 1.5rem;">Book Now</a>
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
@@ -667,7 +580,7 @@
             </ul>
             </div>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -702,7 +615,7 @@
             </ul>
             </div>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -744,7 +657,7 @@
             </ul>
             </div>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       </div>
@@ -765,7 +678,7 @@
               <li>Detail tires</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -786,7 +699,7 @@
               <li>Detail tires</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -826,7 +739,7 @@
               <li>Door jambs</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -848,7 +761,7 @@
               <li>Door jambs</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -875,7 +788,7 @@
               <li>Door jambs</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       </div>
@@ -883,120 +796,6 @@
   </div>
 </section>
 
-<!-- ═══ LIVE QUOTE CONFIGURATOR ═══ -->
-<section class="qc" id="quote">
-  <div class="wrap">
-    <div class="qc-head rv">
-      <h2 class="h-sec">Build Your Instant Quote</h2>
-      <p>Answer a few quick questions and watch your price build. No email needed to see it.</p>
-    </div>
-    <div class="qc-config">
-      <!-- PREVIEW -->
-      <div class="qc-preview">
-        <div class="qc-media">
-          <img id="qc-img" src="/brand_assets/svc-mobile-detailing.jpg" alt="Detailing preview" />
-          <div class="qc-scrim"></div>
-          <div class="qc-cap">
-            <div class="qc-cap-title" id="qc-title">Mobile Detailing</div>
-            <div class="qc-cap-sub" id="qc-sub">Build your quote</div>
-            <div class="qc-price-wrap">
-              <span class="qc-price-label">Estimate</span>
-              <span class="qc-price" id="qc-price">—</span>
-            </div>
-          </div>
-        </div>
-        <div class="qc-foot">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--gold-deep)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-          <span>Fully mobile — we come to your driveway or office. Final price confirmed at booking.</span>
-        </div>
-      </div>
-
-      <!-- QUESTIONS -->
-      <div class="qc-panel">
-        <div class="qc-progress"><span class="on" id="qc-p1"></span><span id="qc-p2"></span><span id="qc-p3"></span><span id="qc-p4"></span></div>
-
-        <!-- STEP 1: VEHICLE SIZE -->
-        <div class="qc-step show" id="qc-step-size">
-          <div class="qc-glabel"><span class="qc-num">1</span> Vehicle Size <span class="qc-hint">Pricing adjusts by vehicle</span></div>
-          <div class="qc-grid c2">
-            <label class="qc-opt" data-q="size" data-v="small"><div class="qc-check"></div><div class="qc-name">Small</div><div class="qc-desc">Coupe / Sedan / Hatchback</div></label>
-            <label class="qc-opt" data-q="size" data-v="mid"><div class="qc-check"></div><div class="qc-name">Mid-Size</div><div class="qc-desc">Crossover / Mid-Size SUV / Standard Pickup</div></label>
-            <label class="qc-opt" data-q="size" data-v="large"><div class="qc-check"></div><div class="qc-name">Large</div><div class="qc-desc">Full-Size SUV / Crew Cab / Large Truck</div></label>
-            <label class="qc-opt" data-q="size" data-v="van"><div class="qc-check"></div><div class="qc-name">Van / Oversized</div><div class="qc-desc">Minivan / Full-Size Van / Cargo Van / Sprinter</div></label>
-          </div>
-        </div>
-
-        <!-- STEP 2: PACKAGE -->
-        <div class="qc-step" id="qc-step-pkg">
-          <div class="qc-glabel"><span class="qc-num">2</span> Package</div>
-          <div class="qc-grid">
-            <label class="qc-opt row" data-q="pkg" data-v="full"><img class="qc-thumb" src="web.screenshots/pkg-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Full Detail</div><div class="qc-desc">Complete interior and exterior in one appointment.</div></div><div class="qc-check"></div></label>
-            <label class="qc-opt row" data-q="pkg" data-v="exterior"><img class="qc-thumb" src="web.screenshots/pkg-ext-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Exterior Only</div><div class="qc-desc">Outside only. Wash, wheels, tires, paint and protection.</div></div><div class="qc-check"></div></label>
-            <label class="qc-opt row" data-q="pkg" data-v="interior"><img class="qc-thumb" src="web.screenshots/pkg-int-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Interior Only</div><div class="qc-desc">Inside only. Vacuum, all surfaces, windows and door panels.</div></div><div class="qc-check"></div></label>
-          </div>
-        </div>
-
-        <!-- STEP 3: PACKAGE LEVEL (rendered by JS) -->
-        <div class="qc-step" id="qc-step-tier">
-          <div class="qc-glabel"><span class="qc-num">3</span> Package Level</div>
-          <div class="qc-grid" id="qc-tier-grid"></div>
-        </div>
-
-        <!-- STEP 4: ADD-ONS -->
-        <div class="qc-step" id="qc-step-add">
-          <div class="qc-glabel"><span class="qc-num">4</span> Add-ons <span class="qc-hint">Optional</span></div>
-          <div class="qc-grid c2">
-            <label class="qc-opt qc-addon" data-addon="pet-hair"><div class="qc-check sq"></div><div class="qc-name">Pet Hair Removal</div><div class="qc-desc">Deep extraction of embedded pet hair from carpets and upholstery.</div><span class="qc-addprice">+$35</span></label>
-            <label class="qc-opt qc-addon" data-addon="headlight"><div class="qc-check sq"></div><div class="qc-name">Headlight Restoration</div><div class="qc-desc">Sand, polish and seal foggy, yellowed headlights back to clear.</div><span class="qc-addprice">+$70</span></label>
-            <label class="qc-opt qc-addon" data-addon="engine-bay"><div class="qc-check sq"></div><div class="qc-name">Engine Bay Detail</div><div class="qc-desc">Degrease, clean and dress the engine bay for a factory-fresh look.</div><span class="qc-addprice">+$50</span></label>
-            <label class="qc-opt qc-addon" data-addon="trim"><div class="qc-check sq"></div><div class="qc-name">Trim Restoration</div><div class="qc-desc">Restore faded plastic and rubber exterior trim to a rich finish.</div><span class="qc-addprice">+$30</span></label>
-          </div>
-        </div>
-
-        <!-- ESTIMATE + FINISH -->
-        <div class="qc-tail" id="qc-tail">
-          <div class="qc-est">
-            <div class="qc-est-row"><span class="qc-est-label">Package</span><span class="qc-est-val" id="qc-e-pkg">—</span></div>
-            <div class="qc-est-row"><span class="qc-est-label">Vehicle</span><span class="qc-est-val" id="qc-e-size">—</span></div>
-            <div class="qc-est-row" id="qc-e-add-row" style="display:none;"><span class="qc-est-label" id="qc-e-add-label">Add-ons</span><span class="qc-est-val" id="qc-e-add-val">+$0</span></div>
-            <div class="qc-est-total"><span class="qc-est-total-label">Starting Price</span><span class="qc-est-total-val" id="qc-e-total">—</span></div>
-            <p class="qc-est-note">Starting price shown. Final price varies by vehicle size and condition, and is confirmed when we reach out.</p>
-          </div>
-          <button class="qc-finish" data-qc-finish>Finish Quote →</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- QUOTE MODAL -->
-  <div class="qc-modal" id="qcModal">
-    <div class="qc-modal-card">
-      <button class="qc-modal-close" id="qcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
-      <div class="qc-modal-eyebrow">Almost there</div>
-      <h2 class="qc-modal-h">Lock in your quote</h2>
-      <p class="qc-modal-sub">We'll reach out within 12 hours to confirm pricing and get you on the schedule.</p>
-      <div class="qc-modal-summary" id="qcModalSummary">
-        <div><div class="qc-ms-lbl">Your Package</div><div class="qc-ms-pkg" id="qcModalPkg">—</div></div>
-        <div><div class="qc-ms-lbl" style="text-align:right;">Starting At</div><div class="qc-ms-total" id="qcModalTotal">—</div></div>
-      </div>
-      <div id="qcModalSuccess" style="display:none;text-align:center;padding:1.5rem 0;">
-        <div style="width:52px;height:52px;background:rgba(34,163,74,.12);border:1.5px solid rgba(34,163,74,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22A34A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
-        <div style="font-family:var(--font-d);font-size:1.2rem;font-weight:900;margin-bottom:.5rem;">Quote sent!</div>
-        <div style="font-size:.85rem;color:var(--ink-2);line-height:1.65;max-width:340px;margin:0 auto;">We'll be in touch within 12 hours. You can also call or text us anytime at <strong style="color:var(--ink);">(970) 295-3577</strong>.</div>
-      </div>
-      <div id="qcModalForm">
-        <div class="qc-fgrid">
-          <div class="qc-field"><label>Full Name</label><input type="text" id="qcName" placeholder="John Smith" required /></div>
-          <div class="qc-field"><label>Phone Number</label><input type="tel" id="qcPhone" placeholder="(970) 000-0000" required /></div>
-          <div class="qc-field full"><label>Address</label><input type="text" id="qcAddress" placeholder="123 Main St, Fort Collins, CO" /></div>
-          <div class="qc-field full"><label>Preferred Timeline</label><select id="qcTimeline"><option value="">Select…</option><option>As soon as possible</option><option>Within 2 weeks</option><option>Within a month</option><option>Just getting a quote</option></select></div>
-          <div class="qc-field full"><label>Notes or questions?</label><textarea id="qcNotes" placeholder="Paint condition, special requests, questions…"></textarea></div>
-        </div>
-        <button class="qc-finish" id="qcSubmit" style="margin-top:1.25rem;">Send Quote Request →</button>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ═══ CERAMIC (SYSTEM X) ═══ -->
 <section class="ceramic-sec" id="ceramic">
@@ -1346,201 +1145,6 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
 
-  // Live quote configurator
-  (function () {
-    var root = document.getElementById('quote'); if (!root) return;
-    var $ = function (id) { return document.getElementById(id); };
-    var fmt = function (n) { return '$' + n.toLocaleString(); };
-
-    var SIZE_LABELS = { small:'Small', mid:'Mid-Size', large:'Large', van:'Van / Oversized' };
-    var PACKAGES = {
-      full: { label:'Full Detail', thumb:'web.screenshots/pkg-reset.jpg', levels:[
-        { v:'l1', name:'Full Maintenance', level:'Level 1', price:180, img:'web.screenshots/pkg-maintenance.jpg', desc:'Regular upkeep clean, inside and out.' },
-        { v:'l2', name:'Full Reset',       level:'Level 2', price:299, img:'web.screenshots/pkg-reset.jpg',       desc:'Deeper reset of built-up dirt and grime, inside and out.' },
-        { v:'l3', name:'Full Executive',   level:'Level 3', price:499, img:'web.screenshots/pkg-executive.jpg',   desc:'Our most thorough detail, with paint enhancement and a full interior reset.' }
-      ]},
-      exterior: { label:'Exterior', thumb:'web.screenshots/pkg-ext-reset.jpg', levels:[
-        { v:'l1', name:'Exterior Reset',     level:'Level 1', price:99,  img:'/brand_assets/svc-mobile-detailing.jpg', desc:'Exterior wash, wheels, tires and paint protection.' },
-        { v:'l2', name:'Exterior Executive', level:'Level 2', price:225, img:'web.screenshots/pkg-ext-reset.jpg',      desc:'Deep exterior with decontamination, polish and sealant.' },
-        { v:'l3', name:'Ceramic Coating',    level:'Level 3', price:499, img:'web.screenshots/pkg-ext-ceramic.jpg',    desc:'Paint correction plus a System X ceramic coating.' }
-      ]},
-      interior: { label:'Interior', thumb:'web.screenshots/pkg-int-reset.jpg', levels:[
-        { v:'l1', name:'Interior Maintenance', level:'Level 1', price:125, img:'web.screenshots/pkg-int-maintenance.jpg', desc:'Interior vacuum, wipe-down, windows and door panels.' },
-        { v:'l2', name:'Interior Reset',       level:'Level 2', price:225, img:'web.screenshots/pkg-int-reset.jpg',       desc:'Deep interior reset with steam and spot treatment.' },
-        { v:'l3', name:'Interior Executive',   level:'Level 3', price:325, img:'web.screenshots/pkg-int-executive.jpg',   desc:'Full interior reset with shampoo, leather care and steam.' }
-      ]}
-    };
-    var ADDONS = {
-      'pet-hair':   { label:'Pet Hair Removal',      price:35 },
-      'headlight':  { label:'Headlight Restoration', price:70 },
-      'engine-bay': { label:'Engine Bay Detail',     price:50 },
-      'trim':       { label:'Trim Restoration',      price:30 }
-    };
-
-    var st = { size:null, pkg:null, tier:null };
-
-    function currentTier() {
-      if (!st.pkg || !st.tier) return null;
-      var lv = PACKAGES[st.pkg].levels;
-      for (var i = 0; i < lv.length; i++) { if (lv[i].v === st.tier) return lv[i]; }
-      return null;
-    }
-    function getAddons() {
-      var total = 0, labels = [];
-      root.querySelectorAll('[data-addon].selected').forEach(function (c) {
-        var a = ADDONS[c.dataset.addon]; if (a) { total += a.price; labels.push(a.label); }
-      });
-      return { total: total, labels: labels };
-    }
-    function setStep(id, on) { $(id).classList.toggle('show', on); }
-    function setProg(id, on) { $(id).classList.toggle('on', on); }
-
-    function renderTiers() {
-      var grid = $('qc-tier-grid');
-      var pkg = PACKAGES[st.pkg];
-      grid.innerHTML = pkg.levels.map(function (l) {
-        return '<label class="qc-opt row" data-q="tier" data-v="' + l.v + '">' +
-          '<img class="qc-thumb" src="' + l.img + '" alt="" loading="lazy" />' +
-          '<div class="qc-body"><div class="qc-name">' + l.name + '</div>' +
-          '<div class="qc-desc">' + l.desc + '</div>' +
-          '<div class="qc-optprice">' + fmt(l.price) + ' <small>starting</small></div></div>' +
-          '<div class="qc-check"></div></label>';
-      }).join('');
-      grid.querySelectorAll('[data-q="tier"]').forEach(function (card) {
-        card.addEventListener('click', function () { selectTier(card); });
-      });
-    }
-
-    function updatePreview() {
-      var t = currentTier();
-      if (t) {
-        $('qc-img').src = t.img;
-        $('qc-title').textContent = t.name;
-        $('qc-sub').textContent = PACKAGES[st.pkg].label + (st.size ? ' · ' + SIZE_LABELS[st.size] : '');
-        var add = getAddons();
-        $('qc-price').textContent = fmt(t.price + add.total);
-      } else if (st.pkg) {
-        $('qc-img').src = PACKAGES[st.pkg].thumb;
-        $('qc-title').textContent = PACKAGES[st.pkg].label;
-        $('qc-sub').textContent = 'Choose a package level';
-        $('qc-price').textContent = '—';
-      } else {
-        $('qc-img').src = '/brand_assets/svc-mobile-detailing.jpg';
-        $('qc-title').textContent = 'Mobile Detailing';
-        $('qc-sub').textContent = st.size ? SIZE_LABELS[st.size] : 'Build your quote';
-        $('qc-price').textContent = '—';
-      }
-    }
-
-    function updateEstimate() {
-      var t = currentTier();
-      if (!t) { setStep('qc-tail', false); return; }
-      var add = getAddons();
-      $('qc-e-pkg').textContent = t.name + ' (' + PACKAGES[st.pkg].label + ')';
-      $('qc-e-size').textContent = SIZE_LABELS[st.size];
-      $('qc-e-total').textContent = fmt(t.price + add.total);
-      var row = $('qc-e-add-row');
-      if (add.total) {
-        row.style.display = 'flex';
-        $('qc-e-add-label').textContent = add.labels.length + ' Add-on' + (add.labels.length > 1 ? 's' : '');
-        $('qc-e-add-val').textContent = '+$' + add.total;
-      } else { row.style.display = 'none'; }
-      setStep('qc-tail', true);
-    }
-
-    function selectSize(card) {
-      root.querySelectorAll('[data-q="size"]').forEach(function (c) { c.classList.remove('selected'); });
-      card.classList.add('selected');
-      st.size = card.dataset.v;
-      setProg('qc-p2', true);
-      setStep('qc-step-pkg', true);
-      updatePreview();
-      updateEstimate();
-    }
-    function selectPkg(card) {
-      root.querySelectorAll('[data-q="pkg"]').forEach(function (c) { c.classList.remove('selected'); });
-      card.classList.add('selected');
-      st.pkg = card.dataset.v;
-      st.tier = null;
-      renderTiers();
-      setProg('qc-p3', true);
-      setProg('qc-p4', false);
-      setStep('qc-step-tier', true);
-      setStep('qc-step-add', false);
-      setStep('qc-tail', false);
-      updatePreview();
-    }
-    function selectTier(card) {
-      root.querySelectorAll('[data-q="tier"]').forEach(function (c) { c.classList.remove('selected'); });
-      card.classList.add('selected');
-      st.tier = card.dataset.v;
-      setProg('qc-p4', true);
-      setStep('qc-step-add', true);
-      updatePreview();
-      updateEstimate();
-    }
-
-    root.querySelectorAll('[data-q="size"]').forEach(function (c) { c.addEventListener('click', function () { selectSize(c); }); });
-    root.querySelectorAll('[data-q="pkg"]').forEach(function (c) { c.addEventListener('click', function () { selectPkg(c); }); });
-    root.querySelectorAll('[data-addon]').forEach(function (c) {
-      c.addEventListener('click', function () { c.classList.toggle('selected'); updatePreview(); updateEstimate(); });
-    });
-
-    function currentQuote() {
-      var t = currentTier();
-      var add = getAddons();
-      var addStr = add.labels.length ? ' + ' + add.labels.join(', ') : '';
-      return {
-        total: t.price + add.total,
-        pkg: t.name + ' · ' + SIZE_LABELS[st.size],
-        service: t.name + ' (' + PACKAGES[st.pkg].label + ') — ' + SIZE_LABELS[st.size] + addStr,
-        vehicle: SIZE_LABELS[st.size],
-        prefix: '[Detail Quote]'
-      };
-    }
-
-    var modal = $('qcModal');
-    function openModal() {
-      var t = currentTier();
-      if (!t) { return; }
-      var q = currentQuote();
-      $('qcModalPkg').textContent = q.pkg;
-      $('qcModalTotal').textContent = fmt(q.total);
-      $('qcModalForm').style.display = '';
-      $('qcModalSummary').style.display = 'flex';
-      $('qcModalSuccess').style.display = 'none';
-      modal.classList.add('open');
-      document.body.style.overflow = 'hidden';
-      setTimeout(function () { $('qcName').focus(); }, 100);
-    }
-    function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
-    root.querySelectorAll('[data-qc-finish]').forEach(function (b) { b.addEventListener('click', openModal); });
-    $('qcClose').addEventListener('click', closeModal);
-    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
-
-    $('qcSubmit').addEventListener('click', function () {
-      var name = $('qcName').value.trim(), phone = $('qcPhone').value.trim();
-      var address = $('qcAddress').value.trim(), timeline = $('qcTimeline').value, notes = $('qcNotes').value.trim();
-      if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
-      var btn = $('qcSubmit'); btn.textContent = 'Sending…'; btn.disabled = true;
-      var q = currentQuote();
-      var notesOut = q.prefix + ' ' + q.service + ' | Starting: $' + q.total.toLocaleString() + (timeline ? ' | Timeline: ' + timeline : '') + (notes ? ' | Notes: ' + notes : '');
-      fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ full_name: name, phone: phone, address: address, service: q.service, vehicle: q.vehicle, timeline: timeline, platform: 'WEB', notes: notesOut })
-      }).then(function (res) {
-        if (res.ok || res.status === 201) {
-          $('qcModalForm').style.display = 'none';
-          $('qcModalSummary').style.display = 'none';
-          $('qcModalSuccess').style.display = 'block';
-        } else { throw new Error('err'); }
-      }).catch(function () {
-        btn.textContent = 'Send Quote Request →'; btn.disabled = false;
-        alert('Something went wrong — please call or text us at (970) 295-3577.');
-      });
-    });
-  })();
 </script>
 </body>
 </html>
