@@ -193,7 +193,6 @@
     .pkg-panels { position:relative; }
     .pkg-panel { display:none; }
     .pkg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:start; animation:panelIn .35s ease; }
-    #panel-ext.active { grid-template-columns:repeat(2, calc((100% - 2 * 1.4rem) / 3)); justify-content:center; }
     .pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:stretch; }
     @keyframes panelIn { from { opacity:0; transform:translateY(14px);} to {opacity:1; transform:none;} }
     .pkg-card { background:#fff; border:1px solid var(--line); border-radius:20px; display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-card); transition:transform .2s, box-shadow .2s; }
@@ -581,72 +580,9 @@
       <button class="tab active" data-panel="full">Full Detail</button>
       <button class="tab" data-panel="ext">Exterior Only</button>
       <button class="tab" data-panel="int">Interior Only</button>
-      <button class="tab" data-panel="ceramic">Ceramic Coatings</button>
     </div>
 
     <div class="pkg-panels">
-      <div class="pkg-panel" id="panel-ceramic">
-        <div class="pkg-card rv">
-          <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">2 Year</div></div>
-          <div class="pkg-card-body">
-            <div class="pkg-name">2 Year Shield</div>
-            <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$499</span></div>
-            <div class="pkg-inc">
-              <div>
-                <div class="pkg-inc-head">What's Included</div>
-                <ul class="pkg-list">
-                  <li>9H+ ceramic coating</li>
-                  <li>Hydrophobic, self-cleaning finish</li>
-                  <li>UV and chemical protection</li>
-                  <li>Enhancement polish prep</li>
-                  <li>2-year warranty</li>
-                </ul>
-              </div>
-            </div>
-            <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
-          </div>
-        </div>
-        <div class="pkg-card rv">
-          <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">6 Year</div></div>
-          <div class="pkg-card-body">
-            <div class="pkg-name">6 Year Armor</div>
-            <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$650</span></div>
-            <div class="pkg-inc">
-              <div>
-                <div class="pkg-inc-head">What's Included</div>
-                <ul class="pkg-list">
-                  <li>Thicker multi-layer coating</li>
-                  <li>Stronger chemical resistance</li>
-                  <li>Hydrophobic, self-cleaning finish</li>
-                  <li>Enhancement polish prep</li>
-                  <li>6-year warranty</li>
-                </ul>
-              </div>
-            </div>
-            <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
-          </div>
-        </div>
-        <div class="pkg-card rv">
-          <div class="pkg-card-img"><span>Image coming soon</span><div class="pkg-fun">Lifetime</div></div>
-          <div class="pkg-card-body">
-            <div class="pkg-name">Lifetime Diamond</div>
-            <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$700</span></div>
-            <div class="pkg-inc">
-              <div>
-                <div class="pkg-inc-head">What's Included</div>
-                <ul class="pkg-list">
-                  <li>Maximum durability and thickness</li>
-                  <li>Strongest chemical resistance</li>
-                  <li>Free first annual inspection</li>
-                  <li>Enhancement polish prep</li>
-                  <li>Lifetime warranty</li>
-                </ul>
-              </div>
-            </div>
-            <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
-          </div>
-        </div>
-      </div>
             <div class="pkg-panel active" id="panel-full">
       <div class="pkg-card rv">
         <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-maintenance.jpg" alt="Full Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
@@ -757,7 +693,7 @@
       </div>
       <div class="pkg-panel" id="panel-ext">
       <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-ext-reset.jpg" alt="Detailer foaming down a black Ford Bronco in a driveway" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="/brand_assets/svc-mobile-detailing.jpg" alt="Washing the hood of a black Audi from the front with soap suds" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Exterior Reset</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$99</span></div>
@@ -776,7 +712,7 @@
         </div>
       </div>
       <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-ext-executive.jpg" alt="Detailer machine polishing the side of a white Corvette" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-ext-reset.jpg" alt="Detailer foaming down a black Ford Bronco in a driveway" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Exterior Executive</div>
           <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$225</span></div>
@@ -794,6 +730,25 @@
             </ul>
           </div>
           <a href="/booking.html" class="btn btn-dark">Get Free Quote</a>
+        </div>
+      </div>
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-ext-ceramic.jpg" alt="Gloved detailer applying ceramic coating to a white Porsche 911 under a canopy" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Ceramic Coating</div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$499</span></div>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">What's Included</div>
+            <ul class="pkg-list">
+              <li>Paint enhancement, or 1 to 2 step paint correction</li>
+              <li>Choice of 2 year, 6 year, or lifetime coating</li>
+              <li>9H hardness, scratch and swirl resistance</li>
+              <li>Hydrophobic, self-cleaning finish</li>
+              <li>UV and chemical protection</li>
+              <li>Deep gloss and long-lasting shine</li>
+            </ul>
+          </div>
+          <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       </div>
