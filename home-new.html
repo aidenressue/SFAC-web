@@ -132,6 +132,18 @@
     .sec-head-c { text-align:center; margin-bottom:2.4rem; }
     .sec-head-c h2 { font-size:clamp(1.9rem,3.4vw,2.75rem); }
     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; max-width:1220px; margin:0 auto; }
+    /* ── Service areas ── */
+    .areas-sec { padding:3.5rem 2rem 1rem; }
+    .areas-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1.3rem; max-width:1220px; margin:1.8rem auto 0; }
+    .area-card { display:block; transition:transform .2s; }
+    .area-card:hover { transform:translateY(-6px); }
+    .area-img { position:relative; aspect-ratio:3/4; border-radius:16px; overflow:hidden; background:linear-gradient(135deg,#EDEBE6,#E1DED7); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-card); transition:box-shadow .2s; }
+    .area-card:hover .area-img { box-shadow:var(--shadow-lift); }
+    .area-img::after { content:'Photo coming soon'; font-family:var(--font-d); font-size:.56rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#B4B1A9; }
+    .area-img img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; }
+    .area-name { text-align:center; font-family:var(--font-d); font-weight:800; font-size:1.18rem; letter-spacing:-.01em; color:var(--ink); margin-top:.95rem; }
+    @media (max-width:820px) { .areas-grid { grid-template-columns:repeat(2,1fr); gap:1rem; } }
+    @media (max-width:460px) { .areas-grid { grid-template-columns:1fr 1fr; } .area-name { font-size:1rem; } }
     .svc-card { position:relative; aspect-ratio:1.18/1; border-radius:18px; overflow:hidden; box-shadow:var(--shadow-card); transition:transform .25s cubic-bezier(.4,0,.2,1), box-shadow .25s ease; }
     .svc-card:hover { transform:translateY(-10px); box-shadow:var(--shadow-lift); }
     .svc-img { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:repeating-linear-gradient(45deg,#F1EFEA,#F1EFEA 20px,#ECEAE4 20px,#ECEAE4 40px); }
@@ -493,6 +505,20 @@
         <span class="svc-learn">Learn More →</span>
       </div>
     </a>
+  </div>
+</section>
+
+<!-- ═══ SERVICE AREAS ═══ -->
+<section class="areas-sec" id="areas">
+  <div class="sec-head-c rv">
+    <h2 class="h-sec">Proudly Serving These Cities &amp; Surrounding Areas</h2>
+  </div>
+  <div class="areas-grid">
+    <a href="/area-fort-collins.html" class="area-card rv"><div class="area-img"><img src="web.screenshots/area-fort-collins.jpg" alt="Fort Collins, Colorado" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Fort Collins</div></a>
+    <a href="/area-timnath.html" class="area-card rv"><div class="area-img"><img src="web.screenshots/area-timnath.jpg" alt="Timnath, Colorado" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Timnath</div></a>
+    <a href="/area-windsor.html" class="area-card rv"><div class="area-img"><img src="web.screenshots/area-windsor.jpg" alt="Windsor, Colorado" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Windsor</div></a>
+    <a href="/area-loveland.html" class="area-card rv"><div class="area-img"><img src="web.screenshots/area-loveland.jpg" alt="Loveland, Colorado" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Loveland</div></a>
+    <a href="/area-surrounding.html" class="area-card rv"><div class="area-img"><img src="web.screenshots/area-surrounding.jpg" alt="Surrounding Northern Colorado areas" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Surrounding Areas</div></a>
   </div>
 </section>
 
