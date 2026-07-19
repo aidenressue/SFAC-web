@@ -133,7 +133,7 @@
     .sec-head-c h2 { font-size:clamp(1.9rem,3.4vw,2.75rem); }
     .services-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1rem; max-width:1220px; margin:0 auto; }
     /* ── Service areas ── */
-    .areas-sec { padding:3.5rem 2rem 1rem; }
+    .areas-sec { padding:.5rem 2rem 1rem; }
     .areas-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1.3rem; max-width:1220px; margin:1.8rem auto 0; }
     .area-card { display:block; transition:transform .2s; }
     .area-card:hover { transform:translateY(-6px); }
@@ -230,6 +230,10 @@
     .pkg-inc-head { font-family:var(--font-d); font-size:.78rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin-bottom:.7rem; padding-bottom:.4rem; border-bottom:1px solid var(--line); }
     .pkg-list { display:flex; flex-direction:column; gap:.55rem; }
     .pkg-list li { display:flex; gap:.55rem; font-size:.8rem; color:var(--ink-2); line-height:1.45; }
+    .pkg-list li.pkg-hide { display:none; }
+    .pkg-list.show-all li.pkg-hide { display:flex; }
+    .pkg-more-btn { font-family:var(--font-d); font-weight:700; font-size:.78rem; color:var(--gold-deep); background:none; padding:.35rem 0 0; margin-top:.2rem; display:inline-flex; align-items:center; gap:.3rem; }
+    .pkg-more-btn:hover { color:var(--gold); }
     .pkg-list li::before { content:''; flex-shrink:0; width:16px; height:16px; margin-top:.1rem; border-radius:50%; background:#16A34A url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23FFFFFF' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; box-shadow:0 1px 4px rgba(22,163,74,.35); }
     .addons-row { display:flex; flex-wrap:wrap; gap:.6rem; justify-content:center; margin-top:2.4rem; }
     .addon-chip { background:#fff; border:1px solid var(--line); border-radius:999px; padding:.5rem 1.05rem; font-size:.76rem; color:var(--ink-2); }
@@ -637,7 +641,7 @@
           <div class="pkg-inc two">
             <div>
               <div class="pkg-inc-head">Interior</div>
-              <ul class="pkg-list">
+              <ul class="pkg-list" id="fullExecInt">
               <li>Thorough vacuum interior</li>
               <li>Clean & protect plastic</li>
               <li>Wipe all surfaces</li>
@@ -648,11 +652,12 @@
               <li>Full steam cleaning</li>
               <li>Pet hair removal</li>
               <li>Trim restoration</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
+              <li class="pkg-hide">Detail floor mats & shine</li>
+              <li class="pkg-hide">Windows & mirrors</li>
+              <li class="pkg-hide">Detail trunk</li>
+              <li class="pkg-hide">Door jambs</li>
             </ul>
+            <button type="button" class="pkg-more-btn" data-target="fullExecInt">See more</button>
             </div>
             <div>
               <div class="pkg-inc-head">Exterior</div>
@@ -1083,6 +1088,15 @@
     document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
     document.querySelectorAll('.pkg-panel.active .rv').forEach(el => el.classList.add('in'));
   }));
+
+  // Package list "See more / See less"
+  document.querySelectorAll('.pkg-more-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const ul = document.getElementById(btn.dataset.target);
+      const open = ul.classList.toggle('show-all');
+      btn.textContent = open ? 'See less' : 'See more';
+    });
+  });
 
   // FAQ accordion
   document.querySelectorAll('.faq-item').forEach(item => {
