@@ -389,7 +389,7 @@
     <div class="invalid-title">Link Not Valid</div>
     <div class="invalid-sub">
       This payment link has expired or is invalid.<br>
-      <a href="sms:9702953577">Text (970) 295-3577</a> for a new link.
+      <a href="sms:9708516433">Text (970) 851-6433</a> for a new link.
     </div>
   </div>
 
@@ -488,7 +488,7 @@
         <div class="pay-icon">Z</div>
         <div class="pay-info">
           <div class="pay-name">Zelle</div>
-          <div class="pay-handle" id="h-zelle">(970) 295-3577</div>
+          <div class="pay-handle" id="h-zelle">(970) 851-6433</div>
         </div>
         <button id="zelle-copy" class="zelle-copy-btn" onclick="copyZelle()">Copy</button>
       </div>
@@ -510,9 +510,9 @@
   <footer class="footer" id="ftr" style="display:none;">
     <p>
       Questions about your invoice?<br>
-      <a href="sms:9702953577">Text (970) 295-3577</a>
+      <a href="sms:9708516433">Text (970) 851-6433</a>
       &nbsp;·&nbsp;
-      <a href="tel:9702953577">Call</a><br><br>
+      <a href="tel:9708516433">Call</a><br><br>
       Aiden Ressue · Shine for a Cause Mobile Detailing<br>
       <span style="color:#404754;">10% of every detail + 100% of tips go to charity.</span>
     </p>
@@ -620,12 +620,12 @@
       if (total > 0) {
         el('h-venmo').textContent  = amtStr + ' · @ShineForACause';
         el('h-cash').textContent   = amtStr + ' · $ShineForACause';
-        el('h-zelle').textContent  = amtStr + ' · (970) 295-3577';
+        el('h-zelle').textContent  = amtStr + ' · (970) 851-6433';
         el('h-paypal').textContent = amtStr + ' · paypal.me/shineforacause';
       } else {
         el('h-venmo').textContent  = '@ShineForACause';
         el('h-cash').textContent   = '$ShineForACause';
-        el('h-zelle').textContent  = '(970) 295-3577';
+        el('h-zelle').textContent  = '(970) 851-6433';
         el('h-paypal').textContent = 'Credit & debit accepted';
       }
 
@@ -643,7 +643,7 @@
       const total = round(amount + tipAmt);
       const lines = [];
       if (total > 0) lines.push('Amount: $' + fmt(total));
-      lines.push('Zelle to: (970) 295-3577');
+      lines.push('Zelle to: (970) 851-6433');
       if (invoice) lines.push('Ref: ' + invoice);
       const text = lines.join('\n');
 
