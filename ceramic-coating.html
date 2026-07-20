@@ -354,18 +354,21 @@
     .cc-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
       background:radial-gradient(125% 85% at 50% 46%, transparent 42%, rgba(5,5,5,.5) 78%, #050505 100%),
                  linear-gradient(180deg, rgba(5,5,5,.6) 0%, transparent 24%, transparent 58%, rgba(5,5,5,.9) 100%); }
-    .cc-hero-inner { position:relative; z-index:2; width:100%; max-width:720px; margin:0 auto; min-height:100vh; padding:9.5rem 1.5rem 3rem; display:flex; flex-direction:column; text-align:center; }
+    .cc-hero-inner { position:relative; z-index:2; width:100%; max-width:720px; margin:0 auto; min-height:100vh; padding:7.9rem 1.5rem 3rem; display:flex; flex-direction:column; text-align:center; }
     .cc-title { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(2rem,5.4vw,4rem); line-height:1; color:#fff; margin:0; white-space:nowrap; }
     .cc-sub { margin-top:1rem; font-family:var(--font-d); font-weight:600; font-size:clamp(1rem,2vw,1.3rem); color:#E9DCC2; }
     .cc-sub .hrt { color:var(--gold); }
-    .cc-hero-cta { margin-top:auto; display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:.8rem; }
-    .cc-hero-cta .btn { padding:1.1rem 2.4rem; font-size:1rem; }
+    .cc-hero-cta { margin-top:auto; display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:.9rem; }
+    .cc-hero-cta .btn { padding:1.3rem 3rem; font-size:1.12rem; }
+    .cc-hero-cta .btn-gold { background:linear-gradient(135deg,#F6C24E 0%,#E0A22F 100%); color:#1a1205; box-shadow:0 8px 30px rgba(240,180,66,.55), 0 2px 8px rgba(0,0,0,.35); }
+    .cc-hero-cta .btn-gold:hover { background:linear-gradient(135deg,#FFCF63 0%,#EDB03D 100%); box-shadow:0 12px 40px rgba(240,180,66,.7); transform:translateY(-2px); }
     .cc-call { background:#17181A; color:#fff; border:1px solid rgba(255,255,255,.14); }
     .cc-call:hover { background:#202225; transform:translateY(-2px); }
     .cc-scrollcue { margin-top:1.5rem; align-self:center; color:rgba(255,255,255,.55); animation:bob 1.6s ease-in-out infinite; }
     .cc-hint { position:absolute; bottom:1.1rem; left:50%; transform:translateX(-50%); z-index:2; font-size:.66rem; letter-spacing:.16em; text-transform:uppercase; color:rgba(255,255,255,.32); pointer-events:none; }
     /* sections */
     .cc-sec { background:#050505; padding:5.5rem 1.5rem; }
+    #packages { padding-top:2.5rem; }
     .cc-wrap { max-width:1100px; margin:0 auto; }
     .cc-h2 { text-align:center; font-family:var(--font-d); font-weight:900; letter-spacing:-.02em; font-size:clamp(2rem,4vw,3rem); color:#fff; margin:0; }
     .cc-h2-sub { text-align:center; color:#9A9DA2; margin-top:.65rem; font-size:1rem; }
@@ -505,8 +508,8 @@
       <h1 class="cc-title">Ceramic Coating</h1>
     </div>
     <div class="cc-hero-cta">
-      <a href="#packages" class="btn btn-gold">Learn More</a>
-      <a href="/booking.html" class="btn cc-call">Book Now</a>
+      <a href="/quote-builder.html" class="btn btn-gold">Get Quote</a>
+      <a href="#packages" class="btn cc-call">Learn More</a>
     </div>
     <a href="#packages" class="cc-scrollcue" aria-label="Scroll to packages">
       <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
