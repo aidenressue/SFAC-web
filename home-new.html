@@ -295,28 +295,27 @@
     .stat-lbl { font-size:.78rem; color:rgba(255,255,255,.65); margin-top:.35rem; letter-spacing:.04em; }
 
     /* ── Compare (godetail-style toggle) ── */
-    /* Dark sections below ceramic */
-    #compare { background:#000; }
-    #compare .h-sec { color:#fff; }
+    #compare { background:#fff; }
     #faq { background:#fff; }
-    #compare .sub { color:#B9BCC1; }
-    .vs-grid { max-width:980px; margin:2.6rem auto 0; }
+    #compare .sub { color:var(--ink-2); }
+    .vs-grid { max-width:1000px; margin:2.6rem auto 0; }
     .vs-heads, .vs-row { display:grid; grid-template-columns:0.8fr 1.1fr 1.1fr; column-gap:1.1rem; }
-    .vs-heads { margin-bottom:.6rem; }
-    .vs-head { display:flex; flex-direction:column; gap:.4rem; text-align:center; padding:1.4rem 1rem; border-radius:18px; background:#17181A; }
-    .vs-head .vs-label { font-family:var(--font-d); font-size:.68rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:#8A8D92; }
-    .vs-head .vs-name { font-family:var(--font-d); font-size:clamp(1.05rem,2.3vw,1.5rem); font-weight:900; letter-spacing:-.02em; color:#fff; }
+    .vs-heads { margin-bottom:.75rem; }
+    .vs-head { display:flex; flex-direction:column; gap:.45rem; text-align:center; padding:1.35rem 1rem; border-radius:18px; background:#2A2C30; }
+    .vs-head .vs-label { font-family:var(--font-d); font-size:.82rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:#B7BAC0; }
+    .vs-head .vs-name { font-family:var(--font-d); font-size:clamp(1.2rem,2.5vw,1.75rem); font-weight:900; letter-spacing:-.02em; color:#fff; }
     .vs-head.gold { background:var(--gold); box-shadow:0 12px 34px rgba(201,151,58,.32); }
     .vs-head.gold .vs-label { color:#6B520F; }
     .vs-head.gold .vs-name { color:#141005; }
-    .vs-row { border-bottom:1px solid rgba(255,255,255,.09); }
-    .vs-row:last-child { border-bottom:none; }
-    .vs-topic { display:flex; align-items:center; padding:1.05rem .2rem; font-family:var(--font-d); font-weight:800; font-size:1.08rem; letter-spacing:-.01em; color:#fff; }
-    .vs-cell { display:flex; align-items:center; gap:.65rem; padding:1.05rem .3rem; font-size:.86rem; line-height:1.4; color:#C9CBCE; }
+    .vs-row { margin-bottom:.7rem; align-items:stretch; }
+    .vs-topic { display:flex; align-items:center; padding:.4rem .2rem; font-family:var(--font-d); font-weight:800; font-size:1.12rem; letter-spacing:-.01em; color:var(--ink); }
+    .vs-cell { display:flex; align-items:center; gap:.7rem; padding:1rem 1.15rem; font-size:1rem; line-height:1.45; border-radius:14px; }
+    .vs-row > .vs-cell:nth-child(2) { background:#EBE9E4; color:var(--ink-2); }
+    .vs-row > .vs-cell:nth-child(3) { background:rgba(201,151,58,.13); border:1px solid var(--gold-line); color:var(--ink); }
     /* circular badges */
-    .mark-x, .mark-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; font-size:.92rem; font-weight:900; line-height:1; }
-    .mark-x { background:#FCE7E5; color:#E5433D; }
-    .mark-check { background:#E1F5E9; color:#15A048; box-shadow:0 3px 12px rgba(21,160,72,.25); }
+    .mark-x, .mark-check { flex:0 0 auto; display:inline-flex; align-items:center; justify-content:center; width:30px; height:30px; border-radius:50%; font-size:.95rem; font-weight:900; line-height:1; color:#fff; }
+    .mark-x { background:#DC2626; box-shadow:0 3px 12px rgba(220,38,38,.28); }
+    .mark-check { background:#16A34A; box-shadow:0 3px 12px rgba(22,163,74,.28); }
 
     /* ── FAQ ──────────────────────────── */
     .faq-wrap { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:.8rem 1.4rem; align-items:start; }
@@ -383,9 +382,9 @@
       .gallery-strip img { height:170px; }
       .vs-heads { grid-template-columns:1fr 1fr; column-gap:.6rem; }
       .vs-heads .vs-spacer { display:none; }
-      .vs-row { grid-template-columns:1fr; row-gap:.1rem; padding:.4rem 0; }
-      .vs-topic { padding:.7rem .2rem .2rem; font-size:1rem; }
-      .vs-cell { padding:.55rem .2rem; }
+      .vs-row { grid-template-columns:1fr; row-gap:.4rem; margin-bottom:1.1rem; }
+      .vs-topic { padding:.2rem .2rem .1rem; font-size:1.05rem; }
+      .vs-cell { padding:.8rem 1rem; }
       .vs-head { padding:1.1rem .7rem; }
       .mark-x, .mark-check { width:28px; height:28px; font-size:.86rem; }
       .tabs { width:100%; }
@@ -878,9 +877,9 @@
 <!-- ═══ COMPARE ═══ -->
 <section id="compare">
   <div class="wrap">
-    <div style="text-align:center;max-width:620px;margin:0 auto;">
-      <h2 class="h-sec" style="margin:.9rem 0 .6rem;">Tunnel Wash vs. Shine for a Cause</h2>
-      <p class="sub">A $20 tunnel wash and a professional detail aren't the same thing. Here's why.</p>
+    <div style="text-align:center;margin:0 auto;">
+      <h2 class="h-sec" style="margin:.9rem 0 .8rem;">Tunnel Wash vs. Shine for a Cause</h2>
+      <p class="sub" style="max-width:730px;margin:0 auto;">Our expert detailers provide a hand wash and wax that goes far beyond a typical tunnel wash. Our in-depth car detailing removes dirt, stains and scratches that may have built up over time. The result? A sparkling clean vehicle that looks its absolute best.</p>
     </div>
     <div class="vs-grid rv">
       <div class="vs-heads">
@@ -1020,7 +1019,7 @@
   // Sticky nav shadow
   const nav = document.getElementById('nav');
   // Switch nav to white (text + logo) when it floats over a dark section
-  const darkSecs = document.querySelectorAll('.ceramic-sec, #compare');
+  const darkSecs = document.querySelectorAll('.ceramic-sec');
   function updateNavTheme() {
     const r = nav.querySelector('.nav-inner').getBoundingClientRect();
     const probe = r.top + r.height / 2;
