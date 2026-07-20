@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Blog | Shine for a Cause Mobile Detailing</title>
+  <meta name="description" content="Detailing tips, guides, and news from Shine for a Cause in Northern Colorado." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://shineforacause.com/blog.html" />
+  <style>
+    :root { --bg:#FFFFFF; --bg-soft:#F7F6F3; --ink:#101112; --ink-2:#3E4144; --muted:#74777B; --line:#E8E6E1; --gold:#C9973A; --gold-deep:#A87B27; --font-d:'Archivo',sans-serif; --font-b:'Instrument Sans',sans-serif; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:var(--font-b); background:var(--bg-soft); color:var(--ink); -webkit-font-smoothing:antialiased; display:flex; flex-direction:column; min-height:100vh; }
+    a { color:inherit; text-decoration:none; } img { max-width:100%; display:block; } button { font-family:inherit; cursor:pointer; border:none; background:none; } ul { list-style:none; }
+    .h-sec { font-family:var(--font-d); font-weight:800; letter-spacing:-.025em; line-height:1.05; font-size:clamp(1.9rem,3.4vw,2.75rem); color:var(--ink); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; font-family:var(--font-d); font-weight:800; font-size:.9rem; padding:.7rem 1.5rem; border-radius:999px; transition:transform .18s, background .18s; white-space:nowrap; }
+    .btn-gold { background:var(--gold); color:#141005; box-shadow:0 4px 16px rgba(201,151,58,.32); } .btn-gold:hover { background:#D8A648; transform:translateY(-1px); }
+    .nav { position:sticky; top:0; z-index:100; background:rgba(247,246,243,.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+    .nav-inner { max-width:1240px; margin:0 auto; padding:.9rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .nav-logo img { height:38px; } .nav-links { display:flex; gap:1.8rem; } .nav-links a { font-family:var(--font-d); font-size:.98rem; font-weight:700; color:var(--ink-2); } .nav-links a:hover { color:var(--gold-deep); }
+    .nav-cta { display:flex; align-items:center; gap:.7rem; } .nav-phone { font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--ink); white-space:nowrap; }
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:6px; } .hamburger span { width:22px; height:2px; background:var(--ink); border-radius:2px; }
+    .m-menu { display:none; flex-direction:column; gap:.2rem; padding:.5rem 1.5rem 1.2rem; background:#fff; border-bottom:1px solid var(--line); } .m-menu.open { display:flex; } .m-menu a { font-family:var(--font-d); font-weight:700; color:var(--ink-2); padding:.6rem 0; }
+    .blog-empty { flex:1; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:5rem 1.5rem; }
+    .blog-empty .eyebrow { font-family:var(--font-d); font-size:.68rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-deep); display:inline-flex; align-items:center; gap:.55rem; margin-bottom:.9rem; }
+    .blog-empty .eyebrow::before, .blog-empty .eyebrow::after { content:''; width:20px; height:2px; background:var(--gold); }
+    .blog-empty p { color:var(--ink-2); max-width:480px; margin:1rem auto 1.8rem; line-height:1.65; }
+    footer { background:var(--ink); color:#C9C6C0; padding:2.4rem 1.5rem; text-align:center; }
+    footer p { font-size:.75rem; color:#7E7A74; }
+    @media (max-width:900px) { .nav-links, .nav-phone { display:none; } .hamburger { display:flex; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="brand_assets/logo-nav.png" alt="Shine for a Cause" /></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#packages">Services</a></li>
+      <li><a href="/#areas">Locations</a></li>
+      <li><a href="/testimonials.html">Testimonials</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="tel:+19708516433" class="nav-phone">(970) 851-6433</a>
+      <a href="/booking.html" class="btn btn-gold" style="padding:.7rem 1.5rem;">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="m-menu" id="mMenu">
+    <a href="/">Home</a><a href="/#packages">Services</a><a href="/#areas">Locations</a><a href="/testimonials.html">Testimonials</a><a href="/contact.html">Contact</a>
+    <a href="/booking.html" class="btn btn-gold" style="margin-top:.5rem;justify-content:center;">Book Now</a>
+  </div>
+</nav>
+
+<section class="blog-empty">
+  <div class="eyebrow">Blog</div>
+  <h1 class="h-sec">Coming Soon</h1>
+  <p>Detailing tips, guides, and news are on the way. Check back soon.</p>
+  <a href="/" class="btn btn-gold">Back to Home</a>
+</section>
+
+<footer>
+  <p>© 2026 Shine for a Cause Mobile Detailing — Fort Collins &amp; Northern Colorado.</p>
+</footer>
+<script>document.getElementById('hamburger').addEventListener('click',function(){document.getElementById('mMenu').classList.toggle('open');});</script>
+</body>
+</html>
