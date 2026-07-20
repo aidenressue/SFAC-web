@@ -375,14 +375,14 @@
     .coat-glow { position:absolute; top:-26px; left:14%; right:14%; height:50px; border-radius:50%; background:var(--c); filter:blur(32px); opacity:.8; z-index:0; pointer-events:none; }
     .coat-inner { position:relative; z-index:1; height:100%; border-radius:20px; overflow:hidden; border:1px solid rgba(255,255,255,.08); background:linear-gradient(180deg,#181A1F 0%,#0B0C0E 50%,#000 100%); display:flex; flex-direction:column; }
     .coat-line { height:3px; background:var(--c); box-shadow:0 0 18px var(--c); }
-    .coat-body { padding:1.9rem 1.7rem 1.4rem; }
-    .coat-name { font-family:var(--font-d); font-size:1.6rem; font-weight:900; color:#fff; letter-spacing:-.02em; margin:0 0 1.3rem; }
-    .coat-list { list-style:none; display:flex; flex-direction:column; gap:.75rem; }
+    .coat-body { padding:1.5rem 1.7rem 1.05rem; }
+    .coat-name { font-family:var(--font-d); font-size:1.5rem; font-weight:900; color:#fff; letter-spacing:-.02em; margin:0 0 .95rem; }
+    .coat-list { list-style:none; display:flex; flex-direction:column; gap:.55rem; }
     .coat-list li { display:flex; align-items:flex-start; gap:.6rem; font-size:.9rem; color:#D2D4D8; line-height:1.4; }
     .coat-list li::before { content:''; flex:0 0 18px; height:18px; margin-top:1px; background:var(--c); -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat; mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm-1.2 14.2-4-4 1.4-1.4 2.6 2.6 5.6-5.6 1.4 1.4z'/%3E%3C/svg%3E") center/contain no-repeat; }
     .coat-quote { position:absolute; right:1.1rem; bottom:1.1rem; z-index:3; display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-d); font-weight:700; font-size:.82rem; color:#fff; padding:.62rem 1.15rem; border-radius:999px; background:rgba(255,255,255,.12); backdrop-filter:blur(12px) saturate(1.4); -webkit-backdrop-filter:blur(12px) saturate(1.4); border:1px solid rgba(255,255,255,.28); box-shadow:0 6px 20px rgba(0,0,0,.35); transition:background .18s, transform .18s; }
     .coat-quote:hover { background:rgba(255,255,255,.22); transform:translateY(-2px); }
-    .coat-img { position:relative; margin-top:auto; aspect-ratio:16/10; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+    .coat-img { position:relative; margin-top:auto; aspect-ratio:16/8; background:#000; display:flex; align-items:center; justify-content:center; overflow:hidden; }
     .coat-img img { width:100%; height:100%; object-fit:cover; object-position:center bottom; }
     .coat-img::before { content:''; position:absolute; inset:0; z-index:1; background:linear-gradient(180deg,#000 0%,transparent 42%); pointer-events:none; }
     .coat-img .ph { position:relative; z-index:2; font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#54575c; }
@@ -534,7 +534,7 @@
           <li>2 year full warranty</li>
             </ul>
           </div>
-          <div class="coat-img"><span class="ph">Image coming soon</span></div>
+          <div class="coat-img"><img src="web.screenshots/coat-2year.jpg" alt="Blue Porsche 911 GT3 RS with a ceramic coating" loading="lazy" /></div>
           <a href="/quote-builder.html" class="coat-quote">Get Quote &rarr;</a>
         </div>
       </div>
@@ -554,7 +554,7 @@
           <li>6 year full warranty</li>
             </ul>
           </div>
-          <div class="coat-img"><span class="ph">Image coming soon</span></div>
+          <div class="coat-img"><img src="web.screenshots/coat-6year.jpg" alt="Purple Chevrolet Corvette C8 with a ceramic coating" loading="lazy" /></div>
           <a href="/quote-builder.html" class="coat-quote">Get Quote &rarr;</a>
         </div>
       </div>
@@ -575,7 +575,7 @@
           <li>Lifetime warranty</li>
             </ul>
           </div>
-          <div class="coat-img"><span class="ph">Image coming soon</span></div>
+          <div class="coat-img"><img src="web.screenshots/coat-lifetime.jpg" alt="Gold Lamborghini Huracan with a ceramic coating" loading="lazy" /></div>
           <a href="/quote-builder.html" class="coat-quote">Get Quote &rarr;</a>
         </div>
       </div>
