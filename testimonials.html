@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testimonials | Shine for a Cause Mobile Detailing</title>
+  <meta name="description" content="Read reviews from Shine for a Cause customers across Northern Colorado. Rated 5.0 on Google." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://shineforacause.com/testimonials.html" />
+  <style>
+    :root { --bg:#FFFFFF; --bg-soft:#F7F6F3; --bg-warm:#FBFAF7; --ink:#101112; --ink-2:#3E4144; --muted:#74777B; --line:#E8E6E1; --gold:#C9973A; --gold-deep:#A87B27; --gold-soft:rgba(201,151,58,.10); --gold-line:rgba(201,151,58,.32); --font-d:'Archivo',sans-serif; --font-b:'Instrument Sans',sans-serif; --shadow-card:0 1px 2px rgba(16,17,18,.04), 0 8px 28px rgba(16,17,18,.07); }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:var(--font-b); background:var(--bg-soft); color:var(--ink); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; } img { max-width:100%; display:block; } button { font-family:inherit; cursor:pointer; border:none; background:none; } ul { list-style:none; }
+    .wrap { max-width:1100px; margin:0 auto; padding:0 1.5rem; }
+    .h-sec { font-family:var(--font-d); font-weight:800; letter-spacing:-.025em; line-height:1.05; font-size:clamp(1.9rem,3.4vw,2.75rem); color:var(--ink); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; font-family:var(--font-d); font-weight:800; font-size:.9rem; padding:.7rem 1.5rem; border-radius:999px; transition:transform .18s, background .18s; white-space:nowrap; }
+    .btn-gold { background:var(--gold); color:#141005; box-shadow:0 4px 16px rgba(201,151,58,.32); } .btn-gold:hover { background:#D8A648; transform:translateY(-1px); }
+    .nav { position:sticky; top:0; z-index:100; background:rgba(247,246,243,.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+    .nav-inner { max-width:1240px; margin:0 auto; padding:.9rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .nav-logo img { height:38px; } .nav-links { display:flex; gap:1.8rem; } .nav-links a { font-family:var(--font-d); font-size:.98rem; font-weight:700; color:var(--ink-2); } .nav-links a:hover { color:var(--gold-deep); }
+    .nav-cta { display:flex; align-items:center; gap:.7rem; } .nav-phone { font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--ink); white-space:nowrap; }
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:6px; } .hamburger span { width:22px; height:2px; background:var(--ink); border-radius:2px; }
+    .m-menu { display:none; flex-direction:column; gap:.2rem; padding:.5rem 1.5rem 1.2rem; background:#fff; border-bottom:1px solid var(--line); } .m-menu.open { display:flex; } .m-menu a { font-family:var(--font-d); font-weight:700; color:var(--ink-2); padding:.6rem 0; }
+    .t-hero { text-align:center; padding:3rem 1.5rem 1rem; }
+    .t-hero .eyebrow { font-family:var(--font-d); font-size:.68rem; font-weight:800; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-deep); display:inline-flex; align-items:center; gap:.55rem; margin-bottom:.8rem; }
+    .t-hero .eyebrow::before, .t-hero .eyebrow::after { content:''; width:20px; height:2px; background:var(--gold); }
+    .t-hero p { color:var(--ink-2); max-width:520px; margin:.9rem auto 0; line-height:1.6; }
+    .t-stars { color:#E8B04B; font-size:1.3rem; letter-spacing:.12em; margin-top:1rem; }
+    .t-grid { columns:3; column-gap:1.2rem; max-width:1100px; margin:2.4rem auto; padding:0 1.5rem; }
+    .t-card { break-inside:avoid; background:#fff; border:1px solid var(--line); border-radius:16px; padding:1.4rem 1.5rem; box-shadow:var(--shadow-card); margin-bottom:1.2rem; }
+    .t-top { display:flex; align-items:center; gap:.7rem; margin-bottom:.6rem; }
+    .t-av { width:38px; height:38px; border-radius:50%; color:#fff; font-family:var(--font-d); font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .t-name { font-family:var(--font-d); font-weight:700; font-size:.95rem; } .t-cstars { color:#E8B04B; font-size:.82rem; }
+    .t-text { font-size:.9rem; line-height:1.6; color:var(--ink-2); }
+    footer { background:var(--ink); color:#C9C6C0; padding:3rem 1.5rem 1.6rem; margin-top:2rem; }
+    .footer-inner { max-width:1240px; margin:0 auto; display:flex; justify-content:space-between; gap:2rem; flex-wrap:wrap; }
+    .footer-brand img { height:40px; margin-bottom:.8rem; } .footer-brand p { font-size:.82rem; color:#9A968F; max-width:280px; line-height:1.6; }
+    .footer-bot { max-width:1240px; margin:2rem auto 0; padding-top:1.4rem; border-top:1px solid rgba(255,255,255,.1); font-size:.75rem; color:#7E7A74; }
+    @media (max-width:900px) { .nav-links, .nav-phone { display:none; } .hamburger { display:flex; } .t-grid { columns:1; } }
+    @media (max-width:1100px) and (min-width:901px) { .t-grid { columns:2; } }
+  </style>
+</head>
+<body>
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo"><img src="brand_assets/logo-nav.png" alt="Shine for a Cause" /></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/#packages">Services</a></li>
+      <li><a href="/#areas">Locations</a></li>
+      <li><a href="/contact.html">Contact</a></li>
+    </ul>
+    <div class="nav-cta">
+      <a href="tel:+19702953577" class="nav-phone">(970) 295-3577</a>
+      <a href="/booking.html" class="btn btn-gold" style="padding:.7rem 1.5rem;">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="m-menu" id="mMenu">
+    <a href="/">Home</a><a href="/#packages">Services</a><a href="/#areas">Locations</a><a href="/contact.html">Contact</a>
+    <a href="/booking.html" class="btn btn-gold" style="margin-top:.5rem;justify-content:center;">Book Now</a>
+  </div>
+</nav>
+
+<section class="t-hero">
+  <div class="eyebrow">Testimonials</div>
+  <h1 class="h-sec">What Our Customers Say</h1>
+  <p>Rated 5.0 on Google and trusted by 300+ drivers across Northern Colorado.</p>
+  <div class="t-stars" aria-hidden="true">★★★★★</div>
+</section>
+
+<div class="t-grid">
+  <div class="t-card"><div class="t-top"><span class="t-av" style="background:#1A73E8">L</span><div><div class="t-name">Lenora Dana</div><span class="t-cstars">★★★★★</span></div></div><p class="t-text">I am very happy with the detailing job. Excellent work, it looks brand new after 13 years of not nearly enough cleaning. Aiden came early, was very professional and stayed later than he had expected to, when I upgraded from my original service choice.</p></div>
+  <div class="t-card"><div class="t-top"><span class="t-av" style="background:#E8710A">D</span><div><div class="t-name">Damian Reyes</div><span class="t-cstars">★★★★★</span></div></div><p class="t-text">Amazing experience from start to finish. Super professional, on time, and paid attention to every detail. My car looked brand new after the service and you can tell they really care about the quality of their work. Great communication, fair pricing, and overall excellent customer service.</p></div>
+  <div class="t-card"><div class="t-top"><span class="t-av" style="background:#34A853">Q</span><div><div class="t-name">Quinn Reilly</div><span class="t-cstars">★★★★★</span></div></div><p class="t-text">Absolutely amazing experience. The attention to detail was incredible and my car honestly looked better than when I first got it. Super professional, friendly, and easy to work with. You can tell they genuinely care about the quality of their work. Highly recommend.</p></div>
+  <div class="t-card"><div class="t-top"><span class="t-av" style="background:#9334E6">B</span><div><div class="t-name">Benjamin Isaacson</div><span class="t-cstars">★★★★★</span></div></div><p class="t-text">Absolutely fantastic work! Showed up exactly on time, and the car is SPOTLESS afterwards! Highly recommend!</p></div>
+  <div class="t-card"><div class="t-top"><span class="t-av" style="background:#D93025">C</span><div><div class="t-name">Chris Talmage</div><span class="t-cstars">★★★★★</span></div></div><p class="t-text">Aiden was exceptional. He was competent, thorough and enthusiastic. My car has never looked better.</p></div>
+  <div class="t-card"><div class="t-top"><span class="t-av" style="background:#12B5CB">D</span><div><div class="t-name">Drake Dailey</div><span class="t-cstars">★★★★★</span></div></div><p class="t-text">Very professional people and great service!!</p></div>
+  <div class="t-card"><div class="t-top"><span class="t-av" style="background:#F9AB00">B</span><div><div class="t-name">Brandon Barnholt</div><span class="t-cstars">★★★★★</span></div></div><p class="t-text">Aiden and team were on time, professional and extremely hard working. My car has never looked better. I'll become a regular customer.</p></div>
+</div>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand"><img src="brand_assets/logo-dark-transparent.png" alt="Shine for a Cause" onerror="this.src='brand_assets/Shine for a Cause LOGO.png'" /><p>Premium mobile auto detailing serving Northern Colorado — and giving back to those who need it most.</p></div>
+    <div><a href="/booking.html" class="btn btn-gold">Book Your Detail</a></div>
+  </div>
+  <div class="footer-bot">© 2026 Shine for a Cause Mobile Detailing — Fort Collins &amp; Northern Colorado.</div>
+</footer>
+<script>document.getElementById('hamburger').addEventListener('click',function(){document.getElementById('mMenu').classList.toggle('open');});</script>
+</body>
+</html>
