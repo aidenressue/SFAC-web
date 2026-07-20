@@ -296,8 +296,9 @@
 
     /* ── Compare (godetail-style toggle) ── */
     /* Dark sections below ceramic */
-    #compare, #faq { background:#000; }
-    #compare .h-sec, #faq .h-sec { color:#fff; }
+    #compare { background:#000; }
+    #compare .h-sec { color:#fff; }
+    #faq { background:#fff; }
     #compare .sub { color:#B9BCC1; }
     .vs-grid { max-width:980px; margin:2.6rem auto 0; }
     .vs-heads, .vs-row { display:grid; grid-template-columns:0.8fr 1.1fr 1.1fr; column-gap:1.1rem; }
@@ -318,34 +319,36 @@
     .mark-check { background:#E1F5E9; color:#15A048; box-shadow:0 3px 12px rgba(21,160,72,.25); }
 
     /* ── FAQ ──────────────────────────── */
-    .faq-wrap { max-width:760px; margin:0 auto; }
-    .faq-item { border:1px solid var(--line); border-radius:0; margin-bottom:.8rem; background:#E4E3DF; overflow:hidden; transition:border-color .2s; }
-    .faq-item.open { border-color:var(--gold-line); }
-    .faq-q { width:100%; display:flex; justify-content:space-between; align-items:center; gap:1rem; text-align:left; padding:1.2rem 1.5rem; font-family:var(--font-d); font-size:.95rem; font-weight:700; color:var(--ink); }
-    .faq-q .chev { flex-shrink:0; width:26px; height:26px; border-radius:50%; border:1.5px solid var(--line); display:flex; align-items:center; justify-content:center; transition:transform .25s, background .25s, border-color .25s; }
+    .faq-wrap { max-width:1120px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:.8rem 1.4rem; align-items:start; }
+    .faq-item { border:1px solid #CFCDC7; border-radius:12px; background:#DDDBD5; overflow:hidden; transition:border-color .2s, background .2s; }
+    .faq-item:hover { background:#D6D4CE; }
+    .faq-item.open { border-color:var(--gold-line); background:#D9D7D1; }
+    .faq-q { width:100%; display:flex; justify-content:space-between; align-items:center; gap:1rem; text-align:left; padding:1.15rem 1.4rem; font-family:var(--font-d); font-size:.95rem; font-weight:700; color:var(--ink); }
+    .faq-q .chev { flex-shrink:0; width:26px; height:26px; border-radius:50%; border:1.5px solid #B9B7B0; background:#fff; display:flex; align-items:center; justify-content:center; transition:transform .25s, background .25s, border-color .25s; }
     .faq-item.open .chev { transform:rotate(45deg); background:var(--gold); border-color:var(--gold); }
     .faq-item.open .chev svg path { stroke:#141005; }
     .faq-a { max-height:0; overflow:hidden; transition:max-height .32s ease; }
-    .faq-a-inner { padding:0 1.5rem 1.3rem; font-size:.87rem; color:var(--muted); line-height:1.75; }
+    .faq-a-inner { padding:0 1.4rem 1.25rem; font-size:.87rem; color:var(--ink-2); line-height:1.7; }
+    @media (max-width:720px) { .faq-wrap { grid-template-columns:1fr; } }
 
     /* ── CTA band ─────────────────────── */
-    .cta-band { background:linear-gradient(120deg, #14120C 0%, #211A0D 60%, #2A2010 100%); color:#fff; text-align:center; }
+    .cta-band { background:#fff; color:var(--ink); text-align:center; }
     .cta-band .wrap { padding:5rem 2rem; }
     .cta-band h2 { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(1.9rem,3.4vw,2.75rem); margin-bottom:1rem; }
-    .cta-band h2 em { font-style:normal; color:var(--gold); }
-    .cta-band p { color:rgba(255,255,255,.7); max-width:480px; margin:0 auto 2.2rem; font-size:.95rem; line-height:1.7; }
+    .cta-band h2 em { font-style:normal; color:var(--gold-deep); }
+    .cta-band p { color:var(--ink-2); max-width:480px; margin:0 auto 2.2rem; font-size:.95rem; line-height:1.7; }
 
     /* ── Footer ───────────────────────── */
-    footer { background:var(--ink); color:rgba(255,255,255,.72); border-top:1px solid rgba(255,255,255,.08); }
+    footer { background:#fff; color:var(--ink-2); border-top:1px solid var(--line); }
     .foot-inner { max-width:1280px; margin:0 auto; padding:4.5rem 2rem 2rem; display:grid; grid-template-columns:1.3fr 1fr 1fr 1.4fr; gap:3rem; }
-    .foot-inner h5 { font-family:var(--font-d); color:#fff; font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
+    .foot-inner h5 { font-family:var(--font-d); color:var(--ink); font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
     .foot-inner li { margin-bottom:.6rem; font-size:.84rem; }
     .foot-inner a:hover { color:var(--gold); }
     .foot-logo img { height:64px; width:auto; margin-bottom:1rem; }
     .foot-mission { font-size:.82rem; line-height:1.7; }
-    .foot-map { border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.1); }
-    .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.3); }
-    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid rgba(255,255,255,.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:rgba(255,255,255,.45); }
+    .foot-map { border-radius:14px; overflow:hidden; border:1px solid var(--line); }
+    .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.15); }
+    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:var(--muted); }
     .socials { display:flex; gap:.7rem; }
     .socials a { width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center; transition:border-color .2s, background .2s; }
     .socials a:hover { border-color:var(--gold); background:rgba(201,151,58,.12); }
@@ -429,9 +432,10 @@
           <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
         </button>
         <div class="nav-drop">
-          <a href="/#areas">Locations<span>Areas we serve</span></a>
-          <a href="/testimonials.html">Testimonials<span>Reviews from customers</span></a>
-          <a href="/contact.html">Contact Us<span>Get in touch</span></a>
+          <a href="/#areas">Locations</a>
+          <a href="/gallery.html">Photo Gallery</a>
+          <a href="/testimonials.html">Testimonials</a>
+          <a href="/contact.html">Contact Us</a>
         </div>
       </li>
     </ul>
@@ -457,6 +461,7 @@
   <a href="/maintenance.html" class="m-link">Maintenance Plans</a>
   <a href="#home" class="m-link">Resources</a>
   <a href="/#areas" class="m-sub">Locations</a>
+  <a href="/gallery.html" class="m-sub">Photo Gallery</a>
   <a href="/testimonials.html" class="m-sub">Testimonials</a>
   <a href="/contact.html" class="m-sub">Contact Us</a>
   <a href="/booking.html" class="btn btn-gold" style="margin-top:1.6rem;">Book Now</a>
@@ -870,42 +875,6 @@
   </div>
 </section>
 
-<!-- ═══ SLIDING GALLERY ═══ -->
-<section class="gallery-sec" id="gallery" aria-label="Photo gallery">
-  <div class="gal-row r">
-        <div class="gal-box"><img src="web.screenshots/gallery-01.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-02.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-03.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-04.jpg" alt="Freshly detailed interior" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-05.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-06.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-07.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-01.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-02.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-03.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-04.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-05.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-06.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-07.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-  </div>
-  <div class="gal-row l">
-        <div class="gal-box"><img src="web.screenshots/gallery-08.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-09.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-10.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-11.jpg" alt="Freshly detailed interior" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-12.jpg" alt="Freshly detailed truck" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-13.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-14.jpg" alt="Freshly detailed vehicle" loading="lazy"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-08.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-09.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-10.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-11.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-12.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-13.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-        <div class="gal-box"><img src="web.screenshots/gallery-14.jpg" alt="" loading="lazy" aria-hidden="true"></div>
-  </div>
-</section>
-
 <!-- ═══ COMPARE ═══ -->
 <section id="compare">
   <div class="wrap">
@@ -966,38 +935,22 @@
       <h2 class="h-sec" style="margin:.9rem 0 0;">Frequently Asked Questions</h2>
     </div>
     <div class="faq-wrap">
-      <div class="faq-item">
-        <button class="faq-q">What areas do you serve?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">We serve anywhere within a 20-mile radius of Fort Collins. If you're not in this radius and would like to book, give us a call at (970) 295-3577 and we'll make it work.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How do I book a service?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Select Book Now, put in your information, choose your package, and then choose a day that works best for you. Super easy and simple process, we'll be cleaning your car before you know it.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">Do you need water and/or power?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">Nope, we bring everything with us, every time. Water, power, and all supplies are brought in our work vehicles to make it easy and convenient for our customers. Just let us know where to go and we'll handle the rest.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">How long does a detail take?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">This is solely based on the package and service you select. Our Level 1 Maintenance takes 1-2 hours, Level 2 Reset takes 2-3 hours, and our Level 3 Executive package takes 3-6 hours. Any paint correction and/or ceramic coating can take up to a full day. We can work around your schedule to make our services as convenient as possible.</div></div>
-      </div>
-      <div class="faq-item">
-        <button class="faq-q">What cause does Shine for a Cause support?
-          <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
-        </button>
-        <div class="faq-a"><div class="faq-a-inner">We support local and national addiction awareness and prevention centers. This year we've donated over $5,000 to local AA/NA meetings, the SAFE Foundation, and much more.
-          <div style="margin-top:1.1rem;"><a href="#story" class="btn btn-gold">Read Our Story</a></div>
-        </div></div>
-      </div>
+      <div class="faq-item"><button class="faq-q">What areas do you serve?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">We serve anywhere within a 20-mile radius of Fort Collins. If you're not in this radius and would like to book, give us a call at (970) 295-3577 and we'll make it work.</div></div></div>
+      <div class="faq-item"><button class="faq-q">How do I book a service?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">Select Book Now, put in your information, choose your package, and then choose a day that works best for you. Super easy and simple, we'll be cleaning your car before you know it.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Do you need water and/or power?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">Nope, we bring everything with us, every time. Water, power, and all supplies are brought in our work vehicles. Just let us know where to go and we'll handle the rest.</div></div></div>
+      <div class="faq-item"><button class="faq-q">How long does a detail take?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">It depends on the package. Level 1 Maintenance takes 1-2 hours, Level 2 Reset 2-3 hours, and Level 3 Executive 3-6 hours. Paint correction or ceramic coating can take up to a full day.</div></div></div>
+      <div class="faq-item"><button class="faq-q">What cause does Shine for a Cause support?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">We support local and national addiction awareness and prevention centers. This year we've donated over $5,000 to local AA/NA meetings, the SAFE Foundation, and much more.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Are you fully insured?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">Yes, we are fully licensed and insured for your complete peace of mind.</div></div></div>
+      <div class="faq-item"><button class="faq-q">What payment methods do you accept?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">We accept all major cards, cash, and most digital payments. Payment is collected once your detail is complete.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Do I need to be home during the detail?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">Not at all. As long as we have access to your vehicle, you're free to go about your day. We'll let you know as soon as we're finished.</div></div></div>
+      <div class="faq-item"><button class="faq-q">How often should I get my car detailed?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">For most drivers we recommend a maintenance detail every 4 to 6 weeks, with a full reset a few times a year to keep it looking its best.</div></div></div>
+      <div class="faq-item"><button class="faq-q">What's the difference between a wash and a detail?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">A wash cleans the surface. A detail is a deep, thorough clean inside and out that restores and protects your vehicle.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Do you offer ceramic coatings?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">Yes. We are a System X certified installer and offer 2-year, 6-year, and lifetime ceramic coating packages.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Can you remove pet hair and stains?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">Yes. Pet hair removal and spot stain treatment are included in our higher tiers and available as add-ons.</div></div></div>
+      <div class="faq-item"><button class="faq-q">What happens if it rains on my appointment?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">If the weather doesn't cooperate we'll reach out to reschedule at no charge, to a day that works better for you.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Do you detail trucks, SUVs, and fleets?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">Absolutely. We detail everything from sedans to full-size trucks, SUVs, vans, and fleets. Pricing adjusts by vehicle size.</div></div></div>
+      <div class="faq-item"><button class="faq-q">How far in advance should I book?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">We often have same-week availability, but booking a few days ahead helps secure your preferred time slot.</div></div></div>
+      <div class="faq-item"><button class="faq-q">Do you offer paint correction?<span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span></button><div class="faq-a"><div class="faq-a-inner">Yes. We offer single-stage and multi-stage paint correction to remove swirls and light scratches and restore deep gloss.</div></div></div>
     </div>
   </div>
 </section>
@@ -1009,7 +962,7 @@
     <p class="rv">Book in two minutes. We'll bring the shine to you, anywhere in Northern Colorado.</p>
     <div class="hero-ctas rv">
       <a href="/booking.html" class="btn btn-gold" style="padding:1rem 2.4rem;">Book Your Detail</a>
-      <a href="tel:+19702953577" class="btn" style="border:1.5px solid rgba(255,255,255,.3);color:#fff;">Call (970) 295-3577</a>
+      <a href="tel:+19702953577" class="btn btn-ghost" style="padding:1rem 2.4rem;">Call (970) 295-3577</a>
     </div>
   </div>
 </section>
@@ -1018,11 +971,11 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">
-      <img src="brand_assets/Shine for a Cause LOGO transparent.png" alt="Shine for a Cause" />
+      <img src="brand_assets/logo-nav.png" alt="Shine for a Cause" />
       <p class="foot-mission">Mobile auto detailing that gives back. A portion of every booking supports recovery programs across Northern Colorado.</p>
       <div class="socials" style="margin-top:1.2rem;">
-        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></a>
-        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
+        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101112" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#101112"/></svg></a>
+        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#101112"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
       </div>
     </div>
     <div>
@@ -1067,7 +1020,7 @@
   // Sticky nav shadow
   const nav = document.getElementById('nav');
   // Switch nav to white (text + logo) when it floats over a dark section
-  const darkSecs = document.querySelectorAll('.ceramic-sec, .gallery-sec, #compare, #faq, .cta-band, footer');
+  const darkSecs = document.querySelectorAll('.ceramic-sec, #compare');
   function updateNavTheme() {
     const r = nav.querySelector('.nav-inner').getBoundingClientRect();
     const probe = r.top + r.height / 2;
