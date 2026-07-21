@@ -425,8 +425,11 @@
     /* two-pane animated builder */
     .cqb2 { max-width:1120px; margin:3rem auto 0; display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; align-items:stretch; }
     .cqb2-visual { position:relative; border-radius:20px; overflow:hidden; background:#0B0C0E; border:1px solid rgba(255,255,255,.08); aspect-ratio:1/1; box-shadow:0 24px 60px rgba(0,0,0,.5); }
-    .cqb2-visual video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:opacity .5s ease; }
-    .cqb2-visual video.on { opacity:1; }
+    .cqb2-visual video, .cqb2-visual .cqb-still { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:opacity .5s ease; }
+    .cqb2-visual video.on, .cqb2-visual .cqb-still.on { opacity:1; }
+    .cqb-still img { width:100%; height:100%; object-fit:cover; transform-origin:center center; }
+    .cqb-still.on img { animation:paintBreathe 9s ease-in-out infinite; }
+    @keyframes paintBreathe { 0%,100% { transform:scale(1); } 50% { transform:scale(1.035); } }
     .cqb2-cap { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:1.5rem 1.6rem; background:linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.4) 55%, transparent 100%); color:#fff; }
     .cqb2-cap-title { font-family:var(--font-d); font-weight:800; font-size:1.15rem; letter-spacing:-.01em; }
     .cqb2-cap-sub { font-size:.86rem; color:rgba(255,255,255,.78); margin-top:.25rem; line-height:1.5; }
@@ -619,7 +622,7 @@
     <div class="cqb2" id="cqb">
       <div class="cqb2-visual">
         <video class="cqb2-vid on" data-vstep="1" src="web.screenshots/cqb-size.mp4" poster="web.screenshots/cqb-size-poster.jpg" muted playsinline preload="auto"></video>
-        <video class="cqb2-vid" data-vstep="2" src="web.screenshots/cqb-paint.mp4" poster="web.screenshots/cqb-paint-poster.jpg" muted playsinline preload="auto"></video>
+        <div class="cqb2-vid cqb-still" data-vstep="2"><img src="web.screenshots/cqb-paint-still.jpg" alt="Paint correction levels" /></div>
         <video class="cqb2-vid" data-vstep="3" src="web.screenshots/cqb-ceramic.mp4" poster="web.screenshots/cqb-ceramic-poster.jpg" muted playsinline preload="auto"></video>
         <video class="cqb2-vid" data-vstep="4" src="web.screenshots/cqb-rim.mp4" poster="web.screenshots/cqb-rim-poster.jpg" muted playsinline preload="auto"></video>
         <div class="cqb2-cap" id="cqbCap">
@@ -965,8 +968,9 @@
       var target = vidFor(step);
       vids.forEach(function (v) {
         v.classList.toggle('on', v === target);
-        if (v !== target) v.pause();
+        if (v !== target && v.tagName === 'VIDEO') v.pause();
       });
+      if (target.tagName !== 'VIDEO') return; // still image (CSS handles its motion)
       if (forward) {
         try { target.currentTime = 0; } catch (e) {}
         var p = target.play(); if (p && p.catch) p.catch(function () {});
