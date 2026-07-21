@@ -424,7 +424,7 @@
     @media (max-width:640px) { .cqb { padding:1.9rem 1.3rem; } .cqb-opts.cols-2, .cqb-opts.cols-3 { grid-template-columns:1fr; } }
     /* two-pane animated builder */
     .cqb2 { max-width:1120px; margin:3rem auto 0; display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; align-items:stretch; }
-    .cqb2-visual { position:relative; border-radius:20px; overflow:hidden; background:#0B0C0E; border:1px solid rgba(255,255,255,.08); aspect-ratio:1/1; box-shadow:0 24px 60px rgba(0,0,0,.5); }
+    .cqb2-visual { position:relative; border-radius:20px; overflow:hidden; background:#050505; aspect-ratio:1/1; }
     .cqb2-visual video, .cqb2-visual .cqb-still { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:opacity .5s ease; }
     .cqb2-visual video.on, .cqb2-visual .cqb-still.on { opacity:1; }
     .cqb-still img { width:100%; height:100%; object-fit:cover; transform-origin:center center; }
@@ -435,8 +435,19 @@
     .cqb2-cap-sub { font-size:.86rem; color:rgba(255,255,255,.78); margin-top:.25rem; line-height:1.5; }
     .cqb2-cap.swap { animation:capIn .5s ease; }
     @keyframes capIn { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none; } }
-    .cqb2-panel { background:linear-gradient(180deg,#181A1F 0%,#0B0C0E 100%); border:1px solid rgba(255,255,255,.09); border-radius:20px; padding:2rem 1.8rem; display:flex; flex-direction:column; justify-content:center; }
-    .cqb2-panel .cqb-progress { margin-bottom:1.6rem; }
+    .cqb2-panel { background:linear-gradient(180deg,#181A1F 0%,#0B0C0E 100%); border:1px solid rgba(255,255,255,.09); border-radius:20px; padding:2rem 1.8rem; display:flex; flex-direction:column; justify-content:flex-start; }
+    .cqb2-panel .cqb-progress { margin-top:auto; padding-top:1.6rem; margin-bottom:0; }
+    .cqb2-panel .cqb-step { margin-bottom:.4rem; }
+    /* vehicle-size image cards */
+    .cqb-opt.veh { padding:0; overflow:hidden; gap:0; }
+    .veh-img { display:block; width:100%; aspect-ratio:16/10; background:#fff; }
+    .veh-img img { width:100%; height:100%; object-fit:contain; padding:.25rem; }
+    .cqb-opt.veh strong { padding:.7rem .9rem .1rem; }
+    .cqb-opt.veh > span:not(.veh-img) { padding:0 .9rem .8rem; }
+    /* result page */
+    .cqb-phone { font-family:var(--font-d); font-weight:800; font-size:1rem; color:#fff; padding:.7rem 1rem; }
+    .cqb-phone:hover { color:var(--gold); }
+    .cqb-restart { display:block; width:fit-content; margin:1.4rem 0 0 auto; }
     .cqb2-panel .cqb-q { font-size:1.2rem; }
     .cqb-nav { display:flex; align-items:center; gap:1rem; margin-top:1.5rem; }
     .cqb-nav .cqb-back { margin-top:0; }
@@ -614,10 +625,10 @@
 </section>
 
 <!-- ═══ CERAMIC QUOTE BUILDER ═══ -->
-<section class="cc-sec" id="quote">
+<section class="cc-sec" id="quote" style="padding-top:3rem;">
   <div class="cc-wrap">
     <h2 class="cc-h2">Build Your Coating Quote</h2>
-    <p class="cc-h2-sub">Answer a few quick questions and see your estimate instantly.</p>
+    <p class="cc-h2-sub">Answer a few quick questions and see your quote instantly.</p>
 
     <div class="cqb2" id="cqb">
       <div class="cqb2-visual">
@@ -631,26 +642,25 @@
         </div>
       </div>
       <div class="cqb2-panel">
-        <div class="cqb-progress"><span class="on"></span><span></span><span></span><span></span></div>
 
         <!-- STEP 1: vehicle size -->
         <div class="cqb-step active" data-step="1">
           <div class="cqb-q">What size is your vehicle?</div>
           <div class="cqb-opts cols-2">
-            <button class="cqb-opt" data-key="size" data-val="small"><strong>Small</strong><span>Coupe, sedan, or compact</span></button>
-            <button class="cqb-opt" data-key="size" data-val="mid"><strong>Mid-Size</strong><span>Crossover, small SUV, or wagon</span></button>
-            <button class="cqb-opt" data-key="size" data-val="large"><strong>Large</strong><span>Full-size SUV or truck</span></button>
-            <button class="cqb-opt" data-key="size" data-val="van"><strong>Van / Oversized</strong><span>Van, lifted, or extended</span></button>
+            <button class="cqb-opt veh" data-key="size" data-val="small"><span class="veh-img"><img src="web.screenshots/vehicle-small.png" alt="Small car" /></span><strong>Small</strong><span>Coupe / Sedan / Hatchback</span></button>
+            <button class="cqb-opt veh" data-key="size" data-val="mid"><span class="veh-img"><img src="web.screenshots/vehicle-mid.png" alt="Mid-size SUV" /></span><strong>Mid-Size</strong><span>Crossover / Mid-Size SUV / Standard Pickup</span></button>
+            <button class="cqb-opt veh" data-key="size" data-val="large"><span class="veh-img"><img src="web.screenshots/vehicle-large.png" alt="Large truck" /></span><strong>Large</strong><span>Full-Size SUV / Crew Cab / Large Truck</span></button>
+            <button class="cqb-opt veh" data-key="size" data-val="van"><span class="veh-img"><img src="web.screenshots/vehicle-van.png" alt="Van" /></span><strong>Van / Oversized</strong><span>Minivan / Full-Size Van / Sprinter</span></button>
           </div>
         </div>
 
         <!-- STEP 2: paint prep -->
         <div class="cqb-step" data-step="2">
-          <div class="cqb-q">How flawless do you want your finish?</div>
+          <div class="cqb-q">What level of correction does your paint need?</div>
           <div class="cqb-opts">
-            <button class="cqb-opt" data-key="prep" data-val="polish"><strong>Clean &amp; Glossy</strong><span>Decontamination and a gloss-enhancing polish for a bright, deep shine.</span></button>
-            <button class="cqb-opt" data-key="prep" data-val="one-step"><strong>Extra Clarity</strong><span>1-step correction removes 65 to 75% of swirls and light scratches.</span></button>
-            <button class="cqb-opt" data-key="prep" data-val="two-step"><strong>Showroom Perfect</strong><span>2-step correction for maximum depth and clarity before the coating.</span></button>
+            <button class="cqb-opt" data-key="prep" data-val="polish"><strong>Polish</strong><span>Polishing brings out a deep gloss finish, perfect for new or well maintained cars.</span></button>
+            <button class="cqb-opt" data-key="prep" data-val="one-step"><strong>1-Step Correction</strong><span>Removes 50 to 65% of all surface defects.</span></button>
+            <button class="cqb-opt" data-key="prep" data-val="two-step"><strong>2-Step Correction</strong><span>Removes 85 to 95% of all defects, giving your vehicle a near perfect finish.</span></button>
           </div>
           <button class="cqb-back" data-back="1">&larr; Back</button>
         </div>
@@ -673,23 +683,25 @@
             <button class="cqb-opt addon" data-addon="glass"><span class="cqb-check"></span><strong>Glass Coating</strong><span>Hydrophobic windshield &amp; windows for rain-repelling clarity.</span><span class="cqb-addprice">+$149</span></button>
             <button class="cqb-opt addon" data-addon="wheel"><span class="cqb-check"></span><strong>Wheel Coating</strong><span>Coated wheels that repel brake dust and road grime.</span><span class="cqb-addprice">+$199</span></button>
           </div>
-          <div class="cqb-nav"><button class="cqb-back" data-back="3">&larr; Back</button><button class="cqb-continue" id="cqbCont">See my estimate &rarr;</button></div>
+          <div class="cqb-nav"><button class="cqb-back" data-back="3">&larr; Back</button><button class="cqb-continue" id="cqbCont">See quote &rarr;</button></div>
         </div>
 
         <!-- RESULT -->
         <div class="cqb-step" data-step="5">
           <div class="cqb-result">
-            <span class="cqb-rec-label">Your estimate</span>
+            <span class="cqb-rec-label">Your quote</span>
             <h3 class="cqb-rec" id="cqbRec">&mdash;</h3>
             <div class="cqb-lines" id="cqbLines"></div>
-            <div class="cqb-total"><span>Estimated total</span><strong id="cqbTotal">&mdash;</strong></div>
-            <p class="cqb-note">Final price is confirmed after we see your vehicle. Every coating includes a free first-year inspection.</p>
+            <div class="cqb-total"><span>Your price</span><strong id="cqbTotal">&mdash;</strong></div>
             <div class="cqb-cta">
               <a href="/booking.html" class="btn btn-gold">Book Now</a>
-              <button class="cqb-back" id="cqbRestart" style="margin-top:0;">Start over</button>
+              <a href="tel:+19708516433" class="cqb-phone">(970) 851-6433</a>
             </div>
+            <button class="cqb-back cqb-restart" id="cqbRestart">Start over</button>
           </div>
         </div>
+
+        <div class="cqb-progress"><span class="on"></span><span></span><span></span><span></span></div>
       </div>
     </div>
   </div>
@@ -955,6 +967,7 @@
     var box = document.getElementById('cqb'); if (!box) return;
     var steps = box.querySelectorAll('.cqb-step');
     var prog = box.querySelectorAll('.cqb-progress span');
+    var progBar = box.querySelector('.cqb-progress');
     var vids = box.querySelectorAll('.cqb2-vid');
     // which clip each step shows (step 5 replays the hero car)
     var VMAP = { 1: '1', 2: '2', 3: '3', 4: '4', 5: '1' };
@@ -995,7 +1008,7 @@
     var ADDON_PRICES = { glass: 149, wheel: 199 };
     var ADDON_LABELS = { glass: 'Glass Coating', wheel: 'Wheel Coating' };
     var SIZE_LABELS = { small: 'Small', mid: 'Mid-Size', large: 'Large', van: 'Van / Oversized' };
-    var PREP_LABELS = { 'polish': 'Enhancement Polish', 'one-step': '1-Step Correction', 'two-step': '2-Step Correction' };
+    var PREP_LABELS = { 'polish': 'Polish', 'one-step': '1-Step Correction', 'two-step': '2-Step Correction' };
     var COAT_LABELS = { crystal: '2 Year Shield', pro: '6 Year Armor', max: 'Lifetime Diamond' };
 
     var CAPS = {
@@ -1019,6 +1032,7 @@
       cur = n;
       steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
       prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
+      if (progBar) progBar.style.display = (n === 5 ? 'none' : 'flex');
       showVisual(n, true);
       setCap(n);
     }
@@ -1026,6 +1040,7 @@
       cur = n;
       steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
       prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
+      if (progBar) progBar.style.display = (n === 5 ? 'none' : 'flex');
       showVisual(n, false);
       setCap(n);
     }
@@ -1035,10 +1050,11 @@
       var coat = COATING_PRICES[state.coating][state.size];
       var total = prep + coat;
       var lines =
-        '<div class="cqb-line"><span class="lbl">Paint Prep (' + PREP_LABELS[state.prep] + ')</span><span class="val">' + fmt(prep) + '</span></div>' +
-        '<div class="cqb-line"><span class="lbl">Ceramic Coating (' + COAT_LABELS[state.coating] + ')</span><span class="val">' + fmt(coat) + '</span></div>';
+        '<div class="cqb-line"><span class="lbl">Vehicle</span><span class="val">' + SIZE_LABELS[state.size] + '</span></div>' +
+        '<div class="cqb-line"><span class="lbl">Paint Correction</span><span class="val">' + PREP_LABELS[state.prep] + '</span></div>' +
+        '<div class="cqb-line"><span class="lbl">Ceramic Coating</span><span class="val">' + COAT_LABELS[state.coating] + '</span></div>';
       ['glass','wheel'].forEach(function (k) {
-        if (state[k]) { total += ADDON_PRICES[k]; lines += '<div class="cqb-line"><span class="lbl">' + ADDON_LABELS[k] + '</span><span class="val">' + fmt(ADDON_PRICES[k]) + '</span></div>'; }
+        if (state[k]) { total += ADDON_PRICES[k]; lines += '<div class="cqb-line"><span class="lbl">' + ADDON_LABELS[k] + '</span><span class="val">Included</span></div>'; }
       });
       document.getElementById('cqbRec').textContent = COAT_LABELS[state.coating] + ' on a ' + SIZE_LABELS[state.size] + ' vehicle';
       document.getElementById('cqbLines').innerHTML = lines;
