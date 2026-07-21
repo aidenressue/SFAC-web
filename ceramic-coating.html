@@ -425,7 +425,8 @@
     /* two-pane animated builder */
     .cqb2 { max-width:1120px; margin:3rem auto 0; display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; align-items:stretch; }
     .cqb2-visual { position:relative; border-radius:20px; overflow:hidden; background:#0B0C0E; border:1px solid rgba(255,255,255,.08); aspect-ratio:1/1; box-shadow:0 24px 60px rgba(0,0,0,.5); }
-    .cqb2-visual video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+    .cqb2-visual video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:opacity .5s ease; }
+    .cqb2-visual video.on { opacity:1; }
     .cqb2-cap { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:1.5rem 1.6rem; background:linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.4) 55%, transparent 100%); color:#fff; }
     .cqb2-cap-title { font-family:var(--font-d); font-weight:800; font-size:1.15rem; letter-spacing:-.01em; }
     .cqb2-cap-sub { font-size:.86rem; color:rgba(255,255,255,.78); margin-top:.25rem; line-height:1.5; }
@@ -617,7 +618,10 @@
 
     <div class="cqb2" id="cqb">
       <div class="cqb2-visual">
-        <video id="cqbVid" src="web.screenshots/cqb-journey.mp4" poster="web.screenshots/cqb-journey-poster.jpg" muted playsinline preload="auto"></video>
+        <video class="cqb2-vid on" data-vstep="1" src="web.screenshots/cqb-size.mp4" poster="web.screenshots/cqb-size-poster.jpg" muted playsinline preload="auto"></video>
+        <video class="cqb2-vid" data-vstep="2" src="web.screenshots/cqb-paint.mp4" poster="web.screenshots/cqb-paint-poster.jpg" muted playsinline preload="auto"></video>
+        <video class="cqb2-vid" data-vstep="3" src="web.screenshots/cqb-ceramic.mp4" poster="web.screenshots/cqb-ceramic-poster.jpg" muted playsinline preload="auto"></video>
+        <video class="cqb2-vid" data-vstep="4" src="web.screenshots/cqb-rim.mp4" poster="web.screenshots/cqb-rim-poster.jpg" muted playsinline preload="auto"></video>
         <div class="cqb2-cap" id="cqbCap">
           <div class="cqb2-cap-title" id="cqbCapT">Premium ceramic protection</div>
           <div class="cqb2-cap-sub" id="cqbCapS">Answer a few quick questions and watch the coating come to life.</div>
@@ -639,11 +643,11 @@
 
         <!-- STEP 2: paint prep -->
         <div class="cqb-step" data-step="2">
-          <div class="cqb-q">What shape is your paint in?</div>
+          <div class="cqb-q">How flawless do you want your finish?</div>
           <div class="cqb-opts">
-            <button class="cqb-opt" data-key="prep" data-val="polish"><strong>Good</strong><span>Decontamination and a gloss-enhancing polish. No correction needed.</span></button>
-            <button class="cqb-opt" data-key="prep" data-val="one-step"><strong>Light Swirls</strong><span>1-step correction removes 65 to 75% of swirls and light scratches.</span></button>
-            <button class="cqb-opt" data-key="prep" data-val="two-step"><strong>Heavy Defects</strong><span>2-step correction for maximum clarity before the coating.</span></button>
+            <button class="cqb-opt" data-key="prep" data-val="polish"><strong>Clean &amp; Glossy</strong><span>Decontamination and a gloss-enhancing polish for a bright, deep shine.</span></button>
+            <button class="cqb-opt" data-key="prep" data-val="one-step"><strong>Extra Clarity</strong><span>1-step correction removes 65 to 75% of swirls and light scratches.</span></button>
+            <button class="cqb-opt" data-key="prep" data-val="two-step"><strong>Showroom Perfect</strong><span>2-step correction for maximum depth and clarity before the coating.</span></button>
           </div>
           <button class="cqb-back" data-back="1">&larr; Back</button>
         </div>
@@ -948,7 +952,31 @@
     var box = document.getElementById('cqb'); if (!box) return;
     var steps = box.querySelectorAll('.cqb-step');
     var prog = box.querySelectorAll('.cqb-progress span');
-    var vid = document.getElementById('cqbVid');
+    var vids = box.querySelectorAll('.cqb2-vid');
+    // which clip each step shows (step 5 replays the hero car)
+    var VMAP = { 1: '1', 2: '2', 3: '3', 4: '4', 5: '1' };
+    function vidFor(step) {
+      var want = VMAP[step];
+      for (var i = 0; i < vids.length; i++) { if (vids[i].dataset.vstep === want) return vids[i]; }
+      return vids[0];
+    }
+    function seekEnd(v) { try { v.currentTime = Math.max(0, (v.duration || 5) - 0.06); } catch (e) {} }
+    function showVisual(step, forward) {
+      var target = vidFor(step);
+      vids.forEach(function (v) {
+        v.classList.toggle('on', v === target);
+        if (v !== target) v.pause();
+      });
+      if (forward) {
+        try { target.currentTime = 0; } catch (e) {}
+        var p = target.play(); if (p && p.catch) p.catch(function () {});
+      } else {
+        // Back: hold the finished frame, no reverse
+        if (target.readyState >= 1) seekEnd(target);
+        else target.addEventListener('loadedmetadata', function () { seekEnd(target); }, { once: true });
+        target.pause();
+      }
+    }
 
     var PREP_PRICES = {
       'polish':   { small: 300, mid: 350,  large: 400,  van: 500  },
@@ -966,28 +994,17 @@
     var PREP_LABELS = { 'polish': 'Enhancement Polish', 'one-step': '1-Step Correction', 'two-step': '2-Step Correction' };
     var COAT_LABELS = { crystal: '2 Year Shield', pro: '6 Year Armor', max: 'Lifetime Diamond' };
 
-    // video segment end-times (seconds) per step reached
-    var SEG = { 1: 0, 2: 4.04, 3: 8.08, 4: 12.1, 5: 12.1 };
     var CAPS = {
-      1: ['Premium ceramic protection', 'Answer a few quick questions and watch the coating come to life.'],
-      2: ['Hydrophobic 9H finish', 'Water and grime bead up and slide right off the coated paint.'],
-      3: ['Mirror gloss & clarity', 'A flawless, deep-gloss finish with rich, sharp reflections.'],
-      4: ['Fully protected', 'UV, chemical, and scratch resistance locked in for years.'],
+      1: ['Premium ceramic protection', 'Answer a few quick questions and watch your finish come to life.'],
+      2: ['Corrected, flawless paint', 'We remove the swirls and scratches before a drop of coating goes on.'],
+      3: ['Hydrophobic 9H finish', 'Water, dirt, and grime bead up and slide right off the coated paint.'],
+      4: ['Protected wheel to wheel', 'Optional glass and wheel coatings lock the shine in everywhere.'],
       5: ['Your car, protected', 'Book it in and we bring this finish to your driveway.']
     };
     var state = { size: null, prep: null, coating: null, glass: false, wheel: false };
-    var cur = 1, raf = null;
+    var cur = 1;
     function fmt(n) { return '$' + n.toLocaleString(); }
 
-    function playTo(t) {
-      if (raf) cancelAnimationFrame(raf);
-      if (vid.currentTime >= t - 0.02) { vid.pause(); return; }
-      var p = vid.play(); if (p && p.catch) p.catch(function(){});
-      (function step() {
-        if (vid.currentTime >= t - 0.02) { vid.pause(); vid.currentTime = Math.min(t, vid.duration || t); return; }
-        raf = requestAnimationFrame(step);
-      })();
-    }
     function setCap(n) {
       var cap = document.getElementById('cqbCap');
       document.getElementById('cqbCapT').textContent = CAPS[n][0];
@@ -998,14 +1015,14 @@
       cur = n;
       steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
       prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
-      if (SEG[n] != null) playTo(SEG[n]);
+      showVisual(n, true);
       setCap(n);
     }
     function goBack(n) {
       cur = n;
-      if (raf) cancelAnimationFrame(raf); vid.pause();
       steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
       prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
+      showVisual(n, false);
       setCap(n);
     }
 
@@ -1047,11 +1064,18 @@
     document.getElementById('cqbRestart').addEventListener('click', function () {
       state = { size: null, prep: null, coating: null, glass: false, wheel: false };
       box.querySelectorAll('.cqb-opt').forEach(function (s) { s.classList.remove('sel','on'); });
-      vid.currentTime = 0; vid.pause();
-      goBack(1);
+      goForward(1);
     });
-    // prime the poster frame
-    vid.addEventListener('loadedmetadata', function () { try { vid.currentTime = 0.01; } catch(e){} });
+    // autoplay the intro clip once (muted), replay whenever it scrolls into view
+    var v1 = vidFor(1);
+    try { var pp = v1.play(); if (pp && pp.catch) pp.catch(function () {}); } catch (e) {}
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function (ents) {
+        ents.forEach(function (e) {
+          if (e.isIntersecting && cur === 1) { try { v1.currentTime = 0; v1.play().catch(function(){}); } catch (er) {} }
+        });
+      }, { threshold: 0.4 }).observe(box);
+    }
   })();
 </script>
 </body>
