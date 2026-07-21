@@ -621,10 +621,10 @@
 
     <div class="cqb2" id="cqb">
       <div class="cqb2-visual">
-        <video class="cqb2-vid on" data-vstep="1" src="web.screenshots/cqb-size.mp4" poster="web.screenshots/cqb-size-poster.jpg" muted playsinline preload="auto"></video>
+        <video class="cqb2-vid on" data-vstep="1" src="web.screenshots/cqb-size.mp4" poster="web.screenshots/cqb-size-poster.jpg" muted playsinline preload="auto" loop></video>
         <div class="cqb2-vid cqb-still" data-vstep="2"><img src="web.screenshots/cqb-paint-still.jpg" alt="Paint correction levels" /></div>
-        <video class="cqb2-vid" data-vstep="3" src="web.screenshots/cqb-ceramic.mp4" poster="web.screenshots/cqb-ceramic-poster.jpg" muted playsinline preload="auto"></video>
-        <video class="cqb2-vid" data-vstep="4" src="web.screenshots/cqb-rim.mp4" poster="web.screenshots/cqb-rim-poster.jpg" muted playsinline preload="auto"></video>
+        <video class="cqb2-vid" data-vstep="3" src="web.screenshots/cqb-ceramic.mp4" poster="web.screenshots/cqb-ceramic-poster.jpg" muted playsinline preload="auto" loop></video>
+        <video class="cqb2-vid" data-vstep="4" src="web.screenshots/cqb-rim.mp4" poster="web.screenshots/cqb-rim-poster.jpg" muted playsinline preload="auto" loop></video>
         <div class="cqb2-cap" id="cqbCap">
           <div class="cqb2-cap-title" id="cqbCapT">Premium ceramic protection</div>
           <div class="cqb2-cap-sub" id="cqbCapS">Answer a few quick questions and watch the coating come to life.</div>
@@ -683,7 +683,7 @@
             <h3 class="cqb-rec" id="cqbRec">&mdash;</h3>
             <div class="cqb-lines" id="cqbLines"></div>
             <div class="cqb-total"><span>Estimated total</span><strong id="cqbTotal">&mdash;</strong></div>
-            <p class="cqb-note">Final price is confirmed after we see your vehicle. Every coating includes a free windshield coating and a free first-year inspection.</p>
+            <p class="cqb-note">Final price is confirmed after we see your vehicle. Every coating includes a free first-year inspection.</p>
             <div class="cqb-cta">
               <a href="/booking.html" class="btn btn-gold">Book Now</a>
               <button class="cqb-back" id="cqbRestart" style="margin-top:0;">Start over</button>
@@ -1040,7 +1040,6 @@
       ['glass','wheel'].forEach(function (k) {
         if (state[k]) { total += ADDON_PRICES[k]; lines += '<div class="cqb-line"><span class="lbl">' + ADDON_LABELS[k] + '</span><span class="val">' + fmt(ADDON_PRICES[k]) + '</span></div>'; }
       });
-      lines += '<div class="cqb-line"><span class="lbl">Windshield Coating</span><span class="val free">FREE</span></div>';
       document.getElementById('cqbRec').textContent = COAT_LABELS[state.coating] + ' on a ' + SIZE_LABELS[state.size] + ' vehicle';
       document.getElementById('cqbLines').innerHTML = lines;
       document.getElementById('cqbTotal').textContent = fmt(total);
