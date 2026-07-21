@@ -427,13 +427,22 @@
     .cqb2-visual { position:relative; border-radius:20px; overflow:hidden; background:#050505; aspect-ratio:1/1; align-self:start; }
     .cqb2-visual video, .cqb2-visual .cqb-still { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:opacity .5s ease; }
     .cqb2-visual video.on, .cqb2-visual .cqb-still.on { opacity:1; }
-    .cqb-still img { width:100%; height:100%; object-fit:cover; transform-origin:center center; }
-    .cqb-still.on img { animation:paintBreathe 9s ease-in-out infinite; }
-    @keyframes paintBreathe { 0%,100% { transform:scale(1); } 50% { transform:scale(1.035); } }
+    .cqb-still img { width:100%; height:100%; object-fit:cover; }
     .paint-labels { position:absolute; top:0; left:0; right:0; z-index:3; padding:1rem .4rem 1.2rem; pointer-events:none; text-align:center; background:linear-gradient(to bottom, rgba(0,0,0,.55), transparent); }
-    .paint-reco { font-family:var(--font-d); font-weight:900; font-size:1.7rem; letter-spacing:.01em; color:#fff; text-shadow:0 2px 14px rgba(0,0,0,.95); }
+    .paint-reco { font-family:var(--font-d); font-weight:900; font-size:2rem; letter-spacing:.01em; color:var(--gold); text-shadow:0 2px 14px rgba(0,0,0,.95); }
     .paint-levels { display:grid; grid-template-columns:1fr 1fr 1fr; margin-top:.55rem; }
-    .paint-levels span { font-family:var(--font-d); font-weight:800; font-size:1.15rem; color:var(--gold); text-shadow:0 2px 12px rgba(0,0,0,.95); }
+    .paint-levels span { font-family:var(--font-d); font-weight:800; font-size:1.35rem; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.95); }
+    /* ceramic step: tracked callouts */
+    .cqb2-visual .track-scene { position:absolute; inset:0; opacity:0; transition:opacity .5s ease; }
+    .cqb2-visual .track-scene.on { opacity:1; }
+    .track-cam { position:absolute; inset:0; transform-origin:58% 42%; animation:camMove 11s ease-in-out infinite alternate; }
+    .track-cam img { width:100%; height:100%; object-fit:cover; display:block; }
+    @keyframes camMove { from { transform:scale(1); } to { transform:scale(1.14); } }
+    .track-anchor { position:absolute; width:20px; height:20px; margin:-10px 0 0 -10px; border:2px solid #fff; border-radius:50%; box-shadow:0 0 8px rgba(0,0,0,.6); }
+    .track-anchor::after { content:''; position:absolute; inset:5px; background:#fff; border-radius:50%; }
+    .track-title { position:absolute; font-family:var(--font-d); font-weight:600; font-size:.82rem; letter-spacing:.2em; text-transform:uppercase; color:#fff; white-space:nowrap; text-shadow:0 2px 8px rgba(0,0,0,.9); z-index:4; }
+    svg.track-lines { position:absolute; inset:0; width:100%; height:100%; z-index:3; pointer-events:none; overflow:visible; }
+    svg.track-lines polyline { fill:none; stroke:#fff; stroke-width:1.6; }
     .cqb2-cap { position:absolute; left:0; right:0; bottom:0; z-index:2; padding:1.5rem 1.6rem; background:linear-gradient(to top, rgba(0,0,0,.9) 0%, rgba(0,0,0,.4) 55%, transparent 100%); color:#fff; }
     .cqb2-cap-title { font-family:var(--font-d); font-weight:800; font-size:1.15rem; letter-spacing:-.01em; }
     .cqb2-cap-sub { font-size:.86rem; color:rgba(255,255,255,.78); margin-top:.25rem; line-height:1.5; }
@@ -658,8 +667,20 @@
             <div class="paint-reco">Recommended</div>
             <div class="paint-levels"><span>2 Step</span><span>1 Step</span><span>Polish</span></div>
           </div>
+          <span class="track-anchor" id="a-heavy" style="left:17%; top:72%;"></span>
+          <svg class="track-lines"><polyline id="l-heavy"></polyline></svg>
+          <div class="track-title" id="t-heavy" style="left:3%; top:86%;">Heavy Scratches &amp; Swirls</div>
         </div>
-        <video class="cqb2-vid" data-vstep="3" src="web.screenshots/cqb-ceramic.mp4" poster="web.screenshots/cqb-ceramic-poster.jpg" muted playsinline preload="auto" loop></video>
+        <div class="cqb2-vid track-scene" data-vstep="3">
+          <div class="track-cam">
+            <img src="web.screenshots/cqb-hydro-scene.jpg" alt="Ceramic coated car" />
+            <span class="track-anchor" id="a-hydro" style="left:62%; top:49%;"></span>
+            <span class="track-anchor" id="a-uv" style="left:49%; top:27%;"></span>
+          </div>
+          <svg class="track-lines"><polyline id="l-hydro"></polyline><polyline id="l-uv"></polyline></svg>
+          <div class="track-title" id="t-hydro" style="right:5%; top:11%;">Extreme Hydrophobics</div>
+          <div class="track-title" id="t-uv" style="left:5%; top:13%;">UV Protection</div>
+        </div>
         <video class="cqb2-vid" data-vstep="4" src="web.screenshots/cqb-rim.mp4" poster="web.screenshots/cqb-rim-poster.jpg" muted playsinline preload="auto" loop></video>
         <div class="cqb2-cap" id="cqbCap">
           <div class="cqb2-cap-title" id="cqbCapT">Premium ceramic protection</div>
@@ -1157,6 +1178,37 @@
           if (e.isIntersecting && cur === 1) { try { v1.currentTime = 0; v1.play().catch(function(){}); } catch (er) {} }
         });
       }, { threshold: 0.4 }).observe(box);
+    }
+
+    // keep each leader line connecting its (possibly moving) ball to its fixed title
+    var scenes = [];
+    var tScene = box.querySelector('.track-scene');
+    if (tScene) scenes.push({ el: tScene, conf: [
+      { ball: 'a-hydro', title: 't-hydro', line: 'l-hydro', side: 'right' },
+      { ball: 'a-uv',    title: 't-uv',    line: 'l-uv',    side: 'left'  }
+    ] });
+    var pScene = box.querySelector('.cqb-still');
+    if (pScene) scenes.push({ el: pScene, conf: [
+      { ball: 'a-heavy', title: 't-heavy', line: 'l-heavy', side: 'left' }
+    ] });
+    if (scenes.length) {
+      (function draw() {
+        scenes.forEach(function (sc) {
+          var s = sc.el.getBoundingClientRect();
+          sc.conf.forEach(function (c) {
+            var bE = document.getElementById(c.ball), tE = document.getElementById(c.title), lE = document.getElementById(c.line);
+            if (!bE || !tE || !lE) return;
+            var b = bE.getBoundingClientRect(), t = tE.getBoundingClientRect();
+            var bx = b.x + b.width / 2 - s.x, by = b.y + b.height / 2 - s.y;
+            var ly = t.bottom - s.y;
+            var tl = t.x - s.x, tr = t.right - s.x;
+            var elbow = (c.side === 'right') ? tl : tr;
+            var farr  = (c.side === 'right') ? tr : tl;
+            lE.setAttribute('points', bx + ',' + by + ' ' + elbow + ',' + ly + ' ' + farr + ',' + ly);
+          });
+        });
+        requestAnimationFrame(draw);
+      })();
     }
   })();
 </script>
