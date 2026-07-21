@@ -350,10 +350,10 @@
     body.cc-page { background:#050505; }
     .cc-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; }
     .cc-hero a, .cc-hero button { cursor:pointer; }
-    .cc-hero-vid { position:absolute; left:0; right:0; bottom:0; top:250px; width:100%; object-fit:cover; object-position:center; z-index:0; }
+    .cc-hero-vid { position:absolute; left:0; right:0; bottom:0; top:160px; width:100%; object-fit:cover; object-position:center; z-index:0; }
     .cc-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
       background:radial-gradient(125% 85% at 50% 46%, transparent 42%, rgba(5,5,5,.5) 78%, #050505 100%),
-                 linear-gradient(180deg, rgba(5,5,5,.6) 0%, transparent 24%, transparent 58%, rgba(5,5,5,.9) 100%); }
+                 linear-gradient(180deg, #050505 0%, #050505 12%, transparent 32%, transparent 58%, rgba(5,5,5,.9) 100%); }
     .cc-hero-inner { position:relative; z-index:2; width:100%; max-width:720px; margin:0 auto; min-height:100vh; padding:9.5rem 1.5rem 3rem; display:flex; flex-direction:column; text-align:center; }
     .cc-hero-top { display:flex; flex-direction:column; align-items:center; }
     .cc-g-badge { display:inline-flex; align-items:center; gap:.55rem; background:rgba(23,24,26,.72); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:999px; padding:.5rem 1.05rem; margin-bottom:1.5rem; transition:transform .18s ease; }
@@ -476,7 +476,8 @@
     .q-footer .cqb-back { margin:0; justify-self:start; }
     .q-footer .cqb-progress { margin:0; justify-self:center; }
     .q-footer .cqb-continue { margin:0; justify-self:end; }
-    .r-footer { display:none; justify-content:center; align-items:center; gap:1.2rem; padding-bottom:1.6rem; }
+    .cqb-step[data-step="5"] { margin-top:auto; }
+    .r-footer { display:none; justify-content:center; align-items:center; gap:1.2rem; margin-top:.4rem; padding-bottom:1.6rem; }
     .r-footer .cqb-cta { margin:0; }
     .r-footer .cqb-restart { position:absolute; right:1.5rem; bottom:.85rem; margin:0; }
     .cqb-phone { font-family:var(--font-d); font-weight:800; font-size:1rem; color:#fff; padding:.7rem 1rem; }
