@@ -252,8 +252,8 @@
 
     /* ── Compare (godetail-style toggle) ── */
     /* Dark sections below ceramic */
-    #compare, #faq { background:#000; }
-    #compare .h-sec, #faq .h-sec { color:#fff; }
+    #faq { background:#fff; }
+    #faq .cc-h2 { color:var(--ink); }
     #compare .sub { color:#B9BCC1; }
     .vs-grid { max-width:980px; margin:2.6rem auto 0; }
     .vs-heads, .vs-row { display:grid; grid-template-columns:0.8fr 1.1fr 1.1fr; column-gap:1.1rem; }
@@ -294,18 +294,18 @@
     .cta-band p { color:rgba(255,255,255,.7); max-width:480px; margin:0 auto 2.2rem; font-size:.95rem; line-height:1.7; }
 
     /* ── Footer ───────────────────────── */
-    footer { background:var(--ink); color:rgba(255,255,255,.72); border-top:1px solid rgba(255,255,255,.08); }
+    footer { background:#fff; color:var(--ink-2); border-top:1px solid var(--line); }
     .foot-inner { max-width:1280px; margin:0 auto; padding:4.5rem 2rem 2rem; display:grid; grid-template-columns:1.3fr 1fr 1fr 1.4fr; gap:3rem; }
-    .foot-inner h5 { font-family:var(--font-d); color:#fff; font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
+    .foot-inner h5 { font-family:var(--font-d); color:var(--ink); font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
     .foot-inner li { margin-bottom:.6rem; font-size:.84rem; }
-    .foot-inner a:hover { color:var(--gold); }
+    .foot-inner a:hover { color:var(--gold-deep); }
     .foot-logo img { height:64px; width:auto; margin-bottom:1rem; }
-    .foot-mission { font-size:.82rem; line-height:1.7; }
-    .foot-map { border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.1); }
+    .foot-mission { font-size:.82rem; line-height:1.7; color:var(--ink-2); }
+    .foot-map { border-radius:14px; overflow:hidden; border:1px solid var(--line); }
     .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.3); }
-    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid rgba(255,255,255,.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:rgba(255,255,255,.45); }
+    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:var(--muted); }
     .socials { display:flex; gap:.7rem; }
-    .socials a { width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center; transition:border-color .2s, background .2s; }
+    .socials a { width:34px; height:34px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; transition:border-color .2s, background .2s; }
     .socials a:hover { border-color:var(--gold); background:rgba(201,151,58,.12); }
 
     /* ── Reveal on scroll ─────────────── */
@@ -969,11 +969,11 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">
-      <img src="brand_assets/Shine for a Cause LOGO transparent.png" alt="Shine for a Cause" />
+      <img src="brand_assets/logo-nav.png" alt="Shine for a Cause" />
       <p class="foot-mission">Mobile auto detailing that gives back. A portion of every booking supports recovery programs across Northern Colorado.</p>
       <div class="socials" style="margin-top:1.2rem;">
-        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></a>
-        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
+        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101112" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#101112"/></svg></a>
+        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#101112"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
       </div>
     </div>
     <div>
