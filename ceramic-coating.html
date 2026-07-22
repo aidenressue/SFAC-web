@@ -350,7 +350,7 @@
     body.cc-page { background:#050505; }
     .cc-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; }
     .cc-hero a, .cc-hero button { cursor:pointer; }
-    .cc-hero-vid { position:absolute; left:0; right:0; bottom:0; top:160px; width:100%; object-fit:cover; object-position:center; z-index:0; }
+    .cc-hero-vid { position:absolute; left:0; right:0; top:120px; width:100%; height:calc(100vh - 330px); object-fit:cover; object-position:center 15%; z-index:0; }
     .cc-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
       background:radial-gradient(125% 85% at 50% 46%, transparent 42%, rgba(5,5,5,.5) 78%, #050505 100%),
                  linear-gradient(180deg, #050505 0%, #050505 12%, transparent 32%, transparent 58%, rgba(5,5,5,.9) 100%); }
@@ -361,7 +361,7 @@
     .cc-g-badge .g-logo { width:19px; height:19px; display:block; }
     .cc-g-badge .g-stars { color:#F5B740; letter-spacing:.05em; font-size:1rem; }
     .cc-g-badge .g-rating { font-family:var(--font-d); font-weight:800; color:#fff; font-size:.95rem; }
-    .cc-title { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(1.7rem,3.6vw,2.8rem); line-height:1; color:#fff; margin:0 0 .4rem; white-space:nowrap; }
+    .cc-title { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(2.3rem,4.8vw,3.7rem); line-height:1; color:#fff; margin:0 0 .4rem; white-space:nowrap; }
     .cc-sub { margin-top:1rem; font-family:var(--font-d); font-weight:600; font-size:clamp(1rem,2vw,1.3rem); color:#E9DCC2; }
     .cc-sub .hrt { color:var(--gold); }
     .cc-hero-cta { margin-top:auto; display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:.9rem; }
@@ -429,8 +429,8 @@
     .cqb-cta { display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; align-items:center; margin-top:1.8rem; }
     @media (max-width:640px) { .cqb { padding:1.9rem 1.3rem; } .cqb-opts.cols-2, .cqb-opts.cols-3 { grid-template-columns:1fr; } }
     /* two-pane animated builder */
-    .cqb2 { max-width:1120px; margin:3rem auto 0; display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; align-items:stretch; }
-    .cqb2-visual { position:relative; border-radius:20px; overflow:hidden; background:#050505; aspect-ratio:1/1; align-self:start; }
+    .cqb2 { max-width:1240px; margin:3rem auto 0; display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; align-items:stretch; }
+    .cqb2-visual { position:relative; border-radius:20px; overflow:hidden; background:#050505; aspect-ratio:1/1; align-self:start; border:1px solid rgba(201,151,58,.55); box-shadow:0 0 44px rgba(201,151,58,.14); }
     .cqb2-visual video, .cqb2-visual .cqb-still { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; opacity:0; transition:opacity .5s ease; }
     .cqb2-visual video.on, .cqb2-visual .cqb-still.on { opacity:1; }
     .cqb-still img { width:100%; height:100%; object-fit:cover; }
@@ -454,7 +454,7 @@
     .cqb2-cap-sub { font-size:.86rem; color:rgba(255,255,255,.78); margin-top:.25rem; line-height:1.5; }
     .cqb2-cap.swap { animation:capIn .5s ease; }
     @keyframes capIn { from { opacity:0; transform:translateY(8px);} to { opacity:1; transform:none; } }
-    .cqb2-panel { background:linear-gradient(180deg,#181A1F 0%,#0B0C0E 100%); border:1px solid rgba(255,255,255,.09); border-radius:20px; padding:1.5rem 1.6rem; display:flex; flex-direction:column; justify-content:flex-start; position:relative; min-height:570px; }
+    .cqb2-panel { background:linear-gradient(180deg,#181A1F 0%,#0B0C0E 100%); border:1px solid rgba(201,151,58,.55); box-shadow:0 0 44px rgba(201,151,58,.14); border-radius:20px; padding:1.5rem 1.6rem; display:flex; flex-direction:column; justify-content:flex-start; position:relative; min-height:606px; }
     .cqb2-panel .cqb-step { margin-bottom:.3rem; }
     .cqb2-panel .cqb-q { margin-bottom:1.1rem; }
     /* vehicle-size image cards (fixed-height white image box so all match) */
@@ -667,7 +667,7 @@
 <!-- ═══ CERAMIC QUOTE BUILDER ═══ -->
 <section class="cc-sec" id="quote" style="padding-top:3rem;">
   <div class="cc-wrap">
-    <h2 class="cc-h2">Build Your Coating Quote</h2>
+    <h2 class="cc-h2">30 Second Ceramic Coating Quote</h2>
     <p class="cc-h2-sub">Answer a few quick questions and see your quote instantly.</p>
 
     <div class="cqb2" id="cqb">
