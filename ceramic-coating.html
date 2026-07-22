@@ -463,6 +463,15 @@
     .veh-img img { width:100%; height:100%; object-fit:contain; padding:.2rem; }
     .cqb-opt.veh strong { padding:.5rem .8rem .05rem; }
     .cqb-opt.veh > span:not(.veh-img) { padding:0 .8rem .55rem; }
+    /* paint-correction cards: who it's for / not for */
+    .prep-card { padding:.85rem 1.05rem; }
+    .prep-card .prep-desc { display:block; }
+    .prep-lists { display:grid; grid-template-columns:1fr 1fr; gap:.2rem .9rem; margin-top:.55rem; }
+    .prep-h { font-family:var(--font-d); font-weight:800; font-size:.58rem; letter-spacing:.1em; text-transform:uppercase; margin-bottom:.15rem; }
+    .prep-h.yes { color:#5FD68A; } .prep-h.no { color:#F0847E; }
+    .prep-item { display:flex; align-items:center; gap:.4rem; font-size:.74rem; color:#C2C5C9; line-height:1.25; margin-top:.22rem; }
+    .mk { display:inline-flex; align-items:center; justify-content:center; width:15px; height:15px; border-radius:50%; font-size:8px; font-weight:900; flex-shrink:0; }
+    .mk-check { background:#16A34A; color:#fff; } .mk-x { background:#DC2626; color:#fff; }
     /* add-on cards */
     .cqb-opt.addon { padding:.9rem 1.1rem; }
     .cqb-opt.addon .addon-pitch { display:block; font-size:.82rem; color:#C7CACE; line-height:1.45; margin-top:.1rem; }
@@ -720,9 +729,48 @@
         <div class="cqb-step" data-step="2">
           <div class="cqb-q">What level of correction does your paint need?</div>
           <div class="cqb-opts">
-            <button class="cqb-opt" data-key="prep" data-val="polish"><strong>Polish</strong><span>Polishing brings out a deep gloss finish, perfect for new or well maintained cars.</span></button>
-            <button class="cqb-opt" data-key="prep" data-val="one-step"><strong>1-Step Correction</strong><span>Removes 50 to 65% of all surface defects.</span></button>
-            <button class="cqb-opt" data-key="prep" data-val="two-step"><strong>2-Step Correction</strong><span>Removes 85 to 95% of all defects, giving your vehicle a near perfect finish.</span></button>
+            <button class="cqb-opt prep-card" data-key="prep" data-val="polish">
+              <strong>Polish</strong>
+              <span class="prep-desc">A gloss-enhancing polish for a deep, wet shine. No defect removal.</span>
+              <div class="prep-lists">
+                <div class="prep-col"><div class="prep-h yes">Great for</div>
+                  <div class="prep-item"><span class="mk mk-check">&#10003;</span>New or well-kept cars</div>
+                  <div class="prep-item"><span class="mk mk-check">&#10003;</span>A gloss boost before coating</div>
+                </div>
+                <div class="prep-col"><div class="prep-h no">Not for</div>
+                  <div class="prep-item"><span class="mk mk-x">&#10005;</span>Visible swirls or scratches</div>
+                  <div class="prep-item"><span class="mk mk-x">&#10005;</span>Neglected, worn paint</div>
+                </div>
+              </div>
+            </button>
+            <button class="cqb-opt prep-card" data-key="prep" data-val="one-step">
+              <strong>1-Step Correction</strong>
+              <span class="prep-desc">Removes 50 to 65% of all surface defects.</span>
+              <div class="prep-lists">
+                <div class="prep-col"><div class="prep-h yes">Great for</div>
+                  <div class="prep-item"><span class="mk mk-check">&#10003;</span>Light to moderate swirls</div>
+                  <div class="prep-item"><span class="mk mk-check">&#10003;</span>Daily drivers wanting a big lift</div>
+                </div>
+                <div class="prep-col"><div class="prep-h no">Not for</div>
+                  <div class="prep-item"><span class="mk mk-x">&#10005;</span>Deep scratches</div>
+                  <div class="prep-item"><span class="mk mk-x">&#10005;</span>A flawless show finish</div>
+                </div>
+              </div>
+            </button>
+            <button class="cqb-opt prep-card" data-key="prep" data-val="two-step">
+              <strong>2-Step Correction</strong>
+              <span class="prep-desc">Removes 85 to 95% of all defects for a near-flawless finish.</span>
+              <div class="prep-lists">
+                <div class="prep-col"><div class="prep-h yes">Great for</div>
+                  <div class="prep-item"><span class="mk mk-check">&#10003;</span>Heavy swirls &amp; scratches</div>
+                  <div class="prep-item"><span class="mk mk-check">&#10003;</span>Show or enthusiast cars</div>
+                </div>
+                <div class="prep-col"><div class="prep-h no">Not for</div>
+                  <div class="prep-item"><span class="mk mk-x">&#10005;</span>Quick budget refreshes</div>
+                  <div class="prep-item"><span class="mk mk-x">&#10005;</span>Already near-perfect paint</div>
+                </div>
+              </div>
+            </button>
           </div>
         </div>
 
