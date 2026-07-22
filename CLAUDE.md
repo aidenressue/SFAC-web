@@ -19,7 +19,7 @@ Public marketing site. Plain HTML/CSS/JS, no framework. Deploys to Vercel on pus
 
 After every visual/layout/CSS change, **take a screenshot with Puppeteer and actually look at it** before reporting done. Do not rely on reading the code alone.
 
-- **Default to ONE screenshot per change** to save tokens. Aim the capture carefully the first time (prefer a document-relative `clip` of the target section over scroll-and-retry). The user will explicitly ask for more shots (mobile, extra states, both breakpoints) on bigger changes when needed.
+- **Take as many screenshots as you need to verify a change is right** (the user is on the Pro plan, so credits are not a constraint). Capture multiple angles when relevant: desktop AND mobile, before/after states, each step of a flow, hover/active states, and both breakpoints. Prefer verifying visually over assuming from the code. Still aim each capture carefully (a document-relative `clip` of the target section, or drive the UI to the state first) so each shot is informative.
 
 - Puppeteer is installed in this repo (`node_modules`), so run the script **from the repo root**.
 - Use **`headless: 'shell'`** (the old headless) for screenshots — the newer `headless: 'new'` has a compositor bug that renders `backdrop-filter`/glass/`isolation` layers as falsely translucent in screenshots. `shell` matches real browsers.
