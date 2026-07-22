@@ -370,8 +370,8 @@
     .cc-h2 { text-align:center; font-family:var(--font-d); font-weight:900; letter-spacing:-.02em; font-size:clamp(2rem,4vw,3rem); color:#fff; margin:0; }
     .cc-h2-sub { text-align:center; color:#9A9DA2; margin-top:.65rem; font-size:1rem; }
     /* packages */
-    .cc-pkgs { display:grid; grid-template-columns:repeat(3,1fr); grid-template-rows:auto auto auto auto auto auto; gap:1.3rem; margin-top:3rem; }
-    .cc-pkg { position:relative; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:2.1rem 1.7rem; display:grid; grid-template-rows:subgrid; grid-row:span 6; row-gap:0; }
+    .cc-pkgs { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:3rem; align-items:stretch; }
+    .cc-pkg { position:relative; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:22px; padding:2.1rem 1.7rem; display:flex; flex-direction:column; }
     .cc-pkg.feat { border-color:var(--gold-line); box-shadow:0 24px 60px rgba(201,151,58,.16); }
     .cc-pkg-badge { position:absolute; top:-.75rem; left:50%; transform:translateX(-50%); background:var(--gold); color:#141005; font-family:var(--font-d); font-weight:800; font-size:.64rem; letter-spacing:.12em; text-transform:uppercase; padding:.32rem .9rem; border-radius:999px; white-space:nowrap; }
     .cc-pkg-tier { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); }
@@ -379,7 +379,7 @@
     .cc-pkg ul { list-style:none; display:flex; flex-direction:column; gap:.72rem; margin-bottom:1.7rem; }
     .cc-pkg li { display:flex; gap:.6rem; font-size:.88rem; color:#C9CBCE; line-height:1.4; }
     .cc-pkg li::before { content:''; flex:0 0 18px; height:18px; margin-top:1px; border-radius:50%; background:rgba(201,151,58,.15) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='9' viewBox='0 0 24 24' fill='none' stroke='%23C9973A' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/9px no-repeat; border:1px solid rgba(201,151,58,.3); }
-    .cc-pkg .btn { width:100%; align-self:end; }
+    .cc-pkg .btn { width:100%; }
     #packages { overflow:hidden; }
     .cc-pkgs { position:relative; }
     .cc-pkgs::before { content:''; position:absolute; top:48%; left:50%; width:940px; height:540px; transform:translate(-50%,-50%); background:radial-gradient(ellipse at center, rgba(201,151,58,.20), rgba(201,151,58,0) 70%); filter:blur(60px); z-index:0; pointer-events:none; }
@@ -423,8 +423,16 @@
     @media (max-width:820px) { .guide-grid { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; } }
 
     /* Correction package cards - full detail, visually heavier than the guide strip above */
-    .pc-desc { font-size:.86rem; color:#B9BCC1; line-height:1.6; margin-bottom:1.4rem; }
+    .pc-cardimg { margin:.3rem 0 1.3rem; border-radius:14px; overflow:hidden; aspect-ratio:16/9; background:#0b0b0c; }
+    .pc-cardimg img { width:100%; height:100%; object-fit:cover; display:block; }
+    .pc-desc { font-size:.86rem; color:#B9BCC1; line-height:1.6; margin:0 0 1.4rem; }
+    .pc-desc-rest { display:none; }
+    .pc-desc.open .pc-desc-rest { display:inline; }
+    .pc-seemore { display:inline; background:none; border:none; padding:0; margin-left:.25rem; font-family:var(--font-d); font-weight:800; font-size:.82rem; color:var(--gold-deep); cursor:pointer; }
+    .pc-seemore:hover { text-decoration:underline; }
     .pc-for { margin-bottom:1.1rem; }
+    .pc-for-2col { display:grid; grid-template-columns:1fr 1fr; gap:1rem 1.3rem; }
+    .pc-for-2col .pc-for-list { margin-bottom:0; }
     .pc-for-head { font-family:var(--font-d); font-size:.64rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; margin-bottom:.6rem; }
     .pc-for-head.good { color:#3FCB7C; }
     .pc-for-head.bad { color:#E5615A; }
@@ -440,7 +448,7 @@
     .pc-size-btn.active { background:var(--gold); color:#141005; }
     .pc-size-btn:hover:not(.active) { color:#fff; }
     /* big single price on each card */
-    .pc-price-big { margin:0 0 1.4rem; padding-top:1.1rem; border-top:1px solid rgba(255,255,255,.09); }
+    .pc-price-big { margin:auto 0 1.4rem; padding-top:1.1rem; border-top:1px solid rgba(255,255,255,.09); }
     .pc-price-big .from { display:block; font-family:var(--font-d); font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#7A7D82; margin-bottom:.15rem; }
     .pc-price-big .amt { font-family:var(--font-d); font-size:2.3rem; font-weight:900; color:var(--gold); letter-spacing:-.03em; line-height:1; }
     .pc-price-big .sz { font-family:var(--font-d); font-size:.78rem; font-weight:700; color:#7A7D82; margin-left:.45rem; }
@@ -590,10 +598,9 @@
 <section class="cc-sec" id="guide" style="padding-bottom:2.5rem;">
   <div class="cc-wrap">
     <h2 class="cc-h2">Which Level Does Your Paint Need?</h2>
-    <p class="cc-h2-sub">Match your paint's condition to the right correction. Not sure? Call or text us a photo and we'll tell you.</p>
     <div class="guide-grid">
       <div class="guide-card">
-        <div class="guide-img"><span class="ph">Example photo</span></div>
+        <div class="guide-img"><img src="web.screenshots/pc-guide-faded.jpg" alt="Close-up of glossy black car paint with light swirls" loading="lazy"></div>
         <div class="guide-body">
           <h3>Lightly Faded Paint</h3>
           <p>Minimal scratches and swirls. The paint still looks decent but has lost some of its original shine.</p>
@@ -601,7 +608,7 @@
         </div>
       </div>
       <div class="guide-card">
-        <div class="guide-img"><span class="ph">Example photo</span></div>
+        <div class="guide-img"><img src="web.screenshots/pc-guide-swirls.jpg" alt="Close-up of black car paint with visible swirl marks and light scratches" loading="lazy"></div>
         <div class="guide-body">
           <h3>Scratches &amp; Swirls</h3>
           <p>Visible swirl marks and light scratches show up in the sun. The paint has lost its depth and clarity.</p>
@@ -609,7 +616,7 @@
         </div>
       </div>
       <div class="guide-card">
-        <div class="guide-img"><span class="ph">Example photo</span></div>
+        <div class="guide-img"><img src="web.screenshots/pc-guide-deep.jpg" alt="Close-up of black car paint with heavy deep scratches and oxidation" loading="lazy"></div>
         <div class="guide-body">
           <h3>Deep Defects</h3>
           <p>Heavy scratching, oxidation, or paint that hasn't been corrected in years. Needs the most work to bring back.</p>
@@ -626,7 +633,6 @@
     <div class="pkg-head-row">
       <div class="pkg-head-text">
         <h2 class="cc-h2 left">Our Correction Packages</h2>
-        <p class="cc-h2-sub left">Cut, polish, and refine your paint back to a flawless finish. Pick your vehicle size to compare pricing across all three levels.</p>
       </div>
       <aside class="pkg-note">
         <p>Once your paint is corrected, seal it in. A professional ceramic coating locks in that flawless finish and protects it for years.</p>
@@ -646,20 +652,25 @@
       <div class="cc-pkg">
         <div class="cc-pkg-tier">Level 1</div>
         <div class="cc-pkg-name">Polish</div>
-        <p class="pc-desc">A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls. It won't fully correct deeper defects, but it brings back the depth and clarity that daily driving and washing dull down over time, and it sets up a flawless surface before sealing it in with a ceramic coating.</p>
-        <div class="pc-for">
-          <div class="pc-for-head good">Perfect For</div>
-          <ul class="pc-for-list good">
-            <li>Newer cars</li>
-            <li>Hand washed and well-maintained paint</li>
-            <li>Good paint condition</li>
-          </ul>
-          <div class="pc-for-head bad">Not Recommended For</div>
-          <ul class="pc-for-list bad">
-            <li>Scratches and swirls</li>
-            <li>Poorly maintained paint</li>
-          </ul>
+        <div class="pc-cardimg"><img src="web.screenshots/pc-pkg-polish1.jpg" alt="Machine polishing a glossy black car panel" loading="lazy"></div>
+        <div class="pc-for pc-for-2col">
+          <div class="pc-for-col">
+            <div class="pc-for-head good">Perfect For</div>
+            <ul class="pc-for-list good">
+              <li>Newer cars</li>
+              <li>Hand washed, well-maintained paint</li>
+              <li>Good paint condition</li>
+            </ul>
+          </div>
+          <div class="pc-for-col">
+            <div class="pc-for-head bad">Not For</div>
+            <ul class="pc-for-list bad">
+              <li>Scratches and swirls</li>
+              <li>Poorly maintained paint</li>
+            </ul>
+          </div>
         </div>
+        <p class="pc-desc"><span class="pc-desc-first">A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls.</span><span class="pc-desc-rest"> It won't fully correct deeper defects, but it brings back the depth and clarity that daily driving and washing dull down over time, and it sets up a flawless surface before sealing it in with a ceramic coating.</span> <button type="button" class="pc-seemore">See more</button></p>
         <div class="pc-price-big" data-small="$300" data-mid="$350" data-large="$400" data-van="$500">
           <span class="from">Starting at</span>
           <span class="amt">$300</span><span class="sz">Small vehicle</span>
@@ -670,20 +681,25 @@
         <div class="cc-pkg-badge">Most Popular</div>
         <div class="cc-pkg-tier">Level 2</div>
         <div class="cc-pkg-name">1-Step Correction</div>
-        <p class="pc-desc">A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. It's the level most cars need to go from dull and marred to a genuine showroom shine.</p>
-        <div class="pc-for">
-          <div class="pc-for-head good">Perfect For</div>
-          <ul class="pc-for-list good">
-            <li>Clients who want a true paint correction</li>
-            <li>Little to no deeper scratches</li>
-            <li>Showroom shine</li>
-          </ul>
-          <div class="pc-for-head bad">Not Recommended For</div>
-          <ul class="pc-for-list bad">
-            <li>Paint with heavy, deep scratching a single pass can't fully remove</li>
-            <li>Years of built-up swirling that need a second, heavier stage</li>
-          </ul>
+        <div class="pc-cardimg"><img src="web.screenshots/pc-pkg-polish2.jpg" alt="Detailer machine polishing the hood of a black car" loading="lazy"></div>
+        <div class="pc-for pc-for-2col">
+          <div class="pc-for-col">
+            <div class="pc-for-head good">Perfect For</div>
+            <ul class="pc-for-list good">
+              <li>Clients who want a true paint correction</li>
+              <li>Little to no deeper scratches</li>
+              <li>Showroom shine</li>
+            </ul>
+          </div>
+          <div class="pc-for-col">
+            <div class="pc-for-head bad">Not For</div>
+            <ul class="pc-for-list bad">
+              <li>Heavy, deep scratching a single pass can't fully remove</li>
+              <li>Years of built-up swirling that need a heavier stage</li>
+            </ul>
+          </div>
         </div>
+        <p class="pc-desc"><span class="pc-desc-first">A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss.</span><span class="pc-desc-rest"> It's the level most cars need to go from dull and marred to a genuine showroom shine.</span> <button type="button" class="pc-seemore">See more</button></p>
         <div class="pc-price-big" data-small="$550" data-mid="$650" data-large="$750" data-van="$900">
           <span class="from">Starting at</span>
           <span class="amt">$550</span><span class="sz">Small vehicle</span>
@@ -693,19 +709,24 @@
       <div class="cc-pkg">
         <div class="cc-pkg-tier">Level 3</div>
         <div class="cc-pkg-name">2-Step Correction</div>
-        <p class="pc-desc">Our highest level of paint correction. Two full stages of compounding and polishing cut through even the deepest defects, leaving a showroom shine and paint that's about as close to perfect as it gets.</p>
-        <div class="pc-for">
-          <div class="pc-for-head good">Perfect For</div>
-          <ul class="pc-for-list good">
-            <li>Extremely poor paint condition</li>
-            <li>Clients who want their paint to be nearly perfect</li>
-          </ul>
-          <div class="pc-for-head bad">Not Recommended For</div>
-          <ul class="pc-for-list bad">
-            <li>Lower budgets</li>
-            <li>Minor scratches and swirls</li>
-          </ul>
+        <div class="pc-cardimg"><img src="web.screenshots/pc-pkg-split.jpg" alt="Before and after split of a car hood: heavy scratches on one side, flawless gloss on the other" loading="lazy"></div>
+        <div class="pc-for pc-for-2col">
+          <div class="pc-for-col">
+            <div class="pc-for-head good">Perfect For</div>
+            <ul class="pc-for-list good">
+              <li>Extremely poor paint condition</li>
+              <li>Clients who want their paint nearly perfect</li>
+            </ul>
+          </div>
+          <div class="pc-for-col">
+            <div class="pc-for-head bad">Not For</div>
+            <ul class="pc-for-list bad">
+              <li>Lower budgets</li>
+              <li>Minor scratches and swirls</li>
+            </ul>
+          </div>
         </div>
+        <p class="pc-desc"><span class="pc-desc-first">Our highest level of paint correction, with two full stages of compounding and polishing.</span><span class="pc-desc-rest"> They cut through even the deepest defects, leaving a showroom shine and paint that's about as close to perfect as it gets.</span> <button type="button" class="pc-seemore">See more</button></p>
         <div class="pc-price-big" data-small="$900" data-mid="$1,000" data-large="$1,100" data-van="$1,400">
           <span class="from">Starting at</span>
           <span class="amt">$900</span><span class="sz">Small vehicle</span>
@@ -920,6 +941,15 @@
       });
     });
   })();
+
+  // Package descriptions -> see more / see less
+  document.querySelectorAll('.pc-seemore').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var desc = btn.closest('.pc-desc');
+      var open = desc.classList.toggle('open');
+      btn.textContent = open ? 'See less' : 'See more';
+    });
+  });
 </script>
 </body>
 </html>
