@@ -238,9 +238,10 @@
     .gal-row.l { animation:galLeft 55s linear infinite; }
     @keyframes galLeft { from { transform:translateX(0); } to { transform:translateX(-50%); } }
     @keyframes galRight { from { transform:translateX(-50%); } to { transform:translateX(0); } }
-    .gal-box { flex:0 0 auto; width:340px; height:340px; border-radius:0; background:repeating-linear-gradient(45deg,#F1EFEA,#F1EFEA 20px,#ECEAE4 20px,#ECEAE4 40px); }
+    .gal-box { flex:0 0 auto; width:340px; height:230px; border-radius:0; overflow:hidden; background:#111; }
+    .gal-box img { width:100%; height:100%; object-fit:cover; display:block; }
     @media (max-width:720px) {
-      .gal-box { width:240px; height:240px; }
+      .gal-box { width:240px; height:160px; }
     }
 
     .stats-band { background:var(--ink); color:#fff; }
@@ -515,8 +516,9 @@
     .gal-row.l { animation:galLeft 55s linear infinite; }
     @keyframes galLeft { from { transform:translateX(0); } to { transform:translateX(-50%); } }
     @keyframes galRight { from { transform:translateX(-50%); } to { transform:translateX(0); } }
-    .gal-box { flex:0 0 auto; width:340px; height:340px; border-radius:0; background:repeating-linear-gradient(45deg,#F1EFEA,#F1EFEA 20px,#ECEAE4 20px,#ECEAE4 40px); }
-    @media (max-width:720px) { .gal-box { width:240px; height:240px; } }
+    .gal-box { flex:0 0 auto; width:340px; height:230px; border-radius:0; overflow:hidden; background:#111; }
+    .gal-box img { width:100%; height:100%; object-fit:cover; display:block; }
+    @media (max-width:720px) { .gal-box { width:240px; height:160px; } }
     .cc-cta-center { text-align:center; margin-top:2.6rem; }
     @media (max-width:820px) {
       .cc-pkgs { grid-template-columns:1fr; max-width:400px; margin-left:auto; margin-right:auto; }
@@ -847,40 +849,28 @@
 <!-- ═══ GALLERY ═══ -->
 <section class="gallery-sec" aria-label="Photo gallery">
   <div class="gal-row r">
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-Examplecc.jpg" alt="Freshly detailed GMC Sierra" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-beading.jpg" alt="Water beading on ceramic-coated paint" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-apply.jpg" alt="Applying ceramic coating" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-suv.jpg" alt="Ceramic-coated white SUV" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-Examplecc2.jpg" alt="Machine polishing a car" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-Examplecc.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-beading.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-apply.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-suv.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-Examplecc2.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
   </div>
   <div class="gal-row l">
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
-        <div class="gal-box"></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-Exampleccnew.jpg" alt="Glossy black BMW M4" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-polish.jpg" alt="Polishing a red sports car" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-coupe.jpg" alt="Ceramic-coated blue coupe" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-sheeting.jpg" alt="Water sheeting off coated paint" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-wheel.jpg" alt="Ceramic-coated wheel" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-Exampleccnew.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-polish.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-coupe.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-sheeting.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
+        <div class="gal-box"><img src="web.screenshots/gallery-cc-wheel.jpg" alt="" aria-hidden="true" loading="lazy" /></div>
   </div>
 </section>
 
