@@ -299,18 +299,18 @@
     .cta-band p { color:rgba(255,255,255,.7); max-width:480px; margin:0 auto 2.2rem; font-size:.95rem; line-height:1.7; }
 
     /* ── Footer ───────────────────────── */
-    footer { background:var(--ink); color:rgba(255,255,255,.72); border-top:1px solid rgba(255,255,255,.08); }
+    footer { background:#fff; color:var(--ink-2); border-top:1px solid var(--line); }
     .foot-inner { max-width:1280px; margin:0 auto; padding:4.5rem 2rem 2rem; display:grid; grid-template-columns:1.3fr 1fr 1fr 1.4fr; gap:3rem; }
-    .foot-inner h5 { font-family:var(--font-d); color:#fff; font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
+    .foot-inner h5 { font-family:var(--font-d); color:var(--ink); font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
     .foot-inner li { margin-bottom:.6rem; font-size:.84rem; }
-    .foot-inner a:hover { color:var(--gold); }
+    .foot-inner a:hover { color:var(--gold-deep); }
     .foot-logo img { height:64px; width:auto; margin-bottom:1rem; }
-    .foot-mission { font-size:.82rem; line-height:1.7; }
-    .foot-map { border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.1); }
+    .foot-mission { font-size:.82rem; line-height:1.7; color:var(--ink-2); }
+    .foot-map { border-radius:14px; overflow:hidden; border:1px solid var(--line); }
     .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.3); }
-    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid rgba(255,255,255,.08); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:rgba(255,255,255,.45); }
+    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid var(--line); display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:var(--muted); }
     .socials { display:flex; gap:.7rem; }
-    .socials a { width:34px; height:34px; border-radius:50%; border:1px solid rgba(255,255,255,.18); display:flex; align-items:center; justify-content:center; transition:border-color .2s, background .2s; }
+    .socials a { width:34px; height:34px; border-radius:50%; border:1px solid var(--line); display:flex; align-items:center; justify-content:center; transition:border-color .2s, background .2s; }
     .socials a:hover { border-color:var(--gold); background:rgba(201,151,58,.12); }
 
     /* ── Reveal on scroll ─────────────── */
@@ -362,11 +362,17 @@
       background:radial-gradient(125% 85% at 50% 46%, transparent 42%, rgba(5,5,5,.5) 78%, #050505 100%),
                  linear-gradient(180deg, rgba(5,5,5,.6) 0%, transparent 24%, transparent 58%, rgba(5,5,5,.9) 100%); }
     .cc-hero-inner { position:relative; z-index:2; width:100%; max-width:720px; margin:0 auto; min-height:100vh; padding:9.5rem 1.5rem 3rem; display:flex; flex-direction:column; text-align:center; }
-    .cc-title { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(2.6rem,7vw,5.2rem); line-height:1; color:#fff; margin:0; }
+    .cc-title { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(2rem,4.4vw,3.2rem); line-height:1.05; color:#fff; margin:0; }
     .cc-sub { margin-top:1rem; font-family:var(--font-d); font-weight:600; font-size:clamp(1rem,2vw,1.3rem); color:#E9DCC2; }
     .cc-sub .hrt { color:var(--gold); }
-    .cc-hero-cta { margin-top:auto; display:flex; flex-direction:column; align-items:center; gap:.8rem; }
-    .cc-hero-cta .btn { width:100%; max-width:520px; padding:1.15rem; font-size:1rem; }
+    .cc-hero-top { display:flex; flex-direction:column; align-items:center; }
+    .cc-g-badge { display:inline-flex; align-items:center; gap:.55rem; background:rgba(23,24,26,.72); border:1px solid rgba(255,255,255,.16); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-radius:999px; padding:.5rem 1.05rem; margin-bottom:1.5rem; transition:transform .18s ease; }
+    .cc-g-badge:hover { transform:translateY(-2px); }
+    .cc-g-badge .g-logo { width:19px; height:19px; display:block; }
+    .cc-g-badge .g-stars { color:#F5B740; letter-spacing:.05em; font-size:1rem; }
+    .cc-g-badge .g-rating { font-family:var(--font-d); font-weight:800; color:#fff; font-size:.95rem; }
+    .cc-hero-cta { margin-top:auto; display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:.9rem; }
+    .cc-hero-cta .btn { padding:1.3rem 3rem; font-size:1.12rem; }
     .cc-call { background:#17181A; color:#fff; border:1px solid rgba(255,255,255,.14); }
     .cc-call:hover { background:#202225; transform:translateY(-2px); }
     .cc-scrollcue { margin-top:1.5rem; color:rgba(255,255,255,.55); animation:bob 1.6s ease-in-out infinite; }
@@ -395,11 +401,10 @@
     .cc-benefit p { margin:.5rem 0 0; font-size:.9rem; color:#9A9DA2; line-height:1.6; }
     .cc-cta-center { text-align:center; margin-top:2.6rem; }
     /* Fleet static image hero */
-    .fl-hero { position:relative; min-height:90vh; margin-top:-128px; overflow:hidden; background:#050505; display:flex; align-items:center; justify-content:center; text-align:center; }
+    .fl-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; }
     .fl-hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
-    .fl-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, rgba(5,5,5,.62) 0%, rgba(5,5,5,.32) 40%, rgba(5,5,5,.55) 72%, #050505 100%); }
-    .fl-hero-inner { position:relative; z-index:2; width:100%; max-width:760px; padding:9rem 1.5rem 4rem; }
-    .fl-hero-inner .cc-hero-cta { max-width:520px; margin-left:auto; margin-right:auto; }
+    .fl-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, rgba(5,5,5,.5) 0%, rgba(5,5,5,.12) 30%, rgba(5,5,5,.12) 60%, rgba(5,5,5,.62) 88%, #050505 100%); }
+    .fl-hero-inner { position:relative; z-index:2; width:100%; max-width:760px; margin:0 auto; min-height:100vh; padding:9.5rem 1.5rem 3rem; display:flex; flex-direction:column; text-align:center; }
     @media (max-width:820px) {
       .cc-pkgs { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; }
       .cc-hero-vid { object-fit:contain; }
@@ -435,6 +440,7 @@
     .fleet-exp-grid { max-width:1080px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:3.5rem; align-items:center; }
     .fleet-exp-media { aspect-ratio:4/3; border-radius:22px; overflow:hidden; background:repeating-linear-gradient(45deg,#141416,#141416 18px,#1a1a1d 18px,#1a1a1d 36px); display:flex; align-items:center; justify-content:center; border:1px solid rgba(255,255,255,.07); box-shadow:0 24px 60px rgba(0,0,0,.5); }
     .fleet-exp-media .ph { font-family:var(--font-d); font-size:.6rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#4E5155; }
+    .fleet-exp-media img { width:100%; height:100%; object-fit:cover; display:block; }
     .fleet-exp-copy h2 { text-align:left; }
     .fleet-exp-copy p { font-size:1rem; line-height:1.7; color:#B9BCC1; margin-top:1.3rem; }
     .fleet-exp-cta { display:flex; flex-wrap:wrap; gap:.8rem; margin-top:2rem; }
@@ -526,9 +532,15 @@
 <header class="fl-hero" id="home">
   <img class="fl-hero-bg" src="web.screenshots/fleet-hero-web.jpg" alt="Fleet of vehicles parked at a dealership lot at dusk" />
   <div class="fl-hero-inner">
-    <h1 class="cc-title">Fleet Cleaning</h1>
-    <p class="cc-sub">Wholesale service discounts for dealers &amp; fleets</p>
-    <div class="cc-hero-cta" style="margin-top:1.8rem;">
+    <div class="cc-hero-top">
+      <a class="cc-g-badge" href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google reviews, rated 5.0">
+        <svg class="g-logo" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+        <span class="g-stars">★★★★★</span>
+        <span class="g-rating">5.0</span>
+      </a>
+      <h1 class="cc-title">Northern Colorado Fleet Cleaning</h1>
+    </div>
+    <div class="cc-hero-cta">
       <a href="/quote-builder.html" class="btn btn-green">Get Free Quote &rarr;</a>
       <a href="tel:+19708516433" class="btn btn-green-ghost">Call Now</a>
     </div>
@@ -553,7 +565,7 @@
               <li>Wholesale prices</li>
             </ul>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+          <div class="fleet-card-img"><img src="web.screenshots/fleet-card-suv2.jpg" alt="White full-size SUV in studio" loading="lazy"><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
         </div></div>
         <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
@@ -564,7 +576,7 @@
               <li>Inside &amp; outside</li>
             </ul>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+          <div class="fleet-card-img"><img src="web.screenshots/fleet-card-sedan.jpg" alt="White luxury sedan in studio" loading="lazy"><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
         </div></div>
         <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
@@ -575,7 +587,7 @@
               <li>Photo-ready detail</li>
             </ul>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+          <div class="fleet-card-img"><img src="web.screenshots/fleet-card-suv.jpg" alt="White crossover SUV in studio" loading="lazy"><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
         </div></div>
         <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
@@ -586,7 +598,7 @@
               <li>Consistent standards</li>
             </ul>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+          <div class="fleet-card-img"><img src="web.screenshots/fleet-card-van.jpg" alt="White commercial cargo van in studio" loading="lazy"><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
         </div></div>
         <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
@@ -597,7 +609,7 @@
               <li>Spot-free finish</li>
             </ul>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+          <div class="fleet-card-img"><img src="web.screenshots/fleet-card-truck.jpg" alt="White pickup truck in studio" loading="lazy"><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
         </div></div>
         <div class="fleet-card"><div class="fleet-card-inner">
           <div class="fleet-card-body">
@@ -608,7 +620,7 @@
               <li>Between full details</li>
             </ul>
           </div>
-          <div class="fleet-card-img"><span class="ph">Image coming soon</span><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
+          <div class="fleet-card-img"><img src="web.screenshots/fleet-card-minivan.jpg" alt="White passenger minivan in studio" loading="lazy"><a href="#fleet-quote" class="fleet-card-quote">Get Free Quote</a></div>
         </div></div>
       </div>
     </div>
@@ -619,7 +631,7 @@
 <!-- ═══ EXPERIENCE THE BEST FLEET DETAILING ═══ -->
 <section class="fleet-exp">
   <div class="fleet-exp-grid">
-    <div class="fleet-exp-media"><span class="ph">Image coming soon</span></div>
+    <div class="fleet-exp-media"><img src="web.screenshots/fleet-exp-lot.jpg" alt="A fleet of white work vans parked in a row in a lot" loading="lazy"></div>
     <div class="fleet-exp-copy">
       <h2 class="cc-h2">Experience the Best Fleet Detailing</h2>
       <p>Shine for a Cause provides high-efficiency fleet detailing services across Northern Colorado, designed specifically for dealerships and commercial vehicle operations. We go beyond a simple wash. Our process restores, cleans, and maintains every vehicle to showroom-ready condition, helping you present inventory at its absolute best. From exterior decontamination and paint-safe cleaning to deep interior detailing, we ensure every unit is consistently spotless, protected, and ready for sale or delivery.</p>
@@ -729,11 +741,11 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">
-      <img src="brand_assets/Shine for a Cause LOGO transparent.png" alt="Shine for a Cause" />
+      <img src="brand_assets/logo-nav.png" alt="Shine for a Cause" />
       <p class="foot-mission">Mobile auto detailing that gives back. A portion of every booking supports recovery programs across Northern Colorado.</p>
       <div class="socials" style="margin-top:1.2rem;">
-        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></a>
-        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
+        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101112" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#101112"/></svg></a>
+        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#101112"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
       </div>
     </div>
     <div>
