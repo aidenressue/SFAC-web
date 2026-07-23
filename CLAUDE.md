@@ -2,6 +2,15 @@
 
 Public marketing site. Plain HTML/CSS/JS, no framework. Deploys to Vercel on push.
 
+## Handling multi-part requests (required)
+
+The user often sends one message containing many separate requests. Before doing anything:
+
+1. **Read the entire prompt first**, start to finish. Do not begin acting on the first sentence before you've read the rest.
+2. **Break it into an explicit checklist of distinct tasks** — one line per request, including small ones buried mid-sentence.
+3. **Work the independent pieces simultaneously**, not one-by-one. Fire all image generations in parallel up front (they take the longest), and batch independent file edits in the same turn while they render.
+4. **Account for every item before reporting done.** Re-read the original message and confirm each checklist item was actually completed. Missing a request is the #1 thing to avoid.
+
 ## Homepage redesign (in progress)
 
 - Work happens on the **`homepage-redesign`** branch in `home-new.html`.
