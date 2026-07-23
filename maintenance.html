@@ -85,15 +85,19 @@
     .label::before { content:''; width:22px; height:2px; background:var(--gold); }
 
     /* Hero */
-    .mt-hero { position:relative; min-height:82vh; margin-top:-128px; padding:11rem 1.5rem 4rem; overflow:hidden; background:radial-gradient(120% 90% at 50% 0%, #16130B 0%, #070707 55%, #050505 100%); display:flex; align-items:center; justify-content:center; text-align:center; }
-    .mt-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, transparent 60%, #050505 100%); }
-    .mt-hero-glow { position:absolute; top:-10%; left:50%; transform:translateX(-50%); width:900px; height:520px; background:radial-gradient(ellipse at center, rgba(201,151,58,.28), rgba(201,151,58,0) 70%); filter:blur(60px); z-index:0; pointer-events:none; }
-    .mt-hero-inner { position:relative; z-index:2; max-width:820px; }
+    .mt-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; }
+    .mt-hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
+    .mt-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, rgba(5,5,5,.6) 0%, rgba(5,5,5,.26) 30%, rgba(5,5,5,.3) 60%, rgba(5,5,5,.5) 84%, rgba(244,241,235,.55) 93%, #F4F1EB 100%); }
+    .mt-hero-cta .btn-ghost-d { background:rgba(23,24,26,.82); border:1px solid rgba(255,255,255,.18); color:#fff; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
+    .mt-hero-cta .btn-ghost-d:hover { background:rgba(23,24,26,.95); }
+    .mt-hero-inner { position:relative; z-index:2; width:100%; max-width:820px; margin:0 auto; min-height:100vh; padding:9.5rem 1.5rem 3rem; display:flex; flex-direction:column; text-align:center; }
+    .mt-hero-top { display:flex; flex-direction:column; align-items:center; }
     .mt-hero .label { justify-content:center; margin-bottom:1.4rem; }
-    .mt-title { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(2.6rem,6.5vw,4.8rem); line-height:1; color:#fff; margin:0; }
+    .mt-title { font-family:var(--font-d); font-weight:900; letter-spacing:-.03em; font-size:clamp(2.3rem,4.8vw,3.7rem); line-height:1; color:#fff; margin:0; }
     .mt-title em { font-style:normal; color:var(--gold); }
     .mt-hero-sub { margin:1.4rem auto 0; max-width:560px; font-size:clamp(1rem,1.7vw,1.18rem); color:#C9CBCE; line-height:1.65; }
-    .mt-hero-cta { display:flex; flex-wrap:wrap; gap:.8rem; justify-content:center; margin-top:2.2rem; }
+    .mt-hero-cta { margin-top:auto; display:flex; flex-direction:row; flex-wrap:wrap; justify-content:center; gap:.9rem; }
+    .mt-hero-cta .btn { padding:1.3rem 3rem; font-size:1.12rem; }
     .mt-hero-stats { display:flex; flex-wrap:wrap; justify-content:center; gap:2.6rem; margin-top:3.2rem; }
     .mt-stat strong { display:block; font-family:var(--font-d); font-weight:900; font-size:2rem; color:var(--gold); letter-spacing:-.02em; }
     .mt-stat span { font-size:.8rem; color:#9A9DA2; letter-spacing:.02em; }
@@ -109,7 +113,7 @@
     .step-card p { font-size:.9rem; color:#9A9DA2; line-height:1.6; }
 
     /* Plan cards (service-page style: content + image + glass CTA) */
-    .plan-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.2rem; margin-top:3.5rem; align-items:stretch; }
+    .plan-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.3rem; margin-top:3.5rem; align-items:stretch; max-width:1000px; margin-left:auto; margin-right:auto; }
     .plan-card { position:relative; }
     .plan-inner { height:100%; display:flex; flex-direction:column; background:#0F1012; border:1px solid rgba(255,255,255,.09); border-radius:20px; overflow:hidden; }
     .plan-card.feat .plan-inner { border-color:var(--gold-line); box-shadow:0 24px 60px rgba(201,151,58,.16); }
@@ -215,6 +219,47 @@
       .foot-inner { grid-template-columns:1fr; gap:2.2rem; }
     }
     @media (max-width:560px) { .contact-form { grid-template-columns:1fr; } .contact-card { padding:1.8rem 1.3rem; } }
+
+    /* ═══ WHITE THEME ═══ */
+    body { background:var(--bg); }
+    .cc-sec { background:var(--bg); }
+    .cc-h2 { color:var(--ink); }
+    .cc-h2-sub { color:var(--muted); }
+    /* image fills */
+    .step-img img, .plan-img img, .mt-split-media img, .mt-tile img { width:100%; height:100%; object-fit:cover; display:block; }
+    /* how it works */
+    .step-card { background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .step-img { background:var(--bg-soft); }
+    .step-card h3 { color:var(--ink); }
+    .step-card p { color:var(--muted); }
+    /* plan cards */
+    .plan-inner { background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .plan-card.feat .plan-inner { border-color:var(--gold-line); box-shadow:var(--shadow-lift); }
+    .plan-name { color:var(--ink); }
+    .plan-save span { color:var(--muted); }
+    .plan-card li { color:var(--ink-2); }
+    .plan-img { background:var(--bg-soft); }
+    /* split + tiles */
+    .mt-split-media { background:var(--bg-soft); border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .mt-split-copy p { color:var(--ink-2); }
+    .mt-checklist li { color:var(--ink-2); }
+    .mt-tile { background:var(--bg-soft); border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    /* contact */
+    .contact-card { background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .ff-field label { color:var(--muted); }
+    .ff-field input, .ff-field select, .ff-field textarea { background:var(--bg-soft); border:1px solid var(--line); color:var(--ink); }
+    .ff-field input::placeholder, .ff-field textarea::placeholder { color:var(--muted); }
+    .contact-alt { color:var(--muted); }
+    .contact-alt a { color:var(--gold-deep); }
+    .contact-success { color:var(--ink); }
+    /* footer */
+    footer { background:#fff; color:var(--ink-2); border-top:1px solid var(--line); }
+    .foot-inner h5 { color:var(--ink); }
+    .foot-inner a:hover { color:var(--gold-deep); }
+    .foot-mission { color:var(--ink-2); }
+    .foot-map { border:1px solid var(--line); }
+    .foot-base { border-top:1px solid var(--line); color:var(--muted); }
+    .socials a { border:1px solid var(--line); }
   </style>
 </head>
 <body>
@@ -269,9 +314,11 @@
 
 <!-- ═══ HERO ═══ -->
 <header class="mt-hero" id="home">
-  <div class="mt-hero-glow"></div>
+  <img class="mt-hero-bg" src="web.screenshots/mt-hero.jpg" alt="A freshly detailed car in a bright driveway" />
   <div class="mt-hero-inner">
-    <h1 class="mt-title">Maintenance Plans</h1>
+    <div class="mt-hero-top">
+      <h1 class="mt-title">Maintenance Plans</h1>
+    </div>
     <div class="mt-hero-cta">
       <a href="#plans" class="btn btn-gold">See the Plans &rarr;</a>
       <a href="#contact" class="btn btn-ghost-d">Contact Us</a>
@@ -283,7 +330,6 @@
 <section class="cc-sec" id="plans" style="padding-top:1rem;">
   <div class="cc-wrap">
     <h2 class="cc-h2">Choose Your Plan</h2>
-    <p class="cc-h2-sub">Every plan is a full maintenance detail. The only difference is how often we visit and how much you save.</p>
     <div class="plan-grid">
       <div class="plan-card feat">
         <div class="plan-badge">Best Value</div>
@@ -297,7 +343,7 @@
               <li>Priority scheduling</li>
             </ul>
           </div>
-          <div class="plan-img"><span class="ph">Image coming soon</span><a href="#contact" class="plan-quote">Get Started</a></div>
+          <div class="plan-img"><img src="web.screenshots/mt-plan-sedan.jpg" alt="White sedan" loading="lazy"><a href="#contact" class="plan-quote">Get Started</a></div>
         </div>
       </div>
       <div class="plan-card">
@@ -311,7 +357,7 @@
               <li>Priority scheduling</li>
             </ul>
           </div>
-          <div class="plan-img"><span class="ph">Image coming soon</span><a href="#contact" class="plan-quote">Get Started</a></div>
+          <div class="plan-img"><img src="web.screenshots/mt-plan-suv.jpg" alt="White SUV" loading="lazy"><a href="#contact" class="plan-quote">Get Started</a></div>
         </div>
       </div>
       <div class="plan-card">
@@ -325,21 +371,7 @@
               <li>Flexible scheduling</li>
             </ul>
           </div>
-          <div class="plan-img"><span class="ph">Image coming soon</span><a href="#contact" class="plan-quote">Get Started</a></div>
-        </div>
-      </div>
-      <div class="plan-card">
-        <div class="plan-inner">
-          <div class="plan-body">
-            <h3 class="plan-name">Quarterly</h3>
-            <div class="plan-save"><strong>20%</strong><span>off every visit</span></div>
-            <ul>
-              <li>Full maintenance detail</li>
-              <li>Seasonal refresh</li>
-              <li>Flexible scheduling</li>
-            </ul>
-          </div>
-          <div class="plan-img"><span class="ph">Image coming soon</span><a href="#contact" class="plan-quote">Get Started</a></div>
+          <div class="plan-img"><img src="web.screenshots/mt-plan-truck.jpg" alt="White pickup truck" loading="lazy"><a href="#contact" class="plan-quote">Get Started</a></div>
         </div>
       </div>
     </div>
@@ -350,10 +382,9 @@
 <section class="cc-sec" id="how" style="padding-top:1rem;">
   <div class="cc-wrap">
     <h2 class="cc-h2">How Maintenance Plans Work</h2>
-    <p class="cc-h2-sub">Set it once and forget it. We keep your vehicle on a recurring schedule so it always looks its best.</p>
     <div class="steps-grid">
       <div class="step-card">
-        <div class="step-img"><span class="ph">Image coming soon</span></div>
+        <div class="step-img"><img src="web.screenshots/mt-step-schedule.jpg" alt="Scheduling on a phone at home" loading="lazy"></div>
         <div class="step-body">
           <div class="step-num">1</div>
           <h3>Pick Your Schedule</h3>
@@ -361,7 +392,7 @@
         </div>
       </div>
       <div class="step-card">
-        <div class="step-img"><span class="ph">Image coming soon</span></div>
+        <div class="step-img"><img src="web.screenshots/mt-step-van.jpg" alt="Mobile detailing van at a home" loading="lazy"></div>
         <div class="step-body">
           <div class="step-num">2</div>
           <h3>We Come to You</h3>
@@ -369,7 +400,7 @@
         </div>
       </div>
       <div class="step-card">
-        <div class="step-img"><span class="ph">Image coming soon</span></div>
+        <div class="step-img"><img src="web.screenshots/mt-step-clean.jpg" alt="A sparkling clean car" loading="lazy"></div>
         <div class="step-body">
           <div class="step-num">3</div>
           <h3>Stay Effortlessly Clean</h3>
@@ -383,7 +414,7 @@
 <!-- ═══ WHAT'S INCLUDED (split) ═══ -->
 <section class="cc-sec" style="padding-top:1rem;">
   <div class="mt-split">
-    <div class="mt-split-media"><span class="ph">Image coming soon</span></div>
+    <div class="mt-split-media"><img src="web.screenshots/mt-wash.jpg" alt="Hand washing a car" loading="lazy"></div>
     <div class="mt-split-copy">
       <span class="label">Every Visit</span>
       <h2 class="cc-h2" style="margin-top:.9rem;">What's in a Maintenance Detail</h2>
@@ -403,7 +434,7 @@
 <!-- ═══ WHY A PLAN (split reversed) ═══ -->
 <section class="cc-sec" style="padding-top:1rem;">
   <div class="mt-split rev">
-    <div class="mt-split-media"><span class="ph">Image coming soon</span></div>
+    <div class="mt-split-media"><img src="web.screenshots/mt-beading.jpg" alt="Water beading on protected paint" loading="lazy"></div>
     <div class="mt-split-copy">
       <span class="label">Why a Plan</span>
       <h2 class="cc-h2" style="margin-top:.9rem;">Protection That Pays for Itself</h2>
@@ -420,9 +451,9 @@
   </div>
   <div class="cc-wrap">
     <div class="mt-tiles">
-      <div class="mt-tile"><span class="ph">Image coming soon</span></div>
-      <div class="mt-tile"><span class="ph">Image coming soon</span></div>
-      <div class="mt-tile"><span class="ph">Image coming soon</span></div>
+      <div class="mt-tile"><img src="web.screenshots/mt-tile-vacuum.jpg" alt="Vacuuming a car interior" loading="lazy"></div>
+      <div class="mt-tile"><img src="web.screenshots/mt-tile-wipe.jpg" alt="Wiping down interior surfaces" loading="lazy"></div>
+      <div class="mt-tile"><img src="web.screenshots/mt-tile-wheel.jpg" alt="Cleaning a wheel" loading="lazy"></div>
     </div>
   </div>
 </section>
@@ -437,7 +468,7 @@
           <button class="faq-q">How much can I actually save?
             <span class="chev"><svg width="11" height="11" viewBox="0 0 24 24" fill="none"><path d="M12 5v14M5 12h14" stroke="#74777B" stroke-width="2.6" stroke-linecap="round"/></svg></span>
           </button>
-          <div class="faq-a"><div class="faq-a-inner">The more often we visit, the more you save. Bi-weekly plans save up to 60% per visit, monthly 50%, bi-monthly 30%, and quarterly 20% compared to a one-off detail.</div></div>
+          <div class="faq-a"><div class="faq-a-inner">The more often we visit, the more you save. Bi-weekly plans save up to 60% per visit, monthly 50%, and bi-monthly 30% compared to a one-off detail.</div></div>
         </div>
         <div class="faq-item">
           <button class="faq-q">Do I have to sign a contract?
@@ -505,7 +536,6 @@
             <option>Bi-Weekly (save 60%)</option>
             <option>Monthly (save 50%)</option>
             <option>Bi-Monthly (save 30%)</option>
-            <option>Quarterly (save 20%)</option>
           </select>
         </div>
         <div class="ff-field full"><label>Anything else?</label><textarea name="message" placeholder="Tell us about your vehicle or what you're looking for..."></textarea></div>
@@ -517,27 +547,15 @@
   </div>
 </section>
 
-<!-- ═══ CLOSING CTA ═══ -->
-<section class="cta-band">
-  <div class="wrap">
-    <h2 class="cc-h2">Never Think About It Again</h2>
-    <p>Put your detailing on autopilot and keep your vehicle looking its best all year. Start your maintenance plan today.</p>
-    <div class="cta-band-cta">
-      <a href="#contact" class="btn btn-gold">Get Started</a>
-      <a href="tel:+19708516433" class="btn btn-ghost-d">Call (970) 851-6433</a>
-    </div>
-  </div>
-</section>
-
 <!-- ═══ FOOTER ═══ -->
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">
-      <img src="brand_assets/Shine for a Cause LOGO transparent.png" alt="Shine for a Cause" />
+      <img src="brand_assets/logo-nav.png" alt="Shine for a Cause" />
       <p class="foot-mission">Mobile auto detailing that gives back. A portion of every booking supports recovery programs across Northern Colorado.</p>
       <div class="socials" style="margin-top:1.2rem;">
-        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#fff"/></svg></a>
-        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
+        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101112" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#101112"/></svg></a>
+        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#101112"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
       </div>
     </div>
     <div>
