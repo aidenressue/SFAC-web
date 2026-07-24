@@ -538,7 +538,6 @@
 <body class="cc-page">
 
 <!-- ═══ PROMO BAR ═══ -->
-<div class="promo-bar">Locally owned in Fort Collins. <strong>A portion of every booking supports Northern Colorado recovery programs</strong></div>
 
 <!-- ═══ NAV ═══ -->
 <nav class="nav nav-dark" id="nav">
@@ -1034,13 +1033,13 @@
   // Sticky nav shadow
   const nav = document.getElementById('nav');
   // Switch nav to white (text + logo) when it floats over a dark section
-  const darkSecs = document.querySelectorAll('.ceramic-sec, .gallery-sec, #compare, #faq, .cta-band, footer');
+  const darkSecs = document.querySelectorAll('#home, #packages, #quote');
   function updateNavTheme() {
     const r = nav.querySelector('.nav-inner').getBoundingClientRect();
     const probe = r.top + r.height / 2;
     let dark = false;
     darkSecs.forEach(s => { const b = s.getBoundingClientRect(); if (b.top <= probe && b.bottom >= probe) dark = true; });
-    nav.classList.toggle('nav-dark', true);
+    nav.classList.toggle('nav-dark', dark);
   }
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 10);
