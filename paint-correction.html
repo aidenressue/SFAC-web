@@ -428,7 +428,8 @@
     .guide-body { padding:1.5rem 1.6rem 1.7rem; }
     .guide-card h3 { font-family:var(--font-d); font-size:1.2rem; font-weight:800; color:#fff; margin:0 0 .5rem; letter-spacing:-.01em; }
     .guide-card p { font-size:.9rem; color:#9A9DA2; line-height:1.55; margin:0 0 1rem; }
-    .guide-match { font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--gold); }
+    .guide-match { display:inline-block; font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--gold); cursor:pointer; transition:color .15s; }
+    .guide-match:hover { text-decoration:underline; }
     @media (max-width:820px) { .guide-grid { grid-template-columns:1fr; max-width:420px; margin-left:auto; margin-right:auto; } }
 
     /* Correction package cards - full detail, visually heavier than the guide strip above */
@@ -618,7 +619,7 @@
         <div class="guide-body">
           <h3>Lightly Faded Paint</h3>
           <p>Minimal scratches and swirls. The paint still looks decent but has lost some of its original shine.</p>
-          <div class="guide-match">&rarr; Paint Enhancement</div>
+          <a href="#packages" class="guide-match">&rarr; Paint Enhancement</a>
         </div>
       </div>
       <div class="guide-card">
@@ -626,7 +627,7 @@
         <div class="guide-body">
           <h3>Scratches &amp; Swirls</h3>
           <p>Visible swirl marks and light scratches show up in the sun. The paint has lost its depth and clarity.</p>
-          <div class="guide-match">&rarr; 1-Step Correction</div>
+          <a href="#packages" class="guide-match">&rarr; 1-Step Correction</a>
         </div>
       </div>
       <div class="guide-card">
@@ -634,7 +635,7 @@
         <div class="guide-body">
           <h3>Deep Defects</h3>
           <p>Heavy scratching, oxidation, or paint that hasn't been corrected in years. Needs the most work to bring back.</p>
-          <div class="guide-match">&rarr; 2-Step Correction</div>
+          <a href="#packages" class="guide-match">&rarr; 2-Step Correction</a>
         </div>
       </div>
     </div>
