@@ -89,7 +89,7 @@
     .label::before { content:''; width:22px; height:2px; background:var(--gold); }
 
     /* Hero */
-    .mt-hero { position:relative; min-height:100vh; margin-top:-128px; overflow:hidden; background:#050505; }
+    .mt-hero { position:relative; min-height:calc(100vh + 128px); margin-top:-128px; overflow:hidden; background:#050505; }
     .mt-hero-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center; z-index:0; }
     .mt-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, rgba(5,5,5,.58) 0%, rgba(5,5,5,.22) 34%, transparent 64%); }
     .mt-hero-cta .btn-ghost-d { background:rgba(23,24,26,.82); border:1px solid rgba(255,255,255,.18); color:#fff; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
@@ -264,7 +264,26 @@
     .foot-map { border:1px solid var(--line); }
     .foot-base { border-top:1px solid var(--line); color:var(--muted); }
     .socials a { border:1px solid var(--line); }
-  </style>
+  
+    /* ── Site footer (matches homepage, white) ── */
+    footer { background:#fff; color:#3E4144; border-top:1px solid #E8E6E1; padding:0; margin:0; text-align:left; }
+    .foot-inner { max-width:1280px; margin:0 auto; padding:4.5rem 2rem 2rem; display:grid; grid-template-columns:1.3fr 1fr 1fr 1.4fr; gap:3rem; }
+    .foot-inner h5 { font-family:'Archivo',sans-serif; color:#101112; font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
+    .foot-inner ul { list-style:none; margin:0; padding:0; }
+    .foot-inner li { margin-bottom:.6rem; font-size:.84rem; }
+    .foot-inner a { color:inherit; text-decoration:none; }
+    .foot-inner a:hover { color:#C9973A; }
+    .foot-logo img { height:64px; width:auto; margin-bottom:1rem; display:block; }
+    .foot-mission { font-size:.82rem; line-height:1.7; color:#3E4144; }
+    .socials { display:flex; gap:.7rem; }
+    .socials a { width:34px; height:34px; border-radius:50%; border:1px solid #E8E6E1; display:flex; align-items:center; justify-content:center; transition:border-color .2s, background .2s; }
+    .socials a:hover { border-color:#C9973A; background:rgba(201,151,58,.12); }
+    .foot-map { border-radius:14px; overflow:hidden; border:1px solid #E8E6E1; }
+    .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.15); }
+    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid #E8E6E1; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:#74777B; }
+    @media (max-width:900px) { .foot-inner { grid-template-columns:1fr 1fr; } }
+    @media (max-width:600px) { .foot-inner { grid-template-columns:1fr; gap:2.2rem; } }
+</style>
 </head>
 <body>
 
@@ -563,7 +582,7 @@
 <footer>
   <div class="foot-inner">
     <div class="foot-logo">
-      <img src="brand_assets/logo-nav.png" alt="Shine for a Cause" />
+      <img src="/brand_assets/logo-nav.png" alt="Shine for a Cause" />
       <p class="foot-mission">Mobile auto detailing that gives back. A portion of every booking supports recovery programs across Northern Colorado.</p>
       <div class="socials" style="margin-top:1.2rem;">
         <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101112" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#101112"/></svg></a>
@@ -576,18 +595,18 @@
         <li><a href="/#packages">Mobile Detailing</a></li>
         <li><a href="/ceramic-coating.html">Ceramic Coating</a></li>
         <li><a href="/paint-correction.html">Paint Correction</a></li>
-        <li><a href="/fleet-cleaning.html">Fleet Cleaning</a></li>
+        <li><a href="/maintenance.html">Maintenance Plans</a></li>
         <li><a href="/booking.html">Book Online</a></li>
       </ul>
     </div>
-    <div>
+    <div id="areas">
       <h5>Service Areas</h5>
       <ul>
-        <li><a href="#">Fort Collins, CO</a></li>
-        <li><a href="#">Loveland, CO</a></li>
-        <li><a href="#">Greeley, CO</a></li>
-        <li><a href="#">Windsor, CO</a></li>
-        <li><a href="#">Northern Colorado</a></li>
+        <li><a href="/area-fort-collins.html">Fort Collins, CO</a></li>
+        <li><a href="/area-loveland.html">Loveland, CO</a></li>
+        <li><a href="/area-surrounding.html">Greeley, CO</a></li>
+        <li><a href="/area-windsor.html">Windsor, CO</a></li>
+        <li><a href="/area-surrounding.html">Northern Colorado</a></li>
       </ul>
       <h5 style="margin-top:1.6rem;">Contact</h5>
       <ul>
@@ -603,8 +622,8 @@
     </div>
   </div>
   <div class="foot-base">
-    <span>© 2026 Shine for a Cause LLC · Fort Collins, Colorado</span>
-    <span>Licensed &amp; Insured · System X Certified Installer</span>
+    <span>&copy; 2026 Shine for a Cause LLC &middot; Fort Collins, Colorado</span>
+    <span>Licensed &amp; Insured &middot; System X Certified Installer</span>
   </div>
 </footer>
 

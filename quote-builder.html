@@ -220,6 +220,25 @@
     .m-menu .m-book { margin-top:1.6rem; background:#C9973A; color:#141005; border-radius:999px; border-bottom:none; text-align:center; padding:.9rem 1.5rem; }
     .m-close { position:absolute; top:1.4rem; right:1.6rem; font-size:2rem; line-height:1; color:#101112; background:none; border:none; cursor:pointer; }
     @media (max-width:900px) { .nav-links, .nav-cta .nav-book { display:none; } .hamburger { display:flex; } .nav-logo img { height:66px; margin:-14px 0; } .nav-phone { font-size:.78rem; } }
+
+    /* ── Site footer (matches homepage, white) ── */
+    footer { background:#fff; color:#3E4144; border-top:1px solid #E8E6E1; padding:0; margin:0; text-align:left; }
+    .foot-inner { max-width:1280px; margin:0 auto; padding:4.5rem 2rem 2rem; display:grid; grid-template-columns:1.3fr 1fr 1fr 1.4fr; gap:3rem; }
+    .foot-inner h5 { font-family:'Archivo',sans-serif; color:#101112; font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
+    .foot-inner ul { list-style:none; margin:0; padding:0; }
+    .foot-inner li { margin-bottom:.6rem; font-size:.84rem; }
+    .foot-inner a { color:inherit; text-decoration:none; }
+    .foot-inner a:hover { color:#C9973A; }
+    .foot-logo img { height:64px; width:auto; margin-bottom:1rem; display:block; }
+    .foot-mission { font-size:.82rem; line-height:1.7; color:#3E4144; }
+    .socials { display:flex; gap:.7rem; }
+    .socials a { width:34px; height:34px; border-radius:50%; border:1px solid #E8E6E1; display:flex; align-items:center; justify-content:center; transition:border-color .2s, background .2s; }
+    .socials a:hover { border-color:#C9973A; background:rgba(201,151,58,.12); }
+    .foot-map { border-radius:14px; overflow:hidden; border:1px solid #E8E6E1; }
+    .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.15); }
+    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid #E8E6E1; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:#74777B; }
+    @media (max-width:900px) { .foot-inner { grid-template-columns:1fr 1fr; } }
+    @media (max-width:600px) { .foot-inner { grid-template-columns:1fr; gap:2.2rem; } }
 </style>
   <link rel="icon" type="image/png" href="/brand_assets/favicon.png" />
 </head>
@@ -441,33 +460,50 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="brand_assets/logo-dark-transparent.png" alt="Shine for a Cause" onerror="this.src='brand_assets/Shine for a Cause LOGO.png'" />
-      <p>Premium mobile auto detailing serving Northern Colorado — and giving back to those who need it most.</p>
+  <div class="foot-inner">
+    <div class="foot-logo">
+      <img src="/brand_assets/logo-nav.png" alt="Shine for a Cause" />
+      <p class="foot-mission">Mobile auto detailing that gives back. A portion of every booking supports recovery programs across Northern Colorado.</p>
+      <div class="socials" style="margin-top:1.2rem;">
+        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101112" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#101112"/></svg></a>
+        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#101112"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
+      </div>
     </div>
-    <div class="footer-col"><h4>Services</h4><ul>
-      <li><a href="/#packages">Mobile Detailing</a></li>
-      <li><a href="/ceramic-coating.html">Ceramic Coating</a></li>
-      <li><a href="/paint-correction.html">Paint Correction</a></li>
-      <li><a href="/maintenance.html">Maintenance Program</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Company</h4><ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/#reviews">Reviews</a></li>
-      <li><a href="/#faq">FAQ</a></li>
-      <li><a href="/booking.html">Book Now</a></li>
-    </ul></div>
-    <div class="footer-col"><h4>Contact</h4><ul>
-      <li><a href="tel:+19708516433">(970) 851-6433</a></li>
-      <li><a href="mailto:shineforacausemd@gmail.com">shineforacausemd@gmail.com</a></li>
-      <li><a>Northern Colorado</a></li>
-      <li><a>Mon to Sat: 7am to 7pm</a></li>
-    </ul></div>
+    <div>
+      <h5>Services</h5>
+      <ul>
+        <li><a href="/#packages">Mobile Detailing</a></li>
+        <li><a href="/ceramic-coating.html">Ceramic Coating</a></li>
+        <li><a href="/paint-correction.html">Paint Correction</a></li>
+        <li><a href="/maintenance.html">Maintenance Plans</a></li>
+        <li><a href="/booking.html">Book Online</a></li>
+      </ul>
+    </div>
+    <div id="areas">
+      <h5>Service Areas</h5>
+      <ul>
+        <li><a href="/area-fort-collins.html">Fort Collins, CO</a></li>
+        <li><a href="/area-loveland.html">Loveland, CO</a></li>
+        <li><a href="/area-surrounding.html">Greeley, CO</a></li>
+        <li><a href="/area-windsor.html">Windsor, CO</a></li>
+        <li><a href="/area-surrounding.html">Northern Colorado</a></li>
+      </ul>
+      <h5 style="margin-top:1.6rem;">Contact</h5>
+      <ul>
+        <li><a href="tel:+19708516433">(970) 851-6433</a></li>
+        <li><a href="mailto:shineforacausemd@gmail.com">shineforacausemd@gmail.com</a></li>
+      </ul>
+    </div>
+    <div>
+      <h5>Proudly Serving Northern Colorado</h5>
+      <div class="foot-map">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d195923.9!2d-105.15!3d40.55!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8769493db8f9c605%3A0x7d59d3d1ff9dc32e!2sFort%20Collins%2C%20CO!5e0!3m2!1sen!2sus!4v1700000000000" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Service area map, Fort Collins, Colorado"></iframe>
+      </div>
+    </div>
   </div>
-  <div class="footer-bot">
-    <p>© 2026 Shine for a Cause Mobile Detailing — Fort Collins &amp; Northern Colorado.</p>
-    <p><a href="/privacy-policy.html">Privacy Policy</a></p>
+  <div class="foot-base">
+    <span>&copy; 2026 Shine for a Cause LLC &middot; Fort Collins, Colorado</span>
+    <span>Licensed &amp; Insured &middot; System X Certified Installer</span>
   </div>
 </footer>
 
