@@ -1148,14 +1148,16 @@
     }
 
     var PREP_PRICES = {
-      'polish':   { small: 300, mid: 350,  large: 400,  van: 500  },
-      'one-step': { small: 550, mid: 650,  large: 750,  van: 900  },
-      'two-step': { small: 900, mid: 1000, large: 1100, van: 1400 }
+      'polish':   { small: 300,  mid: 350,  large: 400,  van: 500  },
+      'one-step': { small: 610,  mid: 720,  large: 830,  van: 990  },
+      'two-step': { small: 1000, mid: 1150, large: 1300, van: 1500 }
     };
+    // crystal (2 Year) is tuned so "2 Year + Polish" lands on the flat entry price:
+    // $599 for small/mid/large and $699 for van (only the combined total is shown).
     var COATING_PRICES = {
-      crystal: { small: 199, mid: 225, large: 250, van: 300 },
-      pro:     { small: 350, mid: 450, large: 550, van: 600 },
-      max:     { small: 400, mid: 500, large: 600, van: 750 }
+      crystal: { small: 299, mid: 249, large: 199, van: 199 },
+      pro:     { small: 390, mid: 500, large: 610, van: 660 },
+      max:     { small: 440, mid: 550, large: 660, van: 830 }
     };
     var ADDON_PRICES = { glass: 149, wheel: 199 };
     var ADDON_LABELS = { glass: 'Glass Coating', wheel: 'Wheel Coating' };
