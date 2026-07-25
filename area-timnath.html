@@ -35,19 +35,47 @@
     .btn-ghost-d { border:1.5px solid var(--line); color:var(--ink); background:#fff; }
     .btn-ghost-d:hover { border-color:var(--gold); color:var(--gold-deep); }
 
-    .nav { position:sticky; top:0; z-index:100; background:rgba(255,255,255,.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
-    .nav-inner { max-width:1240px; margin:0 auto; padding:.9rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
-    .nav-logo img { height:38px; width:auto; }
-    .nav-links { display:flex; align-items:center; gap:1.8rem; }
-    .nav-links a { font-family:var(--font-d); font-size:.98rem; font-weight:700; color:var(--ink-2); }
+    .nav { position:sticky; top:0; z-index:100; padding:1rem 1.5rem; transition:padding .25s ease; }
+    .nav.scrolled { padding-top:.65rem; }
+    .nav-inner { position:relative; isolation:isolate; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1rem;
+      padding:.5rem .6rem .5rem 1.2rem; }
+    .nav-inner::before { content:''; position:absolute; inset:0; z-index:-1; border-radius:999px;
+      background:rgba(255,255,255,.28); backdrop-filter:blur(30px) saturate(1.7); -webkit-backdrop-filter:blur(30px) saturate(1.7);
+      border:1px solid rgba(255,255,255,.55);
+      box-shadow:0 8px 30px rgba(16,17,18,.10), inset 0 1px 0 rgba(255,255,255,.6); transition:box-shadow .25s ease, background .3s ease, border-color .3s ease; }
+    .nav.scrolled .nav-inner::before { box-shadow:0 12px 38px rgba(16,17,18,.16), inset 0 1px 0 rgba(255,255,255,.7); }
+    .nav-logo { display:inline-flex; align-items:center; justify-self:start; transition:transform .18s ease; }
+    .nav-logo:hover { transform:translateY(-1px); }
+    .nav-logo img { height:92px; width:auto; display:block; margin:-22px 0; transition:filter .3s ease; }
+    .nav-links { display:flex; align-items:center; gap:2rem; justify-self:center; }
+    .nav-links > li { position:relative; }
+    .nav-links a { font-family:var(--font-d); font-size:1.05rem; font-weight:700; letter-spacing:-.01em; color:var(--ink-2); transition:color .15s; }
     .nav-links a:hover { color:var(--gold-deep); }
-    .nav-cta { display:flex; align-items:center; gap:.7rem; }
-    .nav-phone { font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--ink); white-space:nowrap; }
-    .hamburger { display:none; flex-direction:column; gap:5px; padding:6px; }
-    .hamburger span { width:22px; height:2px; background:var(--ink); border-radius:2px; }
-    .m-menu { display:none; flex-direction:column; gap:.2rem; padding:.5rem 1.5rem 1.2rem; background:#fff; border-bottom:1px solid var(--line); }
-    .m-menu.open { display:flex; }
-    .m-menu a { font-family:var(--font-d); font-weight:700; color:var(--ink-2); padding:.6rem 0; }
+    .nav-drop-toggle { display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-d); font-size:1.05rem; font-weight:700; letter-spacing:-.01em; color:var(--ink-2); transition:color .3s ease; }
+    .nav-drop-toggle svg { transition:transform .2s; }
+    .nav-drop { position:absolute; z-index:300; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(6px); background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:var(--shadow-lift); padding:.5rem; min-width:190px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; }
+    .nav-links li:hover .nav-drop, .nav-links li:focus-within .nav-drop { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+    .nav-links li:hover .nav-drop-toggle svg { transform:rotate(180deg); }
+    .nav-drop::before { content:''; position:absolute; left:0; right:0; top:-18px; height:18px; }
+    .nav-drop a { display:block; padding:.6rem 1rem; border-radius:9px; font-size:.92rem; font-weight:600; color:var(--ink); }
+    .nav-dark .nav-links .nav-drop a { color:var(--ink); }
+    .nav-drop a:hover { background:var(--bg-soft); }
+    .nav-drop a span { display:block; font-size:.7rem; font-weight:400; color:var(--muted); margin-top:.15rem; }
+    .nav-cta { display:flex; align-items:center; gap:.9rem; justify-self:end; }
+    .nav-phone { display:inline-flex; align-items:center; gap:.45rem; font-family:var(--font-d); font-weight:800; font-size:.92rem; color:var(--ink); white-space:nowrap; transition:color .3s ease; }
+    .nav-phone:hover { color:var(--gold-deep); }
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:.5rem; }
+    .hamburger span { width:24px; height:2.5px; background:var(--ink); border-radius:2px; transition:.25s; }
+    /* Nav over dark sections: white text + white logo, darker glass bubble */
+    .nav-dark .nav-links a, .nav-dark .nav-drop-toggle, .nav-dark .nav-phone { color:#fff; }
+    .nav-dark .hamburger span { background:#fff; }
+    .nav-dark .nav-logo img { filter:brightness(0) invert(1); }
+    .nav-dark .nav-inner::before { background:rgba(18,19,21,.5); border-color:rgba(255,255,255,.16); box-shadow:0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12); }
+    .m-menu { position:fixed; inset:0; z-index:200; background:#fff; padding:5.5rem 2rem 2rem; display:flex; flex-direction:column; gap:.25rem; transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.2,1); }
+    .m-menu.open { transform:translateX(0); }
+    .m-menu a { font-family:var(--font-d); font-size:1.35rem; font-weight:800; padding:.85rem 0; border-bottom:1px solid var(--line); }
+    .m-menu .m-sub { font-size:1rem; font-weight:600; color:var(--ink-2); padding-left:1rem; }
+    .m-close { position:absolute; top:1.4rem; right:1.6rem; font-size:2rem; line-height:1; color:var(--ink); }
 
     /* HERO */
     .area-hero { position:relative; min-height:460px; display:flex; align-items:flex-end; overflow:hidden; background:linear-gradient(135deg,#2A2C30,#111214); }
@@ -84,42 +112,99 @@
     .footer-bot p, .footer-bot a { font-size:.75rem; color:#7E7A74; }
 
     @media (max-width:900px) {
-      .nav-links, .nav-phone { display:none; }
+      .nav-links, .nav-cta .btn { display:none; }
       .hamburger { display:flex; }
+      .nav-logo img { height:66px; margin:-14px 0; }
+      .nav-phone { font-size:.78rem; }
       .pitch-grid { grid-template-columns:1fr; }
       .footer-inner { grid-template-columns:1fr 1fr; }
     }
     @media (max-width:560px) { .footer-inner { grid-template-columns:1fr; } }
+
+    /* ── Location intro (unique per page) ── */
+    .area-intro { padding:3.75rem 0 .5rem; background:var(--bg); }
+    .area-intro .wrap { max-width:820px; text-align:center; }
+    .area-intro h2 { font-family:var(--font-d); font-weight:800; letter-spacing:-.02em; line-height:1.14; font-size:clamp(1.55rem,3vw,2.15rem); color:var(--ink); margin-bottom:1.1rem; }
+    .area-intro p { color:var(--ink-2); font-size:1.06rem; line-height:1.75; margin-bottom:1.1rem; }
+    .area-intro p:last-child { margin-bottom:0; }
+    /* ── Services (alternating rows) ── */
+    .area-services { padding:3.5rem 0 4rem; background:var(--bg); }
+    .area-services .sec-head { text-align:center; max-width:640px; margin:0 auto; }
+    .area-services .sec-head p { color:var(--ink-2); font-size:1.02rem; line-height:1.6; margin-top:.8rem; }
+    .svc-rows { max-width:1060px; margin:2.6rem auto 0; display:flex; flex-direction:column; gap:2.4rem; }
+    .svc-row { display:grid; grid-template-columns:1fr 1fr; gap:2.6rem; align-items:center; }
+    .svc-row.rev .svc-row-media { order:2; }
+    .svc-row-media { border-radius:18px; overflow:hidden; box-shadow:var(--shadow-card); aspect-ratio:4/3; position:relative; background:var(--bg-soft); }
+    .svc-row-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .svc-row-body h3 { font-family:var(--font-d); font-weight:800; letter-spacing:-.02em; font-size:clamp(1.4rem,2.6vw,1.9rem); color:var(--ink); margin-bottom:.7rem; }
+    .svc-row-body p { color:var(--ink-2); font-size:1rem; line-height:1.7; margin-bottom:1.2rem; }
+    .svc-row-body .btn { font-size:.86rem; padding:.75rem 1.7rem; }
+    @media (max-width:820px) {
+      .svc-row { grid-template-columns:1fr; gap:1.1rem; }
+      .svc-row.rev .svc-row-media { order:0; }
+    }
   </style>
 </head>
 <body>
 
-<nav class="nav">
+<nav class="nav" id="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo"><img src="brand_assets/logo-nav.png" alt="Shine for a Cause" /></a>
+    <a href="/" class="nav-logo" aria-label="Shine for a Cause, Home"><img src="brand_assets/logo-nav.png" alt="Shine for a Cause Mobile Detailing" /></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
-      <li><a href="/#packages">Services</a></li>
-      <li><a href="/#areas">Service Areas</a></li>
-      <li><a href="/maintenance.html">Maintenance</a></li>
-      <li><a href="/#reviews">Reviews</a></li>
+      <li>
+        <button class="nav-drop-toggle">Services
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-drop">
+          <a href="/#packages">Mobile Detailing</a>
+          <a href="/ceramic-coating.html">Ceramic Coating</a>
+          <a href="/paint-correction.html">Paint Correction</a>
+          <a href="/fleet-cleaning.html">Fleet Cleaning</a>
+        </div>
+      </li>
+      <li><a href="/maintenance.html">Maintenance Plans</a></li>
+      <li>
+        <button class="nav-drop-toggle">Resources
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-drop">
+          <a href="/#areas">Locations</a>
+          <a href="/gallery.html">Photo Gallery</a>
+          <a href="/testimonials.html">Testimonials</a>
+          <a href="/contact.html">Contact Us</a>
+          <a href="/blog.html">Blog</a>
+        </div>
+      </li>
     </ul>
     <div class="nav-cta">
-      <a href="tel:+19708516433" class="nav-phone">(970) 851-6433</a>
-      <a href="/quote-builder.html" class="btn btn-ghost-d" style="padding:.7rem 1.4rem;">Free Quote</a>
+      <a class="nav-phone" href="tel:+19708516433">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (970) 851-6433
+      </a>
       <a href="/booking.html" class="btn btn-gold" style="padding:.7rem 1.5rem;">Book Now</a>
       <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
     </div>
   </div>
-  <div class="m-menu" id="mMenu">
-    <a href="/">Home</a>
-    <a href="/#packages">Services</a>
-    <a href="/#areas">Service Areas</a>
-    <a href="/maintenance.html">Maintenance</a>
-    <a href="/quote-builder.html">Free Quote</a>
-    <a href="/booking.html" class="btn btn-gold" style="margin-top:.5rem;justify-content:center;">Book Now</a>
-  </div>
 </nav>
+
+<!-- mobile menu -->
+<div class="m-menu" id="mMenu">
+  <button class="m-close" id="mClose" aria-label="Close">&times;</button>
+  <a href="/" class="m-link">Home</a>
+  <a href="/#packages" class="m-sub">Mobile Detailing</a>
+  <a href="/ceramic-coating.html" class="m-sub">Ceramic Coating</a>
+  <a href="/paint-correction.html" class="m-sub">Paint Correction</a>
+  <a href="/fleet-cleaning.html" class="m-sub">Fleet Cleaning</a>
+  <a href="/maintenance.html" class="m-link">Maintenance Plans</a>
+  <a href="/#areas" class="m-sub">Locations</a>
+  <a href="/gallery.html" class="m-sub">Photo Gallery</a>
+  <a href="/testimonials.html" class="m-sub">Testimonials</a>
+  <a href="/contact.html" class="m-sub">Contact Us</a>
+  <a href="/blog.html" class="m-sub">Blog</a>
+  <a href="/booking.html" class="btn btn-gold" style="margin-top:1.6rem;justify-content:center;">Book Now</a>
+  <a href="tel:+19708516433" class="btn btn-ghost-d" style="margin-top:.7rem;justify-content:center;">Call (970) 851-6433</a>
+</div>
 
 <header class="area-hero">
   <img class="area-hero-bg" src="web.screenshots/area-timnath.jpg" alt="Timnath, Colorado" onerror="this.style.display='none'" />
@@ -134,6 +219,65 @@
     </div>
   </div>
 </header>
+
+<section class="area-intro">
+  <div class="wrap">
+    <h2>Detailing Delivered to Your Door in Timnath</h2>
+    <p>Timnath moves fast, and your schedule should not slow down for a car wash. Shine for a Cause brings convenient, professional mobile detailing to homes and offices all over Timnath, whether you are out near the reservoir or settled into one of the newer neighborhoods off Harmony. We show up ready to work, so all you have to do is hand us the keys.</p>
+    <p>Our Timnath clients rely on us for the full range of care, from routine maintenance details and interior deep cleans to swirl-removing paint correction and durable ceramic coatings. It is showroom-quality work, done right where you park.</p>
+  </div>
+</section>
+
+<section class="area-services">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 class="h-sec">Everything We Can Do for Your Vehicle</h2>
+      <p>One local team for the full range of care, from a quick refresh to years of protection.</p>
+    </div>
+    <div class="svc-rows">
+      <div class="svc-row rev">
+        <div class="svc-row-media"><img src="/brand_assets/svc-mobile-detailing.jpg" alt="Hand-washing the hood of a car during a mobile detail" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="svc-row-body">
+          <h3>Mobile Detailing</h3>
+          <p>Our signature service. A full interior and exterior detail done right in your driveway, with our own power and water. We vacuum, shampoo, steam, and hand-wash every surface so your car looks and feels brand new, no drop-off required.</p>
+          <a href="/#packages" class="btn btn-ghost-d">See Packages &rarr;</a>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-row-media"><img src="/brand_assets/svc-ceramic-coating.jpg" alt="Ceramic coating being applied to a car panel" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="svc-row-body">
+          <h3>Ceramic Coating</h3>
+          <p>Long-term paint protection that locks in a deep, glossy shine for years. Our professional ceramic coatings guard against UV rays, road grime, and water spots, and make every future wash effortless.</p>
+          <a href="/ceramic-coating.html" class="btn btn-ghost-d">Learn More &rarr;</a>
+        </div>
+      </div>
+      <div class="svc-row rev">
+        <div class="svc-row-media"><img src="web.screenshots/1 step paint correction.png" alt="Machine polishing a car panel during paint correction" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="svc-row-body">
+          <h3>Paint Correction</h3>
+          <p>Machine polishing that removes swirl marks, scratches, and oxidation to bring back a mirror finish. From a one-step gloss enhancement to multi-stage correction, we restore the depth your paint had the day it left the showroom.</p>
+          <a href="/paint-correction.html" class="btn btn-ghost-d">Learn More &rarr;</a>
+        </div>
+      </div>
+      <div class="svc-row">
+        <div class="svc-row-media"><img src="web.screenshots/fleet-card-4runner.jpg" alt="Clean fleet vehicle after a professional detail" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="svc-row-body">
+          <h3>Fleet Cleaning</h3>
+          <p>Keep your work trucks, vans, and company cars looking sharp. We offer flexible, on-site fleet detailing on your schedule, with volume pricing built for dealerships and businesses across Northern Colorado.</p>
+          <a href="/fleet-cleaning.html" class="btn btn-ghost-d">Learn More &rarr;</a>
+        </div>
+      </div>
+      <div class="svc-row rev">
+        <div class="svc-row-media"><img src="web.screenshots/Immage4.webp" alt="Interior steam cleaning during a maintenance detail" loading="lazy" onerror="this.parentElement.style.display='none'" /></div>
+        <div class="svc-row-body">
+          <h3>Maintenance Plans</h3>
+          <p>Set it and forget it. Recurring detail plans keep your vehicle consistently clean at a discounted rate, with free add-ons every visit. Choose bi-weekly, monthly, or bi-monthly and never think about a dirty car again.</p>
+          <a href="/maintenance.html" class="btn btn-ghost-d">Learn More &rarr;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <section class="area-pitch">
   <div class="wrap">
@@ -200,6 +344,26 @@
   </div>
 </footer>
 
-<script>document.getElementById('hamburger').addEventListener('click',function(){document.getElementById('mMenu').classList.toggle('open');});</script>
+<script>
+  const nav = document.getElementById('nav');
+  const darkSecs = document.querySelectorAll('.area-hero');
+  function updateNavTheme() {
+    const r = nav.querySelector('.nav-inner').getBoundingClientRect();
+    const probe = r.top + r.height / 2;
+    let dark = false;
+    darkSecs.forEach(s => { const b = s.getBoundingClientRect(); if (b.top <= probe && b.bottom >= probe) dark = true; });
+    nav.classList.toggle('nav-dark', dark);
+  }
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 10);
+    updateNavTheme();
+  }, { passive: true });
+  window.addEventListener('resize', updateNavTheme, { passive: true });
+  updateNavTheme();
+  const mMenu = document.getElementById('mMenu');
+  document.getElementById('hamburger').addEventListener('click', () => mMenu.classList.add('open'));
+  document.getElementById('mClose').addEventListener('click', () => mMenu.classList.remove('open'));
+  mMenu.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mMenu.classList.remove('open')));
+</script>
 </body>
 </html>
