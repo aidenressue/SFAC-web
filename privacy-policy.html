@@ -6,7 +6,7 @@
   <title>Privacy Policy | Shine for a Cause</title>
   <meta name="description" content="Privacy Policy for Shine for a Cause Mobile Auto Detailing." />
   <meta name="robots" content="noindex, follow" />
-  <link rel="icon" type="image/png" href="/brand_assets/Shine for a Cause LOGO.png" />
+  <link rel="icon" type="image/png" href="/brand_assets/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
@@ -113,7 +113,7 @@
     .nav-dark .nav-links a, .nav-dark .nav-drop-toggle, .nav-dark .nav-phone { color:#fff; }
     .nav-dark .nav-drop a { color:#101112; }
     .nav-dark .hamburger span { background:#fff; }
-    .nav-dark .nav-logo img { filter:brightness(0) invert(1); }
+    .nav-logo .logo-dark { display:none; } .nav-dark .nav-logo .logo-light { display:none; } .nav-dark .nav-logo .logo-dark { display:block; }
     .nav-dark .nav-inner::before { background:rgba(18,19,21,.5); border-color:rgba(255,255,255,.16); box-shadow:0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12); }
     .m-menu { position:fixed; inset:0; z-index:200; background:#fff; padding:5.5rem 2rem 2rem; display:flex; flex-direction:column; gap:.25rem; transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.2,1); }
     .m-menu.open { transform:translateX(0); }
@@ -131,7 +131,7 @@
 
 <nav class="nav nav-dark" id="nav">
   <div class="nav-inner">
-    <a href="/" class="nav-logo" aria-label="Shine for a Cause, Home"><img src="/brand_assets/logo-nav.png" alt="Shine for a Cause Mobile Detailing" /></a>
+    <a href="/" class="nav-logo" aria-label="Shine for a Cause, Home"><img class="logo-light" src="/brand_assets/logo-nav.png" alt="Shine for a Cause Mobile Detailing" /><img class="logo-dark" src="/brand_assets/logo-nav-dark.png" alt="Shine for a Cause Mobile Detailing" /></a>
     <ul class="nav-links">
       <li><a href="/">Home</a></li>
       <li>
