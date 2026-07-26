@@ -352,12 +352,20 @@
     .pkg-illus {
       position: relative; width: 100%;
       background: #fff;
+      padding: .6rem .6rem 0;   /* nudge the photo down from the top of the card */
+      box-sizing: border-box;
     }
     .pkg-car-img {
       width: 100%; height: 110px; display: block;
       object-fit: contain; object-position: center;
       mix-blend-mode: multiply;
       border-radius: 12px 12px 0 0;
+    }
+    /* Package photos (interior/exterior/full) — same images as the live site */
+    .pkg-photo {
+      width: 100%; height: 132px; display: block;
+      object-fit: cover; object-position: center 60%;
+      border-radius: 10px;
     }
     .pkg-icon {
       width: 100%;
@@ -787,6 +795,7 @@
       .package-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
       .package-card { border-radius: 10px; }
       .pkg-car-img  { height: 75px; }
+      .pkg-photo    { height: 92px; }
       .pkg-icon     { height: 75px; }
       .pkg-icon svg { width: 48px; height: 48px; }
       .pkg-card-body { padding: .55rem .7rem .65rem; }
@@ -1625,31 +1634,14 @@ function renderPackageTypes() {
 }
 
 function packageIllus(key) {
-  // Interior
-  if (key === 'interior') {
-    return `<div class="pkg-illus">
-      <img class="pkg-car-img" src="web.screenshots/813e921e-de36-4ec4-a308-9594dcdd3285.png" alt="interior" />
-    </div>`;
-  }
-  // Full
-  if (key === 'full') {
-    return `<div class="pkg-illus">
-      <img class="pkg-car-img" src="web.screenshots/pkg-reset.jpg" alt="full" style="object-fit:cover;height:100%;width:100%;" />
-    </div>`;
-  }
-  // Exterior
-  if (key === 'exterior') {
-    return `<div class="pkg-illus">
-      <img class="pkg-car-img" src="web.screenshots/EXT.png" alt="exterior" />
-    </div>`;
-  }
-  // Paint Correction
-  if (key === 'paint') {
-    return `<div class="pkg-illus" style="background:#fff;">
-      <img class="pkg-car-img" src="web.screenshots/Paint correction PKG.png" alt="paint correction" style="object-fit:contain;height:110px;mix-blend-mode:multiply;" />
-    </div>`;
-  }
-  // Ceramic Coating
+  // Same package photos as the live site (Express Interior / Exterior / Full).
+  const imgs = {
+    interior: 'web.screenshots/pkg-interior.avif',
+    exterior: 'web.screenshots/pkg-exterior.webp',
+    full:     'web.screenshots/pkg-full.webp',
+  };
+  const src = imgs[key];
+  if (src) return `<div class="pkg-illus"><img class="pkg-photo" src="${src}" alt="${key}" /></div>`;
   return `<div class="pkg-illus"></div>`;
 }
 
