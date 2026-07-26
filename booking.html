@@ -1115,7 +1115,7 @@ const PACKAGE_TYPES = [
 ];
 
 const SERVICE_CONFIGS = {
-  // ── Full Detail: Maintenance / Reset / Executive (prices from the site; small only, larger = custom quote) ──
+  // ── Full Detail: Maintenance / Reset / Executive (set price applies to all sizes; add mid/large/van to charge more) ──
   'maintenance-full': {
     label: 'Full Maintenance', packageType: 'full', tier: 'maintenance',
     description: 'A regular upkeep clean, inside and out, to keep your car fresh between deeper details.',
@@ -1677,11 +1677,13 @@ function buildSvcKey(tier, pkgType) {
   return `${tier}-${pkgType}`;
 }
 
-// Price for a service at a vehicle size. Only small is set for detailing on the
-// local site, so larger vehicles come back as a custom quote.
+// Price for a service at a vehicle size. If a size-specific price isn't set, fall
+// back to the base (small) price so the set price always shows. Set mid/large/van in
+// SERVICE_CONFIGS to charge more per size.
 function svcPrice(svcKey, vehicle) {
   const cfg = SERVICE_CONFIGS[svcKey];
-  const p = cfg?.pricing?.[vehicle];
+  let p = cfg?.pricing?.[vehicle];
+  if (p == null) p = cfg?.pricing?.small;
   if (p == null) return { price: 0, custom: true };
   return { price: p, custom: false };
 }
