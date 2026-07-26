@@ -114,6 +114,10 @@
     .qc-est-note { font-size:.68rem; color:var(--muted); line-height:1.55; margin-top:.7rem; }
     .qc-finish { width:100%; background:var(--ink); color:#fff; font-family:var(--font-d); font-weight:800; font-size:1rem; padding:1.05rem 1.5rem; border-radius:13px; transition:background .18s, transform .18s; display:flex; align-items:center; justify-content:center; gap:.5rem; }
     .qc-finish:hover { background:#000; transform:translateY(-1px); }
+    .qc-finish.qc-book { background:var(--gold); color:#141005; }
+    .qc-finish.qc-book:hover { background:#D8A648; }
+    .qc-finish.qc-finish-alt { background:#fff; color:var(--ink); border:1.5px solid var(--line); font-size:.9rem; font-weight:700; padding:.85rem 1.5rem; }
+    .qc-finish.qc-finish-alt:hover { background:var(--bg-warm); border-color:var(--gold); }
     /* Modal */
     .qc-modal { display:none; position:fixed; inset:0; z-index:500; background:rgba(16,17,18,.55); backdrop-filter:blur(6px); overflow-y:auto; padding:1.5rem; }
     .qc-modal.open { display:block; }
@@ -384,7 +388,8 @@
             <p class="qc-est-note" id="qc-e-note" style="display:none;">We only have small-vehicle pricing so far. Pick <strong>Small</strong> to see a price, or finish and we'll confirm the price for your vehicle.</p>
           </div>
           <div class="qc-nav"><button class="qc-back">&larr; Back</button></div>
-          <button class="qc-finish" data-qc-finish style="margin-top:1rem;">Finish Quote &rarr;</button>
+          <button class="qc-finish qc-book" data-qc-book style="margin-top:1rem;">Book This Quote &rarr;</button>
+          <button class="qc-finish qc-finish-alt" data-qc-finish style="margin-top:.6rem;">Just Send Me the Quote</button>
         </div>
       </div>
     </div>
@@ -685,6 +690,36 @@
     }
     function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
     root.querySelectorAll('[data-qc-finish]').forEach(function (b) { b.addEventListener('click', openModal); });
+
+    // Carry the built quote into the booking flow so the customer skips re-selecting.
+    var ADDON_BOOKING_KEYS = { 'pet-hair':'petHair', 'headlight':'headlight', 'engine-bay':'engine', 'trim':'trim' };
+    function bookQuote() {
+      var t = currentTier();
+      if (!t || !st.size) { alert('Please choose your vehicle, package and level first.'); return; }
+      var add = getAddons();
+      var addonKeys = [];
+      root.querySelectorAll('[data-addon].selected').forEach(function (c) {
+        var k = ADDON_BOOKING_KEYS[c.dataset.addon]; if (k) addonKeys.push(k);
+      });
+      var pr = priceNumber();
+      var quote = {
+        v: 1,
+        size: st.size,                                   // small | mid | large | van (matches booking)
+        pkgKey: st.pkg,
+        pkgLabel: PACKAGES[st.pkg].label,
+        tierKey: st.tier,
+        serviceName: t.name,
+        priced: pr != null,
+        total: pr != null ? pr : null,                  // includes add-ons
+        addons: addonKeys,                              // booking add-on keys
+        addonLabels: add.labels,
+        vehicleLabel: SIZE_LABELS[st.size],
+        ts: Date.now()
+      };
+      try { localStorage.setItem('sfac_quote', JSON.stringify(quote)); } catch (e) {}
+      window.location.href = '/booking.html';
+    }
+    root.querySelectorAll('[data-qc-book]').forEach(function (b) { b.addEventListener('click', bookQuote); });
     $('qcClose').addEventListener('click', closeModal);
     modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });

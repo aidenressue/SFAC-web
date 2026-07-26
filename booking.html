@@ -893,7 +893,7 @@
         </div>
         <div class="step-footer">
           <button class="btn-another" onclick="addAnotherVehicle()">+ Add Vehicle</button>
-          <button class="btn-cart" onclick="goToStep(8)" id="to-calendar-btn">Select Date</button>
+          <button class="btn-cart" onclick="cartContinue()" id="to-calendar-btn">Select Date</button>
         </div>
       </div>
 
@@ -967,7 +967,7 @@
             </div>
           </div>
 
-          <div class="confirm-section">
+          <div class="confirm-section" id="conf-datetime-section">
             <div class="confirm-section-title">Date &amp; Time</div>
             <div class="confirm-row">
               <span class="confirm-label">Appointment</span>
@@ -1404,12 +1404,43 @@ function showTravelNotice(cls) {
 // ═══════════════════════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════════════
+// If the customer built a quote in the quote builder, pull it in as a ready-made
+// cart item so they only need to enter their location + contact info.
+function loadCarriedQuote() {
+  let raw;
+  try { raw = localStorage.getItem('sfac_quote'); } catch (e) { return; }
+  if (!raw) return;
+  let q;
+  try { q = JSON.parse(raw); } catch (e) { return; }
+  if (!q || !q.size || !q.serviceName) return;
+
+  const vt = VEHICLE_TYPES.find(v => v.key === q.size);
+  const vehicleLabel = vt ? `${vt.label} — ${vt.desc}` : (q.vehicleLabel || q.size);
+  const addonsObj = {};
+  (q.addons || []).forEach(k => { if (ADDON_DEFS[k]) addonsObj[k] = 1; });
+
+  state.cart.push({
+    serviceKey: 'quote',
+    vehicle: q.size,
+    vehicleLabel,
+    label: q.serviceName + (q.pkgLabel ? ` (${q.pkgLabel})` : ''),
+    addons: addonsObj,
+    price: q.priced ? q.total : 0,
+    acuityTypeId: 0,      // carried quotes need real scheduling IDs before they book live
+    fromQuote: true,
+    custom: !q.priced
+  });
+  state.fromQuote = true;
+}
+
 function proceedToStep2() {
   if (!state.address) return;
   document.getElementById('map').classList.add('split');
   document.getElementById('step1-overlay').classList.add('hidden');
   document.getElementById('steps-panel').classList.add('open');
-  goToStep(2);
+  // Carried a quote in? Skip service/vehicle/package/level and go straight to the cart.
+  if (state.fromQuote && state.cart.length) goToStep(7);
+  else goToStep(2);
 }
 
 function goToStep(n) {
@@ -1783,7 +1814,15 @@ function addToCart() {
   goToStep(7);
 }
 
-// ── Step 6: Cart ──
+// Carried quotes for larger vehicles have no set price yet — show "Custom".
+function itemPriceStr(item) { return item.custom ? 'Custom' : `$${item.price}`; }
+function cartHasCustom() { return state.cart.some(i => i.custom); }
+function cartSubtotalStr() {
+  const sum = state.cart.reduce((s, i) => s + (i.custom ? 0 : i.price), 0);
+  return cartHasCustom() ? (sum ? `$${sum} + custom` : 'Custom') : `$${sum}`;
+}
+
+// ── Step 7: Cart ──
 function renderCart() {
   const list = document.getElementById('cart-items-list');
   list.innerHTML = state.cart.map((item, i) => {
@@ -1792,16 +1831,24 @@ function renderCart() {
     <div class="cart-item">
       <div class="cart-item-header">
         <div class="cart-item-name">${item.label}</div>
-        <div class="cart-item-price">$${item.price}</div>
+        <div class="cart-item-price">${itemPriceStr(item)}</div>
       </div>
       <div class="cart-item-vehicle">${item.vehicleLabel}</div>
       ${addonNames ? `<div class="cart-item-addons">+ ${addonNames}</div>` : ''}
+      ${item.custom ? `<div class="cart-item-addons">Price confirmed by your detailer</div>` : ''}
       <button class="cart-item-remove" onclick="removeCartItem(${i})">Remove</button>
     </div>
   `}).join('');
 
-  const subtotal = state.cart.reduce((s, i) => s + i.price, 0);
-  document.getElementById('cart-subtotal').textContent = `$${subtotal}`;
+  document.getElementById('cart-subtotal').textContent = cartSubtotalStr();
+  // A carried quote skips the calendar and goes straight to contact details.
+  const contBtn = document.getElementById('to-calendar-btn');
+  if (contBtn) contBtn.textContent = state.fromQuote ? 'Continue' : 'Select Date';
+}
+
+function cartContinue() {
+  if (state.fromQuote) goToStep(9);   // carried quote: skip the calendar, collect contact info
+  else goToStep(8);                   // normal booking: pick a date & time
 }
 
 function removeCartItem(i) {
@@ -1828,7 +1875,7 @@ function renderCalendar() {
       <div class="cal-svc-icon">${icon}</div>
       <div>
         <div class="cal-svc-name">${primary.label}</div>
-        <div class="cal-svc-meta">$${primary.price} · ${primary.vehicleLabel}${state.cart.length>1?' + '+( state.cart.length-1)+' more':''}</div>
+        <div class="cal-svc-meta">${itemPriceStr(primary)} · ${primary.vehicleLabel}${state.cart.length>1?' + '+( state.cart.length-1)+' more':''}</div>
       </div>
     `;
   }
@@ -1974,6 +2021,12 @@ function renderConfirmation() {
   // Address
   document.getElementById('conf-address').textContent = state.address?.formatted || '';
 
+  // Carried quote: no live date is picked — this becomes a booking request.
+  const dtSection = document.getElementById('conf-datetime-section');
+  if (dtSection) dtSection.style.display = state.fromQuote ? 'none' : '';
+  const bookBtn = document.getElementById('book-btn');
+  if (bookBtn) bookBtn.textContent = state.fromQuote ? 'Request This Booking' : 'Book Now';
+
   // Date & Time
   if (state.selectedTime) {
     const dt = new Date(state.selectedTime);
@@ -1994,7 +2047,7 @@ function renderConfirmation() {
     return `
     <div class="confirm-row">
       <div class="confirm-label">${item.label}<br><small style="color:var(--muted2)">${item.vehicleLabel}${addonNames?'<br>+ '+addonNames:''}</small></div>
-      <div class="confirm-value">$${item.price}</div>
+      <div class="confirm-value">${itemPriceStr(item)}</div>
     </div>`;
   }).join('');
   renderConfirmationTotals();
@@ -2006,7 +2059,7 @@ function renderConfirmation() {
 }
 
 function renderConfirmationTotals() {
-  const subtotal = state.cart.reduce((s,i)=>s+i.price,0);
+  const subtotal = state.cart.reduce((s,i)=>s+(i.custom?0:i.price),0);
   const multiVehicle = state.cart.length > 1;
   const multiSavings = multiVehicle ? Math.round(subtotal * 0.10) : 0;
   const afterMulti = subtotal - multiSavings;
@@ -2015,8 +2068,10 @@ function renderConfirmationTotals() {
     : Math.min(state.promoFlatAmount, afterMulti);
   const travelFee = state.address?.travelFee || 0;
   const total = afterMulti - promoSavings + travelFee;
+  const hasCustom = cartHasCustom();
   const hasDiscount = multiVehicle || state.promoDiscount > 0 || state.promoFlatAmount > 0;
-  const showBreakdown = hasDiscount || travelFee > 0;
+  const showBreakdown = hasDiscount || travelFee > 0 || hasCustom;
+  const withCustom = (n) => hasCustom ? (n ? `$${n} + custom` : 'Custom') : `$${n}`;
 
   const block = document.getElementById('conf-totals-block');
 
@@ -2026,7 +2081,7 @@ function renderConfirmationTotals() {
     html += `
       <div class="cart-subtotal" style="margin-bottom:.5rem;">
         <span class="cart-subtotal-label">Subtotal</span>
-        <span class="cart-subtotal-amount" style="color:var(--muted);">$${subtotal}</span>
+        <span class="cart-subtotal-amount" style="color:var(--muted);">${withCustom(subtotal)}</span>
       </div>`;
   }
 
@@ -2073,7 +2128,7 @@ function renderConfirmationTotals() {
     </div>
     <div class="cart-subtotal" style="margin-bottom:0;">
       <span class="cart-subtotal-label">Estimated Total</span>
-      <span class="cart-subtotal-amount" style="color:${showBreakdown ? 'var(--gold)' : 'var(--text)'};">$${total}</span>
+      <span class="cart-subtotal-amount" style="color:${showBreakdown ? 'var(--gold)' : 'var(--text)'};">${withCustom(total)}</span>
     </div>`;
 
   block.innerHTML = html;
@@ -2132,6 +2187,67 @@ async function applyPromo() {
   renderConfirmationTotals();
 }
 
+// Carried-quote path: submit a booking request (location + contact + quote) to the
+// leads webhook the quote builder already uses, rather than a live Acuity appointment.
+async function submitQuoteRequest() {
+  const btn = document.getElementById('book-btn');
+  const errEl = document.getElementById('book-error');
+  const item = state.cart[0] || {};
+  const addonNames = Object.keys(item.addons || {}).map(k => ADDON_DEFS[k]?.name).filter(Boolean).join(', ');
+  const travelFee = state.address?.travelFee || 0;
+  const priceStr = item.custom ? `Custom (${item.vehicleLabel || ''})` : `$${item.price || 0}`;
+
+  let notes = `[Booking Request from Quote] ${item.label} — ${item.vehicleLabel || ''}`;
+  if (addonNames) notes += ` + ${addonNames}`;
+  notes += ` | Price: ${priceStr}`;
+  if (travelFee) notes += ` | Travel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
+  if (state.comments) notes += ` | Notes: ${state.comments}`;
+
+  const payload = {
+    full_name: `${state.firstName} ${state.lastName}`.trim(),
+    phone: state.phone,
+    email: state.email,
+    address: state.address?.formatted || '',
+    service: item.label + (addonNames ? ' + ' + addonNames : ''),
+    vehicle: item.vehicleLabel || '',
+    platform: 'WEB',
+    notes,
+    booking: {
+      requestType: 'quote-booking',
+      address: state.address?.formatted || '',
+      city: state.address?.city || '',
+      lat: state.address?.lat, lng: state.address?.lng,
+      travelFee, needsDriveBuffer: !!state.address?.needsBuffer,
+      driveBufferMins: state.address?.needsBuffer ? 30 : 0,
+      vehicle: item.vehicle, vehicleLabel: item.vehicleLabel,
+      service: item.label, addons: addonNames,
+      price: item.custom ? null : item.price, custom: !!item.custom
+    }
+  };
+
+  try {
+    const resp = await fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    });
+    if (!resp.ok && resp.status !== 201) throw new Error('Something went wrong. Please call or text us at (970) 851-6433.');
+    try { localStorage.removeItem('sfac_quote'); } catch (e) {}
+
+    const titleEl = document.querySelector('.success-title');
+    if (titleEl) titleEl.textContent = 'Request Received!';
+    document.getElementById('success-sub').textContent =
+      "We've got your quote and location. We'll reach out shortly to lock in a time that works for you. Prefer to talk now? Call or text us at (970) 851-6433.";
+    document.getElementById('success-conf').textContent =
+      `${item.label} · ${priceStr}${travelFee ? ' + $' + travelFee + ' travel' : ''}`;
+    const g = document.getElementById('gcal-btn'); if (g) g.style.display = 'none';
+    document.getElementById('success-screen').classList.add('show');
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Request This Booking';
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  }
+}
+
 async function confirmBooking() {
   const btn = document.getElementById('book-btn');
   const errEl = document.getElementById('book-error');
@@ -2140,6 +2256,9 @@ async function confirmBooking() {
   errEl.style.display = 'none';
 
   state.comments = document.getElementById('f-comments').value.trim();
+
+  // Carried quotes aren't live-scheduled, so they submit as a booking request instead.
+  if (state.fromQuote) { await submitQuoteRequest(); return; }
 
   const multiVehicle = state.cart.length > 1;
   const rawTotal = state.cart.reduce((s,i) => s + i.price, 0);
@@ -2576,6 +2695,9 @@ function packageIcon(key) {
   };
   return icons[key] || icons.full;
 }
+
+// Pull in a quote carried over from the quote builder (if any) on page load.
+loadCarriedQuote();
 </script>
 
 <!-- Google Maps API -->
