@@ -1149,19 +1149,27 @@ const SERVICE_CONFIGS = {
     acuityIds: { small:91812844, mid:91812881, large:91812988, van:91813125 },
     addons: ['headlight','engine','trim'] // no pet hair (included)
   },
+  'paint-polish': {
+    label: 'Polish', packageType: 'paint', tier: 'polish',
+    description: 'A single machine polish stage that restores gloss to your paint and removes up to 10% of light scratches and swirls. It brings back depth and clarity, and it makes the ideal prep before a ceramic coating.',
+    bullets: ['Full wash & decontamination', 'Single-stage machine polish', 'Restores gloss, depth & clarity', 'Removes up to 10% of light swirls', 'Great refresh or ceramic prep'],
+    pricing: { small:300, mid:350, large:400, van:500 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','trim']
+  },
   'paint-1step': {
-    label: '1-Step Paint Correction', packageType: 'paint', tier: '1step',
-    description: 'Single-stage machine polish removes light swirls and water spots — finished with a premium paint sealant.',
-    bullets: ['Full wash & decontamination', '1-step machine polish (light swirls & water spots)', 'Enhanced gloss & paint clarity', 'Premium paint sealant applied', 'Sealant lasts up to 6 months'],
-    pricing: { small:499, mid:550, large:600, van:700 },
+    label: '1-Step Correction', packageType: 'paint', tier: '1step',
+    description: 'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
+    bullets: ['Full wash & decontamination', 'Single-stage machine correction', 'Removes 65 to 70% of scratches & swirls', 'Deep, reflective showroom gloss', 'Premium finish, sealed'],
+    pricing: { small:610, mid:720, large:830, van:990 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
   'paint-2step': {
-    label: '2-Step Paint Correction', packageType: 'paint', tier: '2step',
-    description: 'Two-stage cut and polish removes deeper scratches and oxidation — sealed with our top-tier paint sealant.',
-    bullets: ['Full wash & decontamination', '2-step machine polish: compound cut + fine polish', 'Deep scratch and oxidation removal', 'Maximum gloss restoration', 'Premium paint sealant applied', 'Sealant lasts 6–12 months'],
-    pricing: { small:799, mid:850, large:900, van:1000 },
+    label: '2-Step Correction', packageType: 'paint', tier: '2step',
+    description: 'Our highest level of paint correction, with two full stages of compounding and polishing. They cut through even the deepest defects, leaving a showroom shine and paint that is about as close to perfect as it gets.',
+    bullets: ['Full wash & decontamination', 'Two-stage compound cut + fine polish', 'Removes deep scratches & oxidation', 'Maximum gloss restoration', 'Premium finish, sealed'],
+    pricing: { small:1000, mid:1150, large:1300, van:1500 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
@@ -1209,9 +1217,13 @@ const TIER_INFO = {
     badge: 'executive', name: 'Executive', tagline: 'Premium detailing with professional-grade products and deep treatment.',
     highlights: ['Professional-grade products', 'Deep extraction & steam', 'Showroom-quality results']
   },
+  'polish': {
+    badge: 'express', name: 'Polish', tagline: 'Single-stage polish to restore gloss on well-kept paint.',
+    highlights: ['Single machine polish', 'Restores gloss & depth', 'Ideal ceramic prep']
+  },
   '1step': {
-    badge: 'step1', name: '1-Step', tagline: 'Single-stage correction for light swirls and water spots.',
-    highlights: ['1-step machine polish', 'Premium paint sealant applied', 'Enhanced gloss & clarity']
+    badge: 'step1', name: '1-Step', tagline: 'Single-stage correction removes 65 to 70% of swirls.',
+    highlights: ['1-step machine correction', 'Deep, reflective gloss', 'Showroom shine']
   },
   '2step': {
     badge: 'step2', name: '2-Step', tagline: 'Deep two-stage correction removes scratches and oxidation.',
@@ -1235,7 +1247,7 @@ const PACKAGE_TIERS = {
   interior: ['express','executive'],
   exterior: ['express','executive'],
   full:     ['express','executive'],
-  paint:    ['1step','2step'],
+  paint:    ['polish','1step','2step'],
   ceramic:  ['2yr','6yr','life'],
 };
 
@@ -1712,6 +1724,7 @@ function getDuration(svcKey, vehicle) {
     'executive-exterior':{ small:105, mid:110, large:115, van:120 },
     'executive-interior':{ small:210, mid:220, large:230, van:240 },
     'executive-full':    { small:330, mid:340, large:350, van:360 },
+    'paint-polish':      { small:150, mid:170, large:190, van:210 },
     'paint-1step':       { small:300, mid:320, large:340, van:360 },
     'paint-2step':       { small:360, mid:380, large:400, van:420 },
     'ceramic-2yr':       { small:240, mid:300, large:360, van:420 },
