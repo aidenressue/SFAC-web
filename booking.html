@@ -840,26 +840,32 @@
 
     <div class="steps-container" id="steps-container">
 
-      <!-- ── STEP 2: Vehicle Type ── -->
+      <!-- ── STEP 2: Service ── -->
       <div class="step" data-step="2">
+        <div class="step-title">What service would you like to book?</div>
+        <div class="package-grid" id="service-grid"></div>
+      </div>
+
+      <!-- ── STEP 3: Vehicle Type ── -->
+      <div class="step" data-step="3">
         <div class="step-title">Select Vehicle Type</div>
         <div class="vehicle-grid" id="vehicle-grid"></div>
       </div>
 
-      <!-- ── STEP 3: Package Type ── -->
-      <div class="step" data-step="3">
+      <!-- ── STEP 4: Package Type ── -->
+      <div class="step" data-step="4">
         <div class="step-title">Select Package</div>
         <div class="package-grid" id="package-grid"></div>
       </div>
 
-      <!-- ── STEP 4: Tier ── -->
-      <div class="step" data-step="4">
+      <!-- ── STEP 5: Tier ── -->
+      <div class="step" data-step="5">
         <div class="step-title" id="tier-title">Select Level</div>
         <div class="tier-grid" id="tier-grid"></div>
       </div>
 
-      <!-- ── STEP 5: Description + Add-ons ── -->
-      <div class="step" data-step="5" style="padding-bottom:0;">
+      <!-- ── STEP 6: Description + Add-ons ── -->
+      <div class="step" data-step="6" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div id="pkg-detail-content"></div>
           <div id="addons-section"></div>
@@ -873,8 +879,8 @@
         </div>
       </div>
 
-      <!-- ── STEP 6: Cart ── -->
-      <div class="step" data-step="6" style="padding-bottom:0;">
+      <!-- ── STEP 7: Cart ── -->
+      <div class="step" data-step="7" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div class="step-title">Your Cart</div>
           <div class="cart-items-list" id="cart-items-list"></div>
@@ -887,12 +893,12 @@
         </div>
         <div class="step-footer">
           <button class="btn-another" onclick="addAnotherVehicle()">+ Add Vehicle</button>
-          <button class="btn-cart" onclick="goToStep(7)" id="to-calendar-btn">Select Date</button>
+          <button class="btn-cart" onclick="goToStep(8)" id="to-calendar-btn">Select Date</button>
         </div>
       </div>
 
-      <!-- ── STEP 7: Calendar ── -->
-      <div class="step" data-step="7" style="padding-bottom:0;">
+      <!-- ── STEP 8: Calendar ── -->
+      <div class="step" data-step="8" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div class="step-title">Select Date &amp; Time</div>
           <div class="calendar-service-summary" id="cal-service-summary"></div>
@@ -914,12 +920,12 @@
           </div>
         </div>
         <div class="step-footer">
-          <button class="btn-cart" onclick="goToStep(8)" id="to-details-btn" disabled>Continue</button>
+          <button class="btn-cart" onclick="goToStep(9)" id="to-details-btn" disabled>Continue</button>
         </div>
       </div>
 
-      <!-- ── STEP 8: Your Details ── -->
-      <div class="step" data-step="8" style="padding-bottom:0;">
+      <!-- ── STEP 9: Your Details ── -->
+      <div class="step" data-step="9" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div class="step-title">Your Details</div>
           <div class="details-form">
@@ -948,8 +954,8 @@
         </div>
       </div>
 
-      <!-- ── STEP 9: Confirmation ── -->
-      <div class="step" data-step="9" style="padding-bottom:0;">
+      <!-- ── STEP 10: Confirmation ── -->
+      <div class="step" data-step="10" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div class="step-title">Confirm Your Booking</div>
 
@@ -990,7 +996,7 @@
             </div>
             <div class="confirm-row">
               <span class="confirm-label"></span>
-              <button class="confirm-edit" onclick="goToStep(8)">Edit Details</button>
+              <button class="confirm-edit" onclick="goToStep(9)">Edit Details</button>
             </div>
           </div>
 
@@ -1056,6 +1062,12 @@ const VEHICLE_TYPES = [
   { key: 'mid',   label: 'Mid-Size', desc: 'SUV, crossover, or mid-size truck' },
   { key: 'large', label: 'Large',  desc: 'Full-size SUV or heavy-duty truck' },
   { key: 'van',   label: 'Van',    desc: 'Minivan or full-size van' }
+];
+
+const SERVICE_CATEGORIES = [
+  { key: 'detailing', label: 'Mobile Detailing', desc: 'Interior, exterior, or full detail at your door.', img: 'brand_assets/svc-mobile-detailing.jpg' },
+  { key: 'ceramic',   label: 'Ceramic Coating',  desc: 'System X 9H protection, gloss & hydrophobics.',   img: 'web.screenshots/pkg-ext-ceramic.jpg' },
+  { key: 'paint',     label: 'Paint Correction', desc: 'Machine polish to remove swirls & restore gloss.', img: 'web.screenshots/cqb-paint-still.jpg' }
 ];
 
 const PACKAGE_TYPES = [
@@ -1130,6 +1142,32 @@ const SERVICE_CONFIGS = {
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
+  // ── Ceramic coating tiers (System X). Price = a gloss-boosting polish prep + the coating.
+  //    Heavier paint correction before coating is quoted separately. Acuity IDs TBD (0 = placeholder). ──
+  'ceramic-2yr': {
+    label: '2 Year Shield', packageType: 'ceramic', tier: '2yr',
+    description: 'A System X 9H ceramic coating with a 2 year warranty, applied over a full gloss-boosting polish. Deep gloss, extreme water beading, and UV protection.',
+    bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'System X 9H ceramic coating', '2 year full warranty', 'Extreme hydrophobics & UV protection'],
+    pricing: { small:599, mid:599, large:599, van:699 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: []
+  },
+  'ceramic-6yr': {
+    label: '6 Year Armor', packageType: 'ceramic', tier: '6yr',
+    description: 'A thicker, multi-layer System X coating with a 6 year warranty and stronger chemical resistance, applied over a full gloss-boosting polish.',
+    bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'Multi-layer System X coating', '6 year full warranty', 'Stronger chemical & etch resistance'],
+    pricing: { small:690, mid:850, large:1010, van:1160 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: []
+  },
+  'ceramic-life': {
+    label: 'Lifetime Diamond', packageType: 'ceramic', tier: 'life',
+    description: 'Our maximum-durability System X coating with a lifetime warranty and a free first annual inspection, applied over a full gloss-boosting polish.',
+    bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'Maximum-thickness System X coating', 'Lifetime warranty', 'Free first annual inspection'],
+    pricing: { small:740, mid:900, large:1060, van:1330 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: []
+  },
 };
 
 const ADDON_DEFS = {
@@ -1155,6 +1193,18 @@ const TIER_INFO = {
   '2step': {
     badge: 'step2', name: '2-Step', tagline: 'Deep two-stage correction removes scratches and oxidation.',
     highlights: ['Compound cut + fine polish', 'Deep scratch & oxidation removal', 'Maximum gloss restoration']
+  },
+  '2yr': {
+    badge: 'step1', name: '2 Year', tagline: 'System X 9H coating with a 2 year warranty.',
+    highlights: ['9H+ deep gloss & hydrophobics', 'UV protection', '2 year warranty']
+  },
+  '6yr': {
+    badge: 'step2', name: '6 Year', tagline: 'Thicker multi-layer coat with a 6 year warranty.',
+    highlights: ['Multi-layer coating', 'Stronger chemical resistance', '6 year warranty']
+  },
+  'life': {
+    badge: 'executive', name: 'Lifetime', tagline: 'Maximum durability with a lifetime warranty.',
+    highlights: ['Maximum thickness & durability', 'Free first annual inspection', 'Lifetime warranty']
   }
 };
 
@@ -1163,6 +1213,7 @@ const PACKAGE_TIERS = {
   exterior: ['express','executive'],
   full:     ['express','executive'],
   paint:    ['1step','2step'],
+  ceramic:  ['2yr','6yr','life'],
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1174,8 +1225,9 @@ const state = {
   stepHistory: [1],
 
   // Current selection in progress
+  service: null,        // 'detailing' | 'ceramic' | 'paint'
   vehicle: null,        // 'small' | 'mid' | 'large' | 'van'
-  packageType: null,    // 'interior' | 'exterior' | 'full' | 'ceramic'
+  packageType: null,    // 'interior' | 'exterior' | 'full' | 'paint' | 'ceramic'
   tier: null,           // 'express' | 'executive' | '1step' | '2step'
   addons: {},           // { addonKey: quantity }
 
@@ -1406,8 +1458,10 @@ function updateBackBtn(step) {
 
 function updateBreadcrumb() {
   const parts = [];
+  if (state.service) parts.push(SERVICE_CATEGORIES.find(s=>s.key===state.service)?.label);
   if (state.vehicle) parts.push(VEHICLE_TYPES.find(v=>v.key===state.vehicle)?.label);
-  if (state.packageType) parts.push(PACKAGE_TYPES.find(p=>p.key===state.packageType)?.label);
+  // Only show the package type for Mobile Detailing (paint/ceramic are already named by the service).
+  if (state.packageType && state.service === 'detailing') parts.push(PACKAGE_TYPES.find(p=>p.key===state.packageType)?.label);
   if (state.tier) parts.push(TIER_INFO[state.tier]?.name);
 
   const bc = document.getElementById('breadcrumb-full');
@@ -1418,6 +1472,7 @@ function updateBreadcrumb() {
 }
 
 function addAnotherVehicle() {
+  state.service = null;
   state.vehicle = null;
   state.packageType = null;
   state.tier = null;
@@ -1431,18 +1486,42 @@ function addAnotherVehicle() {
 // ═══════════════════════════════════════════════════════════════════
 function renderStep(n) {
   switch(n) {
-    case 2: renderVehicleTypes(); break;
-    case 3: renderPackageTypes(); break;
-    case 4: renderTiers(); break;
-    case 5: renderPackageDetail(); break;
-    case 6: renderCart(); break;
-    case 7: renderCalendar(); break;
-    case 8: break; // static HTML
-    case 9: renderConfirmation(); break;
+    case 2: renderServices(); break;
+    case 3: renderVehicleTypes(); break;
+    case 4: renderPackageTypes(); break;
+    case 5: renderTiers(); break;
+    case 6: renderPackageDetail(); break;
+    case 7: renderCart(); break;
+    case 8: renderCalendar(); break;
+    case 9: break; // static HTML (Your Details)
+    case 10: renderConfirmation(); break;
   }
 }
 
-// ── Step 2: Vehicle Types ──
+// ── Step 2: Service ──
+function renderServices() {
+  const grid = document.getElementById('service-grid');
+  grid.innerHTML = SERVICE_CATEGORIES.map(s => `
+    <div class="package-card ${state.service===s.key?'selected':''}" onclick="selectService('${s.key}')">
+      <div class="pkg-illus"><img class="pkg-car-img" src="${s.img}" alt="${s.label}" style="object-fit:cover;height:100%;width:100%;" /></div>
+      <div class="pkg-card-body">
+        <div class="pkg-label">${s.label}</div>
+        <div class="pkg-desc">${s.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectService(key) {
+  state.service = key;
+  // Detailing branches into a package type; ceramic/paint map straight to their level.
+  state.packageType = (key === 'detailing') ? null : key;
+  state.tier = null;
+  renderServices();
+  setTimeout(() => goToStep(3), 220);
+}
+
+// ── Step 3: Vehicle Types ──
 function renderVehicleTypes() {
   const grid = document.getElementById('vehicle-grid');
   grid.innerHTML = VEHICLE_TYPES.map(v => `
@@ -1457,13 +1536,15 @@ function renderVehicleTypes() {
 function selectVehicle(key) {
   state.vehicle = key;
   renderVehicleTypes();
-  setTimeout(() => goToStep(3), 220);
+  // Detailing picks a package type next; ceramic/paint skip straight to the level step.
+  const next = (state.service === 'detailing') ? 4 : 5;
+  setTimeout(() => goToStep(next), 220);
 }
 
-// ── Step 3: Package Types ──
+// ── Step 4: Package Types (Mobile Detailing only) ──
 function renderPackageTypes() {
   const grid = document.getElementById('package-grid');
-  grid.innerHTML = PACKAGE_TYPES.map(p => {
+  grid.innerHTML = PACKAGE_TYPES.filter(p => p.key !== 'paint').map(p => {
     const prices = getPriceRange(p.key);
     return `
     <div class="package-card ${state.packageType===p.key?'selected':''}" onclick="selectPackage('${p.key}')">
@@ -1487,7 +1568,7 @@ function packageIllus(key) {
   // Full
   if (key === 'full') {
     return `<div class="pkg-illus">
-      <img class="pkg-car-img" src="web.screenshots/Inside and out.png" alt="full" />
+      <img class="pkg-car-img" src="web.screenshots/pkg-reset.jpg" alt="full" style="object-fit:cover;height:100%;width:100%;" />
     </div>`;
   }
   // Exterior
@@ -1508,6 +1589,7 @@ function packageIllus(key) {
 
 function buildSvcKey(tier, pkgType) {
   if (pkgType === 'paint') return `paint-${tier}`;
+  if (pkgType === 'ceramic') return `ceramic-${tier}`;
   return `${tier}-${pkgType}`;
 }
 
@@ -1530,14 +1612,15 @@ function selectPackage(key) {
   state.packageType = key;
   state.tier = null;
   renderPackageTypes();
-  setTimeout(() => goToStep(4), 220);
+  setTimeout(() => goToStep(5), 220);
 }
 
-// ── Step 4: Tiers ──
+// ── Step 5: Tiers ──
 function renderTiers() {
   const tiers = PACKAGE_TIERS[state.packageType] || [];
   document.getElementById('tier-title').textContent =
-    state.packageType === 'paint' ? 'Select Correction Level' :
+    state.packageType === 'paint'   ? 'Select Correction Level' :
+    state.packageType === 'ceramic' ? 'Select Coating' :
     'Select Detail Level';
 
   const grid = document.getElementById('tier-grid');
@@ -1563,7 +1646,7 @@ function selectTier(tier) {
   state.tier = tier;
   state.addons = {};
   renderTiers();
-  setTimeout(() => goToStep(5), 220);
+  setTimeout(() => goToStep(6), 220);
 }
 
 function getDuration(svcKey, vehicle) {
@@ -1577,6 +1660,9 @@ function getDuration(svcKey, vehicle) {
     'executive-full':    { small:330, mid:340, large:350, van:360 },
     'paint-1step':       { small:300, mid:320, large:340, van:360 },
     'paint-2step':       { small:360, mid:380, large:400, van:420 },
+    'ceramic-2yr':       { small:240, mid:300, large:360, van:420 },
+    'ceramic-6yr':       { small:300, mid:360, large:420, van:480 },
+    'ceramic-life':      { small:360, mid:420, large:480, van:540 },
   };
   return durations[svcKey]?.[vehicle] || 0;
 }
@@ -1687,13 +1773,14 @@ function addToCart() {
   });
 
   // Reset selections
+  state.service = null;
   state.vehicle = null;
   state.packageType = null;
   state.tier = null;
   state.addons = {};
 
-  state.stepHistory.push(6);
-  goToStep(6);
+  state.stepHistory.push(7);
+  goToStep(7);
 }
 
 // ── Step 6: Cart ──
@@ -1880,7 +1967,7 @@ function goToConfirmation() {
     return;
   }
   state.email = email; state.firstName = first; state.lastName = last; state.phone = phone;
-  goToStep(9);
+  goToStep(10);
 }
 
 function renderConfirmation() {
