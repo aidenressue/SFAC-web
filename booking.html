@@ -1908,7 +1908,7 @@ function renderCeramicStep() {
     const prep = CERAMIC_PREP.find(p => p.key === state.ceramicPrep);
     const total = (coating.coating[size] || 0) + (prep.price[size] || 0);
     footHtml = `
-      <div class="cer-foot">
+      <div class="cer-foot" id="cer-foot">
         <div class="cer-foot-total"><span>Total</span> $${total}</div>
         <button class="btn-cart" onclick="addCeramicToCart()">Add to Cart</button>
       </div>`;
@@ -1933,6 +1933,11 @@ function selectCoating(key) {
 function selectCorrection(key) {
   state.ceramicPrep = key;
   renderCeramicStep();
+  // Scroll to the bottom so the Total + Add to Cart button is in view
+  setTimeout(() => {
+    const foot = document.getElementById('cer-foot');
+    if (foot) foot.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, 80);
 }
 
 function addCeramicToCart() {
