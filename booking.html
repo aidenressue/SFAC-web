@@ -472,15 +472,18 @@
     .cer-sec-note { font-size: .78rem; color: var(--muted); line-height: 1.5; margin-bottom: .9rem; }
     .cer-corr-list { display: flex; flex-direction: column; gap: .6rem; }
     .cer-corr {
-      display: flex; align-items: center; gap: 1rem; background: var(--surface);
+      display: flex; align-items: flex-start; gap: 1rem; background: var(--surface);
       border: 1.5px solid var(--border); border-radius: 12px; padding: .85rem 1rem; cursor: pointer; transition: all .2s;
     }
     .cer-corr:hover { border-color: var(--border2); }
     .cer-corr.selected { border-color: var(--gold); background: rgba(212,168,81,.06); box-shadow: 0 0 0 1px var(--gold); }
+    .cer-corr-img { width: 104px; height: 78px; flex-shrink: 0; border-radius: 9px; overflow: hidden; background: var(--surface3); }
+    .cer-corr-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
     .cer-corr-main { flex: 1; min-width: 0; }
     .cer-corr-name { font-family: var(--fh); font-weight: 700; font-size: .9rem; color: var(--text); }
     .cer-corr-tag { font-family: var(--fb); font-weight: 500; font-size: .68rem; color: var(--muted2); margin-left: .4rem; }
-    .cer-corr-desc { font-size: .74rem; color: var(--muted); line-height: 1.4; margin-top: .2rem; }
+    .cer-corr-cond { font-family: var(--fh); font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--gold); margin: .2rem 0 .35rem; }
+    .cer-corr-desc { font-size: .74rem; color: var(--muted); line-height: 1.45; }
     .cer-corr-price { font-family: var(--fh); font-weight: 800; font-size: 1.05rem; color: var(--gold); white-space: nowrap; }
     .cer-corr-price.inc { color: var(--muted); font-size: .85rem; }
     .cer-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.4rem; }
@@ -866,6 +869,7 @@
       .tier-grid { flex-direction: column; gap: .6rem; }
       .tier-card { padding: .9rem 1rem; border-radius: 12px; }
       .cer-coatings { flex-direction: column; gap: .6rem; }
+      .cer-corr-img { width: 76px; height: 62px; }
       .cer-foot { flex-direction: column; align-items: stretch; gap: .75rem; }
       .cer-foot .btn-cart { width: 100%; }
       .tier-badge { margin-bottom: .45rem; }
@@ -1277,19 +1281,28 @@ const SERVICE_CONFIGS = {
 // ── Ceramic coating flow (coating + paint-correction prep). Total = coating + prep. ──
 // The "Select Coating" price shown includes the base Polish prep.
 const CERAMIC_COATINGS = [
-  { key:'2yr',  label:'2 Year Shield',    warranty:'2-Year Warranty',   desc:'System X 9H coating. Deep gloss, extreme water beading, and UV protection.',
+  { key:'2yr',  label:'2 Year Shield',    warranty:'2-Year Warranty',   desc:'The next level of surface protection. A System X 9H coating with a deep, glossy finish that lasts.',
+    features:['Deep gloss and hydrophobics','9H+ hardness','UV and oxidation protection','CARFAX registered','2 year full warranty'],
     coating:{ small:299, mid:249, large:199, van:199 }, dur:{ small:240, mid:300, large:360, van:420 } },
-  { key:'6yr',  label:'6 Year Armor',     warranty:'6-Year Warranty',   desc:'Thicker multi-layer coat with stronger chemical and etch resistance.',
+  { key:'6yr',  label:'6 Year Armor',     warranty:'6-Year Warranty',   desc:'A thicker, multi-layer coat with even stronger protection and a longer warranty.',
+    features:['Extreme gloss and hydrophobics','9H+ hardness','UV and oxidation protection','Thicker multi-layer coat','Stronger chemical resistance','CARFAX registered','6 year full warranty'],
     coating:{ small:390, mid:500, large:610, van:660 }, dur:{ small:300, mid:360, large:420, van:480 } },
-  { key:'life', label:'Lifetime Diamond', warranty:'Lifetime Warranty', desc:'Maximum durability and thickness, plus a free first annual inspection.',
+  { key:'life', label:'Lifetime Diamond', warranty:'Lifetime Warranty', desc:'Our maximum-durability coating with the strongest protection and a lifetime warranty.',
+    features:['Ultimate gloss and hydrophobics','9H+ hardness','UV and oxidation protection','Maximum durability and thickness','Strongest chemical resistance','Free first annual inspection','CARFAX registered','Lifetime warranty'],
     coating:{ small:440, mid:550, large:660, van:830 }, dur:{ small:360, mid:420, large:480, van:540 } },
 ];
 const CERAMIC_PREP = [
-  { key:'polish',   label:'Polish',           tagline:'Included with every coating',        desc:'A single machine polish that primes your paint so the coating bonds to a smooth surface.',
+  { key:'polish',   label:'Polish', tagline:'Included with every coating', condition:'Lightly faded paint',
+    img:'web.screenshots/pc-guide-faded-new.jpg',
+    desc:'A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls. It brings back the depth and clarity that daily driving and washing dull down over time, and sets up a flawless surface before the coating goes on.',
     price:{ small:300, mid:350, large:400, van:500 },  dur:{ small:0, mid:0, large:0, van:0 } },
-  { key:'one-step', label:'1-Step Correction', tagline:'Recommended for light swirls',       desc:'Removes 65 to 70% of swirls and light scratches before the coating goes on.',
+  { key:'one-step', label:'1-Step Correction', tagline:'Most popular', condition:'Scratches & swirls',
+    img:'web.screenshots/pc-guide-1step.jpg',
+    desc:'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
     price:{ small:610, mid:720, large:830, van:990 },  dur:{ small:120, mid:130, large:140, van:150 } },
-  { key:'two-step', label:'2-Step Correction', tagline:'For deeper scratches & oxidation',   desc:'Two-stage cut and polish for the deepest defects and the most flawless finish.',
+  { key:'two-step', label:'2-Step Correction', tagline:'Maximum correction', condition:'Deep defects',
+    img:'web.screenshots/pc-guide-swirls.jpg',
+    desc:'Two full stages of compounding and polishing that cut through even the deepest scratches and oxidation, leaving a showroom shine and paint that is about as close to perfect as it gets.',
     price:{ small:1000, mid:1150, large:1300, van:1500 }, dur:{ small:180, mid:200, large:220, van:240 } },
 ];
 function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
@@ -1842,20 +1855,26 @@ function renderCeramicStep() {
   const grid = document.getElementById('tier-grid');
   grid.style.display = 'block';   // ceramic content stacks vertically
 
-  // Coating cards (price shown includes the base polish prep)
+  // Coating cards: description + checkmark features (a few shown, See more expands)
+  const CER_PREVIEW = 3;
   const coatings = CERAMIC_COATINGS.map(c => {
     const base = (c.coating[size] || 0) + ceramicPolishPrice(size);
     const sel = state.ceramicCoating === c.key;
+    const feats = c.features.map((f, i) =>
+      `<li${i >= CER_PREVIEW ? ' class="tinc-hide"' : ''}>${f}</li>`).join('');
+    const moreBtn = c.features.length > CER_PREVIEW
+      ? `<button type="button" class="tinc-more" onclick="event.stopPropagation(); toggleIncluded(this)">See more</button>` : '';
     return `
       <div class="cer-card ${sel?'selected':''}" onclick="selectCoating('${c.key}')">
         <div class="tier-badge step1">${c.warranty}</div>
         <div class="tier-name">${c.label}</div>
         <div class="tier-tagline">${c.desc}</div>
+        <div class="tinc"><ul class="tinc-list">${feats}</ul>${moreBtn}</div>
         <div class="tier-price">$${base}<span> · with polish</span></div>
       </div>`;
   }).join('');
 
-  // Paint-correction prep options (upcharge vs the included polish)
+  // Paint-correction prep options (image + condition + detailed description, upcharge vs polish)
   let corrHtml = '';
   if (state.ceramicCoating) {
     const polish = ceramicPolishPrice(size);
@@ -1865,17 +1884,19 @@ function renderCeramicStep() {
       const priceLabel = up <= 0 ? 'Included' : `+$${up}`;
       return `
         <div class="cer-corr ${sel?'selected':''}" onclick="selectCorrection('${p.key}')">
+          <div class="cer-corr-img"><img src="${p.img}" alt="${p.condition}" loading="lazy" /></div>
           <div class="cer-corr-main">
             <div class="cer-corr-name">${p.label} <span class="cer-corr-tag">${p.tagline}</span></div>
+            <div class="cer-corr-cond">For ${p.condition.toLowerCase()}</div>
             <div class="cer-corr-desc">${p.desc}</div>
           </div>
           <div class="cer-corr-price ${up<=0?'inc':''}">${priceLabel}</div>
         </div>`;
     }).join('');
     corrHtml = `
-      <div class="cer-corr-block">
+      <div class="cer-corr-block" id="cer-corr-block">
         <div class="cer-sec-title">Select Paint Correction Level</div>
-        <div class="cer-sec-note">Every coating includes a polish to prime your paint so it bonds to a smooth surface. If your paint has visible swirls or scratches, step up the correction so the coating cures over a flawless finish.</div>
+        <div class="cer-sec-note">Every coating starts with a machine polish so it bonds to smooth, prepped paint. If yours has visible swirls or scratches, step up the correction so the coating cures over a flawless finish. Not sure which you need? The photos below show what each level is built for.</div>
         <div class="cer-corr-list">${opts}</div>
       </div>`;
   }
@@ -1897,8 +1918,16 @@ function renderCeramicStep() {
 }
 
 function selectCoating(key) {
+  const firstPick = !state.ceramicCoating;
   state.ceramicCoating = key;
   renderCeramicStep();
+  // Auto-scroll to the paint-correction section once a coating is chosen
+  if (firstPick) {
+    setTimeout(() => {
+      const block = document.getElementById('cer-corr-block');
+      if (block) block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  }
 }
 
 function selectCorrection(key) {
