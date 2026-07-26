@@ -421,7 +421,7 @@
     .tier-tagline { font-size: .74rem; color: var(--muted); margin-bottom: .7rem; line-height: 1.45; }
     .tier-bullets {
       display: flex; flex-direction: column; gap: .28rem;
-      list-style: none; margin-bottom: .8rem;
+      list-style: none; margin-bottom: .8rem; flex: 1 1 auto;
     }
     .tier-bullets li {
       font-size: .74rem; color: var(--muted); display: flex; gap: .45rem; align-items: flex-start; line-height: 1.35;
@@ -429,11 +429,11 @@
     .tier-bullets li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
     .tier-price {
       font-family: var(--fh); font-weight: 800; font-size: 1.25rem;
-      color: var(--gold); margin-top: auto;
+      color: var(--gold);
     }
     .tier-price span { font-size: .74rem; color: var(--muted); font-weight: 400; }
     .tier-note {
-      margin-top: .7rem; padding-top: .6rem; border-top: 1px solid var(--border);
+      margin-bottom: .7rem; padding-top: .6rem; border-top: 1px solid var(--border);
       font-size: .68rem; line-height: 1.4; color: var(--muted2);
     }
 
@@ -1138,7 +1138,7 @@ const SERVICE_CONFIGS = {
     bullets: ['Full carpet & seat shampoo', 'Leather conditioning & full steam', 'Pet hair & trim restoration', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)'],
     pricing: { small:499, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
-    addons: ['headlight','engine','trim']
+    addons: ['headlight','engine'] // trim restoration included
   },
   // ── Exterior Only: Reset / Executive ──
   'reset-exterior': {
@@ -1155,7 +1155,7 @@ const SERVICE_CONFIGS = {
     bullets: ['Professional hand wash', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Rims, wheel wells & tires'],
     pricing: { small:225, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
-    addons: ['headlight','engine','trim']
+    addons: ['headlight','engine'] // trim restoration included
   },
   // ── Interior Only: Maintenance / Reset / Executive ──
   'maintenance-interior': {
@@ -1713,21 +1713,21 @@ function renderTiers() {
     'Select Detail Level';
 
   const grid = document.getElementById('tier-grid');
-  grid.innerHTML = tiers.map(tier => {
+  grid.innerHTML = tiers.map((tier, i) => {
     const svcKey = buildSvcKey(tier, state.packageType);
     const cfg = SERVICE_CONFIGS[svcKey];
     const { price, custom } = svcPrice(svcKey, state.vehicle);
     const info = TIER_INFO[tier];
     return `
     <div class="tier-card ${state.tier===tier?'selected':''}" onclick="selectTier('${tier}')">
-      <div class="tier-badge ${info.badge}">${info.name}</div>
+      <div class="tier-badge ${info.badge}">Level ${i + 1}</div>
       <div class="tier-name">${cfg?.label}</div>
       <div class="tier-tagline">${info.tagline}</div>
       <ul class="tier-bullets">
         ${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}
       </ul>
-      <div class="tier-price">${custom ? 'Custom' : '$'+price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
       ${tier === 'maintenance' ? `<div class="tier-note">Only for new, recently detailed, and/or very well maintained cars.</div>` : ''}
+      <div class="tier-price">${custom ? 'Custom' : '$'+price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
     </div>
   `}).join('');
 }
@@ -1935,7 +1935,7 @@ function renderCalendar() {
   // Service summary
   const primary = state.cart[0];
   if (primary) {
-    const icon = vehicleSVG(state.vehicle);
+    const icon = vehicleSVG(primary.vehicle);
     document.getElementById('cal-service-summary').innerHTML = `
       <div class="cal-svc-icon">${icon}</div>
       <div>
@@ -1989,25 +1989,32 @@ function renderCalendarGrid() {
 }
 
 async function fetchAvailableDates() {
-  const typeId = state.cart[0]?.acuityTypeId;
-  const grid = document.getElementById('cal-grid');
-  if (!typeId) {
-    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Online booking coming soon for this service.<br>Please call or text us to book.</div>';
-    return;
-  }
+  // Fully open calendar: every current-or-future date is bookable.
+  // Work hours and blocked times will come from the CRM later.
   const m = state.calMonth;
-  const monthStr = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
-  grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1">Loading availability...</div>';
-  try {
-    const resp = await fetch(`https://sfac-mu.vercel.app/api/acuity/availability?type=dates&appointmentTypeID=${typeId}&month=${monthStr}&timezone=America%2FDenver`);
-    const dates = await resp.json();
-    state.availableDates = Array.isArray(dates) ? dates.map(d => d.date || d) : [];
-  } catch(e) {
-    state.availableDates = [];
-    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Unable to load availability. Please refresh or contact us.</div>';
-    return;
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+  const daysInMonth = new Date(m.getFullYear(), m.getMonth()+1, 0).getDate();
+  const dates = [];
+  for (let d = 1; d <= daysInMonth; d++) {
+    const ds = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    if (ds >= todayStr) dates.push(ds);
   }
+  state.availableDates = dates;
   renderCalendarGrid();
+}
+
+// Open time slots for a date: 8:00 AM to 6:00 PM, every 30 minutes.
+function openTimeSlots(dateStr) {
+  const slots = [];
+  for (let mins = 8*60; mins <= 18*60; mins += 30) {
+    const h = Math.floor(mins/60), mm = mins%60;
+    const HH = String(h).padStart(2,'0'), MM = String(mm).padStart(2,'0');
+    const hr12 = ((h + 11) % 12) + 1;
+    const ampm = h < 12 ? 'AM' : 'PM';
+    slots.push({ iso: `${dateStr}T${HH}:${MM}:00`, label: `${hr12}:${MM} ${ampm}` });
+  }
+  return slots;
 }
 
 function changeMonth(delta) {
@@ -2022,42 +2029,18 @@ function changeMonth(delta) {
   fetchAvailableDates();
 }
 
-async function selectDate(dateStr) {
+function selectDate(dateStr) {
   state.selectedDate = dateStr;
   state.selectedTime = null;
   document.getElementById('to-details-btn').disabled = true;
   renderCalendarGrid();
 
-  // Fetch times
-  const typeId = state.cart[0]?.acuityTypeId;
   const timesEl = document.getElementById('time-slots-grid');
   const section = document.getElementById('time-slots-section');
   section.style.display = 'block';
-  timesEl.innerHTML = '<div class="no-slots">Loading times...</div>';
-
-  try {
-    const resp = await fetch(`https://sfac-mu.vercel.app/api/acuity/availability?type=times&appointmentTypeID=${typeId}&date=${dateStr}&timezone=America%2FDenver`);
-    const times = await resp.json();
-    if (!Array.isArray(times) || !times.length) {
-      timesEl.innerHTML = '<div class="no-slots">No available times on this date.</div>';
-      return;
-    }
-    // Filter to 15-minute increments only
-    const filtered = times.filter(t => {
-      const dt = new Date(t.time);
-      const mins = dt.toLocaleString('en-US', { minute: '2-digit', timeZone: 'America/Denver' });
-      return parseInt(mins) % 15 === 0;
-    });
-    const display = filtered.length ? filtered : times;
-    timesEl.innerHTML = display.map(t => {
-      const dt = new Date(t.time);
-      const label = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
-      const isSelected = state.selectedTime === t.time;
-      return `<div class="time-slot ${isSelected?'selected':''}" onclick="selectTime('${t.time}', '${label}')">${label}</div>`;
-    }).join('');
-  } catch(e) {
-    timesEl.innerHTML = '<div class="no-slots">Could not load times.</div>';
-  }
+  timesEl.innerHTML = openTimeSlots(dateStr).map(s =>
+    `<div class="time-slot ${state.selectedTime===s.iso?'selected':''}" onclick="selectTime('${s.iso}', '${s.label}')">${s.label}</div>`
+  ).join('');
 }
 
 function selectTime(isoTime, label) {
@@ -2313,6 +2296,82 @@ async function submitQuoteRequest() {
   }
 }
 
+// Record a booking (with the chosen date/time) to the leads webhook — used while
+// Acuity is being retired and the CRM handles scheduling. Throws on failure so the
+// caller's catch resets the button.
+async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, itemDuration }) {
+  const primary = state.cart[0];
+  const bufferMins = state.address?.needsBuffer ? 30 : 0;
+  const totalMins = state.cart.reduce((s, item) => s + itemDuration(item), 0);
+  const itemLine = it => {
+    const an = Object.keys(it.addons).filter(k => it.addons[k] > 0).map(k => ADDON_DEFS[k].name).join(', ');
+    return `${it.label} (${it.vehicleLabel})${an ? ' + ' + an : ''}${it.custom ? ' — Custom' : ' — $' + it.price}`;
+  };
+  const svcSummary = state.cart.map(itemLine).join(' | ');
+  const whenLabel = document.getElementById('conf-datetime').textContent;
+
+  let notes = `[Booking] ${svcSummary}`;
+  notes += `\nWhen: ${whenLabel}`;
+  notes += `\nAddress: ${state.address?.formatted || ''}`;
+  if (travelFee > 0) notes += `\nTravel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
+  if (state.address?.needsBuffer) notes += `\nDrive buffer: 30 min each side`;
+  if (state.comments) notes += `\nNotes: ${state.comments}`;
+
+  const payload = {
+    full_name: `${state.firstName} ${state.lastName}`.trim(),
+    phone: state.phone, email: state.email,
+    address: state.address?.formatted || '',
+    service: svcSummary, vehicle: primary?.vehicleLabel || '',
+    platform: 'WEB', notes,
+    booking: {
+      requestType: 'booking',
+      datetime: state.selectedTime,
+      endEstimate: new Date(new Date(state.selectedTime).getTime() + totalMins * 60000).toISOString(),
+      address: state.address?.formatted || '', city: state.address?.city || '',
+      lat: state.address?.lat, lng: state.address?.lng,
+      travelFee, needsDriveBuffer: !!state.address?.needsBuffer, driveBufferMins: bufferMins,
+      promoCode: state.promoCode || '', orderTotal: finalTotal, hasCustom: cartHasCustom(),
+      items: state.cart.map(it => ({
+        service: it.label, serviceKey: it.serviceKey, vehicle: it.vehicle, vehicleLabel: it.vehicleLabel,
+        addons: Object.keys(it.addons).filter(k => it.addons[k] > 0).map(k => ADDON_DEFS[k].name),
+        price: it.custom ? null : it.price, custom: !!it.custom
+      }))
+    }
+  };
+
+  const resp = await fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+  });
+  if (!resp.ok && resp.status !== 201) throw new Error('Something went wrong. Please call or text us at (970) 851-6433.');
+  try { localStorage.removeItem('sfac_quote'); } catch (e) {}
+
+  // Success screen
+  const titleEl = document.querySelector('.success-title'); if (titleEl) titleEl.textContent = "You're Booked!";
+  document.getElementById('success-sub').textContent =
+    `Your ${multiVehicle ? state.cart.length + ' services are' : 'appointment is'} set for ${whenLabel}. We'll text you to confirm. Questions? Call or text (970) 851-6433.`;
+  const totalStr = cartHasCustom() ? (finalTotal ? `$${finalTotal} + custom` : 'Custom') : `$${finalTotal}`;
+  document.getElementById('success-conf').textContent = `Estimated total: ${totalStr} (due in person)`;
+
+  // Google Calendar link (with 30-min drive buffer each side for fee-45 areas)
+  const startDt = new Date(new Date(state.selectedTime).getTime() - bufferMins * 60000);
+  const endDt = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000 + bufferMins * 60000);
+  const fmt = d => d.toISOString().replace(/[-:]/g, '').slice(0, 15);
+  const calLabel = multiVehicle ? `Shine for a Cause — ${state.cart.length} Vehicles` : `Shine for a Cause — ${primary.label}`;
+  let calDetails = `Shine for a Cause Mobile Detailing\n(970) 851-6433\nshineforacause.com\n\nService: ${svcSummary}`;
+  if (travelFee > 0) calDetails += `\nTravel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
+  if (bufferMins) calDetails += `\nIncludes 30 min drive time before and after.`;
+  calDetails += `\nEstimated total: ${totalStr} (due in person)`;
+  const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
+    + `&text=${encodeURIComponent(calLabel)}`
+    + `&dates=${fmt(startDt)}/${fmt(endDt)}`
+    + `&details=${encodeURIComponent(calDetails)}`
+    + `&location=${encodeURIComponent(state.address?.formatted || '')}`;
+  const gcalBtn = document.getElementById('gcal-btn');
+  if (gcalBtn) { gcalBtn.href = gcalUrl; gcalBtn.style.display = ''; }
+
+  document.getElementById('success-screen').classList.add('show');
+}
+
 async function confirmBooking() {
   const btn = document.getElementById('book-btn');
   const errEl = document.getElementById('book-error');
@@ -2355,6 +2414,11 @@ async function confirmBooking() {
   }
 
   try {
+    // No live Acuity scheduling (IDs are placeholders) — record the booking with the
+    // chosen date/time to the leads webhook so the CRM can pick it up.
+    const usesAcuity = state.cart.some(it => it.acuityTypeId);
+    if (!usesAcuity) { await recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, itemDuration }); return; }
+
     let cumulativeOffset = 0; // minutes from selectedTime
     let firstAcuityId = null;
 
