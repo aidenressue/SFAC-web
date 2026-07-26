@@ -457,6 +457,35 @@
       margin-bottom: .7rem; padding-top: .6rem; border-top: 1px solid var(--border);
       font-size: .68rem; line-height: 1.4; color: var(--muted2);
     }
+    /* ── Ceramic step (coating + paint-correction prep) ── */
+    .cer-coatings { display: flex; gap: .75rem; align-items: stretch; }
+    .cer-card {
+      flex: 1 1 0; min-width: 0; background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 1.1rem; cursor: pointer; transition: all .2s;
+      display: flex; flex-direction: column;
+    }
+    .cer-card:hover { border-color: var(--border2); background: var(--surface3); }
+    .cer-card.selected { border-color: var(--gold); background: rgba(212,168,81,.06); box-shadow: 0 0 0 1px var(--gold), 0 12px 40px rgba(212,168,81,.15); }
+    .cer-card .tier-price { margin-top: auto; }
+    .cer-corr-block { margin-top: 1.6rem; }
+    .cer-sec-title { font-family: var(--fh); font-weight: 800; font-size: 1.05rem; color: var(--text); margin-bottom: .4rem; }
+    .cer-sec-note { font-size: .78rem; color: var(--muted); line-height: 1.5; margin-bottom: .9rem; }
+    .cer-corr-list { display: flex; flex-direction: column; gap: .6rem; }
+    .cer-corr {
+      display: flex; align-items: center; gap: 1rem; background: var(--surface);
+      border: 1.5px solid var(--border); border-radius: 12px; padding: .85rem 1rem; cursor: pointer; transition: all .2s;
+    }
+    .cer-corr:hover { border-color: var(--border2); }
+    .cer-corr.selected { border-color: var(--gold); background: rgba(212,168,81,.06); box-shadow: 0 0 0 1px var(--gold); }
+    .cer-corr-main { flex: 1; min-width: 0; }
+    .cer-corr-name { font-family: var(--fh); font-weight: 700; font-size: .9rem; color: var(--text); }
+    .cer-corr-tag { font-family: var(--fb); font-weight: 500; font-size: .68rem; color: var(--muted2); margin-left: .4rem; }
+    .cer-corr-desc { font-size: .74rem; color: var(--muted); line-height: 1.4; margin-top: .2rem; }
+    .cer-corr-price { font-family: var(--fh); font-weight: 800; font-size: 1.05rem; color: var(--gold); white-space: nowrap; }
+    .cer-corr-price.inc { color: var(--muted); font-size: .85rem; }
+    .cer-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.4rem; }
+    .cer-foot-total { font-family: var(--fh); font-weight: 800; font-size: 1.15rem; color: var(--text); }
+    .cer-foot-total span { font-size: .72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-right: .4rem; }
 
     /* ── PACKAGE DETAIL (Step 5) ── */
     .pkg-detail-header {
@@ -832,6 +861,9 @@
       /* tier cards — stack on mobile */
       .tier-grid { flex-direction: column; gap: .6rem; }
       .tier-card { padding: .9rem 1rem; border-radius: 12px; }
+      .cer-coatings { flex-direction: column; gap: .6rem; }
+      .cer-foot { flex-direction: column; align-items: stretch; gap: .75rem; }
+      .cer-foot .btn-cart { width: 100%; }
       .tier-badge { margin-bottom: .45rem; }
       .tier-name  { font-size: .95rem; margin-bottom: .3rem; }
       .tier-tagline { font-size: .72rem; margin-bottom: .6rem; line-height: 1.4; }
@@ -1238,6 +1270,26 @@ const SERVICE_CONFIGS = {
   },
 };
 
+// ── Ceramic coating flow (coating + paint-correction prep). Total = coating + prep. ──
+// The "Select Coating" price shown includes the base Polish prep.
+const CERAMIC_COATINGS = [
+  { key:'2yr',  label:'2 Year Shield',    warranty:'2-Year Warranty',   desc:'System X 9H coating. Deep gloss, extreme water beading, and UV protection.',
+    coating:{ small:299, mid:249, large:199, van:199 }, dur:{ small:240, mid:300, large:360, van:420 } },
+  { key:'6yr',  label:'6 Year Armor',     warranty:'6-Year Warranty',   desc:'Thicker multi-layer coat with stronger chemical and etch resistance.',
+    coating:{ small:390, mid:500, large:610, van:660 }, dur:{ small:300, mid:360, large:420, van:480 } },
+  { key:'life', label:'Lifetime Diamond', warranty:'Lifetime Warranty', desc:'Maximum durability and thickness, plus a free first annual inspection.',
+    coating:{ small:440, mid:550, large:660, van:830 }, dur:{ small:360, mid:420, large:480, van:540 } },
+];
+const CERAMIC_PREP = [
+  { key:'polish',   label:'Polish',           tagline:'Included with every coating',        desc:'A single machine polish that primes your paint so the coating bonds to a smooth surface.',
+    price:{ small:300, mid:350, large:400, van:500 },  dur:{ small:0, mid:0, large:0, van:0 } },
+  { key:'one-step', label:'1-Step Correction', tagline:'Recommended for light swirls',       desc:'Removes 65 to 70% of swirls and light scratches before the coating goes on.',
+    price:{ small:610, mid:720, large:830, van:990 },  dur:{ small:120, mid:130, large:140, van:150 } },
+  { key:'two-step', label:'2-Step Correction', tagline:'For deeper scratches & oxidation',   desc:'Two-stage cut and polish for the deepest defects and the most flawless finish.',
+    price:{ small:1000, mid:1150, large:1300, van:1500 }, dur:{ small:180, mid:200, large:220, van:240 } },
+];
+function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
+
 const ADDON_DEFS = {
   headlight: { id:6906837, name:'Headlight Restoration', price:65, duration:45, desc:'Restore clarity to cloudy, yellowed headlights — improves night visibility.' },
   engine:    { id:6906838, name:'Engine Bay Cleaning',   price:50, duration:30, desc:'Degrease, rinse, and detail the engine bay for a clean under-hood look.' },
@@ -1304,7 +1356,9 @@ const state = {
   service: null,        // 'detailing' | 'ceramic' | 'paint'
   vehicle: null,        // 'small' | 'mid' | 'large' | 'van'
   packageType: null,    // 'interior' | 'exterior' | 'full' | 'paint' | 'ceramic'
-  tier: null,           // 'express' | 'executive' | '1step' | '2step'
+  ceramicCoating: null, // '2yr' | '6yr' | 'life'
+  ceramicPrep: null,    // 'polish' | 'one-step' | 'two-step'
+  tier: null,           // 'maintenance' | 'reset' | 'executive' | 'polish' | '1step' | '2step'
   addons: {},           // { addonKey: quantity }
 
   // Cart
@@ -1583,6 +1637,8 @@ function addAnotherVehicle() {
   state.vehicle = null;
   state.packageType = null;
   state.tier = null;
+  state.ceramicCoating = null;
+  state.ceramicPrep = null;
   state.addons = {};
   state.stepHistory = [...state.stepHistory, 2];
   goToStep(2);
@@ -1623,6 +1679,8 @@ function selectService(key) {
   // Detailing branches into a package type; ceramic/paint map straight to their level.
   state.packageType = (key === 'detailing') ? null : key;
   state.tier = null;
+  state.ceramicCoating = null;
+  state.ceramicPrep = null;
   renderServices();
   setTimeout(() => goToStep(3), 220);
 }
@@ -1738,13 +1796,15 @@ function toggleIncluded(btn) {
 
 // ── Step 5: Tiers ──
 function renderTiers() {
+  if (state.packageType === 'ceramic') { renderCeramicStep(); return; }
+
   const tiers = PACKAGE_TIERS[state.packageType] || [];
   document.getElementById('tier-title').textContent =
     state.packageType === 'paint'   ? 'Select Correction Level' :
-    state.packageType === 'ceramic' ? 'Select Coating' :
     'Select Detail Level';
 
   const grid = document.getElementById('tier-grid');
+  grid.style.display = '';   // restore the flex row for detailing/paint tiers
   grid.innerHTML = tiers.map((tier, i) => {
     const svcKey = buildSvcKey(tier, state.packageType);
     const cfg = SERVICE_CONFIGS[svcKey];
@@ -1771,6 +1831,113 @@ function selectTier(tier) {
   setTimeout(() => goToStep(6), 220);
 }
 
+// ── Ceramic: choose a coating, then a paint-correction prep level, then add to cart ──
+function renderCeramicStep() {
+  const size = state.vehicle;
+  document.getElementById('tier-title').textContent = 'Select Coating';
+  const grid = document.getElementById('tier-grid');
+  grid.style.display = 'block';   // ceramic content stacks vertically
+
+  // Coating cards (price shown includes the base polish prep)
+  const coatings = CERAMIC_COATINGS.map(c => {
+    const base = (c.coating[size] || 0) + ceramicPolishPrice(size);
+    const sel = state.ceramicCoating === c.key;
+    return `
+      <div class="cer-card ${sel?'selected':''}" onclick="selectCoating('${c.key}')">
+        <div class="tier-badge step1">${c.warranty}</div>
+        <div class="tier-name">${c.label}</div>
+        <div class="tier-tagline">${c.desc}</div>
+        <div class="tier-price">$${base}<span> · with polish</span></div>
+      </div>`;
+  }).join('');
+
+  // Paint-correction prep options (upcharge vs the included polish)
+  let corrHtml = '';
+  if (state.ceramicCoating) {
+    const polish = ceramicPolishPrice(size);
+    const opts = CERAMIC_PREP.map(p => {
+      const up = (p.price[size] || 0) - polish;
+      const sel = state.ceramicPrep === p.key;
+      const priceLabel = up <= 0 ? 'Included' : `+$${up}`;
+      return `
+        <div class="cer-corr ${sel?'selected':''}" onclick="selectCorrection('${p.key}')">
+          <div class="cer-corr-main">
+            <div class="cer-corr-name">${p.label} <span class="cer-corr-tag">${p.tagline}</span></div>
+            <div class="cer-corr-desc">${p.desc}</div>
+          </div>
+          <div class="cer-corr-price ${up<=0?'inc':''}">${priceLabel}</div>
+        </div>`;
+    }).join('');
+    corrHtml = `
+      <div class="cer-corr-block">
+        <div class="cer-sec-title">Select Paint Correction Level</div>
+        <div class="cer-sec-note">Every coating includes a polish to prime your paint so it bonds to a smooth surface. If your paint has visible swirls or scratches, step up the correction so the coating cures over a flawless finish.</div>
+        <div class="cer-corr-list">${opts}</div>
+      </div>`;
+  }
+
+  // Add to Cart appears once both are chosen
+  let footHtml = '';
+  if (state.ceramicCoating && state.ceramicPrep) {
+    const coating = CERAMIC_COATINGS.find(c => c.key === state.ceramicCoating);
+    const prep = CERAMIC_PREP.find(p => p.key === state.ceramicPrep);
+    const total = (coating.coating[size] || 0) + (prep.price[size] || 0);
+    footHtml = `
+      <div class="cer-foot">
+        <div class="cer-foot-total"><span>Total</span> $${total}</div>
+        <button class="btn-cart" onclick="addCeramicToCart()">Add to Cart</button>
+      </div>`;
+  }
+
+  grid.innerHTML = `<div class="cer-coatings">${coatings}</div>${corrHtml}${footHtml}`;
+}
+
+function selectCoating(key) {
+  state.ceramicCoating = key;
+  renderCeramicStep();
+}
+
+function selectCorrection(key) {
+  state.ceramicPrep = key;
+  renderCeramicStep();
+}
+
+function addCeramicToCart() {
+  const size = state.vehicle;
+  const coating = CERAMIC_COATINGS.find(c => c.key === state.ceramicCoating);
+  const prep = CERAMIC_PREP.find(p => p.key === state.ceramicPrep);
+  if (!coating || !prep) return;
+  const price = (coating.coating[size] || 0) + (prep.price[size] || 0);
+  const vt = VEHICLE_TYPES.find(v => v.key === size);
+  const label = `${coating.label} + ${prep.label}`;
+
+  state.cart.push({
+    serviceKey: `ceramic-${coating.key}`,
+    vehicle: size,
+    vehicleLabel: vt ? `${vt.label} — ${vt.desc}` : size,
+    label,
+    addons: {},
+    price,
+    custom: false,
+    acuityTypeId: 0,
+    ceramicCoating: coating.key,
+    ceramicPrep: prep.key,
+    ceramicDuration: (coating.dur[size] || 0) + (prep.dur[size] || 0)
+  });
+
+  // Reset selection
+  state.service = null;
+  state.vehicle = null;
+  state.packageType = null;
+  state.tier = null;
+  state.ceramicCoating = null;
+  state.ceramicPrep = null;
+  state.addons = {};
+
+  state.stepHistory.push(7);
+  goToStep(7);
+}
+
 function getDuration(svcKey, vehicle) {
   // Return duration in minutes from Acuity data
   const durations = {
@@ -1790,6 +1957,13 @@ function getDuration(svcKey, vehicle) {
     'ceramic-life':      { small:360, mid:420, large:480, van:540 },
   };
   return durations[svcKey]?.[vehicle] || 0;
+}
+
+// Duration of a cart item (ceramic carries its own combined coating+prep time).
+function itemDurationOf(item) {
+  if (item.ceramicDuration != null) return item.ceramicDuration;
+  return getDuration(item.serviceKey, item.vehicle)
+    + Object.entries(item.addons || {}).reduce((a,[k,q]) => a + q * (ADDON_DEFS[k]?.duration || 0), 0);
 }
 
 function formatDuration(mins) {
@@ -2095,9 +2269,7 @@ function renderConfirmation() {
     const dateLabel = dt.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric', timeZone:'America/Denver' });
     const timeLabel = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
     // End time estimate
-    const totalMins = state.cart.reduce((s,item) => {
-      return s + getDuration(item.serviceKey, item.vehicle) + Object.entries(item.addons).reduce((a,[k,q])=>a+q*ADDON_DEFS[k].duration,0);
-    }, 0);
+    const totalMins = state.cart.reduce((s,item) => s + itemDurationOf(item), 0);
     const end = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000);
     const endLabel = end.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
     document.getElementById('conf-datetime').textContent = `${timeLabel} – ${endLabel}, ${dateLabel}`;
@@ -2413,11 +2585,8 @@ async function confirmBooking() {
   const travelFee = state.address?.travelFee || 0;
   const finalTotal = afterMulti - promoSavings + travelFee;
 
-  // Duration in minutes for a single cart item (base + addons)
-  function itemDuration(item) {
-    return getDuration(item.serviceKey, item.vehicle)
-      + Object.entries(item.addons).reduce((a,[k,q]) => a + q * ADDON_DEFS[k].duration, 0);
-  }
+  // Duration in minutes for a single cart item (ceramic carries its own)
+  const itemDuration = itemDurationOf;
 
   // Pricing block appended to every appointment note
   let pricingNotes = '';
