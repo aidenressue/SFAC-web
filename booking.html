@@ -1109,53 +1109,72 @@ const PACKAGE_TYPES = [
 ];
 
 const SERVICE_CONFIGS = {
-  'express-exterior': {
-    label: 'Express Exterior', packageType: 'exterior', tier: 'express',
-    description: 'A thorough outside clean that leaves your paint gleaming and your wheels spotless.',
-    bullets: ['Hand wash & dry', 'Tire dressing & rim clean', 'Window & mirror polish', 'Door jambs wiped down', 'Paint sealant & wax protection'],
-    pricing: { small:80, mid:90, large:100, van:125 },
-    acuityIds: { small:91811065, mid:91812053, large:91812249, van:91812273 },
-    addons: ['headlight','engine','trim']
-  },
-  'express-interior': {
-    label: 'Express Interior', packageType: 'interior', tier: 'express',
-    description: 'A focused interior refresh to clear clutter, odors, and dust — in and out fast.',
-    bullets: ['Full vacuum (seats, carpets, trunk)', 'Wipe all surfaces & dash', 'Clean floor mats', 'Interior windows & mirrors', 'Door panels & cupholder clean'],
-    pricing: { small:149, mid:170, large:190, van:225 },
-    acuityIds: { small:91812297, mid:91812447, large:91812550, van:91812687 },
-    addons: ['petHair']
-  },
-  'express-full': {
-    label: 'Express Full Detail', packageType: 'full', tier: 'express',
-    description: 'The complete package — a full interior refresh combined with a spotless exterior clean.',
-    bullets: ['Everything in Express Interior', 'Everything in Express Exterior', 'Complete vehicle refresh in one visit'],
-    pricing: { small:199, mid:225, large:250, van:275 },
-    acuityIds: { small:91812717, mid:91812748, large:91812775, van:91812792 },
+  // ── Full Detail: Maintenance / Reset / Executive (prices from the site; small only, larger = custom quote) ──
+  'maintenance-full': {
+    label: 'Full Maintenance', packageType: 'full', tier: 'maintenance',
+    description: 'A regular upkeep clean, inside and out, to keep your car fresh between deeper details.',
+    bullets: ['Interior vacuum & wipe down', 'Floor mats, windows & mirrors', 'Trunk & door jambs', 'Quick hand wash & wax', 'Clean rims & tires'],
+    pricing: { small:180, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','petHair','trim']
   },
-  'executive-exterior': {
-    label: 'Executive Exterior', packageType: 'exterior', tier: 'executive',
-    description: 'A premium paint care experience with deep decontamination, machine polish, and a show-quality finish.',
-    bullets: ['Clay bar decontamination', 'Single-stage machine polish', 'Ceramic-grade paint sealant', 'Tire & wheel deep clean', 'Window & trim dressing'],
-    pricing: { small:125, mid:150, large:175, van:225 },
-    acuityIds: { small:91815363, mid:91815382, large:91815395, van:91815404 },
-    addons: ['headlight','engine','trim']
-  },
-  'executive-interior': {
-    label: 'Executive Interior', packageType: 'interior', tier: 'executive',
-    description: 'A meticulous, showroom-quality interior restoration. Every surface cleaned, conditioned, and protected.',
-    bullets: ['Deep extraction & steam cleaning', 'Leather & vinyl conditioning', 'Pet hair removal (included)', 'Interior trim dressing'],
-    pricing: { small:299, mid:325, large:350, van:400 },
-    acuityIds: { small:91813164, mid:91813181, large:91813208, van:91813231 },
-    addons: [] // pet hair included
+  'reset-full': {
+    label: 'Full Reset', packageType: 'full', tier: 'reset',
+    description: 'A deeper reset of built-up dirt and grime, inside and out.',
+    bullets: ['Thorough interior vacuum', 'Clean & protect plastics', 'Spot steam & stain treatment', 'Floor mats detailed & shined', 'Professional hand wash & spot polish', 'Wax, rims, wheel wells & tires'],
+    pricing: { small:299, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','petHair','trim']
   },
   'executive-full': {
-    label: 'Executive Full Detail', packageType: 'full', tier: 'executive',
-    description: 'Our flagship service — a full-day transformation combining Executive Interior and Exterior with premium paint correction.',
-    bullets: ['Everything in Executive Interior', 'Everything in Executive Exterior', 'Pet hair removal (included)', 'Complete protection package'],
-    pricing: { small:399, mid:425, large:450, van:500 },
-    acuityIds: { small:91812844, mid:91812881, large:91812988, van:91813125 },
-    addons: ['headlight','engine','trim'] // no pet hair (included)
+    label: 'Full Executive', packageType: 'full', tier: 'executive',
+    description: 'Our most thorough detail, with paint enhancement and a full interior reset.',
+    bullets: ['Full carpet & seat shampoo', 'Leather conditioning & full steam', 'Pet hair & trim restoration', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)'],
+    pricing: { small:499, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','trim']
+  },
+  // ── Exterior Only: Reset / Executive ──
+  'reset-exterior': {
+    label: 'Exterior Reset', packageType: 'exterior', tier: 'reset',
+    description: 'An exterior wash with wheels, tires, and paint protection.',
+    bullets: ['Professional hand wash', 'Spot polish', 'Wax protection', 'Detail rims & wheel wells', 'Detail tires'],
+    pricing: { small:99, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','trim']
+  },
+  'executive-exterior': {
+    label: 'Exterior Executive', packageType: 'exterior', tier: 'executive',
+    description: 'A deep exterior with decontamination, polish, and sealant.',
+    bullets: ['Professional hand wash', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Rims, wheel wells & tires'],
+    pricing: { small:225, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','trim']
+  },
+  // ── Interior Only: Maintenance / Reset / Executive ──
+  'maintenance-interior': {
+    label: 'Interior Maintenance', packageType: 'interior', tier: 'maintenance',
+    description: 'An interior upkeep clean: vacuum, wipe down, windows, and door panels.',
+    bullets: ['Interior vacuum', 'Wipe all surfaces', 'Floor mats', 'Windows & mirrors', 'Trunk & door jambs'],
+    pricing: { small:125, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['petHair']
+  },
+  'reset-interior': {
+    label: 'Interior Reset', packageType: 'interior', tier: 'reset',
+    description: 'A deep interior reset with steam and spot treatment.',
+    bullets: ['Thorough vacuum', 'Clean & protect plastics', 'Spot steam cleaning', 'Stain spot treatment', 'Floor mats detailed & shined', 'Windows, trunk & door jambs'],
+    pricing: { small:225, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['petHair']
+  },
+  'executive-interior': {
+    label: 'Interior Executive', packageType: 'interior', tier: 'executive',
+    description: 'A full interior reset with shampoo, leather care, and steam.',
+    bullets: ['Full carpet & seat shampoo', 'Leather conditioning', 'Full steam cleaning', 'Pet hair removal', 'Trim restoration'],
+    pricing: { small:325, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: []
   },
   'paint-polish': {
     label: 'Polish', packageType: 'paint', tier: 'polish',
@@ -1217,13 +1236,17 @@ const ADDON_DEFS = {
 };
 
 const TIER_INFO = {
-  express: {
-    badge: 'express', name: 'Express', tagline: 'The essentials, done right — fast, thorough, and affordable.',
-    highlights: ['Quality results in minimal time', 'Hand wash & vacuum', 'Perfect for regular maintenance']
+  maintenance: {
+    badge: 'express', name: 'Maintenance', tagline: 'Regular upkeep to keep your car fresh between deeper details.',
+    highlights: ['Vacuum & wipe down', 'Hand wash & wax', 'Perfect for regular upkeep']
+  },
+  reset: {
+    badge: 'step1', name: 'Reset', tagline: 'A deeper reset of built-up dirt and grime.',
+    highlights: ['Deep clean & spot steam', 'Stain spot treatment', 'Decontamination & polish']
   },
   executive: {
-    badge: 'executive', name: 'Executive', tagline: 'Premium detailing with professional-grade products and deep treatment.',
-    highlights: ['Professional-grade products', 'Deep extraction & steam', 'Showroom-quality results']
+    badge: 'executive', name: 'Executive', tagline: 'Our most thorough detail, with paint enhancement and a full reset.',
+    highlights: ['Shampoo, steam & leather care', 'Full paint enhancement', 'Showroom-quality results']
   },
   'polish': {
     badge: 'express', name: 'Polish', tagline: 'Single-stage polish to restore gloss on well-kept paint.',
@@ -1252,9 +1275,9 @@ const TIER_INFO = {
 };
 
 const PACKAGE_TIERS = {
-  interior: ['express','executive'],
-  exterior: ['express','executive'],
-  full:     ['express','executive'],
+  interior: ['maintenance','reset','executive'],
+  exterior: ['reset','executive'],
+  full:     ['maintenance','reset','executive'],
   paint:    ['polish','1step','2step'],
   ceramic:  ['2yr','6yr','life'],
 };
@@ -1650,19 +1673,24 @@ function buildSvcKey(tier, pkgType) {
   return `${tier}-${pkgType}`;
 }
 
+// Price for a service at a vehicle size. Only small is set for detailing on the
+// local site, so larger vehicles come back as a custom quote.
+function svcPrice(svcKey, vehicle) {
+  const cfg = SERVICE_CONFIGS[svcKey];
+  const p = cfg?.pricing?.[vehicle];
+  if (p == null) return { price: 0, custom: true };
+  return { price: p, custom: false };
+}
+
 function getPriceRange(pkgType) {
   const tiers = PACKAGE_TIERS[pkgType];
-  let min = Infinity, max = 0;
+  let min = Infinity, anyPriced = false;
   tiers.forEach(tier => {
-    const svcKey = buildSvcKey(tier, pkgType);
-    const cfg = SERVICE_CONFIGS[svcKey];
-    if (!cfg) return;
-    const p = cfg.pricing[state.vehicle || 'small'];
-    if (p < min) min = p;
-    if (p > max) max = p;
+    const { price, custom } = svcPrice(buildSvcKey(tier, pkgType), state.vehicle || 'small');
+    if (!custom) { anyPriced = true; if (price < min) min = price; }
   });
-  if (!isFinite(min)) return '';
-  return min === max ? `$${min}` : `From $${min}`;
+  if (!anyPriced) return 'Custom';
+  return `From $${min}`;
 }
 
 function selectPackage(key) {
@@ -1684,7 +1712,7 @@ function renderTiers() {
   grid.innerHTML = tiers.map(tier => {
     const svcKey = buildSvcKey(tier, state.packageType);
     const cfg = SERVICE_CONFIGS[svcKey];
-    const price = cfg?.pricing[state.vehicle] || 0;
+    const { price, custom } = svcPrice(svcKey, state.vehicle);
     const info = TIER_INFO[tier];
     return `
     <div class="tier-card ${state.tier===tier?'selected':''}" onclick="selectTier('${tier}')">
@@ -1694,7 +1722,7 @@ function renderTiers() {
       <ul class="tier-bullets">
         ${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}
       </ul>
-      <div class="tier-price">$${price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
+      <div class="tier-price">${custom ? 'Custom' : '$'+price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
     </div>
   `}).join('');
 }
@@ -1709,12 +1737,14 @@ function selectTier(tier) {
 function getDuration(svcKey, vehicle) {
   // Return duration in minutes from Acuity data
   const durations = {
-    'express-exterior':  { small:80, mid:90, large:90, van:100 },
-    'express-interior':  { small:105, mid:110, large:115, van:120 },
-    'express-full':      { small:180, mid:190, large:195, van:200 },
-    'executive-exterior':{ small:105, mid:110, large:115, van:120 },
-    'executive-interior':{ small:210, mid:220, large:230, van:240 },
-    'executive-full':    { small:330, mid:340, large:350, van:360 },
+    'maintenance-full':    { small:150, mid:170, large:190, van:210 },
+    'reset-full':          { small:210, mid:240, large:270, van:300 },
+    'executive-full':      { small:330, mid:360, large:390, van:420 },
+    'reset-exterior':      { small:90,  mid:105, large:120, van:135 },
+    'executive-exterior':  { small:150, mid:170, large:190, van:210 },
+    'maintenance-interior':{ small:90,  mid:105, large:120, van:135 },
+    'reset-interior':      { small:150, mid:170, large:190, van:210 },
+    'executive-interior':  { small:210, mid:230, large:250, van:270 },
     'paint-polish':      { small:150, mid:170, large:190, van:210 },
     'paint-1step':       { small:300, mid:320, large:340, van:360 },
     'paint-2step':       { small:360, mid:380, large:400, van:420 },
@@ -1738,7 +1768,7 @@ function renderPackageDetail() {
   const cfg = SERVICE_CONFIGS[svcKey];
   if (!cfg) return;
 
-  const price = cfg.pricing[state.vehicle];
+  const { price, custom } = svcPrice(svcKey, state.vehicle);
   const dur = getDuration(svcKey, state.vehicle);
 
   document.getElementById('pkg-detail-content').innerHTML = `
@@ -1746,7 +1776,7 @@ function renderPackageDetail() {
       <div class="pkg-detail-icon">${vehicleSVG(state.vehicle)}</div>
       <div>
         <div class="pkg-detail-name">${cfg.label}</div>
-        <div class="pkg-detail-price">$${price}</div>
+        <div class="pkg-detail-price">${custom ? 'Custom' : '$'+price}</div>
         <div class="pkg-detail-duration">${formatDuration(dur)}</div>
       </div>
     </div>
@@ -1800,11 +1830,12 @@ function updateCartPreview() {
   const svcKey = buildSvcKey(state.tier, state.packageType);
   const cfg = SERVICE_CONFIGS[svcKey];
   if (!cfg) return;
-  let total = cfg.pricing[state.vehicle] || 0;
+  const { price, custom } = svcPrice(svcKey, state.vehicle);
+  let total = price;
   Object.entries(state.addons).forEach(([key, qty]) => {
     total += qty * (ADDON_DEFS[key]?.price || 0);
   });
-  document.getElementById('cart-preview-price').textContent = `$${total}`;
+  document.getElementById('cart-preview-price').textContent = custom ? 'Custom' : `$${total}`;
 }
 
 function addToCart() {
@@ -1814,7 +1845,8 @@ function addToCart() {
 
   const vehicleType = VEHICLE_TYPES.find(v=>v.key===state.vehicle);
   const vehicleLabel = vehicleType ? `${vehicleType.label} — ${vehicleType.desc}` : state.vehicle;
-  let price = cfg.pricing[state.vehicle] || 0;
+  const base = svcPrice(svcKey, state.vehicle);
+  let price = base.price;
   const selectedAddons = {};
   Object.entries(state.addons).forEach(([key, qty]) => {
     if (qty > 0) { selectedAddons[key] = qty; price += qty * ADDON_DEFS[key].price; }
@@ -1826,7 +1858,8 @@ function addToCart() {
     vehicleLabel,
     label: cfg.label,
     addons: selectedAddons,
-    price,
+    price: base.custom ? 0 : price,
+    custom: base.custom,
     acuityTypeId: cfg.acuityIds[state.vehicle]
   });
 
