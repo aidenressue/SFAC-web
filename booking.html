@@ -427,6 +427,27 @@
       font-size: .74rem; color: var(--muted); display: flex; gap: .45rem; align-items: flex-start; line-height: 1.35;
     }
     .tier-bullets li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    /* Grouped Interior/Exterior "what's included" (Full Detail) */
+    .tinc { flex: 1 1 auto; margin-bottom: .8rem; }
+    .tinc-head {
+      font-family: var(--fh); font-weight: 800; font-size: .64rem;
+      letter-spacing: .09em; text-transform: uppercase; color: var(--muted2);
+      margin: .6rem 0 .3rem;
+    }
+    .tinc-head:first-child { margin-top: 0; }
+    .tinc-list { list-style: none; display: flex; flex-direction: column; gap: .26rem; margin: 0; }
+    .tinc-list li {
+      font-size: .74rem; color: var(--muted); display: flex; gap: .45rem;
+      align-items: flex-start; line-height: 1.35;
+    }
+    .tinc-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .tinc-list li.tinc-hide { display: none; }
+    .tinc.expanded .tinc-list li.tinc-hide { display: flex; }
+    .tinc-more {
+      margin-top: .55rem; background: none; border: none; color: var(--gold);
+      font-family: var(--fh); font-weight: 700; font-size: .72rem; cursor: pointer; padding: 0;
+    }
+    .tinc-more:hover { text-decoration: underline; }
     .tier-price {
       font-family: var(--fh); font-weight: 800; font-size: 1.25rem;
       color: var(--gold);
@@ -1091,6 +1112,10 @@ const SERVICE_CONFIGS = {
     label: 'Full Maintenance', packageType: 'full', tier: 'maintenance',
     description: 'A regular upkeep clean, inside and out, to keep your car fresh between deeper details.',
     bullets: ['Interior vacuum & wipe down', 'Floor mats, windows & mirrors', 'Trunk & door jambs', 'Quick hand wash & wax', 'Clean rims & tires'],
+    included: {
+      interior: ['Interior vacuum', 'Wipe all surfaces', 'Floor mats', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
+      exterior: ['Quick hand wash', 'Wax protection', 'Clean rims', 'Clean tires']
+    },
     pricing: { small:180, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','petHair','trim']
@@ -1099,6 +1124,10 @@ const SERVICE_CONFIGS = {
     label: 'Full Reset', packageType: 'full', tier: 'reset',
     description: 'A deeper reset of built-up dirt and grime, inside and out.',
     bullets: ['Thorough interior vacuum', 'Clean & protect plastics', 'Spot steam & stain treatment', 'Floor mats detailed & shined', 'Professional hand wash & spot polish', 'Wax, rims, wheel wells & tires'],
+    included: {
+      interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Stains (spot treatment)', 'Spot steam cleaning', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
+      exterior: ['Professional hand wash', 'Spot polish', 'Wax protection', 'Detail rims', 'Wheel wells', 'Detail tires']
+    },
     pricing: { small:299, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','petHair','trim']
@@ -1107,6 +1136,10 @@ const SERVICE_CONFIGS = {
     label: 'Full Executive', packageType: 'full', tier: 'executive',
     description: 'Our most thorough detail, with paint enhancement and a full interior reset.',
     bullets: ['Full carpet & seat shampoo', 'Leather conditioning & full steam', 'Pet hair & trim restoration', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)'],
+    included: {
+      interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Stains (spot treatment)', 'Full carpet shampoo', 'Seat shampoo', 'Leather conditioning', 'Full steam cleaning', 'Pet hair removal', 'Trim restoration', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
+      exterior: ['Professional hand wash', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Detail rims', 'Wheel wells', 'Detail tires']
+    },
     pricing: { small:499, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine'] // trim restoration included
@@ -1676,6 +1709,33 @@ function selectPackage(key) {
   setTimeout(() => goToStep(5), 220);
 }
 
+// Grouped Interior/Exterior "what's included" list (Full Detail). When `expandable`,
+// a majority shows by default and "See more" reveals the rest.
+function includedGroupsHtml(cfg, expandable) {
+  const PREVIEW = { interior: 4, exterior: 3 };
+  const group = (label, items) => {
+    const key = label.toLowerCase();
+    const lis = items.map((it, i) => {
+      const hide = expandable && i >= PREVIEW[key];
+      return `<li${hide ? ' class="tinc-hide"' : ''}>${it}</li>`;
+    }).join('');
+    return `<div class="tinc-head">${label}</div><ul class="tinc-list">${lis}</ul>`;
+  };
+  const hiddenCount = expandable
+    ? Math.max(0, cfg.included.interior.length - PREVIEW.interior) + Math.max(0, cfg.included.exterior.length - PREVIEW.exterior)
+    : 0;
+  let html = `<div class="tinc">${group('Interior', cfg.included.interior)}${group('Exterior', cfg.included.exterior)}`;
+  if (hiddenCount > 0) html += `<button type="button" class="tinc-more" onclick="event.stopPropagation(); toggleIncluded(this)">See more</button>`;
+  html += `</div>`;
+  return html;
+}
+
+function toggleIncluded(btn) {
+  const wrap = btn.closest('.tinc');
+  const expanded = wrap.classList.toggle('expanded');
+  btn.textContent = expanded ? 'See less' : 'See more';
+}
+
 // ── Step 5: Tiers ──
 function renderTiers() {
   const tiers = PACKAGE_TIERS[state.packageType] || [];
@@ -1695,9 +1755,9 @@ function renderTiers() {
       <div class="tier-badge ${info.badge}">Level ${i + 1}</div>
       <div class="tier-name">${cfg?.label}</div>
       <div class="tier-tagline">${info.tagline}</div>
-      <ul class="tier-bullets">
-        ${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}
-      </ul>
+      ${cfg?.included
+        ? includedGroupsHtml(cfg, true)
+        : `<ul class="tier-bullets">${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}</ul>`}
       ${tier === 'maintenance' ? `<div class="tier-note">Only for new, recently detailed, and/or very well maintained cars.</div>` : ''}
       <div class="tier-price">${custom ? 'Custom' : '$'+price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
     </div>
@@ -1760,7 +1820,9 @@ function renderPackageDetail() {
     <div class="pkg-detail-desc">${cfg.description}</div>
     <div class="pkg-includes">
       <div class="pkg-includes-title">What's Included</div>
-      <ul>${cfg.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+      ${cfg.included
+        ? includedGroupsHtml(cfg, false)
+        : `<ul>${cfg.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>`}
     </div>
   `;
 
