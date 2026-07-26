@@ -36,4 +36,4 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': type, 'Content-Length': stat.size, 'Accept-Ranges': 'bytes', 'Cache-Control': 'no-store' });
     fs.createReadStream(filePath).pipe(res);
   });
-}).listen(PORT, '127.0.0.1', () => console.log('Preview server on http://localhost:' + PORT));
+}).listen(PORT, () => console.log('Preview server on http://localhost:' + PORT));

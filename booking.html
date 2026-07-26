@@ -168,6 +168,12 @@
       color: var(--red); font-size: .85rem; display: none;
     }
     .area-error.show { display: block; }
+    .travel-notice {
+      margin-top: 1rem; padding: .75rem 1rem; border-radius: 10px;
+      background: var(--gold-dim); border: 1px solid rgba(181,117,26,.35);
+      color: var(--gold); font-size: .85rem; font-weight: 600; line-height: 1.4; display: none;
+    }
+    .travel-notice.show { display: block; }
 
     /* next float */
     #next1-btn {
@@ -288,18 +294,14 @@
     }
     .vehicle-svg { width: 100%; height: 80px; }
     .vehicle-img {
-      width: 100%; height: 90px; object-fit: contain; object-position: center center;
+      width: 100%; height: 88px; object-fit: contain; object-position: center center;
       mix-blend-mode: multiply; display: block;
-      transform: scale(1.1); transform-origin: center center;
+      transform: none; transform-origin: center center;
     }
-    .vehicle-img-small {
-      transform: scale(1.6); transform-origin: center center;
-    }
-    .vehicle-img-van {
-      transform: scale(3.0); transform-origin: center center;
-    }
+    .vehicle-img-small,
+    .vehicle-img-van,
     .vehicle-img-large {
-      transform: scale(1.2); transform-origin: center center;
+      transform: none;
     }
     .vehicle-label {
       font-family: var(--fh); font-weight: 700; font-size: .8rem;
@@ -814,6 +816,7 @@
       <div class="area-error" id="area-error">
         Sorry, we don't currently service that location. We serve Fort Collins, Loveland, Windsor, Timnath, Wellington, and surrounding areas within 30 miles of Timnath.
       </div>
+      <div class="travel-notice" id="travel-notice"></div>
     </div>
     <div id="next1-btn">
       <button class="btn-next" onclick="proceedToStep2()">Next</button>
@@ -1197,6 +1200,44 @@ const state = {
 let map, marker, autocomplete;
 const TIMNATH = { lat: 40.5272, lng: -104.9611 };
 
+// ── Service-area travel-fee tiers ──
+// Core area: no travel fee.
+const FREE_CITIES  = ['timnath','fort collins','loveland','windsor'];
+// $45 travel fee + a 1-hour driving buffer (30 min before + 30 min after) blocked around the job.
+const FEE45_CITIES = ['greeley','eaton','ault','wellington','laporte','la porte','johnstown','berthoud'];
+// $65 travel fee (Longmont is explicitly included; anything else within 30 miles also lands here).
+const FEE65_CITIES = ['longmont'];
+
+// Straight-line miles from Timnath.
+function milesFromTimnath(lat, lng) {
+  const R = 3958.8;
+  const dLat = (lat - TIMNATH.lat) * Math.PI / 180;
+  const dLng = (lng - TIMNATH.lng) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(TIMNATH.lat * Math.PI / 180) * Math.cos(lat * Math.PI / 180) *
+            Math.sin(dLng/2) * Math.sin(dLng/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Pull the city name out of a Google place / geocoder result.
+function extractCity(comps) {
+  comps = comps || [];
+  const get = t => comps.find(c => (c.types||[]).includes(t));
+  const c = get('locality') || get('sublocality') || get('administrative_area_level_3') || get('neighborhood');
+  return c ? (c.long_name || c.short_name || '') : '';
+}
+
+// Decide whether we service a location and what travel fee applies.
+function classifyLocation(city, lat, lng) {
+  const c = (city || '').toLowerCase().trim();
+  if (FREE_CITIES.includes(c))  return { serviced:true, fee:0,  buffer:false, tier:'free',  city };
+  if (FEE45_CITIES.includes(c)) return { serviced:true, fee:45, buffer:true,  tier:'fee45', city };
+  if (FEE65_CITIES.includes(c)) return { serviced:true, fee:65, buffer:false, tier:'fee65', city };
+  // Any other city within 30 miles: $65 travel fee.
+  if (milesFromTimnath(lat, lng) <= 30) return { serviced:true, fee:65, buffer:false, tier:'fee65', city };
+  return { serviced:false, fee:0, buffer:false, tier:'out', city };
+}
+
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: TIMNATH,
@@ -1232,7 +1273,7 @@ function initMap() {
       { lat: 40.9, lng: -104.6 }
     ),
     strictBounds: false,
-    fields: ['geometry', 'formatted_address']
+    fields: ['geometry', 'formatted_address', 'address_components']
   });
 
   autocomplete.addListener('place_changed', onPlaceSelected);
@@ -1245,7 +1286,7 @@ function initMap() {
       geocoder.geocode({ location: loc }, (results, status) => {
         if (status === 'OK' && results[0]) {
           document.getElementById('address-input').value = results[0].formatted_address;
-          handleAddressConfirmed(results[0].formatted_address, loc.lat, loc.lng);
+          handleAddressConfirmed(results[0].formatted_address, loc.lat, loc.lng, extractCity(results[0].address_components));
         }
       });
     });
@@ -1257,10 +1298,10 @@ async function onPlaceSelected() {
   if (!place.geometry) return;
   const lat = place.geometry.location.lat();
   const lng = place.geometry.location.lng();
-  handleAddressConfirmed(place.formatted_address, lat, lng);
+  handleAddressConfirmed(place.formatted_address, lat, lng, extractCity(place.address_components));
 }
 
-async function handleAddressConfirmed(formatted, lat, lng) {
+async function handleAddressConfirmed(formatted, lat, lng, city) {
   document.getElementById('area-error').classList.remove('show');
 
   // Drop pin
@@ -1277,28 +1318,35 @@ async function handleAddressConfirmed(formatted, lat, lng) {
   map.panTo({ lat, lng });
   map.setZoom(14);
 
-  // Check service area
-  const inArea = await checkServiceArea(lat, lng);
-  if (!inArea) {
+  // Classify service area + travel fee
+  const cls = classifyLocation(city, lat, lng);
+  if (!cls.serviced) {
     document.getElementById('area-error').classList.add('show');
     document.getElementById('next1-btn').classList.remove('show');
+    showTravelNotice(null);
+    state.address = null;
     return;
   }
 
-  state.address = { formatted, lat, lng };
+  state.address = {
+    formatted, lat, lng,
+    city: cls.city || city || '',
+    travelFee: cls.fee,
+    needsBuffer: cls.buffer,
+    feeTier: cls.tier
+  };
+  showTravelNotice(cls);
   document.getElementById('next1-btn').classList.add('show');
 }
 
-function checkServiceArea(lat, lng) {
-  // Haversine straight-line distance from Fort Collins center
-  const R = 3958.8; // Earth radius in miles
-  const dLat = (lat - TIMNATH.lat) * Math.PI / 180;
-  const dLng = (lng - TIMNATH.lng) * Math.PI / 180;
-  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(TIMNATH.lat * Math.PI / 180) * Math.cos(lat * Math.PI / 180) *
-            Math.sin(dLng/2) * Math.sin(dLng/2);
-  const miles = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return Promise.resolve(miles <= 30);
+// Little heads-up under the address field when a travel fee applies.
+function showTravelNotice(cls) {
+  const el = document.getElementById('travel-notice');
+  if (!el) return;
+  if (!cls || !cls.fee) { el.classList.remove('show'); el.textContent = ''; return; }
+  const where = cls.city ? cls.city : 'This location';
+  el.textContent = `Heads up: ${where} is outside our core service area, so a $${cls.fee} travel fee will be added to your booking.`;
+  el.classList.add('show');
 }
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1878,14 +1926,16 @@ function renderConfirmationTotals() {
   const promoSavings = state.promoDiscount > 0
     ? Math.round(afterMulti * state.promoDiscount)
     : Math.min(state.promoFlatAmount, afterMulti);
-  const total = afterMulti - promoSavings;
+  const travelFee = state.address?.travelFee || 0;
+  const total = afterMulti - promoSavings + travelFee;
   const hasDiscount = multiVehicle || state.promoDiscount > 0 || state.promoFlatAmount > 0;
+  const showBreakdown = hasDiscount || travelFee > 0;
 
   const block = document.getElementById('conf-totals-block');
 
   let html = '';
 
-  if (hasDiscount) {
+  if (showBreakdown) {
     html += `
       <div class="cart-subtotal" style="margin-bottom:.5rem;">
         <span class="cart-subtotal-label">Subtotal</span>
@@ -1916,7 +1966,16 @@ function renderConfirmationTotals() {
       </div>`;
   }
 
-  if (hasDiscount) {
+  if (travelFee > 0) {
+    const cityLabel = state.address?.city ? ` (${state.address.city})` : '';
+    html += `
+      <div class="cart-subtotal" style="margin-bottom:.5rem;">
+        <span class="cart-subtotal-label">Travel Fee${cityLabel}</span>
+        <span class="cart-subtotal-amount" style="color:var(--text);">+$${travelFee}</span>
+      </div>`;
+  }
+
+  if (showBreakdown) {
     html += `<div style="border-top:1px solid var(--border);margin:.75rem 0;"></div>`;
   }
 
@@ -1927,7 +1986,7 @@ function renderConfirmationTotals() {
     </div>
     <div class="cart-subtotal" style="margin-bottom:0;">
       <span class="cart-subtotal-label">Estimated Total</span>
-      <span class="cart-subtotal-amount" style="color:${hasDiscount ? 'var(--gold)' : 'var(--text)'};">$${total}</span>
+      <span class="cart-subtotal-amount" style="color:${showBreakdown ? 'var(--gold)' : 'var(--text)'};">$${total}</span>
     </div>`;
 
   block.innerHTML = html;
@@ -2002,7 +2061,8 @@ async function confirmBooking() {
   const promoSavings = state.promoDiscount > 0
     ? Math.round(afterMulti * state.promoDiscount)
     : Math.min(state.promoFlatAmount, afterMulti);
-  const finalTotal = afterMulti - promoSavings;
+  const travelFee = state.address?.travelFee || 0;
+  const finalTotal = afterMulti - promoSavings + travelFee;
 
   // Duration in minutes for a single cart item (base + addons)
   function itemDuration(item) {
@@ -2012,13 +2072,14 @@ async function confirmBooking() {
 
   // Pricing block appended to every appointment note
   let pricingNotes = '';
-  if (multiVehicle || state.promoCode) {
+  if (multiVehicle || state.promoCode || travelFee > 0) {
     pricingNotes += `\nPricing Summary:\nSubtotal: $${rawTotal}`;
     if (multiVehicle) pricingNotes += `\nMulti-Vehicle Discount (10%): -$${multiSavings}`;
     if (state.promoCode) {
       if (state.promoDiscount > 0) pricingNotes += `\nPromo Code (${state.promoCode}, ${Math.round(state.promoDiscount*100)}% off): -$${promoSavings}`;
       else pricingNotes += `\nPromo Code (${state.promoCode}, $${state.promoFlatAmount} off): -$${promoSavings}`;
     }
+    if (travelFee > 0) pricingNotes += `\nTravel Fee${state.address?.city ? ' ('+state.address.city+')' : ''}: +$${travelFee}`;
     pricingNotes += `\nTotal Due: $${finalTotal} (due in person)`;
   }
 
@@ -2036,8 +2097,15 @@ async function confirmBooking() {
         .filter(([,q]) => q > 0)
         .map(([k]) => ADDON_DEFS[k].id);
 
+      const addonNames = Object.keys(item.addons).filter(k=>item.addons[k]>0).map(k=>ADDON_DEFS[k].name).join(', ');
+
       let notes = `Service Address: ${state.address?.formatted}`;
+      if (state.address?.city) notes += `\nCity: ${state.address.city}`;
+      notes += `\nVehicle: ${item.vehicleLabel}`;
+      notes += `\nService: ${item.label}`;
+      if (addonNames) notes += `\nAdd-ons: ${addonNames}`;
       if (multiVehicle) notes += `\nVehicle ${i + 1} of ${state.cart.length}`;
+      if (state.address?.needsBuffer) notes += `\nDrive buffer: block 30 min before + 30 min after this job (travel time).`;
       notes += pricingNotes;
       if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
 
@@ -2050,6 +2118,23 @@ async function confirmBooking() {
         phone: state.phone,
         addonIDs,
         notes,
+        // Structured fields for the CRM (safely ignored by the Acuity proxy if unused).
+        booking: {
+          address: state.address?.formatted || '',
+          city: state.address?.city || '',
+          lat: state.address?.lat, lng: state.address?.lng,
+          travelFee: state.address?.travelFee || 0,
+          needsDriveBuffer: !!state.address?.needsBuffer,
+          driveBufferMins: state.address?.needsBuffer ? 30 : 0,
+          vehicle: item.vehicle,
+          vehicleLabel: item.vehicleLabel,
+          service: item.label,
+          serviceKey: item.serviceKey,
+          addons: addonNames,
+          price: item.price,
+          promoCode: state.promoCode || '',
+          orderTotal: finalTotal
+        },
         ...(i === 0 && state.promoCode && { couponCode: state.promoCode }),
       };
 
@@ -2077,22 +2162,30 @@ async function confirmBooking() {
     let discountParts = [];
     if (multiVehicle) discountParts.push('10% multi-vehicle');
     if (state.promoDiscount > 0) discountParts.push(`${Math.round(state.promoDiscount*100)}% promo`);
-    const totalLine = discountParts.length > 0
-      ? `Confirmation #${firstAcuityId} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
+    if (travelFee > 0) discountParts.push(`$${travelFee} travel fee`);
+    const totalLine = (discountParts.length > 0 || finalTotal !== rawTotal)
+      ? `Confirmation #${firstAcuityId} · Total: $${finalTotal}${discountParts.length ? ' ('+discountParts.join(' + ')+' applied' : ' (due in person'}, due in person)`
       : `Confirmation #${firstAcuityId} · Estimated Total: $${rawTotal} (due in person)`;
     document.getElementById('success-conf').textContent = totalLine;
     document.getElementById('success-screen').classList.add('show');
 
-    // Google Calendar link spanning entire multi-vehicle block
+    // Google Calendar link spanning entire multi-vehicle block.
+    // Fee-45 areas reserve a 30-min drive buffer on each side of the job.
+    const bufferMins = state.address?.needsBuffer ? 30 : 0;
     const totalMins = state.cart.reduce((s, item) => s + itemDuration(item), 0);
-    const startDt = new Date(state.selectedTime);
-    const endDt = new Date(startDt.getTime() + totalMins * 60000);
+    const startDt = new Date(new Date(state.selectedTime).getTime() - bufferMins * 60000);
+    const endDt = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000 + bufferMins * 60000);
     const fmt = d => d.toISOString().replace(/[-:]/g,'').slice(0,15);
     const calLabel = multiVehicle ? `Shine for a Cause — ${state.cart.length} Vehicles` : `Shine for a Cause — ${primary.label}`;
+    let calDetails = `Shine for a Cause Mobile Detailing\n(970) 851-6433\nshineforacause.com`;
+    calDetails += `\n\nService: ${multiVehicle ? state.cart.length + ' vehicles' : primary.label}`;
+    if (travelFee > 0) calDetails += `\nTravel fee: $${travelFee}${state.address?.city ? ' ('+state.address.city+')' : ''}`;
+    if (bufferMins) calDetails += `\nIncludes 30 min drive time before and after.`;
+    calDetails += `\nEstimated total: $${finalTotal} (due in person)`;
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
       + `&text=${encodeURIComponent(calLabel)}`
       + `&dates=${fmt(startDt)}/${fmt(endDt)}`
-      + `&details=${encodeURIComponent('Shine for a Cause Mobile Detailing\n(970) 851-6433\nshineforacause.com')}`
+      + `&details=${encodeURIComponent(calDetails)}`
       + `&location=${encodeURIComponent(state.address?.formatted||'')}`;
     const gcalBtn = document.getElementById('gcal-btn');
     if (gcalBtn) gcalBtn.href = gcalUrl;
@@ -2110,10 +2203,10 @@ async function confirmBooking() {
 // ═══════════════════════════════════════════════════════════════════
 function vehicleSVG(key) {
   const imgs = {
-    small: 'web.screenshots/Small car illistration.jpg',
-    mid:   'web.screenshots/Mid size illistration.png',
-    large: 'web.screenshots/Large illistration.webp',
-    van:   'web.screenshots/Van illistration.avif',
+    small: 'web.screenshots/vehicle-small.png',
+    mid:   'web.screenshots/vehicle-mid.png',
+    large: 'web.screenshots/vehicle-large.png',
+    van:   'web.screenshots/vehicle-van.png',
   };
   const extraClass = { small: 'vehicle-img-small', van: 'vehicle-img-van', large: 'vehicle-img-large' };
   if (imgs[key]) return `<img class="vehicle-img ${extraClass[key]||''}" src="${imgs[key]}" alt="${key}" />`;
