@@ -961,7 +961,7 @@
         </div>
       </div>
 
-      <!-- ── STEP 9: Your Details ── -->
+      <!-- ── STEP 9: Your Details + Review + Book ── -->
       <div class="step" data-step="9" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div class="step-title">Your Details</div>
@@ -984,17 +984,21 @@
               <label class="form-label">Phone Number</label>
               <input class="form-input" type="tel" id="f-phone" placeholder="(970) 555-0123" />
             </div>
+            <div class="form-field">
+              <label class="form-label">Comments for Your Detailer</label>
+              <textarea class="comment-field" id="f-comments" placeholder="Any notes? Gate codes, parking instructions, specific concerns..."></textarea>
+            </div>
           </div>
-        </div>
-        <div class="step-footer">
-          <button class="btn-cart" onclick="goToConfirmation()">Continue as Guest</button>
-        </div>
-      </div>
 
-      <!-- ── STEP 10: Confirmation ── -->
-      <div class="step" data-step="10" style="padding-bottom:0;">
-        <div style="flex:1; overflow-y:auto; padding:1.5rem;">
-          <div class="step-title">Confirm Your Booking</div>
+          <div class="step-title" style="margin-top:1.75rem;">Review &amp; Book</div>
+
+          <div class="confirm-section">
+            <div class="confirm-section-title">Date &amp; Time</div>
+            <div class="confirm-row">
+              <span class="confirm-label">Appointment</span>
+              <span class="confirm-value" id="conf-datetime">—</span>
+            </div>
+          </div>
 
           <div class="confirm-section">
             <div class="confirm-section-title">Location</div>
@@ -1004,37 +1008,9 @@
             </div>
           </div>
 
-          <div class="confirm-section" id="conf-datetime-section">
-            <div class="confirm-section-title">Date &amp; Time</div>
-            <div class="confirm-row">
-              <span class="confirm-label">Appointment</span>
-              <span class="confirm-value" id="conf-datetime">—</span>
-            </div>
-          </div>
-
           <div class="confirm-section">
             <div class="confirm-section-title">Services</div>
             <div id="conf-services"></div>
-          </div>
-
-          <div class="confirm-section">
-            <div class="confirm-section-title">Your Details</div>
-            <div class="confirm-row">
-              <span class="confirm-label">Name</span>
-              <span class="confirm-value" id="conf-name">—</span>
-            </div>
-            <div class="confirm-row">
-              <span class="confirm-label">Email</span>
-              <span class="confirm-value" id="conf-email">—</span>
-            </div>
-            <div class="confirm-row">
-              <span class="confirm-label">Phone</span>
-              <span class="confirm-value" id="conf-phone">—</span>
-            </div>
-            <div class="confirm-row">
-              <span class="confirm-label"></span>
-              <button class="confirm-edit" onclick="goToStep(9)">Edit Details</button>
-            </div>
           </div>
 
           <div class="confirm-section">
@@ -1044,11 +1020,6 @@
               <button class="btn-apply" onclick="applyPromo()">Apply</button>
             </div>
             <div class="promo-msg" id="promo-msg"></div>
-          </div>
-
-          <div class="form-field" style="margin-bottom:1rem;">
-            <label class="form-label">Comments for Your Detailer</label>
-            <textarea class="comment-field" id="f-comments" placeholder="Any notes? Gate codes, parking instructions, specific concerns..."></textarea>
           </div>
 
           <div class="payment-note">
@@ -1596,8 +1567,7 @@ function renderStep(n) {
     case 6: renderPackageDetail(); break;
     case 7: renderCart(); break;
     case 8: renderCalendar(); break;
-    case 9: break; // static HTML (Your Details)
-    case 10: renderConfirmation(); break;
+    case 9: renderConfirmation(); break; // details form + review + book
   }
 }
 
@@ -1910,12 +1880,11 @@ function renderCart() {
   document.getElementById('cart-subtotal').textContent = cartSubtotalStr();
   // A carried quote skips the calendar and goes straight to contact details.
   const contBtn = document.getElementById('to-calendar-btn');
-  if (contBtn) contBtn.textContent = state.fromQuote ? 'Continue' : 'Select Date';
+  if (contBtn) contBtn.textContent = 'Select Date';
 }
 
 function cartContinue() {
-  if (state.fromQuote) goToStep(9);   // carried quote: skip the calendar, collect contact info
-  else goToStep(8);                   // normal booking: pick a date & time
+  goToStep(8);   // everyone picks a date & time next
 }
 
 function removeCartItem(i) {
@@ -2053,29 +2022,10 @@ function selectTime(isoTime, label) {
 }
 
 // ── Step 9: Confirmation ──
-function goToConfirmation() {
-  const email = document.getElementById('f-email').value.trim();
-  const first = document.getElementById('f-first').value.trim();
-  const last  = document.getElementById('f-last').value.trim();
-  const phone = document.getElementById('f-phone').value.trim();
-
-  if (!email || !first || !last || !phone) {
-    alert('Please fill in all fields.');
-    return;
-  }
-  state.email = email; state.firstName = first; state.lastName = last; state.phone = phone;
-  goToStep(10);
-}
 
 function renderConfirmation() {
   // Address
   document.getElementById('conf-address').textContent = state.address?.formatted || '';
-
-  // Carried quote: no live date is picked — this becomes a booking request.
-  const dtSection = document.getElementById('conf-datetime-section');
-  if (dtSection) dtSection.style.display = state.fromQuote ? 'none' : '';
-  const bookBtn = document.getElementById('book-btn');
-  if (bookBtn) bookBtn.textContent = state.fromQuote ? 'Request This Booking' : 'Book Now';
 
   // Date & Time
   if (state.selectedTime) {
@@ -2101,11 +2051,6 @@ function renderConfirmation() {
     </div>`;
   }).join('');
   renderConfirmationTotals();
-
-  // Details
-  document.getElementById('conf-name').textContent = `${state.firstName} ${state.lastName}`;
-  document.getElementById('conf-email').textContent = state.email;
-  document.getElementById('conf-phone').textContent = state.phone;
 }
 
 function renderConfirmationTotals() {
@@ -2377,14 +2322,24 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
 async function confirmBooking() {
   const btn = document.getElementById('book-btn');
   const errEl = document.getElementById('book-error');
+
+  // Validate the contact details (form is on this page)
+  const email = document.getElementById('f-email').value.trim();
+  const first = document.getElementById('f-first').value.trim();
+  const last  = document.getElementById('f-last').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  if (!email || !first || !last || !phone) {
+    errEl.textContent = 'Please fill in your name, email, and phone number.';
+    errEl.style.display = 'block';
+    return;
+  }
+  state.email = email; state.firstName = first; state.lastName = last; state.phone = phone;
+
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>';
   errEl.style.display = 'none';
 
   state.comments = document.getElementById('f-comments').value.trim();
-
-  // Carried quotes aren't live-scheduled, so they submit as a booking request instead.
-  if (state.fromQuote) { await submitQuoteRequest(); return; }
 
   const multiVehicle = state.cart.length > 1;
   const rawTotal = state.cart.reduce((s,i) => s + i.price, 0);
