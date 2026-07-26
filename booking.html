@@ -391,12 +391,14 @@
     .pkg-price-range { font-size: .75rem; color: var(--gold); font-weight: 600; margin-top: auto; }
 
     /* ── TIER CARDS ── */
-    .tier-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .tier-grid { display: flex; flex-direction: row; gap: .75rem; align-items: stretch; }
     .tier-card {
+      flex: 1 1 0; min-width: 0;
       background: var(--surface); border: 1.5px solid var(--border);
-      border-radius: 16px; padding: 1.5rem;
+      border-radius: 14px; padding: 1.1rem;
       cursor: pointer; transition: all .2s;
       position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
     }
     .tier-card:hover { border-color: var(--border2); background: var(--surface3); }
     .tier-card.selected {
@@ -413,23 +415,27 @@
     .tier-badge.step1 { background: rgba(100,160,255,.12); color: #7ab4ff; }
     .tier-badge.step2 { background: rgba(180,100,255,.12); color: #c47aff; }
     .tier-name {
-      font-family: var(--fh); font-weight: 800; font-size: 1.1rem;
-      margin-bottom: .5rem; color: var(--text);
+      font-family: var(--fh); font-weight: 800; font-size: 1rem;
+      margin-bottom: .35rem; color: var(--text);
     }
-    .tier-tagline { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+    .tier-tagline { font-size: .74rem; color: var(--muted); margin-bottom: .7rem; line-height: 1.45; }
     .tier-bullets {
-      display: flex; flex-direction: column; gap: .3rem;
-      list-style: none; margin-bottom: 1rem;
+      display: flex; flex-direction: column; gap: .28rem;
+      list-style: none; margin-bottom: .8rem;
     }
     .tier-bullets li {
-      font-size: .78rem; color: var(--muted); display: flex; gap: .5rem; align-items: flex-start;
+      font-size: .74rem; color: var(--muted); display: flex; gap: .45rem; align-items: flex-start; line-height: 1.35;
     }
     .tier-bullets li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
     .tier-price {
-      font-family: var(--fh); font-weight: 800; font-size: 1.4rem;
-      color: var(--gold);
+      font-family: var(--fh); font-weight: 800; font-size: 1.25rem;
+      color: var(--gold); margin-top: auto;
     }
-    .tier-price span { font-size: .8rem; color: var(--muted); font-weight: 400; }
+    .tier-price span { font-size: .74rem; color: var(--muted); font-weight: 400; }
+    .tier-note {
+      margin-top: .7rem; padding-top: .6rem; border-top: 1px solid var(--border);
+      font-size: .68rem; line-height: 1.4; color: var(--muted2);
+    }
 
     /* ── PACKAGE DETAIL (Step 5) ── */
     .pkg-detail-header {
@@ -802,8 +808,8 @@
       .pkg-desc     { font-size: .68rem; }
       .pkg-price-range { font-size: .68rem; }
 
-      /* tier cards */
-      .tier-grid { gap: .6rem; }
+      /* tier cards — stack on mobile */
+      .tier-grid { flex-direction: column; gap: .6rem; }
       .tier-card { padding: .9rem 1rem; border-radius: 12px; }
       .tier-badge { margin-bottom: .45rem; }
       .tier-name  { font-size: .95rem; margin-bottom: .3rem; }
@@ -1642,14 +1648,12 @@ function selectVehicle(key) {
 function renderPackageTypes() {
   const grid = document.getElementById('package-grid');
   grid.innerHTML = PACKAGE_TYPES.filter(p => p.key !== 'paint').map(p => {
-    const prices = getPriceRange(p.key);
     return `
     <div class="package-card ${state.packageType===p.key?'selected':''}" onclick="selectPackage('${p.key}')">
       ${packageIllus(p.key)}
       <div class="pkg-card-body">
         <div class="pkg-label">${p.label}</div>
         <div class="pkg-desc">${p.desc}</div>
-        <div class="pkg-price-range">${prices}</div>
       </div>
     </div>
   `}).join('');
@@ -1723,6 +1727,7 @@ function renderTiers() {
         ${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}
       </ul>
       <div class="tier-price">${custom ? 'Custom' : '$'+price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
+      ${tier === 'maintenance' ? `<div class="tier-note">Only for new, recently detailed, and/or very well maintained cars.</div>` : ''}
     </div>
   `}).join('');
 }
