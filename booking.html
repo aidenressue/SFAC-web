@@ -81,12 +81,12 @@
     /* ── NAV ── */
     .booking-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: 64px; padding: 0 2rem;
+      height: 96px; padding: 0 2rem;
       display: flex; align-items: center; justify-content: space-between;
       background: #F4F1EC;
       border-bottom: 1px solid var(--border);
     }
-    .booking-nav img { height: 52px; width: auto; display: block; }
+    .booking-nav img { height: 84px; width: auto; display: block; }
     .nav-logo { display: block; line-height: 0; }
     .nav-phone {
       color: var(--text); font-family: var(--fh); font-size: .9rem;
@@ -99,7 +99,7 @@
 
     /* ── MAIN LAYOUT ── */
     #booking-app {
-      position: fixed; inset: 0; top: 64px;
+      position: fixed; inset: 0; top: 96px;
       display: flex;
     }
 
@@ -796,6 +796,10 @@
     /* ── MOBILE ── */
     @media (max-width: 768px) {
       :root { --panel-w: 100%; }
+
+      .booking-nav { height: 76px; padding: 0 1.1rem; }
+      .booking-nav img { height: 62px; }
+      #booking-app { top: 76px; }
 
       /* map takes top 22%, panel fills the rest — smaller map = more content visible */
       #map.split { right: 0; height: 22vh; bottom: auto; top: 0; }
@@ -1934,7 +1938,10 @@ function addCeramicToCart() {
   state.ceramicPrep = null;
   state.addons = {};
 
-  state.stepHistory.push(7);
+  // Back from the cart returns to the service step (selection state was reset),
+  // never into a now-empty selection step.
+  state.stepHistory = [1, 2, 7];
+  saveBookingProgress();
   goToStep(7);
 }
 
@@ -2083,7 +2090,10 @@ function addToCart() {
   state.tier = null;
   state.addons = {};
 
-  state.stepHistory.push(7);
+  // Back from the cart returns to the service step (selection state was reset),
+  // never into a now-empty selection step.
+  state.stepHistory = [1, 2, 7];
+  saveBookingProgress();
   goToStep(7);
 }
 
@@ -2125,11 +2135,40 @@ function cartContinue() {
 
 function removeCartItem(i) {
   state.cart.splice(i, 1);
+  saveBookingProgress();
   if (state.cart.length === 0) {
     addAnotherVehicle();
   } else {
     renderCart();
   }
+}
+
+// ── Save / restore an in-progress cart so it survives leaving and returning ──
+function saveBookingProgress() {
+  try {
+    if (!state.cart.length || !state.address) { localStorage.removeItem('sfac_booking_cart'); return; }
+    localStorage.setItem('sfac_booking_cart', JSON.stringify({
+      cart: state.cart, address: state.address,
+      promoCode: state.promoCode || '', ts: Date.now()
+    }));
+  } catch (e) {}
+}
+function clearBookingProgress() { try { localStorage.removeItem('sfac_booking_cart'); } catch (e) {} }
+function restoreBookingProgress() {
+  let raw; try { raw = localStorage.getItem('sfac_booking_cart'); } catch (e) { return false; }
+  if (!raw) return false;
+  let data; try { data = JSON.parse(raw); } catch (e) { return false; }
+  if (!data || !Array.isArray(data.cart) || !data.cart.length || !data.address) return false;
+  state.cart = data.cart;
+  state.address = data.address;
+  if (data.promoCode) state.promoCode = data.promoCode;
+  // Open straight to the cart (address already saved)
+  document.getElementById('map').classList.add('split');
+  document.getElementById('step1-overlay').classList.add('hidden');
+  document.getElementById('steps-panel').classList.add('open');
+  state.stepHistory = [1, 2];
+  goToStep(7);
+  return true;
 }
 
 // ── Step 7: Calendar ──
@@ -2460,6 +2499,7 @@ async function submitQuoteRequest() {
     });
     if (!resp.ok && resp.status !== 201) throw new Error('Something went wrong. Please call or text us at (970) 851-6433.');
     try { localStorage.removeItem('sfac_quote'); } catch (e) {}
+    clearBookingProgress();
 
     const titleEl = document.querySelector('.success-title');
     if (titleEl) titleEl.textContent = 'Request Received!';
@@ -2525,6 +2565,7 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
   });
   if (!resp.ok && resp.status !== 201) throw new Error('Something went wrong. Please call or text us at (970) 851-6433.');
   try { localStorage.removeItem('sfac_quote'); } catch (e) {}
+  clearBookingProgress();
 
   // Success screen
   const titleEl = document.querySelector('.success-title'); if (titleEl) titleEl.textContent = "You're Booked!";
@@ -3013,8 +3054,8 @@ function packageIcon(key) {
   return icons[key] || icons.full;
 }
 
-// Pull in a quote carried over from the quote builder (if any) on page load.
-loadCarriedQuote();
+// On load: restore an in-progress cart if there is one; otherwise pull in a carried quote.
+if (!restoreBookingProgress()) loadCarriedQuote();
 </script>
 
 <!-- Google Maps API -->
