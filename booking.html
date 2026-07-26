@@ -414,6 +414,15 @@
     .tier-badge.executive { background: rgba(212,168,81,.2); color: var(--gold-soft); }
     .tier-badge.step1 { background: rgba(100,160,255,.12); color: #7ab4ff; }
     .tier-badge.step2 { background: rgba(180,100,255,.12); color: #c47aff; }
+    .tier-img {
+      width: 100%; height: 116px; margin-bottom: .85rem;
+      overflow: hidden; border-radius: 10px; background: var(--surface3);
+    }
+    .tier-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tier-cond {
+      font-family: var(--fh); font-size: .64rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--gold); margin: 0 0 .35rem;
+    }
     .tier-name {
       font-family: var(--fh); font-weight: 800; font-size: 1rem;
       margin-bottom: .35rem; color: var(--text);
@@ -1228,6 +1237,7 @@ const SERVICE_CONFIGS = {
   },
   'paint-polish': {
     label: 'Polish', packageType: 'paint', tier: 'polish',
+    img: 'web.screenshots/pc-guide-faded-new.jpg', condition: 'Lightly faded paint',
     description: 'A single machine polish stage that restores gloss to your paint and removes up to 10% of light scratches and swirls. It brings back depth and clarity, and it makes the ideal prep before a ceramic coating.',
     bullets: ['Full wash & decontamination', 'Single-stage machine polish', 'Restores gloss, depth & clarity', 'Removes up to 10% of light swirls', 'Great refresh or ceramic prep'],
     pricing: { small:300, mid:350, large:400, van:500 },
@@ -1236,6 +1246,7 @@ const SERVICE_CONFIGS = {
   },
   'paint-1step': {
     label: '1-Step Correction', packageType: 'paint', tier: '1step',
+    img: 'web.screenshots/pc-guide-1step.jpg', condition: 'Scratches & swirls',
     description: 'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
     bullets: ['Full wash & decontamination', 'Single-stage machine correction', 'Removes 65 to 70% of scratches & swirls', 'Deep, reflective showroom gloss', 'Premium finish, sealed'],
     pricing: { small:610, mid:720, large:830, van:990 },
@@ -1244,6 +1255,7 @@ const SERVICE_CONFIGS = {
   },
   'paint-2step': {
     label: '2-Step Correction', packageType: 'paint', tier: '2step',
+    img: 'web.screenshots/pc-guide-swirls.jpg', condition: 'Deep defects',
     description: 'Our highest level of paint correction, with two full stages of compounding and polishing. They cut through even the deepest defects, leaving a showroom shine and paint that is about as close to perfect as it gets.',
     bullets: ['Full wash & decontamination', 'Two-stage compound cut + fine polish', 'Removes deep scratches & oxidation', 'Maximum gloss restoration', 'Premium finish, sealed'],
     pricing: { small:1000, mid:1150, large:1300, van:1500 },
@@ -1829,8 +1841,10 @@ function renderTiers() {
     const info = TIER_INFO[tier];
     return `
     <div class="tier-card ${state.tier===tier?'selected':''}" onclick="selectTier('${tier}')">
+      ${cfg?.img ? `<div class="tier-img"><img src="${cfg.img}" alt="${cfg.condition||cfg.label}" loading="lazy" /></div>` : ''}
       <div class="tier-badge ${info.badge}">Level ${i + 1}</div>
       <div class="tier-name">${cfg?.label}</div>
+      ${cfg?.condition ? `<div class="tier-cond">For ${cfg.condition.toLowerCase()}</div>` : ''}
       <div class="tier-tagline">${info.tagline}</div>
       ${cfg?.included
         ? includedGroupsHtml(cfg, true)
