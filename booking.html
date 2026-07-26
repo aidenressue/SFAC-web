@@ -361,11 +361,10 @@
       mix-blend-mode: multiply;
       border-radius: 12px 12px 0 0;
     }
-    /* Package photos (interior/exterior/full) — same images as the live site */
-    .pkg-photo {
-      width: 100%; height: 132px; display: block;
-      object-fit: cover; object-position: center 60%;
-      border-radius: 10px;
+    /* Package illustrations (Interior Only / Exterior Only / Inside & Out) */
+    .pkg-illus-img {
+      width: 100%; height: 128px; display: block;
+      object-fit: contain; object-position: center;
     }
     .pkg-icon {
       width: 100%;
@@ -795,7 +794,7 @@
       .package-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
       .package-card { border-radius: 10px; }
       .pkg-car-img  { height: 75px; }
-      .pkg-photo    { height: 92px; }
+      .pkg-illus-img { height: 96px; }
       .pkg-icon     { height: 75px; }
       .pkg-icon svg { width: 48px; height: 48px; }
       .pkg-card-body { padding: .55rem .7rem .65rem; }
@@ -1114,7 +1113,7 @@ const SERVICE_CONFIGS = {
     label: 'Express Exterior', packageType: 'exterior', tier: 'express',
     description: 'A thorough outside clean that leaves your paint gleaming and your wheels spotless.',
     bullets: ['Hand wash & dry', 'Tire dressing & rim clean', 'Window & mirror polish', 'Door jambs wiped down', 'Paint sealant & wax protection'],
-    pricing: { small:90, mid:100, large:110, van:140 },
+    pricing: { small:80, mid:90, large:100, van:125 },
     acuityIds: { small:91811065, mid:91812053, large:91812249, van:91812273 },
     addons: ['headlight','engine','trim']
   },
@@ -1122,7 +1121,7 @@ const SERVICE_CONFIGS = {
     label: 'Express Interior', packageType: 'interior', tier: 'express',
     description: 'A focused interior refresh to clear clutter, odors, and dust — in and out fast.',
     bullets: ['Full vacuum (seats, carpets, trunk)', 'Wipe all surfaces & dash', 'Clean floor mats', 'Interior windows & mirrors', 'Door panels & cupholder clean'],
-    pricing: { small:165, mid:190, large:210, van:250 },
+    pricing: { small:149, mid:170, large:190, van:225 },
     acuityIds: { small:91812297, mid:91812447, large:91812550, van:91812687 },
     addons: ['petHair']
   },
@@ -1130,7 +1129,7 @@ const SERVICE_CONFIGS = {
     label: 'Express Full Detail', packageType: 'full', tier: 'express',
     description: 'The complete package — a full interior refresh combined with a spotless exterior clean.',
     bullets: ['Everything in Express Interior', 'Everything in Express Exterior', 'Complete vehicle refresh in one visit'],
-    pricing: { small:220, mid:250, large:275, van:300 },
+    pricing: { small:199, mid:225, large:250, van:275 },
     acuityIds: { small:91812717, mid:91812748, large:91812775, van:91812792 },
     addons: ['headlight','engine','petHair','trim']
   },
@@ -1138,7 +1137,7 @@ const SERVICE_CONFIGS = {
     label: 'Executive Exterior', packageType: 'exterior', tier: 'executive',
     description: 'A premium paint care experience with deep decontamination, machine polish, and a show-quality finish.',
     bullets: ['Clay bar decontamination', 'Single-stage machine polish', 'Ceramic-grade paint sealant', 'Tire & wheel deep clean', 'Window & trim dressing'],
-    pricing: { small:140, mid:165, large:195, van:250 },
+    pricing: { small:125, mid:150, large:175, van:225 },
     acuityIds: { small:91815363, mid:91815382, large:91815395, van:91815404 },
     addons: ['headlight','engine','trim']
   },
@@ -1146,7 +1145,7 @@ const SERVICE_CONFIGS = {
     label: 'Executive Interior', packageType: 'interior', tier: 'executive',
     description: 'A meticulous, showroom-quality interior restoration. Every surface cleaned, conditioned, and protected.',
     bullets: ['Deep extraction & steam cleaning', 'Leather & vinyl conditioning', 'Pet hair removal (included)', 'Interior trim dressing'],
-    pricing: { small:330, mid:360, large:385, van:440 },
+    pricing: { small:299, mid:325, large:350, van:400 },
     acuityIds: { small:91813164, mid:91813181, large:91813208, van:91813231 },
     addons: [] // pet hair included
   },
@@ -1154,7 +1153,7 @@ const SERVICE_CONFIGS = {
     label: 'Executive Full Detail', packageType: 'full', tier: 'executive',
     description: 'Our flagship service — a full-day transformation combining Executive Interior and Exterior with premium paint correction.',
     bullets: ['Everything in Executive Interior', 'Everything in Executive Exterior', 'Pet hair removal (included)', 'Complete protection package'],
-    pricing: { small:440, mid:470, large:500, van:550 },
+    pricing: { small:399, mid:425, large:450, van:500 },
     acuityIds: { small:91812844, mid:91812881, large:91812988, van:91813125 },
     addons: ['headlight','engine','trim'] // no pet hair (included)
   },
@@ -1634,14 +1633,14 @@ function renderPackageTypes() {
 }
 
 function packageIllus(key) {
-  // Same package photos as the live site (Express Interior / Exterior / Full).
+  // Same little-car illustrations as the live booking page.
   const imgs = {
-    interior: 'web.screenshots/pkg-interior.avif',
-    exterior: 'web.screenshots/pkg-exterior.webp',
-    full:     'web.screenshots/pkg-full.webp',
+    interior: 'web.screenshots/813e921e-de36-4ec4-a308-9594dcdd3285.png', // Interior Only
+    exterior: 'web.screenshots/EXT.png',                                   // Exterior Only
+    full:     'web.screenshots/inside-and-out.png',                        // Inside & Out
   };
   const src = imgs[key];
-  if (src) return `<div class="pkg-illus"><img class="pkg-photo" src="${src}" alt="${key}" /></div>`;
+  if (src) return `<div class="pkg-illus"><img class="pkg-illus-img" src="${src}" alt="${key}" /></div>`;
   return `<div class="pkg-illus"></div>`;
 }
 
