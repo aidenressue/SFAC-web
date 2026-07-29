@@ -11,7 +11,7 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book Mobile Auto Detailing Online | Fort Collins, Loveland, Greeley | Shine for a Cause</title>
+  <title>Book Mobile Auto Detailing Online | Book in Fort Collins, Loveland, Timnath, Windsor, Greeley, Wellington, Berthoud & Longmont | Shine for a Cause</title>
   <meta name="description" content="Book your mobile auto detail online in seconds. Serving Fort Collins, Loveland, Greeley, Windsor &amp; all of Northern Colorado. Express, Executive, paint correction &amp; ceramic coating — we come to you. Every booking supports local recovery." />
   <meta name="keywords" content="book mobile auto detail Fort Collins, schedule car detailing Northern Colorado, online booking auto detailing Loveland, mobile detailing appointment Greeley, book ceramic coating Fort Collins, car wash appointment Northern Colorado" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
@@ -682,6 +682,10 @@
     .time-slot:hover { border-color: var(--gold); background: var(--gold-dim); }
     .time-slot.selected { border-color: var(--gold); background: var(--gold); color: #fff; }
     .no-slots { font-size: .82rem; color: var(--muted); text-align: center; padding: 1rem; }
+    .time-slots-msg {
+      grid-column: 1 / -1; font-size: .82rem; color: var(--muted);
+      text-align: center; padding: 1rem; margin: 0;
+    }
 
     /* ── YOUR DETAILS (Step 8) ── */
     .details-form { display: flex; flex-direction: column; gap: 1rem; flex: 1; }
@@ -1154,6 +1158,9 @@ const PACKAGE_TYPES = [
   { key: 'full',        label: 'Full Detail',       desc: 'Complete inside & out treatment',             color: '#D4A851' },
   { key: 'paint',       label: 'Paint Correction',  desc: 'Machine polish to restore gloss & fix swirls', color: '#D4A851' }
 ];
+
+// The CRM. Source of truth for availability, time slots, and bookings.
+const CRM_API = 'https://sfac-mu.vercel.app';
 
 const SERVICE_CONFIGS = {
   // ── Full Detail: Maintenance / Reset / Executive (set price applies to all sizes; add mid/large/van to charge more) ──
@@ -2282,33 +2289,59 @@ function renderCalendarGrid() {
   grid.innerHTML = html;
 }
 
+// Total hands-on minutes across EVERY vehicle in the cart. No gap between them:
+// they are back to back at the same address.
+function cartTotalMinutes() {
+  return state.cart.reduce((s, item) => s + itemDurationOf(item), 0);
+}
+
+// Drive/pack time reserved BEFORE the first vehicle and AFTER the last one only.
+function cartBufferMinutes() {
+  return state.address?.needsBuffer ? 30 : 0;
+}
+
 async function fetchAvailableDates() {
-  // Fully open calendar: every current-or-future date is bookable.
-  // Work hours and blocked times will come from the CRM later.
   const m = state.calMonth;
+  const monthParam = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
   const now = new Date();
   const todayStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
-  const daysInMonth = new Date(m.getFullYear(), m.getMonth()+1, 0).getDate();
-  const dates = [];
-  for (let d = 1; d <= daysInMonth; d++) {
-    const ds = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-    if (ds >= todayStr) dates.push(ds);
+
+  try {
+    // Real availability from the CRM: working days, blocked dates, and the daily
+    // job cap, all counted against actual bookings.
+    const resp = await fetch(`${CRM_API}/api/book/availability?month=${monthParam}`, { cache: 'no-store' });
+    if (!resp.ok) throw new Error('availability lookup failed');
+    const data = await resp.json();
+    state.availableDates = (data.available || []).filter(ds => ds >= todayStr);
+  } catch (e) {
+    // If the CRM cannot be reached, show nothing rather than every date. Offering
+    // a day we cannot verify is what causes a double booking.
+    console.error('[booking] availability unavailable:', e);
+    state.availableDates = [];
+    state.availabilityError = true;
   }
-  state.availableDates = dates;
   renderCalendarGrid();
 }
 
 // Open time slots for a date: 8:00 AM to 6:00 PM, every 30 minutes.
-function openTimeSlots(dateStr) {
-  const slots = [];
-  for (let mins = 8*60; mins <= 18*60; mins += 30) {
-    const h = Math.floor(mins/60), mm = mins%60;
-    const HH = String(h).padStart(2,'0'), MM = String(mm).padStart(2,'0');
+// Times the CRM says this visit actually fits into, given everything already
+// booked that day plus the drive time either side of each job.
+async function openTimeSlots(dateStr) {
+  const duration = cartTotalMinutes();
+  const buffer   = cartBufferMinutes();
+  const url = `${CRM_API}/api/book/slots?date=${dateStr}&duration=${duration}&buffer=${buffer}`;
+
+  const resp = await fetch(url, { cache: 'no-store' });
+  if (!resp.ok) throw new Error('slot lookup failed');
+  const data = await resp.json();
+
+  return (data.slots || []).map(t => {
+    const [HH, MM] = t.split(':');
+    const h = Number(HH);
     const hr12 = ((h + 11) % 12) + 1;
     const ampm = h < 12 ? 'AM' : 'PM';
-    slots.push({ iso: `${dateStr}T${HH}:${MM}:00`, label: `${hr12}:${MM} ${ampm}` });
-  }
-  return slots;
+    return { iso: `${dateStr}T${HH}:${MM}:00`, label: `${hr12}:${MM} ${ampm}` };
+  });
 }
 
 function changeMonth(delta) {
@@ -2323,7 +2356,7 @@ function changeMonth(delta) {
   fetchAvailableDates();
 }
 
-function selectDate(dateStr) {
+async function selectDate(dateStr) {
   state.selectedDate = dateStr;
   state.selectedTime = null;
   document.getElementById('to-details-btn').disabled = true;
@@ -2332,9 +2365,21 @@ function selectDate(dateStr) {
   const timesEl = document.getElementById('time-slots-grid');
   const section = document.getElementById('time-slots-section');
   section.style.display = 'block';
-  timesEl.innerHTML = openTimeSlots(dateStr).map(s =>
-    `<div class="time-slot ${state.selectedTime===s.iso?'selected':''}" onclick="selectTime('${s.iso}', '${s.label}')">${s.label}</div>`
-  ).join('');
+  timesEl.innerHTML = '<p class="time-slots-msg">Checking what is open…</p>';
+
+  try {
+    const slots = await openTimeSlots(dateStr);
+    if (slots.length === 0) {
+      timesEl.innerHTML = '<p class="time-slots-msg">No openings long enough for this booking on this day. Please pick another date.</p>';
+      return;
+    }
+    timesEl.innerHTML = slots.map(s =>
+      `<div class="time-slot ${state.selectedTime===s.iso?'selected':''}" onclick="selectTime('${s.iso}', '${s.label}')">${s.label}</div>`
+    ).join('');
+  } catch (e) {
+    console.error('[booking] slots unavailable:', e);
+    timesEl.innerHTML = '<p class="time-slots-msg">Could not load times right now. Please call or text (970) 851-6433.</p>';
+  }
 }
 
 function selectTime(isoTime, label) {
@@ -2586,31 +2631,42 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
   if (state.address?.needsBuffer) notes += `\nDrive buffer: 30 min each side`;
   if (state.comments) notes += `\nNotes: ${state.comments}`;
 
+  // One visit = one booking, however many vehicles. `duration` is the sum of
+  // every vehicle with no gap between them; the buffer is reserved only before
+  // the first and after the last.
+  const [datePart, timePart] = state.selectedTime.split('T');
+
   const payload = {
-    full_name: `${state.firstName} ${state.lastName}`.trim(),
-    phone: state.phone, email: state.email,
-    address: state.address?.formatted || '',
-    service: svcSummary, vehicle: primary?.vehicleLabel || '',
-    platform: 'WEB', notes,
-    booking: {
-      requestType: 'booking',
-      datetime: state.selectedTime,
-      endEstimate: new Date(new Date(state.selectedTime).getTime() + totalMins * 60000).toISOString(),
-      address: state.address?.formatted || '', city: state.address?.city || '',
-      lat: state.address?.lat, lng: state.address?.lng,
-      travelFee, needsDriveBuffer: !!state.address?.needsBuffer, driveBufferMins: bufferMins,
-      promoCode: state.promoCode || '', orderTotal: finalTotal, hasCustom: cartHasCustom(),
-      items: state.cart.map(it => ({
-        service: it.label, serviceKey: it.serviceKey, vehicle: it.vehicle, vehicleLabel: it.vehicleLabel,
-        addons: Object.keys(it.addons).filter(k => it.addons[k] > 0).map(k => ADDON_DEFS[k].name),
-        price: it.custom ? null : it.price, custom: !!it.custom
-      }))
-    }
+    serviceId:   primary?.serviceKey || '',
+    serviceName: svcSummary,
+    vehicleSize: primary?.vehicle || '',
+    date:        datePart,
+    time:        timePart.slice(0, 5),
+    firstName:   state.firstName,
+    lastName:    state.lastName,
+    phone:       state.phone,
+    email:       state.email,
+    address:     state.address?.formatted || '',
+    vehicleMake: primary?.vehicleLabel || '',
+    notes,
+    promoCode:   state.promoCode || '',
+    discount:    Math.max(0, rawTotal - finalTotal),
+    price:       rawTotal,
+    total:       finalTotal,
+    duration:      totalMins,
+    bufferBefore:  bufferMins,
+    bufferAfter:   bufferMins,
+    vehicleCount:  state.cart.length,
   };
 
-  const resp = await fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
+  const resp = await fetch(`${CRM_API}/api/book/create`, {
     method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
   });
+  if (resp.status === 409) {
+    // The CRM refused because the slot collides with an existing visit or its
+    // drive time. Send them back to the calendar rather than failing silently.
+    throw new Error('Sorry, that time was just taken. Please pick another time.');
+  }
   if (!resp.ok && resp.status !== 201) throw new Error('Something went wrong. Please call or text us at (970) 851-6433.');
   try { localStorage.removeItem('sfac_quote'); } catch (e) {}
   clearBookingProgress();
