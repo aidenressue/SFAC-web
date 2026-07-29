@@ -355,9 +355,9 @@
         <div class="qc-step" id="qc-step-pkg">
           <div class="qc-glabel"><span class="qc-num">2</span> Package</div>
           <div class="qc-grid">
-            <label class="qc-opt row" data-q="pkg" data-v="full"><img class="qc-thumb" src="web.screenshots/pkg-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Full Detail</div><div class="qc-desc">Complete interior and exterior in one appointment.</div></div><div class="qc-check"></div></label>
-            <label class="qc-opt row" data-q="pkg" data-v="exterior"><img class="qc-thumb" src="web.screenshots/pkg-ext-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Exterior Only</div><div class="qc-desc">Outside only. Wash, wheels, tires, paint and protection.</div></div><div class="qc-check"></div></label>
-            <label class="qc-opt row" data-q="pkg" data-v="interior"><img class="qc-thumb" src="web.screenshots/pkg-int-reset.jpg" alt="" loading="lazy" /><div class="qc-body"><div class="qc-name">Interior Only</div><div class="qc-desc">Inside only. Vacuum, all surfaces, windows and door panels.</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt row" data-q="pkg" data-v="full"><img class="qc-thumb" src="web.screenshots/pkg-reset.jpg" alt="Full detail package preview" loading="lazy" /><div class="qc-body"><div class="qc-name">Full Detail</div><div class="qc-desc">Complete interior and exterior in one appointment.</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt row" data-q="pkg" data-v="exterior"><img class="qc-thumb" src="web.screenshots/pkg-ext-reset.jpg" alt="Exterior detail package preview" loading="lazy" /><div class="qc-body"><div class="qc-name">Exterior Only</div><div class="qc-desc">Outside only. Wash, wheels, tires, paint and protection.</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt row" data-q="pkg" data-v="interior"><img class="qc-thumb" src="web.screenshots/pkg-int-reset.jpg" alt="Interior detail package preview" loading="lazy" /><div class="qc-body"><div class="qc-name">Interior Only</div><div class="qc-desc">Inside only. Vacuum, all surfaces, windows and door panels.</div></div><div class="qc-check"></div></label>
           </div>
           <div class="qc-nav"><button class="qc-back">&larr; Back</button><button class="qc-continue hide" data-qc-next>Continue &rarr;</button></div>
         </div>
@@ -596,7 +596,7 @@
       var grid = $('qc-tier-grid');
       grid.innerHTML = PACKAGES[st.pkg].levels.map(function (l) {
         return '<label class="qc-opt row" data-q="tier" data-v="' + l.v + '">' +
-          '<img class="qc-thumb" src="' + l.img + '" alt="" loading="lazy" />' +
+          '<img class="qc-thumb" src="' + l.img + '" alt="' + l.name + '" loading="lazy" />' +
           '<div class="qc-body"><div class="qc-name">' + l.name + '</div>' +
           '<div class="qc-desc">' + l.desc + '</div></div>' +
           '<div class="qc-check"></div></label>';
