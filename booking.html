@@ -2307,9 +2307,15 @@ async function fetchAvailableDates() {
   const todayStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
 
   try {
-    // Real availability from the CRM: working days, blocked dates, and the daily
-    // job cap, all counted against actual bookings.
-    const resp = await fetch(`${CRM_API}/api/book/availability?month=${monthParam}`, { cache: 'no-store' });
+    // Real availability from the CRM: working days, blocked dates, the daily job
+    // cap, existing bookings, and the owner's Google Calendar. The visit's length
+    // is sent so a long detail is not offered a day that only has a short gap.
+    const duration = cartTotalMinutes();
+    const buffer   = cartBufferMinutes();
+    const resp = await fetch(
+      `${CRM_API}/api/book/availability?month=${monthParam}&duration=${duration}&buffer=${buffer}`,
+      { cache: 'no-store' }
+    );
     if (!resp.ok) throw new Error('availability lookup failed');
     const data = await resp.json();
     state.availableDates = (data.available || []).filter(ds => ds >= todayStr);
