@@ -147,6 +147,8 @@
       border-radius: 6px;
       padding: 3px 8px;
     }
+    .invoice-note strong { color: var(--text); display: block; margin-bottom: 3px; }
+    .invoice-note a { color: var(--gold); font-weight: 600; }
     .invoice-note {
       font-size: 0.78rem;
       color: var(--sub);
@@ -179,18 +181,6 @@
     .paid-review:active { transform: scale(.97); }
     .paid-note { font-size: .7rem; color: var(--muted); margin-top: .7rem; }
 
-    .inspect-note {
-      background: rgba(201,151,58,.08);
-      border: 1px solid rgba(201,151,58,.35);
-      border-radius: 12px;
-      padding: 0.85rem 1rem;
-      font-size: 0.78rem;
-      line-height: 1.5;
-      color: var(--sub);
-      margin-bottom: 1.1rem;
-    }
-    .inspect-note strong { color: var(--text); display: block; margin-bottom: 2px; }
-    .inspect-note a { color: var(--gold); font-weight: 600; }
 
     .cash-note {
       text-align: center;
@@ -465,7 +455,9 @@
       <div class="invoice-amount" id="invoice-amount" style="display:none;"></div>
       <div id="invoice-num" style="display:none;"></div>
       <div class="invoice-note" id="invoice-note" style="display:none;">
-        Review our work before you pay — we want you to love it!
+        <strong>Please look over your vehicle before paying.</strong>
+        If anything is not right, text or call
+        <a href="tel:+19708516433">(970) 851-6433</a> and it gets put right before any money changes hands.
       </div>
     </div>
 
@@ -515,17 +507,11 @@
     <div class="paid-card" id="paid-card" style="display:none;">
       <div class="paid-check">&#10003;</div>
       <div class="paid-title" id="paid-title">Payment received</div>
-      <p class="paid-sub">Thank you! A receipt is on its way to your email.</p>
+      <p class="paid-sub">Your payment came through. A receipt is on its way to your email.</p>
       <a class="paid-review" href="#" id="paid-review" target="_blank" rel="noopener">
         Leave us a Google review
       </a>
       <p class="paid-note">It takes about thirty seconds and genuinely helps a small business.</p>
-    </div>
-
-    <div class="inspect-note" id="inspect-note">
-      <strong>Please look over your vehicle before paying.</strong>
-      If anything is not right, text or call
-      <a href="tel:+19708516433">(970) 851-6433</a> and it gets sorted before any money changes hands.
     </div>
 
     <div class="section-label">Choose how to pay</div>
@@ -624,24 +610,6 @@
       ping({ action: 'viewed', client_name: name, base_amount: amount, invoice_number: invoice });
     }
 
-    // ── Back from a successful card payment ──────────────────────────────
-    // Stripe redirects here with ?paid=1. Everything to do with paying is
-    // hidden — nobody should be able to pay twice — and the review ask replaces it.
-    if (p.get('paid') === '1') {
-      const pc = el('paid-card');
-      if (pc) {
-        pc.style.display = '';
-        el('paid-review').href = GOOGLE_REVIEW_URL;
-        if (name) el('paid-title').textContent = 'Thank you, ' + name.split(' ')[0] + '!';
-      }
-      ['inspect-note', 'tip-card'].forEach(id => { const e = el(id); if (e) e.style.display = 'none'; });
-      document.querySelectorAll('.pay-list, .section-label, .cash-note').forEach(e => e.style.display = 'none');
-      // Record it so the CRM knows they went through with it. `ping` already
-      // handles the lead id and no-ops when there isn't one.
-      ping({ status: 'paid', payment_method: 'card', invoice_number: invoice || null,
-             client_name: name || null, confirmed_at: new Date().toISOString() });
-    }
-
     // ── Populate invoice card ────────────────────────────────────────────
     if (name)    document.getElementById('invoice-for').textContent = 'Invoice for ' + name;
     if (amount > 0) {
@@ -722,11 +690,19 @@
 
       // Update handle subtitle on every button to show the amount
       if (total > 0) {
+        // Card shows the same total. Skipped while checkout is being set up so
+        // the progress message is not overwritten mid-request.
+        if (!el('btn-card').classList.contains('busy')) {
+          el('h-card').textContent = amtStr + ' · Secure checkout';
+        }
         el('h-venmo').textContent  = amtStr + ' · @ShineForACause';
         el('h-cash').textContent   = amtStr + ' · $ShineForACause';
         el('h-zelle').textContent  = amtStr + ' · (970) 851-6433';
         el('h-paypal').textContent = amtStr + ' · paypal.me/shineforacause';
       } else {
+        if (!el('btn-card').classList.contains('busy')) {
+          el('h-card').textContent = 'Secure checkout';
+        }
         el('h-venmo').textContent  = '@ShineForACause';
         el('h-cash').textContent   = '$ShineForACause';
         el('h-zelle').textContent  = '(970) 851-6433';
@@ -849,6 +825,23 @@
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ lead_id, ...data }),
       }).catch(() => {});
+    }
+
+    // ── Back from a successful card payment ──────────────────────────────
+    // Runs LAST, after the invoice and tip cards have been populated and shown,
+    // so nothing re-displays what this hides. Everything to do with paying goes
+    // away — nobody should be able to pay a second time.
+    if (p.get('paid') === '1') {
+      const pc = el('paid-card');
+      if (pc) {
+        pc.style.display = '';
+        el('paid-review').href = GOOGLE_REVIEW_URL;
+        if (name) el('paid-title').textContent = 'Thank you, ' + name.split(' ')[0] + '!';
+      }
+      ['tip-card', 'invoice-note'].forEach(id => { const e = el(id); if (e) e.style.display = 'none'; });
+      document.querySelectorAll('.pay-list, .section-label, .cash-note').forEach(e => { e.style.display = 'none'; });
+      ping({ status: 'paid', payment_method: 'card', invoice_number: invoice || null,
+             client_name: name || null, confirmed_at: new Date().toISOString() });
     }
 
     // Init
