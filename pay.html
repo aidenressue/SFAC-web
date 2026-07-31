@@ -840,8 +840,12 @@
       }
       ['tip-card', 'invoice-note'].forEach(id => { const e = el(id); if (e) e.style.display = 'none'; });
       document.querySelectorAll('.pay-list, .section-label, .cash-note').forEach(e => { e.style.display = 'none'; });
-      ping({ status: 'paid', payment_method: 'card', invoice_number: invoice || null,
-             client_name: name || null, confirmed_at: new Date().toISOString() });
+      // The CRM keys off `action`, not `status`. This used to send only
+      // { status: 'paid' }, which fell through to "unknown action" and a 400 —
+      // so a card payment was never recorded as paid. The timestamp is set
+      // server-side, where it cannot be faked by whatever opened this page.
+      ping({ action: 'paid', payment_method: 'card', invoice_number: invoice || null,
+             client_name: name || null });
     }
 
     // Init
