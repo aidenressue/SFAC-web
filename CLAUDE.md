@@ -1,54 +1,70 @@
-# CLAUDE.md — Frontend Website Rules
+# Shine for a Cause — Website (shineforacause.com)
 
-## Always Do First
-- **Invoke the `frontend-design` skill** before writing any frontend code, every session, no exceptions.
+Public marketing site. Plain HTML/CSS/JS, no framework. Deploys to Vercel on push.
 
-## Reference Images
-- If a reference image is provided: match layout, spacing, typography, and color exactly. Swap in placeholder content (images via `https://placehold.co/`, generic copy). Do not improve or add to the design.
-- If no reference image: design from scratch with high craft (see guardrails below).
-- Screenshot your output, compare against reference, fix mismatches, re-screenshot. Do at least 2 comparison rounds. Stop only when there is no visible differences remain or user says so.
+## Handling multi-part requests (required)
 
-## Local Server
-- **Always serve on localhost** — never screenshot a `file:///` URL.
-- Start the dev server: `node serve.mjs` (serves the project root at `http://localhost:3000`)
-- `serve.mjs` lives in the project root. Start it in the background before taking any screenshots.
-- If the server is already running, do not start a second instance.
+The user often sends one message containing many separate requests. Before doing anything:
 
-## Screenshot Workflow
-- Puppeteer is installed at `C:/Users/nateh/AppData/Local/Temp/puppeteer-test/`. Chrome cache is at `C:/Users/nateh/.cache/puppeteer/`.
-- **Always screenshot from localhost:** `node screenshot.mjs http://localhost:3000`
-- Screenshots are saved automatically to `./temporary screenshots/screenshot-N.png` (auto-incremented, never overwritten).
-- Optional label suffix: `node screenshot.mjs http://localhost:3000 label` → saves as `screenshot-N-label.png`
-- `screenshot.mjs` lives in the project root. Use it as-is.
-- After screenshotting, read the PNG from `temporary screenshots/` with the Read tool — Claude can see and analyze the image directly.
-- When comparing, be specific: "heading is 32px but reference shows ~24px", "card gap is 16px but should be 24px"
-- Check: spacing/padding, font size/weight/line-height, colors (exact hex), alignment, border-radius, shadows, image sizing
+1. **Read the entire prompt first**, start to finish. Do not begin acting on the first sentence before you've read the rest.
+2. **Break it into an explicit checklist of distinct tasks** — one line per request, including small ones buried mid-sentence.
+3. **Work the independent pieces simultaneously**, not one-by-one. Fire all image generations in parallel up front (they take the longest), and batch independent file edits in the same turn while they render.
+4. **Account for every item before reporting done.** Re-read the original message and confirm each checklist item was actually completed. Missing a request is the #1 thing to avoid.
 
-## Output Defaults
-- Single `index.html` file, all styles inline, unless user says otherwise
-- Tailwind CSS via CDN: `<script src="https://cdn.tailwindcss.com"></script>`
-- Placeholder images: `https://placehold.co/WIDTHxHEIGHT`
-- Mobile-first responsive
+## Homepage redesign (in progress)
 
-## Brand Assets
-- Always check the `brand_assets/` folder before designing. It may contain logos, color guides, style guides, or images.
-- If assets exist there, use them. Do not use placeholders where real assets are available.
-- If a logo is present, use it. If a color palette is defined, use those exact values — do not invent brand colors.
+- Work happens on the **`homepage-redesign`** branch in `home-new.html`.
+- The live homepage is `index.html` — **do not edit it** during the redesign. Content gets migrated from it into `home-new.html` as the draft is finalized.
+- The booking flow (`booking.html`) and quote builder (`quote-builder.html`) are **off-limits** — link into them, don't modify them.
 
-## Anti-Generic Guardrails
-- **Colors:** Never use default Tailwind palette (indigo-500, blue-600, etc.). Pick a custom brand color and derive from it.
-- **Shadows:** Never use flat `shadow-md`. Use layered, color-tinted shadows with low opacity.
-- **Typography:** Never use the same font for headings and body. Pair a display/serif with a clean sans. Apply tight tracking (`-0.03em`) on large headings, generous line-height (`1.7`) on body.
-- **Gradients:** Layer multiple radial gradients. Add grain/texture via SVG noise filter for depth.
-- **Animations:** Only animate `transform` and `opacity`. Never `transition-all`. Use spring-style easing.
-- **Interactive states:** Every clickable element needs hover, focus-visible, and active states. No exceptions.
-- **Images:** Add a gradient overlay (`bg-gradient-to-t from-black/60`) and a color treatment layer with `mix-blend-multiply`.
-- **Spacing:** Use intentional, consistent spacing tokens — not random Tailwind steps.
-- **Depth:** Surfaces should have a layering system (base → elevated → floating), not all sit at the same z-plane.
+## Preview server
 
-## Hard Rules
-- Do not add sections, features, or content not in the reference
-- Do not "improve" a reference design — match it
-- Do not stop after one screenshot pass
-- Do not use `transition-all`
-- Do not use default Tailwind blue/indigo as primary color
+- A small Node preview server runs on **http://localhost:3001** (`.preview-server.mjs`).
+- It maps `/` (and `/index.html`) to `home-new.html` so a refresh always lands on the redesign draft. All other assets serve normally.
+- If it's not running, start it: `node .preview-server.mjs` (from the repo root, background it).
+- Port 3000 is the user's own server — always use 3001.
+
+## ALWAYS screenshot to verify visual changes (required workflow)
+
+After every visual/layout/CSS change, **take a screenshot with Puppeteer and actually look at it** before reporting done. Do not rely on reading the code alone.
+
+- **Take as many screenshots as you need to verify a change is right** (the user is on the Pro plan, so credits are not a constraint). Capture multiple angles when relevant: desktop AND mobile, before/after states, each step of a flow, hover/active states, and both breakpoints. Prefer verifying visually over assuming from the code. Still aim each capture carefully (a document-relative `clip` of the target section, or drive the UI to the state first) so each shot is informative.
+
+- Puppeteer is installed in this repo (`node_modules`), so run the script **from the repo root**.
+- Use **`headless: 'shell'`** (the old headless) for screenshots — the newer `headless: 'new'` has a compositor bug that renders `backdrop-filter`/glass/`isolation` layers as falsely translucent in screenshots. `shell` matches real browsers.
+- `page.screenshot({ clip })` coordinates are **document-relative, not viewport-relative** — to capture what's actually visible after scrolling, screenshot the full viewport (no clip) or account for scroll offset.
+- Default to **desktop (1440px)** for the single verification shot. Only add **mobile (390px)** when the user asks for it or a change is mobile-specific.
+- For interactive things (dropdowns, tabs, accordion, sticky nav), drive them with `page.hover`/`page.click`/`page.evaluate(scrollTo)` and screenshot the result. Also verify with `elementFromPoint` / `getBoundingClientRect` when stacking or above-the-fold visibility matters.
+- Write the throwaway script to a dotfile at repo root (e.g. `.shot.mjs`), run it, then delete it so it isn't committed.
+
+Example:
+```js
+import puppeteer from 'puppeteer';
+const b = await puppeteer.launch({ headless: 'shell' });
+const p = await b.newPage();
+await p.setViewport({ width: 1440, height: 820 });
+await p.goto('http://127.0.0.1:3001/', { waitUntil: 'networkidle2' });
+await new Promise(r => setTimeout(r, 400));
+await p.screenshot({ path: '/tmp/shot.png' });          // viewport
+await b.close();
+```
+
+## Brand / design (redesign)
+
+- Light/white theme. Gold accent `#C9973A` (deep `#A87B27`). Ink `#101112`.
+- Fonts: Archivo (display/headings/nav) + Instrument Sans (body).
+- Nav is a floating frosted-glass "bubble": glass effect is on `.nav-inner::before` (NOT the element itself, so dropdowns stay opaque). `overflow-x: clip` on body (not `hidden`) so `position: sticky` works.
+- Logo: `brand_assets/logo-nav.png` (transparent, black+gold, for light backgrounds).
+- Real content (service names, pricing, reviews, areas) comes from `index.html`.
+
+## Copy / writing (required)
+
+- Never use em dashes (—) in copy. They read as AI-written. Use a period, comma, colon, or parentheses instead. This applies to all reader-facing text: body copy, headings, labels, meta descriptions, alt text.
+
+## Scope discipline (required)
+
+Carry out **exactly** what the user asks — nothing more. Do not add extra features, sections, copy, styling, or "nice to have" enhancements unless explicitly told to. If a change seems to invite an obvious addition, mention it as a suggestion but do not implement it without the go-ahead.
+
+## Commit convention
+
+Commit each discrete change on the `homepage-redesign` branch with a short message. Only push when the user asks.

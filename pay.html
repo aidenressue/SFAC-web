@@ -147,6 +147,8 @@
       border-radius: 6px;
       padding: 3px 8px;
     }
+    .invoice-note strong { color: var(--text); display: block; margin-bottom: 3px; }
+    .invoice-note a { color: var(--gold); font-weight: 600; }
     .invoice-note {
       font-size: 0.78rem;
       color: var(--sub);
@@ -155,6 +157,40 @@
     }
 
     /* ─── Tip card ──────────────────────────────────────────────────────── */
+    .paid-card {
+      background: rgba(22,163,74,.08);
+      border: 1px solid rgba(22,163,74,.4);
+      border-radius: 16px;
+      padding: 1.6rem 1.2rem;
+      text-align: center;
+      margin-bottom: 1.2rem;
+    }
+    .paid-check {
+      width: 48px; height: 48px; margin: 0 auto .8rem;
+      border-radius: 50%; background: #16A34A; color: #fff;
+      font-size: 1.5rem; line-height: 48px; font-weight: 700;
+    }
+    .paid-title { font-family: var(--font-h); font-size: 1.15rem; font-weight: 800; color: var(--text); }
+    .paid-sub   { font-size: .82rem; color: var(--sub); margin-top: .35rem; }
+    .paid-review {
+      display: inline-block; margin-top: 1.1rem;
+      background: var(--gold); color: #141005;
+      font-family: var(--font-h); font-weight: 800; font-size: .9rem;
+      padding: .8rem 1.6rem; border-radius: 999px;
+    }
+    .paid-review:active { transform: scale(.97); }
+    .paid-note { font-size: .7rem; color: var(--muted); margin-top: .7rem; }
+
+
+    .cash-note {
+      text-align: center;
+      font-size: 0.76rem;
+      color: var(--muted);
+      margin-top: 0.9rem;
+      line-height: 1.5;
+    }
+    .cash-note strong { color: var(--sub); }
+
     .tip-card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -309,6 +345,11 @@
     .pay-arrow   { color: var(--muted); font-size: 1.3rem; flex-shrink: 0; margin-left: 2px; }
 
     /* brand colors */
+    .btn-card   { border-color: #3b2a6b; }
+    .btn-card   .pay-icon { background: #635BFF; font-size: 0.9rem; }
+    .btn-card:active { background: #16123a; }
+    .btn-card.busy { opacity: .6; pointer-events: none; }
+
     .btn-venmo  { border-color: #1a4a8a; }
     .btn-venmo  .pay-icon { background: #008CFF; }
     .btn-venmo:active  { background: #0d1e3a; }
@@ -380,6 +421,7 @@
     .invalid-sub   { font-size: 0.82rem; color: var(--sub); max-width: 280px; line-height: 1.65; }
     .invalid-sub a { color: var(--gold); text-decoration: none; }
   </style>
+  <script src="/ga.js"></script>
 </head>
 <body>
 
@@ -389,7 +431,7 @@
     <div class="invalid-title">Link Not Valid</div>
     <div class="invalid-sub">
       This payment link has expired or is invalid.<br>
-      <a href="sms:9702953577">Text (970) 295-3577</a> for a new link.
+      <a href="sms:9708516433">Text (970) 851-6433</a> for a new link.
     </div>
   </div>
 
@@ -413,7 +455,9 @@
       <div class="invoice-amount" id="invoice-amount" style="display:none;"></div>
       <div id="invoice-num" style="display:none;"></div>
       <div class="invoice-note" id="invoice-note" style="display:none;">
-        Review our work before you pay — we want you to love it!
+        <strong>Please look over your vehicle before paying.</strong>
+        If anything is not right, text or call
+        <a href="tel:+19708516433">(970) 851-6433</a> and it gets put right before any money changes hands.
       </div>
     </div>
 
@@ -459,9 +503,31 @@
       </div>
     </div>
 
+    <!-- Shown only after Stripe sends them back with ?paid=1 -->
+    <div class="paid-card" id="paid-card" style="display:none;">
+      <div class="paid-check">&#10003;</div>
+      <div class="paid-title" id="paid-title">Payment received</div>
+      <p class="paid-sub">Your payment came through. A receipt is on its way to your email.</p>
+      <a class="paid-review" href="#" id="paid-review" target="_blank" rel="noopener">
+        Leave us a Google review
+      </a>
+      <p class="paid-note">It takes about thirty seconds and genuinely helps a small business.</p>
+    </div>
+
     <div class="section-label">Choose how to pay</div>
 
     <div class="pay-list">
+
+      <!-- Card via Stripe. First because it is the only method that carries the
+           tip through automatically. -->
+      <a id="btn-card" href="#" class="pay-btn btn-card" onclick="payByCard(event)">
+        <div class="pay-icon">&#128179;</div>
+        <div class="pay-info">
+          <div class="pay-name">Credit or Debit Card</div>
+          <div class="pay-handle" id="h-card">Secure checkout</div>
+        </div>
+        <div class="pay-arrow">&rsaquo;</div>
+      </a>
 
       <!-- Venmo -->
       <a id="btn-venmo" href="#" class="pay-btn btn-venmo" onclick="track('venmo')">
@@ -488,7 +554,7 @@
         <div class="pay-icon">Z</div>
         <div class="pay-info">
           <div class="pay-name">Zelle</div>
-          <div class="pay-handle" id="h-zelle">(970) 295-3577</div>
+          <div class="pay-handle" id="h-zelle">(970) 851-6433</div>
         </div>
         <button id="zelle-copy" class="zelle-copy-btn" onclick="copyZelle()">Copy</button>
       </div>
@@ -504,15 +570,19 @@
       </a>
 
     </div>
+
+    <p class="cash-note">
+      <strong>Cash is welcome too.</strong> Hand it over in person and nothing needs paying here.
+    </p>
   </main>
 
   <!-- Footer -->
   <footer class="footer" id="ftr" style="display:none;">
     <p>
       Questions about your invoice?<br>
-      <a href="sms:9702953577">Text (970) 295-3577</a>
+      <a href="sms:9708516433">Text (970) 851-6433</a>
       &nbsp;·&nbsp;
-      <a href="tel:9702953577">Call</a><br><br>
+      <a href="tel:9708516433">Call</a><br><br>
       Aiden Ressue · Shine for a Cause Mobile Detailing<br>
       <span style="color:#404754;">10% of every detail + 100% of tips go to charity.</span>
     </p>
@@ -521,6 +591,8 @@
   <script>
     const KEY     = 'sfac2026';
     const API     = 'https://sfac-mu.vercel.app';
+    const CRM_PAY_API = API + '/api/stripe/payment-link';
+    const GOOGLE_REVIEW_URL = 'https://g.page/r/CRD7w-N1sewkEAI/review';
     const PP_USER = 'shineforacause';
 
     const p       = new URLSearchParams(location.search);
@@ -618,14 +690,22 @@
 
       // Update handle subtitle on every button to show the amount
       if (total > 0) {
+        // Card shows the same total. Skipped while checkout is being set up so
+        // the progress message is not overwritten mid-request.
+        if (!el('btn-card').classList.contains('busy')) {
+          el('h-card').textContent = amtStr + ' · Secure checkout';
+        }
         el('h-venmo').textContent  = amtStr + ' · @ShineForACause';
         el('h-cash').textContent   = amtStr + ' · $ShineForACause';
-        el('h-zelle').textContent  = amtStr + ' · (970) 295-3577';
+        el('h-zelle').textContent  = amtStr + ' · (970) 851-6433';
         el('h-paypal').textContent = amtStr + ' · paypal.me/shineforacause';
       } else {
+        if (!el('btn-card').classList.contains('busy')) {
+          el('h-card').textContent = 'Secure checkout';
+        }
         el('h-venmo').textContent  = '@ShineForACause';
         el('h-cash').textContent   = '$ShineForACause';
-        el('h-zelle').textContent  = '(970) 295-3577';
+        el('h-zelle').textContent  = '(970) 851-6433';
         el('h-paypal').textContent = 'Credit & debit accepted';
       }
 
@@ -643,7 +723,7 @@
       const total = round(amount + tipAmt);
       const lines = [];
       if (total > 0) lines.push('Amount: $' + fmt(total));
-      lines.push('Zelle to: (970) 295-3577');
+      lines.push('Zelle to: (970) 851-6433');
       if (invoice) lines.push('Ref: ' + invoice);
       const text = lines.join('\n');
 
@@ -674,6 +754,57 @@
     }
 
     // ── Payment tracking ─────────────────────────────────────────────────
+    // ── Card payment via Stripe ──────────────────────────────────────────
+    //
+    // The tip has to be decided BEFORE the link is made: Stripe's checkout has
+    // no tip field, so the CRM builds a link for service + tip as two lines.
+    // That is why this posts rather than being a plain href.
+    async function payByCard(ev) {
+      ev.preventDefault();
+      const btn = el('btn-card');
+      const label = el('h-card');
+      if (btn.classList.contains('busy')) return;
+
+      if (!(amount > 0)) {
+        label.textContent = 'No amount on this invoice — call (970) 851-6433';
+        return;
+      }
+
+      btn.classList.add('busy');
+      label.textContent = 'Setting up secure checkout...';
+      track('card');
+
+      try {
+        const back = location.origin + location.pathname + '?paid=1'
+          + (name ? '&name=' + encodeURIComponent(name) : '');
+
+        const resp = await fetch(CRM_PAY_API + '?k=' + encodeURIComponent(KEY), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            amount: amount,
+            tip: tipAmt,
+            invoiceNumber: invoice || ('SFAC-' + Date.now()),
+            clientName: name || '',
+            description: 'Mobile detailing' + (invoice ? ' — ' + invoice : ''),
+            returnUrl: back,
+          }),
+        });
+
+        const data = await resp.json();
+        if (!resp.ok || !data.url) {
+          // Do NOT silently fail: the other buttons still work, so say so.
+          label.textContent = data.message || 'Card checkout unavailable — try another option below';
+          btn.classList.remove('busy');
+          return;
+        }
+        location.href = data.url;
+      } catch (e) {
+        label.textContent = 'Could not reach checkout — try another option below';
+        btn.classList.remove('busy');
+      }
+    }
+
     function track(method) {
       ping({
         action:         'payment_clicked',
@@ -694,6 +825,27 @@
         headers: { 'Content-Type': 'application/json' },
         body:    JSON.stringify({ lead_id, ...data }),
       }).catch(() => {});
+    }
+
+    // ── Back from a successful card payment ──────────────────────────────
+    // Runs LAST, after the invoice and tip cards have been populated and shown,
+    // so nothing re-displays what this hides. Everything to do with paying goes
+    // away — nobody should be able to pay a second time.
+    if (p.get('paid') === '1') {
+      const pc = el('paid-card');
+      if (pc) {
+        pc.style.display = '';
+        el('paid-review').href = GOOGLE_REVIEW_URL;
+        if (name) el('paid-title').textContent = 'Thank you, ' + name.split(' ')[0] + '!';
+      }
+      ['tip-card', 'invoice-note'].forEach(id => { const e = el(id); if (e) e.style.display = 'none'; });
+      document.querySelectorAll('.pay-list, .section-label, .cash-note').forEach(e => { e.style.display = 'none'; });
+      // The CRM keys off `action`, not `status`. This used to send only
+      // { status: 'paid' }, which fell through to "unknown action" and a 400 —
+      // so a card payment was never recorded as paid. The timestamp is set
+      // server-side, where it cannot be faked by whatever opened this page.
+      ping({ action: 'paid', payment_method: 'card', invoice_number: invoice || null,
+             client_name: name || null });
     }
 
     // Init

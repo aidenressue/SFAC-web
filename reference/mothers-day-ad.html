@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8" />
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,600;1,700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    width: 1080px;
+    height: 1080px;
+    overflow: hidden;
+    background: #060608;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .canvas {
+    width: 1080px;
+    height: 1080px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ── Background ── */
+  .bg-base {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #0D0A00 0%, #070608 45%, #040406 100%);
+  }
+
+  /* Large radial glow top-right */
+  .bg-glow-1 {
+    position: absolute;
+    top: -200px;
+    right: -150px;
+    width: 700px;
+    height: 700px;
+    background: radial-gradient(ellipse, rgba(212,168,81,0.15) 0%, rgba(212,168,81,0.04) 45%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Soft glow bottom-left */
+  .bg-glow-2 {
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 500px;
+    height: 500px;
+    background: radial-gradient(ellipse, rgba(212,168,81,0.07) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Diagonal accent line */
+  .bg-line {
+    position: absolute;
+    top: 0;
+    right: 220px;
+    width: 1px;
+    height: 100%;
+    background: linear-gradient(180deg, transparent 0%, rgba(212,168,81,0.18) 30%, rgba(212,168,81,0.06) 70%, transparent 100%);
+  }
+
+  /* Grain overlay */
+  .grain {
+    position: absolute;
+    inset: 0;
+    opacity: 0.45;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  /* ── Layout ── */
+  .layout {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  /* TOP BAR */
+  .top-bar {
+    padding: 44px 56px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo img {
+    height: 60px;
+    width: auto;
+    mix-blend-mode: screen;
+    opacity: 0.95;
+  }
+
+  .mothers-day-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .badge-line { width: 28px; height: 1.5px; background: #D4A851; opacity: .55; }
+  .badge-text {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    text-transform: uppercase;
+    color: #D4A851;
+    opacity: .8;
+  }
+
+  /* MAIN CONTENT */
+  .main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 56px;
+    gap: 0;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .26em;
+    text-transform: uppercase;
+    color: rgba(212,168,81,0.65);
+    margin-bottom: 20px;
+  }
+
+  .headline {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 82px;
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -.04em;
+    color: #F7F5F0;
+    margin-bottom: 16px;
+  }
+
+  .headline-italic {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 100px;
+    font-weight: 400;
+    letter-spacing: -.02em;
+    color: #D4A851;
+    line-height: 1;
+    display: block;
+    margin-bottom: 28px;
+  }
+
+  .divider {
+    width: 64px;
+    height: 2px;
+    background: linear-gradient(90deg, #D4A851, rgba(212,168,81,0.2));
+    margin-bottom: 28px;
+  }
+
+  .body-copy {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 1.7;
+    color: rgba(167,173,181,0.85);
+    max-width: 520px;
+    margin-bottom: 40px;
+  }
+
+  .body-copy strong {
+    color: #F7F5F0;
+    font-weight: 600;
+  }
+
+  /* Gift card pill */
+  .gift-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(212,168,81,0.1);
+    border: 1px solid rgba(212,168,81,0.3);
+    border-radius: 999px;
+    padding: 14px 24px 14px 18px;
+    margin-bottom: 36px;
+    width: fit-content;
+  }
+  .gift-icon {
+    width: 36px;
+    height: 36px;
+    background: #D4A851;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+  }
+  .gift-text { display: flex; flex-direction: column; gap: 1px; }
+  .gift-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(212,168,81,0.7);
+  }
+  .gift-value {
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .04em;
+    color: #F7F5F0;
+  }
+
+  .cta-row { display: flex; align-items: center; gap: 20px; }
+
+  .cta-btn {
+    background: #D4A851;
+    color: #0B0B0D;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: 18px 38px;
+    border-radius: 999px;
+    white-space: nowrap;
+  }
+
+  .cta-url {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(167,173,181,0.4);
+  }
+
+  /* RIGHT SIDE VISUAL */
+  .right-visual {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 320px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    padding: 80px 32px;
+  }
+
+  /* Floating card */
+  .float-card {
+    width: 240px;
+    background: linear-gradient(135deg, #1C1600 0%, #0E0C00 50%, #181400 100%);
+    border: 1px solid rgba(212,168,81,0.3);
+    border-radius: 18px;
+    padding: 22px 22px 18px;
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+      0 24px 60px rgba(0,0,0,0.7),
+      0 0 0 1px rgba(212,168,81,0.08),
+      inset 0 1px 0 rgba(212,168,81,0.12);
+    transform: rotate(3deg);
+  }
+
+  .float-card::before {
+    content: '';
+    position: absolute;
+    top: -40%;
+    left: -20%;
+    width: 50%;
+    height: 180%;
+    background: linear-gradient(105deg, transparent 40%, rgba(212,168,81,0.07) 50%, transparent 60%);
+    transform: skewX(-10deg);
+  }
+
+  .fc-top {
+    font-size: 8px;
+    font-weight: 700;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+    color: rgba(212,168,81,0.55);
+    margin-bottom: 14px;
+  }
+  .fc-amount {
+    font-size: 52px;
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -.03em;
+    color: #F7F5F0;
+    margin-bottom: 2px;
+  }
+  .fc-amount sup {
+    font-size: 24px;
+    vertical-align: super;
+    color: #D4A851;
+    font-weight: 700;
+  }
+  .fc-brand {
+    font-size: 8.5px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: #D4A851;
+    margin-bottom: 16px;
+  }
+  .fc-code {
+    font-family: 'Courier New', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .22em;
+    color: rgba(212,168,81,0.8);
+    border-top: 1px solid rgba(212,168,81,0.15);
+    padding-top: 10px;
+  }
+
+  /* Stats below card */
+  .stat-items {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 240px;
+    transform: rotate(3deg);
+  }
+  .stat-item {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 10px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .stat-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #D4A851;
+    flex-shrink: 0;
+  }
+  .stat-text {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(167,173,181,0.7);
+    letter-spacing: .02em;
+  }
+
+  /* BOTTOM BAR */
+  .bottom-bar {
+    padding: 0 56px 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .cause-text {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: .04em;
+    color: rgba(167,173,181,0.35);
+    max-width: 400px;
+    line-height: 1.5;
+  }
+  .cause-text span { color: rgba(212,168,81,0.55); font-weight: 600; }
+
+  .may11 {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 22px;
+    color: rgba(212,168,81,0.4);
+    letter-spacing: .04em;
+  }
+
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="bg-base"></div>
+  <div class="bg-glow-1"></div>
+  <div class="bg-glow-2"></div>
+  <div class="bg-line"></div>
+  <div class="grain"></div>
+
+  <!-- Right visual panel -->
+  <div class="right-visual">
+    <div class="float-card">
+      <div class="fc-top">Gift Card · Mobile Detailing</div>
+      <div class="fc-amount"><sup>$</sup>100</div>
+      <div class="fc-brand">Shine for a Cause</div>
+      <div class="fc-code">MOM100</div>
+    </div>
+    <div class="stat-items">
+      <div class="stat-item">
+        <div class="stat-dot"></div>
+        <div class="stat-text">We come to her driveway</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-dot"></div>
+        <div class="stat-text">No drop-off · No waiting</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-dot"></div>
+        <div class="stat-text">Fort Collins & Northern Colorado</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- TOP -->
+    <div class="top-bar">
+      <div class="logo">
+        <img src="/brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause" />
+      </div>
+      <div class="mothers-day-badge">
+        <div class="badge-line"></div>
+        <div class="badge-text">Mother's Day · May 11</div>
+        <div class="badge-line"></div>
+      </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="eyebrow">The perfect gift</div>
+      <div class="headline">
+        Give Mom<br>a car that
+        <span class="headline-italic">shines.</span>
+      </div>
+      <div class="divider"></div>
+      <div class="body-copy">
+        We bring the full detailing experience <strong>right to her door.</strong>
+        No drop-off, no waiting — just a showroom-clean car and a cause she can feel good about.
+      </div>
+      <div class="gift-pill">
+        <div class="gift-icon">🎁</div>
+        <div class="gift-text">
+          <div class="gift-label">Gift Cards Available</div>
+          <div class="gift-value">Starting at $50 · Use code MOM50</div>
+        </div>
+      </div>
+      <div class="cta-row">
+        <div class="cta-btn">Book a Detail →</div>
+        <div class="cta-url">shineforacause.com</div>
+      </div>
+    </div>
+
+    <!-- BOTTOM -->
+    <div class="bottom-bar">
+      <div class="cause-text">Every booking supports <span>recovery programs</span> in Northern Colorado — AA/NA groups, the SAFE Foundation & direct rehab sponsorships.</div>
+      <div class="may11">May 11, 2026</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

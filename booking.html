@@ -11,8 +11,8 @@
   </script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book Mobile Auto Detailing Online | Fort Collins, Loveland, Greeley | Shine for a Cause</title>
-  <meta name="description" content="Book your mobile auto detail online in seconds. Serving Fort Collins, Loveland, Greeley, Windsor &amp; all of Northern Colorado. Express, Executive, paint correction &amp; ceramic coating — we come to you. Every booking supports local recovery." />
+  <title>Book Mobile Detailing Online | Fort Collins, Loveland & Northern Colorado | Shine for a Cause</title>
+  <meta name="description" content="Book mobile auto detailing online in seconds. Full detailing, ceramic coating, and paint correction across Fort Collins, Loveland, and Northern Colorado. We come to you." />
   <meta name="keywords" content="book mobile auto detail Fort Collins, schedule car detailing Northern Colorado, online booking auto detailing Loveland, mobile detailing appointment Greeley, book ceramic coating Fort Collins, car wash appointment Northern Colorado" />
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" />
   <meta name="author" content="Shine for a Cause Mobile Detailing" />
@@ -20,15 +20,15 @@
   <meta name="geo.placename" content="Fort Collins, Colorado" />
   <link rel="icon" type="image/png" href="/brand_assets/Shine for a Cause LOGO.png" />
   <link rel="apple-touch-icon" href="/brand_assets/Shine for a Cause LOGO.png" />
-  <link rel="canonical" href="https://shineforacause.com/booking.html" />
+  <link rel="canonical" href="https://shineforacause.com/booking" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://shineforacause.com/booking.html" />
-  <meta property="og:title" content="Book Mobile Auto Detailing Online — Shine for a Cause | Fort Collins &amp; Northern Colorado" />
-  <meta property="og:description" content="Schedule your mobile detail in seconds. Express, Executive, ceramic coating &amp; paint correction — we come to you in Fort Collins, Loveland, Greeley &amp; all of Northern Colorado. Every booking supports local recovery." />
+  <meta property="og:url" content="https://shineforacause.com/booking" />
+  <meta property="og:title" content="Book Mobile Detailing Online | Fort Collins, Loveland &amp; Northern Colorado | Shine for a Cause" />
+  <meta property="og:description" content="Book mobile auto detailing online in seconds. Full detailing, ceramic coating, and paint correction across Fort Collins, Loveland, and Northern Colorado. We come to you." />
   <meta property="og:site_name" content="Shine for a Cause" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Book Mobile Auto Detailing | Shine for a Cause — Northern Colorado" />
-  <meta name="twitter:description" content="Book Express, Executive, ceramic coating or paint correction online. We come to you anywhere in Northern Colorado." />
+  <meta name="twitter:title" content="Book Mobile Detailing Online | Fort Collins, Loveland &amp; Northern Colorado | Shine for a Cause" />
+  <meta name="twitter:description" content="Book full detailing, ceramic coating, or paint correction online. We come to you across Fort Collins and Northern Colorado." />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -38,7 +38,7 @@
       "@type": "LocalBusiness",
       "name": "Shine for a Cause Mobile Detailing",
       "url": "https://shineforacause.com",
-      "telephone": "+1-970-295-3577",
+      "telephone": "+1-970-851-6433",
       "address": {
         "@type": "PostalAddress",
         "addressLocality": "Fort Collins",
@@ -47,7 +47,7 @@
       }
     },
     "areaServed": "Northern Colorado",
-    "url": "https://shineforacause.com/booking.html"
+    "url": "https://shineforacause.com/booking"
   }
   </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -81,24 +81,25 @@
     /* ── NAV ── */
     .booking-nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 200;
-      height: 64px; padding: 0 2rem;
+      height: 96px; padding: 0 2rem;
       display: flex; align-items: center; justify-content: space-between;
       background: #F4F1EC;
       border-bottom: 1px solid var(--border);
     }
-    .booking-nav img { height: 52px; width: auto; display: block; mix-blend-mode: darken; }
-    .nav-back {
-      color: var(--muted); font-family: var(--fh); font-size: .72rem;
-      font-weight: 600; letter-spacing: .08em; text-transform: uppercase;
+    .booking-nav img { height: 84px; width: auto; display: block; }
+    .nav-logo { display: block; line-height: 0; }
+    .nav-phone {
+      color: var(--text); font-family: var(--fh); font-size: .9rem;
+      font-weight: 700; letter-spacing: .01em;
       text-decoration: none; display: flex; align-items: center; gap: .5rem;
       transition: color .2s;
     }
-    .nav-back:hover { color: var(--gold); }
-    .nav-back svg { width: 16px; height: 16px; }
+    .nav-phone:hover { color: var(--gold); }
+    .nav-phone svg { width: 16px; height: 16px; color: var(--gold); }
 
     /* ── MAIN LAYOUT ── */
     #booking-app {
-      position: fixed; inset: 0; top: 64px;
+      position: fixed; inset: 0; top: 96px;
       display: flex;
     }
 
@@ -167,6 +168,12 @@
       color: var(--red); font-size: .85rem; display: none;
     }
     .area-error.show { display: block; }
+    .travel-notice {
+      margin-top: 1rem; padding: .75rem 1rem; border-radius: 10px;
+      background: var(--gold-dim); border: 1px solid rgba(181,117,26,.35);
+      color: var(--gold); font-size: .85rem; font-weight: 600; line-height: 1.4; display: none;
+    }
+    .travel-notice.show { display: block; }
 
     /* next float */
     #next1-btn {
@@ -287,18 +294,14 @@
     }
     .vehicle-svg { width: 100%; height: 80px; }
     .vehicle-img {
-      width: 100%; height: 90px; object-fit: contain; object-position: center center;
+      width: 100%; height: 88px; object-fit: contain; object-position: center center;
       mix-blend-mode: multiply; display: block;
-      transform: scale(1.1); transform-origin: center center;
+      transform: none; transform-origin: center center;
     }
-    .vehicle-img-small {
-      transform: scale(1.6); transform-origin: center center;
-    }
-    .vehicle-img-van {
-      transform: scale(3.0); transform-origin: center center;
-    }
+    .vehicle-img-small,
+    .vehicle-img-van,
     .vehicle-img-large {
-      transform: scale(1.2); transform-origin: center center;
+      transform: none;
     }
     .vehicle-label {
       font-family: var(--fh); font-weight: 700; font-size: .8rem;
@@ -307,6 +310,26 @@
     .vehicle-example {
       font-size: .68rem; color: var(--muted); line-height: 1.4;
     }
+
+    /* ── SERVICE CARDS (compact, 3 across, equal image heights) ── */
+    .service-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: .85rem;
+    }
+    .svc-card {
+      background: #fff; border: 1.5px solid var(--border);
+      border-radius: 12px; overflow: hidden; cursor: pointer;
+      display: flex; flex-direction: column;
+      transition: border-color .2s, box-shadow .2s, transform .2s;
+    }
+    .svc-card:hover { border-color: var(--border2); transform: translateY(-2px); }
+    .svc-card.selected {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 1px var(--gold), 0 8px 32px rgba(212,168,81,.12);
+    }
+    .svc-img { width: 100%; height: 130px; object-fit: cover; display: block; }
+    .svc-body { padding: .75rem .9rem .85rem; }
+    .svc-label { font-family: var(--fh); font-weight: 700; font-size: .9rem; color: var(--text); letter-spacing: .01em; }
+    .svc-desc { font-size: .75rem; color: var(--muted); line-height: 1.4; margin-top: .25rem; }
 
     /* ── PACKAGE TYPE CARDS ── */
     .package-grid {
@@ -329,12 +352,19 @@
     .pkg-illus {
       position: relative; width: 100%;
       background: #fff;
+      padding: .6rem .6rem 0;   /* nudge the photo down from the top of the card */
+      box-sizing: border-box;
     }
     .pkg-car-img {
       width: 100%; height: 110px; display: block;
       object-fit: contain; object-position: center;
       mix-blend-mode: multiply;
       border-radius: 12px 12px 0 0;
+    }
+    /* Package illustrations (Interior Only / Exterior Only / Inside & Out) */
+    .pkg-illus-img {
+      width: 100%; height: 128px; display: block;
+      object-fit: contain; object-position: center;
     }
     .pkg-icon {
       width: 100%;
@@ -361,12 +391,14 @@
     .pkg-price-range { font-size: .75rem; color: var(--gold); font-weight: 600; margin-top: auto; }
 
     /* ── TIER CARDS ── */
-    .tier-grid { display: flex; flex-direction: column; gap: 1rem; }
+    .tier-grid { display: flex; flex-direction: row; gap: .75rem; align-items: stretch; }
     .tier-card {
+      flex: 1 1 0; min-width: 0;
       background: var(--surface); border: 1.5px solid var(--border);
-      border-radius: 16px; padding: 1.5rem;
+      border-radius: 14px; padding: 1.1rem;
       cursor: pointer; transition: all .2s;
       position: relative; overflow: hidden;
+      display: flex; flex-direction: column;
     }
     .tier-card:hover { border-color: var(--border2); background: var(--surface3); }
     .tier-card.selected {
@@ -382,24 +414,90 @@
     .tier-badge.executive { background: rgba(212,168,81,.2); color: var(--gold-soft); }
     .tier-badge.step1 { background: rgba(100,160,255,.12); color: #7ab4ff; }
     .tier-badge.step2 { background: rgba(180,100,255,.12); color: #c47aff; }
-    .tier-name {
-      font-family: var(--fh); font-weight: 800; font-size: 1.1rem;
-      margin-bottom: .5rem; color: var(--text);
+    .tier-img {
+      width: 100%; height: 116px; margin-bottom: .85rem;
+      overflow: hidden; border-radius: 10px; background: var(--surface3);
     }
-    .tier-tagline { font-size: .8rem; color: var(--muted); margin-bottom: 1rem; line-height: 1.5; }
+    .tier-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .tier-cond {
+      font-family: var(--fh); font-size: .64rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .07em; color: var(--gold); margin: 0 0 .35rem;
+    }
+    .tier-name {
+      font-family: var(--fh); font-weight: 800; font-size: 1rem;
+      margin-bottom: .35rem; color: var(--text);
+    }
+    .tier-tagline { font-size: .74rem; color: var(--muted); margin-bottom: .7rem; line-height: 1.45; }
     .tier-bullets {
-      display: flex; flex-direction: column; gap: .3rem;
-      list-style: none; margin-bottom: 1rem;
+      display: flex; flex-direction: column; gap: .28rem;
+      list-style: none; margin-bottom: .8rem; flex: 1 1 auto;
     }
     .tier-bullets li {
-      font-size: .78rem; color: var(--muted); display: flex; gap: .5rem; align-items: flex-start;
+      font-size: .74rem; color: var(--muted); display: flex; gap: .45rem; align-items: flex-start; line-height: 1.35;
     }
     .tier-bullets li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    /* Grouped Interior/Exterior "what's included" (Full Detail) */
+    .tinc { flex: 1 1 auto; margin-bottom: .8rem; }
+    .tinc-head {
+      font-family: var(--fh); font-weight: 800; font-size: .64rem;
+      letter-spacing: .09em; text-transform: uppercase; color: var(--muted2);
+      margin: .6rem 0 .3rem;
+    }
+    .tinc-head:first-child { margin-top: 0; }
+    .tinc-list { list-style: none; display: flex; flex-direction: column; gap: .26rem; margin: 0; }
+    .tinc-list li {
+      font-size: .74rem; color: var(--muted); display: flex; gap: .45rem;
+      align-items: flex-start; line-height: 1.35;
+    }
+    .tinc-list li::before { content: '✓'; color: var(--gold); font-weight: 700; flex-shrink: 0; }
+    .tinc-list li.tinc-hide { display: none; }
+    .tinc.expanded .tinc-list li.tinc-hide { display: flex; }
+    .tinc-more {
+      margin-top: .55rem; background: none; border: none; color: var(--gold);
+      font-family: var(--fh); font-weight: 700; font-size: .72rem; cursor: pointer; padding: 0;
+    }
+    .tinc-more:hover { text-decoration: underline; }
     .tier-price {
-      font-family: var(--fh); font-weight: 800; font-size: 1.4rem;
+      font-family: var(--fh); font-weight: 800; font-size: 1.25rem;
       color: var(--gold);
     }
-    .tier-price span { font-size: .8rem; color: var(--muted); font-weight: 400; }
+    .tier-price span { font-size: .74rem; color: var(--muted); font-weight: 400; }
+    .tier-note {
+      margin-bottom: .7rem; padding-top: .6rem; border-top: 1px solid var(--border);
+      font-size: .68rem; line-height: 1.4; color: var(--muted2);
+    }
+    /* ── Ceramic step (coating + paint-correction prep) ── */
+    .cer-coatings { display: flex; gap: .75rem; align-items: stretch; }
+    .cer-card {
+      flex: 1 1 0; min-width: 0; background: var(--surface); border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 1.1rem; cursor: pointer; transition: all .2s;
+      display: flex; flex-direction: column;
+    }
+    .cer-card:hover { border-color: var(--border2); background: var(--surface3); }
+    .cer-card.selected { border-color: var(--gold); background: rgba(212,168,81,.06); box-shadow: 0 0 0 1px var(--gold), 0 12px 40px rgba(212,168,81,.15); }
+    .cer-card .tier-price { margin-top: auto; }
+    .cer-corr-block { margin-top: 1.6rem; }
+    .cer-sec-title { font-family: var(--fh); font-weight: 800; font-size: 1.05rem; color: var(--text); margin-bottom: .4rem; }
+    .cer-sec-note { font-size: .78rem; color: var(--muted); line-height: 1.5; margin-bottom: .9rem; }
+    .cer-corr-list { display: flex; flex-direction: column; gap: .6rem; }
+    .cer-corr {
+      display: flex; align-items: flex-start; gap: 1rem; background: var(--surface);
+      border: 1.5px solid var(--border); border-radius: 12px; padding: .85rem 1rem; cursor: pointer; transition: all .2s;
+    }
+    .cer-corr:hover { border-color: var(--border2); }
+    .cer-corr.selected { border-color: var(--gold); background: rgba(212,168,81,.06); box-shadow: 0 0 0 1px var(--gold); }
+    .cer-corr-img { width: 104px; height: 78px; flex-shrink: 0; border-radius: 9px; overflow: hidden; background: var(--surface3); }
+    .cer-corr-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .cer-corr-main { flex: 1; min-width: 0; }
+    .cer-corr-name { font-family: var(--fh); font-weight: 700; font-size: .9rem; color: var(--text); }
+    .cer-corr-tag { font-family: var(--fb); font-weight: 500; font-size: .68rem; color: var(--muted2); margin-left: .4rem; }
+    .cer-corr-cond { font-family: var(--fh); font-size: .64rem; font-weight: 700; text-transform: uppercase; letter-spacing: .07em; color: var(--gold); margin: .2rem 0 .35rem; }
+    .cer-corr-desc { font-size: .74rem; color: var(--muted); line-height: 1.45; }
+    .cer-corr-price { font-family: var(--fh); font-weight: 800; font-size: 1.05rem; color: var(--gold); white-space: nowrap; }
+    .cer-corr-price.inc { color: var(--muted); font-size: .85rem; }
+    .cer-foot { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-top: 1.4rem; }
+    .cer-foot-total { font-family: var(--fh); font-weight: 800; font-size: 1.15rem; color: var(--text); }
+    .cer-foot-total span { font-size: .72rem; color: var(--muted); font-weight: 600; text-transform: uppercase; letter-spacing: .08em; margin-right: .4rem; }
 
     /* ── PACKAGE DETAIL (Step 5) ── */
     .pkg-detail-header {
@@ -584,6 +682,10 @@
     .time-slot:hover { border-color: var(--gold); background: var(--gold-dim); }
     .time-slot.selected { border-color: var(--gold); background: var(--gold); color: #fff; }
     .no-slots { font-size: .82rem; color: var(--muted); text-align: center; padding: 1rem; }
+    .time-slots-msg {
+      grid-column: 1 / -1; font-size: .82rem; color: var(--muted);
+      text-align: center; padding: 1rem; margin: 0;
+    }
 
     /* ── YOUR DETAILS (Step 8) ── */
     .details-form { display: flex; flex-direction: column; gap: 1rem; flex: 1; }
@@ -711,6 +813,10 @@
     @media (max-width: 768px) {
       :root { --panel-w: 100%; }
 
+      .booking-nav { height: 76px; padding: 0 1.1rem; }
+      .booking-nav img { height: 62px; }
+      #booking-app { top: 76px; }
+
       /* map takes top 22%, panel fills the rest — smaller map = more content visible */
       #map.split { right: 0; height: 22vh; bottom: auto; top: 0; }
       #steps-panel {
@@ -758,9 +864,13 @@
       .vehicle-example { font-size: .62rem; }
 
       /* package cards — shorter images */
+      .service-grid { grid-template-columns: 1fr; gap: .5rem; }
+      .svc-card { flex-direction: row; align-items: center; }
+      .svc-img { width: 96px; height: 72px; flex-shrink: 0; }
       .package-grid { grid-template-columns: 1fr 1fr; gap: .5rem; }
       .package-card { border-radius: 10px; }
       .pkg-car-img  { height: 75px; }
+      .pkg-illus-img { height: 96px; }
       .pkg-icon     { height: 75px; }
       .pkg-icon svg { width: 48px; height: 48px; }
       .pkg-card-body { padding: .55rem .7rem .65rem; }
@@ -768,9 +878,13 @@
       .pkg-desc     { font-size: .68rem; }
       .pkg-price-range { font-size: .68rem; }
 
-      /* tier cards */
-      .tier-grid { gap: .6rem; }
+      /* tier cards — stack on mobile */
+      .tier-grid { flex-direction: column; gap: .6rem; }
       .tier-card { padding: .9rem 1rem; border-radius: 12px; }
+      .cer-coatings { flex-direction: column; gap: .6rem; }
+      .cer-corr-img { width: 76px; height: 62px; }
+      .cer-foot { flex-direction: column; align-items: stretch; gap: .75rem; }
+      .cer-foot .btn-cart { width: 100%; }
       .tier-badge { margin-bottom: .45rem; }
       .tier-name  { font-size: .95rem; margin-bottom: .3rem; }
       .tier-tagline { font-size: .72rem; margin-bottom: .6rem; line-height: 1.4; }
@@ -784,10 +898,12 @@
 
 <!-- ── NAV ── -->
 <nav class="booking-nav">
-  <img src="web.screenshots/Dark logo for booking pages.png" alt="Shine for a Cause" />
-  <a href="/" class="nav-back">
-    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 12L6 8l4-4"/></svg>
-    Back to Site
+  <a href="/" class="nav-logo" aria-label="Shine for a Cause home">
+    <img src="brand_assets/logo-nav.png" alt="Shine for a Cause" />
+  </a>
+  <a href="tel:9708516433" class="nav-phone">
+    <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3.5c0 5 4.5 9.5 9.5 9.5 .6 0 1-.4 1-1v-2c0-.5-.3-.9-.8-1l-2-.5c-.4-.1-.9.1-1.1.5l-.5.8C7.6 8.6 6.4 7.4 5.7 6l.8-.5c.4-.2.6-.7.5-1.1l-.5-2C6.4 1.8 6 1.5 5.5 1.5h-2C2.9 1.5 2.5 1.9 2.5 2.5c0 .3 0 .7.5 1z"/></svg>
+    (970) 851-6433
   </a>
 </nav>
 
@@ -811,6 +927,7 @@
       <div class="area-error" id="area-error">
         Sorry, we don't currently service that location. We serve Fort Collins, Loveland, Windsor, Timnath, Wellington, and surrounding areas within 30 miles of Timnath.
       </div>
+      <div class="travel-notice" id="travel-notice"></div>
     </div>
     <div id="next1-btn">
       <button class="btn-next" onclick="proceedToStep2()">Next</button>
@@ -834,26 +951,32 @@
 
     <div class="steps-container" id="steps-container">
 
-      <!-- ── STEP 2: Vehicle Type ── -->
+      <!-- ── STEP 2: Service ── -->
       <div class="step" data-step="2">
+        <div class="step-title">What service would you like to book?</div>
+        <div class="service-grid" id="service-grid"></div>
+      </div>
+
+      <!-- ── STEP 3: Vehicle Type ── -->
+      <div class="step" data-step="3">
         <div class="step-title">Select Vehicle Type</div>
         <div class="vehicle-grid" id="vehicle-grid"></div>
       </div>
 
-      <!-- ── STEP 3: Package Type ── -->
-      <div class="step" data-step="3">
+      <!-- ── STEP 4: Package Type ── -->
+      <div class="step" data-step="4">
         <div class="step-title">Select Package</div>
         <div class="package-grid" id="package-grid"></div>
       </div>
 
-      <!-- ── STEP 4: Tier ── -->
-      <div class="step" data-step="4">
+      <!-- ── STEP 5: Tier ── -->
+      <div class="step" data-step="5">
         <div class="step-title" id="tier-title">Select Level</div>
         <div class="tier-grid" id="tier-grid"></div>
       </div>
 
-      <!-- ── STEP 5: Description + Add-ons ── -->
-      <div class="step" data-step="5" style="padding-bottom:0;">
+      <!-- ── STEP 6: Description + Add-ons ── -->
+      <div class="step" data-step="6" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div id="pkg-detail-content"></div>
           <div id="addons-section"></div>
@@ -867,8 +990,8 @@
         </div>
       </div>
 
-      <!-- ── STEP 6: Cart ── -->
-      <div class="step" data-step="6" style="padding-bottom:0;">
+      <!-- ── STEP 7: Cart ── -->
+      <div class="step" data-step="7" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div class="step-title">Your Cart</div>
           <div class="cart-items-list" id="cart-items-list"></div>
@@ -881,12 +1004,12 @@
         </div>
         <div class="step-footer">
           <button class="btn-another" onclick="addAnotherVehicle()">+ Add Vehicle</button>
-          <button class="btn-cart" onclick="goToStep(7)" id="to-calendar-btn">Select Date</button>
+          <button class="btn-cart" onclick="cartContinue()" id="to-calendar-btn">Select Date</button>
         </div>
       </div>
 
-      <!-- ── STEP 7: Calendar ── -->
-      <div class="step" data-step="7" style="padding-bottom:0;">
+      <!-- ── STEP 8: Calendar ── -->
+      <div class="step" data-step="8" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div class="step-title">Select Date &amp; Time</div>
           <div class="calendar-service-summary" id="cal-service-summary"></div>
@@ -908,12 +1031,12 @@
           </div>
         </div>
         <div class="step-footer">
-          <button class="btn-cart" onclick="goToStep(8)" id="to-details-btn" disabled>Continue</button>
+          <button class="btn-cart" onclick="goToStep(9)" id="to-details-btn" disabled>Continue</button>
         </div>
       </div>
 
-      <!-- ── STEP 8: Your Details ── -->
-      <div class="step" data-step="8" style="padding-bottom:0;">
+      <!-- ── STEP 9: Your Details + Review + Book ── -->
+      <div class="step" data-step="9" style="padding-bottom:0;">
         <div style="flex:1; overflow-y:auto; padding:1.5rem;">
           <div class="step-title">Your Details</div>
           <div class="details-form">
@@ -935,25 +1058,13 @@
               <label class="form-label">Phone Number</label>
               <input class="form-input" type="tel" id="f-phone" placeholder="(970) 555-0123" />
             </div>
-          </div>
-        </div>
-        <div class="step-footer">
-          <button class="btn-cart" onclick="goToConfirmation()">Continue as Guest</button>
-        </div>
-      </div>
-
-      <!-- ── STEP 9: Confirmation ── -->
-      <div class="step" data-step="9" style="padding-bottom:0;">
-        <div style="flex:1; overflow-y:auto; padding:1.5rem;">
-          <div class="step-title">Confirm Your Booking</div>
-
-          <div class="confirm-section">
-            <div class="confirm-section-title">Location</div>
-            <div class="confirm-row">
-              <span class="confirm-label">Service Address</span>
-              <span class="confirm-value" id="conf-address">—</span>
+            <div class="form-field">
+              <label class="form-label">Comments for Your Detailer</label>
+              <textarea class="comment-field" id="f-comments" placeholder="Any notes? Gate codes, parking instructions, specific concerns..."></textarea>
             </div>
           </div>
+
+          <div class="step-title" style="margin-top:1.75rem;">Review &amp; Book</div>
 
           <div class="confirm-section">
             <div class="confirm-section-title">Date &amp; Time</div>
@@ -964,28 +1075,16 @@
           </div>
 
           <div class="confirm-section">
-            <div class="confirm-section-title">Services</div>
-            <div id="conf-services"></div>
+            <div class="confirm-section-title">Location</div>
+            <div class="confirm-row">
+              <span class="confirm-label">Service Address</span>
+              <span class="confirm-value" id="conf-address">—</span>
+            </div>
           </div>
 
           <div class="confirm-section">
-            <div class="confirm-section-title">Your Details</div>
-            <div class="confirm-row">
-              <span class="confirm-label">Name</span>
-              <span class="confirm-value" id="conf-name">—</span>
-            </div>
-            <div class="confirm-row">
-              <span class="confirm-label">Email</span>
-              <span class="confirm-value" id="conf-email">—</span>
-            </div>
-            <div class="confirm-row">
-              <span class="confirm-label">Phone</span>
-              <span class="confirm-value" id="conf-phone">—</span>
-            </div>
-            <div class="confirm-row">
-              <span class="confirm-label"></span>
-              <button class="confirm-edit" onclick="goToStep(8)">Edit Details</button>
-            </div>
+            <div class="confirm-section-title">Services</div>
+            <div id="conf-services"></div>
           </div>
 
           <div class="confirm-section">
@@ -995,11 +1094,6 @@
               <button class="btn-apply" onclick="applyPromo()">Apply</button>
             </div>
             <div class="promo-msg" id="promo-msg"></div>
-          </div>
-
-          <div class="form-field" style="margin-bottom:1rem;">
-            <label class="form-label">Comments for Your Detailer</label>
-            <textarea class="comment-field" id="f-comments" placeholder="Any notes? Gate codes, parking instructions, specific concerns..."></textarea>
           </div>
 
           <div class="payment-note">
@@ -1037,7 +1131,7 @@
     <div>💳 Payment due at end — Cash, Venmo, Zelle, CashApp, or Card</div>
     <div>❌ Free cancellation up to 24 hours before</div>
   </div>
-  <div style="font-size:.8rem;color:#A7ADB5;">Questions? <a href="tel:9702953577" style="color:#D4A851;text-decoration:none;font-weight:600;">(970) 295-3577</a></div>
+  <div style="font-size:.8rem;color:#A7ADB5;">Questions? <a href="tel:9708516433" style="color:#D4A851;text-decoration:none;font-weight:600;">(970) 851-6433</a></div>
   <a href="/" class="btn-home" style="margin-top:1.25rem;">Back to Home</a>
 </div>
 
@@ -1052,6 +1146,12 @@ const VEHICLE_TYPES = [
   { key: 'van',   label: 'Van',    desc: 'Minivan or full-size van' }
 ];
 
+const SERVICE_CATEGORIES = [
+  { key: 'detailing', label: 'Mobile Detailing', desc: 'Interior, exterior, or full detail at your door.', img: 'brand_assets/svc-mobile-detailing.jpg' },
+  { key: 'ceramic',   label: 'Ceramic Coating',  desc: 'System X 9H protection, gloss & hydrophobics.',   img: 'web.screenshots/pkg-ext-ceramic.jpg' },
+  { key: 'paint',     label: 'Paint Correction', desc: 'Machine polish to remove swirls & restore gloss.', img: 'web.screenshots/pc-pkg-polish1.jpg' }
+];
+
 const PACKAGE_TYPES = [
   { key: 'interior',    label: 'Interior',          desc: 'Deep clean inside your vehicle',              color: '#7a6fff' },
   { key: 'exterior',    label: 'Exterior',          desc: 'Full paint care & protection outside',        color: '#52c77a' },
@@ -1059,72 +1159,172 @@ const PACKAGE_TYPES = [
   { key: 'paint',       label: 'Paint Correction',  desc: 'Machine polish to restore gloss & fix swirls', color: '#D4A851' }
 ];
 
+// The CRM. Source of truth for availability, time slots, and bookings.
+const CRM_API = 'https://sfac-mu.vercel.app';
+
 const SERVICE_CONFIGS = {
-  'express-exterior': {
-    label: 'Express Exterior', packageType: 'exterior', tier: 'express',
-    description: 'A thorough outside clean that leaves your paint gleaming and your wheels spotless.',
-    bullets: ['Hand wash & dry', 'Tire dressing & rim clean', 'Window & mirror polish', 'Door jambs wiped down', 'Paint sealant & wax protection'],
-    pricing: { small:90, mid:100, large:110, van:140 },
-    acuityIds: { small:91811065, mid:91812053, large:91812249, van:91812273 },
-    addons: ['headlight','engine','trim']
-  },
-  'express-interior': {
-    label: 'Express Interior', packageType: 'interior', tier: 'express',
-    description: 'A focused interior refresh to clear clutter, odors, and dust — in and out fast.',
-    bullets: ['Full vacuum (seats, carpets, trunk)', 'Wipe all surfaces & dash', 'Clean floor mats', 'Interior windows & mirrors', 'Door panels & cupholder clean'],
-    pricing: { small:165, mid:190, large:210, van:250 },
-    acuityIds: { small:91812297, mid:91812447, large:91812550, van:91812687 },
-    addons: ['petHair']
-  },
-  'express-full': {
-    label: 'Express Full Detail', packageType: 'full', tier: 'express',
-    description: 'The complete package — a full interior refresh combined with a spotless exterior clean.',
-    bullets: ['Everything in Express Interior', 'Everything in Express Exterior', 'Complete vehicle refresh in one visit'],
-    pricing: { small:220, mid:250, large:275, van:300 },
-    acuityIds: { small:91812717, mid:91812748, large:91812775, van:91812792 },
+  // ── Full Detail: Maintenance / Reset / Executive (set price applies to all sizes; add mid/large/van to charge more) ──
+  'maintenance-full': {
+    label: 'Full Maintenance', packageType: 'full', tier: 'maintenance',
+    description: 'A regular upkeep clean, inside and out, to keep your car fresh between deeper details.',
+    bullets: ['Interior vacuum & wipe down', 'Floor mats, windows & mirrors', 'Trunk & door jambs', 'Quick hand wash & wax', 'Clean rims & tires'],
+    included: {
+      interior: ['Interior vacuum', 'Wipe all surfaces', 'Floor mats', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
+      exterior: ['Quick hand wash', 'Wax protection', 'Clean rims', 'Clean tires']
+    },
+    pricing: { small:180, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','petHair','trim']
   },
-  'executive-exterior': {
-    label: 'Executive Exterior', packageType: 'exterior', tier: 'executive',
-    description: 'A premium paint care experience with deep decontamination, machine polish, and a show-quality finish.',
-    bullets: ['Clay bar decontamination', 'Single-stage machine polish', 'Ceramic-grade paint sealant', 'Tire & wheel deep clean', 'Window & trim dressing'],
-    pricing: { small:140, mid:165, large:195, van:250 },
-    acuityIds: { small:91815363, mid:91815382, large:91815395, van:91815404 },
-    addons: ['headlight','engine','trim']
-  },
-  'executive-interior': {
-    label: 'Executive Interior', packageType: 'interior', tier: 'executive',
-    description: 'A meticulous, showroom-quality interior restoration. Every surface cleaned, conditioned, and protected.',
-    bullets: ['Deep extraction & steam cleaning', 'Leather & vinyl conditioning', 'Pet hair removal (included)', 'Interior trim dressing'],
-    pricing: { small:330, mid:360, large:385, van:440 },
-    acuityIds: { small:91813164, mid:91813181, large:91813208, van:91813231 },
-    addons: [] // pet hair included
+  'reset-full': {
+    label: 'Full Reset', packageType: 'full', tier: 'reset',
+    description: 'A deeper reset of built-up dirt and grime, inside and out.',
+    bullets: ['Thorough interior vacuum', 'Clean & protect plastics', 'Spot steam & stain treatment', 'Floor mats detailed & shined', 'Professional hand wash & spot polish', 'Wax, rims, wheel wells & tires'],
+    included: {
+      interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Stains (spot treatment)', 'Spot steam cleaning', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
+      exterior: ['Professional hand wash', 'Spot polish', 'Wax protection', 'Detail rims', 'Wheel wells', 'Detail tires']
+    },
+    pricing: { small:299, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','petHair','trim']
   },
   'executive-full': {
-    label: 'Executive Full Detail', packageType: 'full', tier: 'executive',
-    description: 'Our flagship service — a full-day transformation combining Executive Interior and Exterior with premium paint correction.',
-    bullets: ['Everything in Executive Interior', 'Everything in Executive Exterior', 'Pet hair removal (included)', 'Complete protection package'],
-    pricing: { small:440, mid:470, large:500, van:550 },
-    acuityIds: { small:91812844, mid:91812881, large:91812988, van:91813125 },
-    addons: ['headlight','engine','trim'] // no pet hair (included)
+    label: 'Full Executive', packageType: 'full', tier: 'executive',
+    description: 'Our most thorough detail, with paint enhancement and a full interior reset.',
+    bullets: ['Full carpet & seat shampoo', 'Leather conditioning & full steam', 'Pet hair & trim restoration', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)'],
+    included: {
+      interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Stains (spot treatment)', 'Full carpet shampoo', 'Seat shampoo', 'Leather conditioning', 'Full steam cleaning', 'Pet hair removal', 'Trim restoration', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
+      exterior: ['Professional hand wash', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Detail rims', 'Wheel wells', 'Detail tires']
+    },
+    pricing: { small:499, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine'] // trim restoration included
+  },
+  // ── Exterior Only: Reset / Executive ──
+  'reset-exterior': {
+    label: 'Exterior Reset', packageType: 'exterior', tier: 'reset',
+    description: 'An exterior wash with wheels, tires, and paint protection.',
+    bullets: ['Professional hand wash', 'Spot polish', 'Wax protection', 'Detail rims & wheel wells', 'Detail tires'],
+    pricing: { small:99, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','trim']
+  },
+  'executive-exterior': {
+    label: 'Exterior Executive', packageType: 'exterior', tier: 'executive',
+    description: 'A deep exterior with decontamination, polish, and sealant.',
+    bullets: ['Professional hand wash', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Rims, wheel wells & tires'],
+    pricing: { small:225, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine'] // trim restoration included
+  },
+  // ── Interior Only: Maintenance / Reset / Executive ──
+  'maintenance-interior': {
+    label: 'Interior Maintenance', packageType: 'interior', tier: 'maintenance',
+    description: 'An interior upkeep clean: vacuum, wipe down, windows, and door panels.',
+    bullets: ['Interior vacuum', 'Wipe all surfaces', 'Floor mats', 'Windows & mirrors', 'Trunk & door jambs'],
+    pricing: { small:125, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['petHair']
+  },
+  'reset-interior': {
+    label: 'Interior Reset', packageType: 'interior', tier: 'reset',
+    description: 'A deep interior reset with steam and spot treatment.',
+    bullets: ['Thorough vacuum', 'Clean & protect plastics', 'Spot steam cleaning', 'Stain spot treatment', 'Floor mats detailed & shined', 'Windows, trunk & door jambs'],
+    pricing: { small:225, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['petHair']
+  },
+  'executive-interior': {
+    label: 'Interior Executive', packageType: 'interior', tier: 'executive',
+    description: 'A full interior reset with shampoo, leather care, and steam.',
+    bullets: ['Full carpet & seat shampoo', 'Leather conditioning', 'Full steam cleaning', 'Pet hair removal', 'Trim restoration'],
+    pricing: { small:325, mid:null, large:null, van:null },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: []
+  },
+  'paint-polish': {
+    label: 'Polish', packageType: 'paint', tier: 'polish',
+    img: 'web.screenshots/pc-guide-faded-new.jpg', condition: 'Lightly faded paint',
+    description: 'A single machine polish stage that restores gloss to your paint and removes up to 10% of light scratches and swirls. It brings back depth and clarity, and it makes the ideal prep before a ceramic coating.',
+    bullets: ['Full wash & decontamination', 'Single-stage machine polish', 'Restores gloss, depth & clarity', 'Removes up to 10% of light swirls', 'Great refresh or ceramic prep'],
+    pricing: { small:300, mid:350, large:400, van:500 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: ['headlight','engine','trim']
   },
   'paint-1step': {
-    label: '1-Step Paint Correction', packageType: 'paint', tier: '1step',
-    description: 'Single-stage machine polish removes light swirls and water spots — finished with a premium paint sealant.',
-    bullets: ['Full wash & decontamination', '1-step machine polish (light swirls & water spots)', 'Enhanced gloss & paint clarity', 'Premium paint sealant applied', 'Sealant lasts up to 6 months'],
-    pricing: { small:499, mid:550, large:600, van:700 },
+    label: '1-Step Correction', packageType: 'paint', tier: '1step',
+    img: 'web.screenshots/pc-guide-1step.jpg', condition: 'Scratches & swirls',
+    description: 'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
+    bullets: ['Full wash & decontamination', 'Single-stage machine correction', 'Removes 65 to 70% of scratches & swirls', 'Deep, reflective showroom gloss', 'Premium finish, sealed'],
+    pricing: { small:610, mid:720, large:830, van:990 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
   'paint-2step': {
-    label: '2-Step Paint Correction', packageType: 'paint', tier: '2step',
-    description: 'Two-stage cut and polish removes deeper scratches and oxidation — sealed with our top-tier paint sealant.',
-    bullets: ['Full wash & decontamination', '2-step machine polish: compound cut + fine polish', 'Deep scratch and oxidation removal', 'Maximum gloss restoration', 'Premium paint sealant applied', 'Sealant lasts 6–12 months'],
-    pricing: { small:799, mid:850, large:900, van:1000 },
+    label: '2-Step Correction', packageType: 'paint', tier: '2step',
+    img: 'web.screenshots/pc-guide-swirls.jpg', condition: 'Deep defects',
+    description: 'Our highest level of paint correction, with two full stages of compounding and polishing. They cut through even the deepest defects, leaving a showroom shine and paint that is about as close to perfect as it gets.',
+    bullets: ['Full wash & decontamination', 'Two-stage compound cut + fine polish', 'Removes deep scratches & oxidation', 'Maximum gloss restoration', 'Premium finish, sealed'],
+    pricing: { small:1000, mid:1150, large:1300, van:1500 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
+  // ── Ceramic coating tiers (System X). Price = a gloss-boosting polish prep + the coating.
+  //    Heavier paint correction before coating is quoted separately. Acuity IDs TBD (0 = placeholder). ──
+  'ceramic-2yr': {
+    label: '2 Year Shield', packageType: 'ceramic', tier: '2yr',
+    description: 'A System X 9H ceramic coating with a 2 year warranty, applied over a full gloss-boosting polish. Deep gloss, extreme water beading, and UV protection.',
+    bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'System X 9H ceramic coating', '2 year full warranty', 'Extreme hydrophobics & UV protection'],
+    pricing: { small:599, mid:599, large:599, van:699 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: []
+  },
+  'ceramic-6yr': {
+    label: '6 Year Armor', packageType: 'ceramic', tier: '6yr',
+    description: 'A thicker, multi-layer System X coating with a 6 year warranty and stronger chemical resistance, applied over a full gloss-boosting polish.',
+    bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'Multi-layer System X coating', '6 year full warranty', 'Stronger chemical & etch resistance'],
+    pricing: { small:690, mid:850, large:1010, van:1160 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: []
+  },
+  'ceramic-life': {
+    label: 'Lifetime Diamond', packageType: 'ceramic', tier: 'life',
+    description: 'Our maximum-durability System X coating with a lifetime warranty and a free first annual inspection, applied over a full gloss-boosting polish.',
+    bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'Maximum-thickness System X coating', 'Lifetime warranty', 'Free first annual inspection'],
+    pricing: { small:740, mid:900, large:1060, van:1330 },
+    acuityIds: { small:0, mid:0, large:0, van:0 },
+    addons: []
+  },
 };
+
+// ── Ceramic coating flow (coating + paint-correction prep). Total = coating + prep. ──
+// The "Select Coating" price shown includes the base Polish prep.
+const CERAMIC_COATINGS = [
+  { key:'2yr',  label:'2 Year Shield',    warranty:'2-Year Warranty',   desc:'The next level of surface protection. A System X 9H coating with a deep, glossy finish that lasts.',
+    features:['Deep gloss and hydrophobics','9H+ hardness','UV and oxidation protection','CARFAX registered','2 year full warranty'],
+    coating:{ small:299, mid:249, large:199, van:199 }, dur:{ small:240, mid:300, large:360, van:420 } },
+  { key:'6yr',  label:'6 Year Armor',     warranty:'6-Year Warranty',   desc:'A thicker, multi-layer coat with even stronger protection and a longer warranty.',
+    features:['Extreme gloss and hydrophobics','9H+ hardness','UV and oxidation protection','Thicker multi-layer coat','Stronger chemical resistance','CARFAX registered','6 year full warranty'],
+    coating:{ small:390, mid:500, large:610, van:660 }, dur:{ small:300, mid:360, large:420, van:480 } },
+  { key:'life', label:'Lifetime Diamond', warranty:'Lifetime Warranty', desc:'Our maximum-durability coating with the strongest protection and a lifetime warranty.',
+    features:['Ultimate gloss and hydrophobics','9H+ hardness','UV and oxidation protection','Maximum durability and thickness','Strongest chemical resistance','Free first annual inspection','CARFAX registered','Lifetime warranty'],
+    coating:{ small:440, mid:550, large:660, van:830 }, dur:{ small:360, mid:420, large:480, van:540 } },
+];
+const CERAMIC_PREP = [
+  { key:'polish',   label:'Polish', tagline:'Included with every coating', condition:'Lightly faded paint',
+    img:'web.screenshots/pc-guide-faded-new.jpg',
+    desc:'A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls. It brings back the depth and clarity that daily driving and washing dull down over time, and sets up a flawless surface before the coating goes on.',
+    price:{ small:300, mid:350, large:400, van:500 },  dur:{ small:0, mid:0, large:0, van:0 } },
+  { key:'one-step', label:'1-Step Correction', tagline:'Most popular', condition:'Scratches & swirls',
+    img:'web.screenshots/pc-guide-1step.jpg',
+    desc:'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
+    price:{ small:610, mid:720, large:830, van:990 },  dur:{ small:120, mid:130, large:140, van:150 } },
+  { key:'two-step', label:'2-Step Correction', tagline:'Maximum correction', condition:'Deep defects',
+    img:'web.screenshots/pc-guide-swirls.jpg',
+    desc:'Two full stages of compounding and polishing that cut through even the deepest scratches and oxidation, leaving a showroom shine and paint that is about as close to perfect as it gets.',
+    price:{ small:1000, mid:1150, large:1300, van:1500 }, dur:{ small:180, mid:200, large:220, van:240 } },
+];
+function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
 
 const ADDON_DEFS = {
   headlight: { id:6906837, name:'Headlight Restoration', price:65, duration:45, desc:'Restore clarity to cloudy, yellowed headlights — improves night visibility.' },
@@ -1134,29 +1334,50 @@ const ADDON_DEFS = {
 };
 
 const TIER_INFO = {
-  express: {
-    badge: 'express', name: 'Express', tagline: 'The essentials, done right — fast, thorough, and affordable.',
-    highlights: ['Quality results in minimal time', 'Hand wash & vacuum', 'Perfect for regular maintenance']
+  maintenance: {
+    badge: 'express', name: 'Maintenance', tagline: 'Regular upkeep to keep your car fresh between deeper details.',
+    highlights: ['Vacuum & wipe down', 'Hand wash & wax', 'Perfect for regular upkeep']
+  },
+  reset: {
+    badge: 'step1', name: 'Reset', tagline: 'A deeper reset of built-up dirt and grime.',
+    highlights: ['Deep clean & spot steam', 'Stain spot treatment', 'Decontamination & polish']
   },
   executive: {
-    badge: 'executive', name: 'Executive', tagline: 'Premium detailing with professional-grade products and deep treatment.',
-    highlights: ['Professional-grade products', 'Deep extraction & steam', 'Showroom-quality results']
+    badge: 'executive', name: 'Executive', tagline: 'Our most thorough detail, with paint enhancement and a full reset.',
+    highlights: ['Shampoo, steam & leather care', 'Full paint enhancement', 'Showroom-quality results']
+  },
+  'polish': {
+    badge: 'express', name: 'Polish', tagline: 'Single-stage polish to restore gloss on well-kept paint.',
+    highlights: ['Single machine polish', 'Restores gloss & depth', 'Ideal ceramic prep']
   },
   '1step': {
-    badge: 'step1', name: '1-Step', tagline: 'Single-stage correction for light swirls and water spots.',
-    highlights: ['1-step machine polish', 'Premium paint sealant applied', 'Enhanced gloss & clarity']
+    badge: 'step1', name: '1-Step', tagline: 'Single-stage correction removes 65 to 70% of swirls.',
+    highlights: ['1-step machine correction', 'Deep, reflective gloss', 'Showroom shine']
   },
   '2step': {
     badge: 'step2', name: '2-Step', tagline: 'Deep two-stage correction removes scratches and oxidation.',
     highlights: ['Compound cut + fine polish', 'Deep scratch & oxidation removal', 'Maximum gloss restoration']
+  },
+  '2yr': {
+    badge: 'step1', name: '2 Year', tagline: 'System X 9H coating with a 2 year warranty.',
+    highlights: ['9H+ deep gloss & hydrophobics', 'UV protection', '2 year warranty']
+  },
+  '6yr': {
+    badge: 'step2', name: '6 Year', tagline: 'Thicker multi-layer coat with a 6 year warranty.',
+    highlights: ['Multi-layer coating', 'Stronger chemical resistance', '6 year warranty']
+  },
+  'life': {
+    badge: 'executive', name: 'Lifetime', tagline: 'Maximum durability with a lifetime warranty.',
+    highlights: ['Maximum thickness & durability', 'Free first annual inspection', 'Lifetime warranty']
   }
 };
 
 const PACKAGE_TIERS = {
-  interior: ['express','executive'],
-  exterior: ['express','executive'],
-  full:     ['express','executive'],
-  paint:    ['1step','2step'],
+  interior: ['maintenance','reset','executive'],
+  exterior: ['reset','executive'],
+  full:     ['maintenance','reset','executive'],
+  paint:    ['polish','1step','2step'],
+  ceramic:  ['2yr','6yr','life'],
 };
 
 // ═══════════════════════════════════════════════════════════════════
@@ -1168,9 +1389,12 @@ const state = {
   stepHistory: [1],
 
   // Current selection in progress
+  service: null,        // 'detailing' | 'ceramic' | 'paint'
   vehicle: null,        // 'small' | 'mid' | 'large' | 'van'
-  packageType: null,    // 'interior' | 'exterior' | 'full' | 'ceramic'
-  tier: null,           // 'express' | 'executive' | '1step' | '2step'
+  packageType: null,    // 'interior' | 'exterior' | 'full' | 'paint' | 'ceramic'
+  ceramicCoating: null, // '2yr' | '6yr' | 'life'
+  ceramicPrep: null,    // 'polish' | 'one-step' | 'two-step'
+  tier: null,           // 'maintenance' | 'reset' | 'executive' | 'polish' | '1step' | '2step'
   addons: {},           // { addonKey: quantity }
 
   // Cart
@@ -1193,6 +1417,44 @@ const state = {
 // ═══════════════════════════════════════════════════════════════════
 let map, marker, autocomplete;
 const TIMNATH = { lat: 40.5272, lng: -104.9611 };
+
+// ── Service-area travel-fee tiers ──
+// Core area: no travel fee.
+const FREE_CITIES  = ['timnath','fort collins','loveland','windsor'];
+// $45 travel fee + a 1-hour driving buffer (30 min before + 30 min after) blocked around the job.
+const FEE45_CITIES = ['greeley','eaton','ault','wellington','laporte','la porte','johnstown','berthoud'];
+// $65 travel fee (Longmont is explicitly included; anything else within 30 miles also lands here).
+const FEE65_CITIES = ['longmont'];
+
+// Straight-line miles from Timnath.
+function milesFromTimnath(lat, lng) {
+  const R = 3958.8;
+  const dLat = (lat - TIMNATH.lat) * Math.PI / 180;
+  const dLng = (lng - TIMNATH.lng) * Math.PI / 180;
+  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(TIMNATH.lat * Math.PI / 180) * Math.cos(lat * Math.PI / 180) *
+            Math.sin(dLng/2) * Math.sin(dLng/2);
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+// Pull the city name out of a Google place / geocoder result.
+function extractCity(comps) {
+  comps = comps || [];
+  const get = t => comps.find(c => (c.types||[]).includes(t));
+  const c = get('locality') || get('sublocality') || get('administrative_area_level_3') || get('neighborhood');
+  return c ? (c.long_name || c.short_name || '') : '';
+}
+
+// Decide whether we service a location and what travel fee applies.
+function classifyLocation(city, lat, lng) {
+  const c = (city || '').toLowerCase().trim();
+  if (FREE_CITIES.includes(c))  return { serviced:true, fee:0,  buffer:false, tier:'free',  city };
+  if (FEE45_CITIES.includes(c)) return { serviced:true, fee:45, buffer:true,  tier:'fee45', city };
+  if (FEE65_CITIES.includes(c)) return { serviced:true, fee:65, buffer:false, tier:'fee65', city };
+  // Any other city within 30 miles: $65 travel fee.
+  if (milesFromTimnath(lat, lng) <= 30) return { serviced:true, fee:65, buffer:false, tier:'fee65', city };
+  return { serviced:false, fee:0, buffer:false, tier:'out', city };
+}
 
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -1229,7 +1491,7 @@ function initMap() {
       { lat: 40.9, lng: -104.6 }
     ),
     strictBounds: false,
-    fields: ['geometry', 'formatted_address']
+    fields: ['geometry', 'formatted_address', 'address_components']
   });
 
   autocomplete.addListener('place_changed', onPlaceSelected);
@@ -1242,7 +1504,7 @@ function initMap() {
       geocoder.geocode({ location: loc }, (results, status) => {
         if (status === 'OK' && results[0]) {
           document.getElementById('address-input').value = results[0].formatted_address;
-          handleAddressConfirmed(results[0].formatted_address, loc.lat, loc.lng);
+          handleAddressConfirmed(results[0].formatted_address, loc.lat, loc.lng, extractCity(results[0].address_components));
         }
       });
     });
@@ -1254,10 +1516,10 @@ async function onPlaceSelected() {
   if (!place.geometry) return;
   const lat = place.geometry.location.lat();
   const lng = place.geometry.location.lng();
-  handleAddressConfirmed(place.formatted_address, lat, lng);
+  handleAddressConfirmed(place.formatted_address, lat, lng, extractCity(place.address_components));
 }
 
-async function handleAddressConfirmed(formatted, lat, lng) {
+async function handleAddressConfirmed(formatted, lat, lng, city) {
   document.getElementById('area-error').classList.remove('show');
 
   // Drop pin
@@ -1274,39 +1536,77 @@ async function handleAddressConfirmed(formatted, lat, lng) {
   map.panTo({ lat, lng });
   map.setZoom(14);
 
-  // Check service area
-  const inArea = await checkServiceArea(lat, lng);
-  if (!inArea) {
+  // Classify service area + travel fee
+  const cls = classifyLocation(city, lat, lng);
+  if (!cls.serviced) {
     document.getElementById('area-error').classList.add('show');
     document.getElementById('next1-btn').classList.remove('show');
+    showTravelNotice(null);
+    state.address = null;
     return;
   }
 
-  state.address = { formatted, lat, lng };
+  state.address = {
+    formatted, lat, lng,
+    city: cls.city || city || '',
+    travelFee: cls.fee,
+    needsBuffer: cls.buffer,
+    feeTier: cls.tier
+  };
+  showTravelNotice(cls);
   document.getElementById('next1-btn').classList.add('show');
 }
 
-function checkServiceArea(lat, lng) {
-  // Haversine straight-line distance from Fort Collins center
-  const R = 3958.8; // Earth radius in miles
-  const dLat = (lat - TIMNATH.lat) * Math.PI / 180;
-  const dLng = (lng - TIMNATH.lng) * Math.PI / 180;
-  const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
-            Math.cos(TIMNATH.lat * Math.PI / 180) * Math.cos(lat * Math.PI / 180) *
-            Math.sin(dLng/2) * Math.sin(dLng/2);
-  const miles = R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return Promise.resolve(miles <= 30);
+// Little heads-up under the address field when a travel fee applies.
+function showTravelNotice(cls) {
+  const el = document.getElementById('travel-notice');
+  if (!el) return;
+  if (!cls || !cls.fee) { el.classList.remove('show'); el.textContent = ''; return; }
+  const where = cls.city ? cls.city : 'This location';
+  el.textContent = `Heads up: ${where} is outside our core service area, so a $${cls.fee} travel fee will be added to your booking.`;
+  el.classList.add('show');
 }
 
 // ═══════════════════════════════════════════════════════════════════
 // NAVIGATION
 // ═══════════════════════════════════════════════════════════════════
+// If the customer built a quote in the quote builder, pull it in as a ready-made
+// cart item so they only need to enter their location + contact info.
+function loadCarriedQuote() {
+  let raw;
+  try { raw = localStorage.getItem('sfac_quote'); } catch (e) { return; }
+  if (!raw) return;
+  let q;
+  try { q = JSON.parse(raw); } catch (e) { return; }
+  if (!q || !q.size || !q.serviceName) return;
+
+  const vt = VEHICLE_TYPES.find(v => v.key === q.size);
+  const vehicleLabel = vt ? `${vt.label} — ${vt.desc}` : (q.vehicleLabel || q.size);
+  const addonsObj = {};
+  (q.addons || []).forEach(k => { if (ADDON_DEFS[k]) addonsObj[k] = 1; });
+
+  state.cart.push({
+    serviceKey: 'quote',
+    vehicle: q.size,
+    vehicleLabel,
+    label: q.serviceName + (q.pkgLabel ? ` (${q.pkgLabel})` : ''),
+    addons: addonsObj,
+    price: q.priced ? q.total : 0,
+    acuityTypeId: 0,      // carried quotes need real scheduling IDs before they book live
+    fromQuote: true,
+    custom: !q.priced
+  });
+  state.fromQuote = true;
+}
+
 function proceedToStep2() {
   if (!state.address) return;
   document.getElementById('map').classList.add('split');
   document.getElementById('step1-overlay').classList.add('hidden');
   document.getElementById('steps-panel').classList.add('open');
-  goToStep(2);
+  // Carried a quote in? Skip service/vehicle/package/level and go straight to the cart.
+  if (state.fromQuote && state.cart.length) goToStep(7);
+  else goToStep(2);
 }
 
 function goToStep(n) {
@@ -1355,8 +1655,10 @@ function updateBackBtn(step) {
 
 function updateBreadcrumb() {
   const parts = [];
+  if (state.service) parts.push(SERVICE_CATEGORIES.find(s=>s.key===state.service)?.label);
   if (state.vehicle) parts.push(VEHICLE_TYPES.find(v=>v.key===state.vehicle)?.label);
-  if (state.packageType) parts.push(PACKAGE_TYPES.find(p=>p.key===state.packageType)?.label);
+  // Only show the package type for Mobile Detailing (paint/ceramic are already named by the service).
+  if (state.packageType && state.service === 'detailing') parts.push(PACKAGE_TYPES.find(p=>p.key===state.packageType)?.label);
   if (state.tier) parts.push(TIER_INFO[state.tier]?.name);
 
   const bc = document.getElementById('breadcrumb-full');
@@ -1367,9 +1669,12 @@ function updateBreadcrumb() {
 }
 
 function addAnotherVehicle() {
+  state.service = null;
   state.vehicle = null;
   state.packageType = null;
   state.tier = null;
+  state.ceramicCoating = null;
+  state.ceramicPrep = null;
   state.addons = {};
   state.stepHistory = [...state.stepHistory, 2];
   goToStep(2);
@@ -1380,18 +1685,43 @@ function addAnotherVehicle() {
 // ═══════════════════════════════════════════════════════════════════
 function renderStep(n) {
   switch(n) {
-    case 2: renderVehicleTypes(); break;
-    case 3: renderPackageTypes(); break;
-    case 4: renderTiers(); break;
-    case 5: renderPackageDetail(); break;
-    case 6: renderCart(); break;
-    case 7: renderCalendar(); break;
-    case 8: break; // static HTML
-    case 9: renderConfirmation(); break;
+    case 2: renderServices(); break;
+    case 3: renderVehicleTypes(); break;
+    case 4: renderPackageTypes(); break;
+    case 5: renderTiers(); break;
+    case 6: renderPackageDetail(); break;
+    case 7: renderCart(); break;
+    case 8: renderCalendar(); break;
+    case 9: renderConfirmation(); break; // details form + review + book
   }
 }
 
-// ── Step 2: Vehicle Types ──
+// ── Step 2: Service ──
+function renderServices() {
+  const grid = document.getElementById('service-grid');
+  grid.innerHTML = SERVICE_CATEGORIES.map(s => `
+    <div class="svc-card ${state.service===s.key?'selected':''}" onclick="selectService('${s.key}')">
+      <img class="svc-img" src="${s.img}" alt="${s.label}" />
+      <div class="svc-body">
+        <div class="svc-label">${s.label}</div>
+        <div class="svc-desc">${s.desc}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function selectService(key) {
+  state.service = key;
+  // Detailing branches into a package type; ceramic/paint map straight to their level.
+  state.packageType = (key === 'detailing') ? null : key;
+  state.tier = null;
+  state.ceramicCoating = null;
+  state.ceramicPrep = null;
+  renderServices();
+  setTimeout(() => goToStep(3), 220);
+}
+
+// ── Step 3: Vehicle Types ──
 function renderVehicleTypes() {
   const grid = document.getElementById('vehicle-grid');
   grid.innerHTML = VEHICLE_TYPES.map(v => `
@@ -1406,104 +1736,128 @@ function renderVehicleTypes() {
 function selectVehicle(key) {
   state.vehicle = key;
   renderVehicleTypes();
-  setTimeout(() => goToStep(3), 220);
+  // Detailing picks a package type next; ceramic/paint skip straight to the level step.
+  const next = (state.service === 'detailing') ? 4 : 5;
+  setTimeout(() => goToStep(next), 220);
 }
 
-// ── Step 3: Package Types ──
+// ── Step 4: Package Types (Mobile Detailing only) ──
 function renderPackageTypes() {
   const grid = document.getElementById('package-grid');
-  grid.innerHTML = PACKAGE_TYPES.map(p => {
-    const prices = getPriceRange(p.key);
+  grid.innerHTML = PACKAGE_TYPES.filter(p => p.key !== 'paint').map(p => {
     return `
     <div class="package-card ${state.packageType===p.key?'selected':''}" onclick="selectPackage('${p.key}')">
       ${packageIllus(p.key)}
       <div class="pkg-card-body">
         <div class="pkg-label">${p.label}</div>
         <div class="pkg-desc">${p.desc}</div>
-        <div class="pkg-price-range">${prices}</div>
       </div>
     </div>
   `}).join('');
 }
 
 function packageIllus(key) {
-  // Interior
-  if (key === 'interior') {
-    return `<div class="pkg-illus">
-      <img class="pkg-car-img" src="web.screenshots/813e921e-de36-4ec4-a308-9594dcdd3285.png" alt="interior" />
-    </div>`;
-  }
-  // Full
-  if (key === 'full') {
-    return `<div class="pkg-illus">
-      <img class="pkg-car-img" src="web.screenshots/Inside and out.png" alt="full" />
-    </div>`;
-  }
-  // Exterior
-  if (key === 'exterior') {
-    return `<div class="pkg-illus">
-      <img class="pkg-car-img" src="web.screenshots/EXT.png" alt="exterior" />
-    </div>`;
-  }
-  // Paint Correction
-  if (key === 'paint') {
-    return `<div class="pkg-illus" style="background:#fff;">
-      <img class="pkg-car-img" src="web.screenshots/Paint correction PKG.png" alt="paint correction" style="object-fit:contain;height:110px;mix-blend-mode:multiply;" />
-    </div>`;
-  }
-  // Ceramic Coating
+  // Same little-car illustrations as the live booking page.
+  const imgs = {
+    interior: 'web.screenshots/813e921e-de36-4ec4-a308-9594dcdd3285.png', // Interior Only
+    exterior: 'web.screenshots/EXT.png',                                   // Exterior Only
+    full:     'web.screenshots/inside-and-out.png',                        // Inside & Out
+  };
+  const src = imgs[key];
+  if (src) return `<div class="pkg-illus"><img class="pkg-illus-img" src="${src}" alt="${key}" /></div>`;
   return `<div class="pkg-illus"></div>`;
 }
 
 function buildSvcKey(tier, pkgType) {
   if (pkgType === 'paint') return `paint-${tier}`;
+  if (pkgType === 'ceramic') return `ceramic-${tier}`;
   return `${tier}-${pkgType}`;
+}
+
+// Price for a service at a vehicle size. If a size-specific price isn't set, fall
+// back to the base (small) price so the set price always shows. Set mid/large/van in
+// SERVICE_CONFIGS to charge more per size.
+function svcPrice(svcKey, vehicle) {
+  const cfg = SERVICE_CONFIGS[svcKey];
+  let p = cfg?.pricing?.[vehicle];
+  if (p == null) p = cfg?.pricing?.small;
+  if (p == null) return { price: 0, custom: true };
+  return { price: p, custom: false };
 }
 
 function getPriceRange(pkgType) {
   const tiers = PACKAGE_TIERS[pkgType];
-  let min = Infinity, max = 0;
+  let min = Infinity, anyPriced = false;
   tiers.forEach(tier => {
-    const svcKey = buildSvcKey(tier, pkgType);
-    const cfg = SERVICE_CONFIGS[svcKey];
-    if (!cfg) return;
-    const p = cfg.pricing[state.vehicle || 'small'];
-    if (p < min) min = p;
-    if (p > max) max = p;
+    const { price, custom } = svcPrice(buildSvcKey(tier, pkgType), state.vehicle || 'small');
+    if (!custom) { anyPriced = true; if (price < min) min = price; }
   });
-  if (!isFinite(min)) return '';
-  return min === max ? `$${min}` : `From $${min}`;
+  if (!anyPriced) return 'Custom';
+  return `From $${min}`;
 }
 
 function selectPackage(key) {
   state.packageType = key;
   state.tier = null;
   renderPackageTypes();
-  setTimeout(() => goToStep(4), 220);
+  setTimeout(() => goToStep(5), 220);
 }
 
-// ── Step 4: Tiers ──
+// Grouped Interior/Exterior "what's included" list (Full Detail). When `expandable`,
+// a majority shows by default and "See more" reveals the rest.
+function includedGroupsHtml(cfg, expandable) {
+  const PREVIEW = { interior: 4, exterior: 3 };
+  const group = (label, items) => {
+    const key = label.toLowerCase();
+    const lis = items.map((it, i) => {
+      const hide = expandable && i >= PREVIEW[key];
+      return `<li${hide ? ' class="tinc-hide"' : ''}>${it}</li>`;
+    }).join('');
+    return `<div class="tinc-head">${label}</div><ul class="tinc-list">${lis}</ul>`;
+  };
+  const hiddenCount = expandable
+    ? Math.max(0, cfg.included.interior.length - PREVIEW.interior) + Math.max(0, cfg.included.exterior.length - PREVIEW.exterior)
+    : 0;
+  let html = `<div class="tinc">${group('Interior', cfg.included.interior)}${group('Exterior', cfg.included.exterior)}`;
+  if (hiddenCount > 0) html += `<button type="button" class="tinc-more" onclick="event.stopPropagation(); toggleIncluded(this)">See more</button>`;
+  html += `</div>`;
+  return html;
+}
+
+function toggleIncluded(btn) {
+  const wrap = btn.closest('.tinc');
+  const expanded = wrap.classList.toggle('expanded');
+  btn.textContent = expanded ? 'See less' : 'See more';
+}
+
+// ── Step 5: Tiers ──
 function renderTiers() {
+  if (state.packageType === 'ceramic') { renderCeramicStep(); return; }
+
   const tiers = PACKAGE_TIERS[state.packageType] || [];
   document.getElementById('tier-title').textContent =
-    state.packageType === 'paint' ? 'Select Correction Level' :
+    state.packageType === 'paint'   ? 'Select Correction Level' :
     'Select Detail Level';
 
   const grid = document.getElementById('tier-grid');
-  grid.innerHTML = tiers.map(tier => {
+  grid.style.display = '';   // restore the flex row for detailing/paint tiers
+  grid.innerHTML = tiers.map((tier, i) => {
     const svcKey = buildSvcKey(tier, state.packageType);
     const cfg = SERVICE_CONFIGS[svcKey];
-    const price = cfg?.pricing[state.vehicle] || 0;
+    const { price, custom } = svcPrice(svcKey, state.vehicle);
     const info = TIER_INFO[tier];
     return `
     <div class="tier-card ${state.tier===tier?'selected':''}" onclick="selectTier('${tier}')">
-      <div class="tier-badge ${info.badge}">${info.name}</div>
+      ${cfg?.img ? `<div class="tier-img"><img src="${cfg.img}" alt="${cfg.condition||cfg.label}" loading="lazy" /></div>` : ''}
+      <div class="tier-badge ${info.badge}">Level ${i + 1}</div>
       <div class="tier-name">${cfg?.label}</div>
+      ${cfg?.condition ? `<div class="tier-cond">For ${cfg.condition.toLowerCase()}</div>` : ''}
       <div class="tier-tagline">${info.tagline}</div>
-      <ul class="tier-bullets">
-        ${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}
-      </ul>
-      <div class="tier-price">$${price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
+      ${cfg?.included
+        ? includedGroupsHtml(cfg, true)
+        : `<ul class="tier-bullets">${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}</ul>`}
+      ${tier === 'maintenance' ? `<div class="tier-note">Only for new, recently detailed, and/or very well maintained cars.</div>` : ''}
+      <div class="tier-price">${custom ? 'Custom' : '$'+price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
     </div>
   `}).join('');
 }
@@ -1512,22 +1866,166 @@ function selectTier(tier) {
   state.tier = tier;
   state.addons = {};
   renderTiers();
-  setTimeout(() => goToStep(5), 220);
+  setTimeout(() => goToStep(6), 220);
+}
+
+// ── Ceramic: choose a coating, then a paint-correction prep level, then add to cart ──
+function renderCeramicStep() {
+  const size = state.vehicle;
+  document.getElementById('tier-title').textContent = 'Select Coating';
+  const grid = document.getElementById('tier-grid');
+  grid.style.display = 'block';   // ceramic content stacks vertically
+
+  // Coating cards: description + checkmark features (a few shown, See more expands)
+  const CER_PREVIEW = 3;
+  const coatings = CERAMIC_COATINGS.map(c => {
+    const base = (c.coating[size] || 0) + ceramicPolishPrice(size);
+    const sel = state.ceramicCoating === c.key;
+    const feats = c.features.map((f, i) =>
+      `<li${i >= CER_PREVIEW ? ' class="tinc-hide"' : ''}>${f}</li>`).join('');
+    const moreBtn = c.features.length > CER_PREVIEW
+      ? `<button type="button" class="tinc-more" onclick="event.stopPropagation(); toggleIncluded(this)">See more</button>` : '';
+    return `
+      <div class="cer-card ${sel?'selected':''}" onclick="selectCoating('${c.key}')">
+        <div class="tier-badge step1">${c.warranty}</div>
+        <div class="tier-name">${c.label}</div>
+        <div class="tier-tagline">${c.desc}</div>
+        <div class="tinc"><ul class="tinc-list">${feats}</ul>${moreBtn}</div>
+        <div class="tier-price">$${base}<span> · with polish</span></div>
+      </div>`;
+  }).join('');
+
+  // Paint-correction prep options (image + condition + detailed description, upcharge vs polish)
+  let corrHtml = '';
+  if (state.ceramicCoating) {
+    const polish = ceramicPolishPrice(size);
+    const opts = CERAMIC_PREP.map(p => {
+      const up = (p.price[size] || 0) - polish;
+      const sel = state.ceramicPrep === p.key;
+      const priceLabel = up <= 0 ? 'Included' : `+$${up}`;
+      return `
+        <div class="cer-corr ${sel?'selected':''}" onclick="selectCorrection('${p.key}')">
+          <div class="cer-corr-img"><img src="${p.img}" alt="${p.condition}" loading="lazy" /></div>
+          <div class="cer-corr-main">
+            <div class="cer-corr-name">${p.label} <span class="cer-corr-tag">${p.tagline}</span></div>
+            <div class="cer-corr-cond">For ${p.condition.toLowerCase()}</div>
+            <div class="cer-corr-desc">${p.desc}</div>
+          </div>
+          <div class="cer-corr-price ${up<=0?'inc':''}">${priceLabel}</div>
+        </div>`;
+    }).join('');
+    corrHtml = `
+      <div class="cer-corr-block" id="cer-corr-block">
+        <div class="cer-sec-title">Select Paint Correction Level</div>
+        <div class="cer-sec-note">Every coating starts with a machine polish so it bonds to smooth, prepped paint. If yours has visible swirls or scratches, step up the correction so the coating cures over a flawless finish. Not sure which you need? The photos below show what each level is built for.</div>
+        <div class="cer-corr-list">${opts}</div>
+      </div>`;
+  }
+
+  // Add to Cart appears once both are chosen
+  let footHtml = '';
+  if (state.ceramicCoating && state.ceramicPrep) {
+    const coating = CERAMIC_COATINGS.find(c => c.key === state.ceramicCoating);
+    const prep = CERAMIC_PREP.find(p => p.key === state.ceramicPrep);
+    const total = (coating.coating[size] || 0) + (prep.price[size] || 0);
+    footHtml = `
+      <div class="cer-foot" id="cer-foot">
+        <div class="cer-foot-total"><span>Total</span> $${total}</div>
+        <button class="btn-cart" onclick="addCeramicToCart()">Add to Cart</button>
+      </div>`;
+  }
+
+  grid.innerHTML = `<div class="cer-coatings">${coatings}</div>${corrHtml}${footHtml}`;
+}
+
+function selectCoating(key) {
+  const firstPick = !state.ceramicCoating;
+  state.ceramicCoating = key;
+  renderCeramicStep();
+  // Auto-scroll to the paint-correction section once a coating is chosen
+  if (firstPick) {
+    setTimeout(() => {
+      const block = document.getElementById('cer-corr-block');
+      if (block) block.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 80);
+  }
+}
+
+function selectCorrection(key) {
+  state.ceramicPrep = key;
+  renderCeramicStep();
+  // Scroll to the bottom so the Total + Add to Cart button is in view
+  setTimeout(() => {
+    const foot = document.getElementById('cer-foot');
+    if (foot) foot.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, 80);
+}
+
+function addCeramicToCart() {
+  const size = state.vehicle;
+  const coating = CERAMIC_COATINGS.find(c => c.key === state.ceramicCoating);
+  const prep = CERAMIC_PREP.find(p => p.key === state.ceramicPrep);
+  if (!coating || !prep) return;
+  const price = (coating.coating[size] || 0) + (prep.price[size] || 0);
+  const vt = VEHICLE_TYPES.find(v => v.key === size);
+  const label = `${coating.label} + ${prep.label}`;
+
+  state.cart.push({
+    serviceKey: `ceramic-${coating.key}`,
+    vehicle: size,
+    vehicleLabel: vt ? `${vt.label} — ${vt.desc}` : size,
+    label,
+    addons: {},
+    price,
+    custom: false,
+    acuityTypeId: 0,
+    ceramicCoating: coating.key,
+    ceramicPrep: prep.key,
+    ceramicDuration: (coating.dur[size] || 0) + (prep.dur[size] || 0)
+  });
+
+  // Reset selection
+  state.service = null;
+  state.vehicle = null;
+  state.packageType = null;
+  state.tier = null;
+  state.ceramicCoating = null;
+  state.ceramicPrep = null;
+  state.addons = {};
+
+  // Back from the cart returns to the service step (selection state was reset),
+  // never into a now-empty selection step.
+  state.stepHistory = [1, 2, 7];
+  saveBookingProgress();
+  goToStep(7);
 }
 
 function getDuration(svcKey, vehicle) {
   // Return duration in minutes from Acuity data
   const durations = {
-    'express-exterior':  { small:80, mid:90, large:90, van:100 },
-    'express-interior':  { small:105, mid:110, large:115, van:120 },
-    'express-full':      { small:180, mid:190, large:195, van:200 },
-    'executive-exterior':{ small:105, mid:110, large:115, van:120 },
-    'executive-interior':{ small:210, mid:220, large:230, van:240 },
-    'executive-full':    { small:330, mid:340, large:350, van:360 },
+    'maintenance-full':    { small:150, mid:170, large:190, van:210 },
+    'reset-full':          { small:210, mid:240, large:270, van:300 },
+    'executive-full':      { small:330, mid:360, large:390, van:420 },
+    'reset-exterior':      { small:90,  mid:105, large:120, van:135 },
+    'executive-exterior':  { small:150, mid:170, large:190, van:210 },
+    'maintenance-interior':{ small:90,  mid:105, large:120, van:135 },
+    'reset-interior':      { small:150, mid:170, large:190, van:210 },
+    'executive-interior':  { small:210, mid:230, large:250, van:270 },
+    'paint-polish':      { small:150, mid:170, large:190, van:210 },
     'paint-1step':       { small:300, mid:320, large:340, van:360 },
     'paint-2step':       { small:360, mid:380, large:400, van:420 },
+    'ceramic-2yr':       { small:240, mid:300, large:360, van:420 },
+    'ceramic-6yr':       { small:300, mid:360, large:420, van:480 },
+    'ceramic-life':      { small:360, mid:420, large:480, van:540 },
   };
   return durations[svcKey]?.[vehicle] || 0;
+}
+
+// Duration of a cart item (ceramic carries its own combined coating+prep time).
+function itemDurationOf(item) {
+  if (item.ceramicDuration != null) return item.ceramicDuration;
+  return getDuration(item.serviceKey, item.vehicle)
+    + Object.entries(item.addons || {}).reduce((a,[k,q]) => a + q * (ADDON_DEFS[k]?.duration || 0), 0);
 }
 
 function formatDuration(mins) {
@@ -1543,7 +2041,7 @@ function renderPackageDetail() {
   const cfg = SERVICE_CONFIGS[svcKey];
   if (!cfg) return;
 
-  const price = cfg.pricing[state.vehicle];
+  const { price, custom } = svcPrice(svcKey, state.vehicle);
   const dur = getDuration(svcKey, state.vehicle);
 
   document.getElementById('pkg-detail-content').innerHTML = `
@@ -1551,14 +2049,16 @@ function renderPackageDetail() {
       <div class="pkg-detail-icon">${vehicleSVG(state.vehicle)}</div>
       <div>
         <div class="pkg-detail-name">${cfg.label}</div>
-        <div class="pkg-detail-price">$${price}</div>
+        <div class="pkg-detail-price">${custom ? 'Custom' : '$'+price}</div>
         <div class="pkg-detail-duration">${formatDuration(dur)}</div>
       </div>
     </div>
     <div class="pkg-detail-desc">${cfg.description}</div>
     <div class="pkg-includes">
       <div class="pkg-includes-title">What's Included</div>
-      <ul>${cfg.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>
+      ${cfg.included
+        ? includedGroupsHtml(cfg, false)
+        : `<ul>${cfg.bullets.map(b=>`<li>${b}</li>`).join('')}</ul>`}
     </div>
   `;
 
@@ -1605,11 +2105,12 @@ function updateCartPreview() {
   const svcKey = buildSvcKey(state.tier, state.packageType);
   const cfg = SERVICE_CONFIGS[svcKey];
   if (!cfg) return;
-  let total = cfg.pricing[state.vehicle] || 0;
+  const { price, custom } = svcPrice(svcKey, state.vehicle);
+  let total = price;
   Object.entries(state.addons).forEach(([key, qty]) => {
     total += qty * (ADDON_DEFS[key]?.price || 0);
   });
-  document.getElementById('cart-preview-price').textContent = `$${total}`;
+  document.getElementById('cart-preview-price').textContent = custom ? 'Custom' : `$${total}`;
 }
 
 function addToCart() {
@@ -1619,7 +2120,8 @@ function addToCart() {
 
   const vehicleType = VEHICLE_TYPES.find(v=>v.key===state.vehicle);
   const vehicleLabel = vehicleType ? `${vehicleType.label} — ${vehicleType.desc}` : state.vehicle;
-  let price = cfg.pricing[state.vehicle] || 0;
+  const base = svcPrice(svcKey, state.vehicle);
+  let price = base.price;
   const selectedAddons = {};
   Object.entries(state.addons).forEach(([key, qty]) => {
     if (qty > 0) { selectedAddons[key] = qty; price += qty * ADDON_DEFS[key].price; }
@@ -1631,21 +2133,34 @@ function addToCart() {
     vehicleLabel,
     label: cfg.label,
     addons: selectedAddons,
-    price,
+    price: base.custom ? 0 : price,
+    custom: base.custom,
     acuityTypeId: cfg.acuityIds[state.vehicle]
   });
 
   // Reset selections
+  state.service = null;
   state.vehicle = null;
   state.packageType = null;
   state.tier = null;
   state.addons = {};
 
-  state.stepHistory.push(6);
-  goToStep(6);
+  // Back from the cart returns to the service step (selection state was reset),
+  // never into a now-empty selection step.
+  state.stepHistory = [1, 2, 7];
+  saveBookingProgress();
+  goToStep(7);
 }
 
-// ── Step 6: Cart ──
+// Carried quotes for larger vehicles have no set price yet — show "Custom".
+function itemPriceStr(item) { return item.custom ? 'Custom' : `$${item.price}`; }
+function cartHasCustom() { return state.cart.some(i => i.custom); }
+function cartSubtotalStr() {
+  const sum = state.cart.reduce((s, i) => s + (i.custom ? 0 : i.price), 0);
+  return cartHasCustom() ? (sum ? `$${sum} + custom` : 'Custom') : `$${sum}`;
+}
+
+// ── Step 7: Cart ──
 function renderCart() {
   const list = document.getElementById('cart-items-list');
   list.innerHTML = state.cart.map((item, i) => {
@@ -1654,25 +2169,61 @@ function renderCart() {
     <div class="cart-item">
       <div class="cart-item-header">
         <div class="cart-item-name">${item.label}</div>
-        <div class="cart-item-price">$${item.price}</div>
+        <div class="cart-item-price">${itemPriceStr(item)}</div>
       </div>
       <div class="cart-item-vehicle">${item.vehicleLabel}</div>
       ${addonNames ? `<div class="cart-item-addons">+ ${addonNames}</div>` : ''}
+      ${item.custom ? `<div class="cart-item-addons">Price confirmed by your detailer</div>` : ''}
       <button class="cart-item-remove" onclick="removeCartItem(${i})">Remove</button>
     </div>
   `}).join('');
 
-  const subtotal = state.cart.reduce((s, i) => s + i.price, 0);
-  document.getElementById('cart-subtotal').textContent = `$${subtotal}`;
+  document.getElementById('cart-subtotal').textContent = cartSubtotalStr();
+  // A carried quote skips the calendar and goes straight to contact details.
+  const contBtn = document.getElementById('to-calendar-btn');
+  if (contBtn) contBtn.textContent = 'Select Date';
+}
+
+function cartContinue() {
+  goToStep(8);   // everyone picks a date & time next
 }
 
 function removeCartItem(i) {
   state.cart.splice(i, 1);
+  saveBookingProgress();
   if (state.cart.length === 0) {
     addAnotherVehicle();
   } else {
     renderCart();
   }
+}
+
+// ── Save / restore an in-progress cart so it survives leaving and returning ──
+function saveBookingProgress() {
+  try {
+    if (!state.cart.length || !state.address) { localStorage.removeItem('sfac_booking_cart'); return; }
+    localStorage.setItem('sfac_booking_cart', JSON.stringify({
+      cart: state.cart, address: state.address,
+      promoCode: state.promoCode || '', ts: Date.now()
+    }));
+  } catch (e) {}
+}
+function clearBookingProgress() { try { localStorage.removeItem('sfac_booking_cart'); } catch (e) {} }
+function restoreBookingProgress() {
+  let raw; try { raw = localStorage.getItem('sfac_booking_cart'); } catch (e) { return false; }
+  if (!raw) return false;
+  let data; try { data = JSON.parse(raw); } catch (e) { return false; }
+  if (!data || !Array.isArray(data.cart) || !data.cart.length || !data.address) return false;
+  state.cart = data.cart;
+  state.address = data.address;
+  if (data.promoCode) state.promoCode = data.promoCode;
+  // Open straight to the cart (address already saved)
+  document.getElementById('map').classList.add('split');
+  document.getElementById('step1-overlay').classList.add('hidden');
+  document.getElementById('steps-panel').classList.add('open');
+  state.stepHistory = [1, 2];
+  goToStep(7);
+  return true;
 }
 
 // ── Step 7: Calendar ──
@@ -1685,12 +2236,12 @@ function renderCalendar() {
   // Service summary
   const primary = state.cart[0];
   if (primary) {
-    const icon = vehicleSVG(state.vehicle);
+    const icon = vehicleSVG(primary.vehicle);
     document.getElementById('cal-service-summary').innerHTML = `
       <div class="cal-svc-icon">${icon}</div>
       <div>
         <div class="cal-svc-name">${primary.label}</div>
-        <div class="cal-svc-meta">$${primary.price} · ${primary.vehicleLabel}${state.cart.length>1?' + '+( state.cart.length-1)+' more':''}</div>
+        <div class="cal-svc-meta">${itemPriceStr(primary)} · ${primary.vehicleLabel}${state.cart.length>1?' + '+( state.cart.length-1)+' more':''}</div>
       </div>
     `;
   }
@@ -1738,26 +2289,65 @@ function renderCalendarGrid() {
   grid.innerHTML = html;
 }
 
+// Total hands-on minutes across EVERY vehicle in the cart. No gap between them:
+// they are back to back at the same address.
+function cartTotalMinutes() {
+  return state.cart.reduce((s, item) => s + itemDurationOf(item), 0);
+}
+
+// Drive/pack time reserved BEFORE the first vehicle and AFTER the last one only.
+function cartBufferMinutes() {
+  return state.address?.needsBuffer ? 30 : 0;
+}
+
 async function fetchAvailableDates() {
-  const typeId = state.cart[0]?.acuityTypeId;
-  const grid = document.getElementById('cal-grid');
-  if (!typeId) {
-    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Online booking coming soon for this service.<br>Please call or text us to book.</div>';
-    return;
-  }
   const m = state.calMonth;
-  const monthStr = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
-  grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1">Loading availability...</div>';
+  const monthParam = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
+  const now = new Date();
+  const todayStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
   try {
-    const resp = await fetch(`https://sfac-mu.vercel.app/api/acuity/availability?type=dates&appointmentTypeID=${typeId}&month=${monthStr}&timezone=America%2FDenver`);
-    const dates = await resp.json();
-    state.availableDates = Array.isArray(dates) ? dates.map(d => d.date || d) : [];
-  } catch(e) {
+    // Real availability from the CRM: working days, blocked dates, the daily job
+    // cap, existing bookings, and the owner's Google Calendar. The visit's length
+    // is sent so a long detail is not offered a day that only has a short gap.
+    const duration = cartTotalMinutes();
+    const buffer   = cartBufferMinutes();
+    const resp = await fetch(
+      `${CRM_API}/api/book/availability?month=${monthParam}&duration=${duration}&buffer=${buffer}`,
+      { cache: 'no-store' }
+    );
+    if (!resp.ok) throw new Error('availability lookup failed');
+    const data = await resp.json();
+    state.availableDates = (data.available || []).filter(ds => ds >= todayStr);
+  } catch (e) {
+    // If the CRM cannot be reached, show nothing rather than every date. Offering
+    // a day we cannot verify is what causes a double booking.
+    console.error('[booking] availability unavailable:', e);
     state.availableDates = [];
-    grid.innerHTML = '<div class="cal-loading" style="grid-column:1/-1;color:var(--muted);">Unable to load availability. Please refresh or contact us.</div>';
-    return;
+    state.availabilityError = true;
   }
   renderCalendarGrid();
+}
+
+// Open time slots for a date: 8:00 AM to 6:00 PM, every 30 minutes.
+// Times the CRM says this visit actually fits into, given everything already
+// booked that day plus the drive time either side of each job.
+async function openTimeSlots(dateStr) {
+  const duration = cartTotalMinutes();
+  const buffer   = cartBufferMinutes();
+  const url = `${CRM_API}/api/book/slots?date=${dateStr}&duration=${duration}&buffer=${buffer}`;
+
+  const resp = await fetch(url, { cache: 'no-store' });
+  if (!resp.ok) throw new Error('slot lookup failed');
+  const data = await resp.json();
+
+  return (data.slots || []).map(t => {
+    const [HH, MM] = t.split(':');
+    const h = Number(HH);
+    const hr12 = ((h + 11) % 12) + 1;
+    const ampm = h < 12 ? 'AM' : 'PM';
+    return { iso: `${dateStr}T${HH}:${MM}:00`, label: `${hr12}:${MM} ${ampm}` };
+  });
 }
 
 function changeMonth(delta) {
@@ -1778,35 +2368,23 @@ async function selectDate(dateStr) {
   document.getElementById('to-details-btn').disabled = true;
   renderCalendarGrid();
 
-  // Fetch times
-  const typeId = state.cart[0]?.acuityTypeId;
   const timesEl = document.getElementById('time-slots-grid');
   const section = document.getElementById('time-slots-section');
   section.style.display = 'block';
-  timesEl.innerHTML = '<div class="no-slots">Loading times...</div>';
+  timesEl.innerHTML = '<p class="time-slots-msg">Checking what is open…</p>';
 
   try {
-    const resp = await fetch(`https://sfac-mu.vercel.app/api/acuity/availability?type=times&appointmentTypeID=${typeId}&date=${dateStr}&timezone=America%2FDenver`);
-    const times = await resp.json();
-    if (!Array.isArray(times) || !times.length) {
-      timesEl.innerHTML = '<div class="no-slots">No available times on this date.</div>';
+    const slots = await openTimeSlots(dateStr);
+    if (slots.length === 0) {
+      timesEl.innerHTML = '<p class="time-slots-msg">No openings long enough for this booking on this day. Please pick another date.</p>';
       return;
     }
-    // Filter to 15-minute increments only
-    const filtered = times.filter(t => {
-      const dt = new Date(t.time);
-      const mins = dt.toLocaleString('en-US', { minute: '2-digit', timeZone: 'America/Denver' });
-      return parseInt(mins) % 15 === 0;
-    });
-    const display = filtered.length ? filtered : times;
-    timesEl.innerHTML = display.map(t => {
-      const dt = new Date(t.time);
-      const label = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
-      const isSelected = state.selectedTime === t.time;
-      return `<div class="time-slot ${isSelected?'selected':''}" onclick="selectTime('${t.time}', '${label}')">${label}</div>`;
-    }).join('');
-  } catch(e) {
-    timesEl.innerHTML = '<div class="no-slots">Could not load times.</div>';
+    timesEl.innerHTML = slots.map(s =>
+      `<div class="time-slot ${state.selectedTime===s.iso?'selected':''}" onclick="selectTime('${s.iso}', '${s.label}')">${s.label}</div>`
+    ).join('');
+  } catch (e) {
+    console.error('[booking] slots unavailable:', e);
+    timesEl.innerHTML = '<p class="time-slots-msg">Could not load times right now. Please call or text (970) 851-6433.</p>';
   }
 }
 
@@ -1818,19 +2396,6 @@ function selectTime(isoTime, label) {
 }
 
 // ── Step 9: Confirmation ──
-function goToConfirmation() {
-  const email = document.getElementById('f-email').value.trim();
-  const first = document.getElementById('f-first').value.trim();
-  const last  = document.getElementById('f-last').value.trim();
-  const phone = document.getElementById('f-phone').value.trim();
-
-  if (!email || !first || !last || !phone) {
-    alert('Please fill in all fields.');
-    return;
-  }
-  state.email = email; state.firstName = first; state.lastName = last; state.phone = phone;
-  goToStep(9);
-}
 
 function renderConfirmation() {
   // Address
@@ -1842,9 +2407,7 @@ function renderConfirmation() {
     const dateLabel = dt.toLocaleDateString('en-US', { weekday:'short', month:'short', day:'numeric', year:'numeric', timeZone:'America/Denver' });
     const timeLabel = dt.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
     // End time estimate
-    const totalMins = state.cart.reduce((s,item) => {
-      return s + getDuration(item.serviceKey, item.vehicle) + Object.entries(item.addons).reduce((a,[k,q])=>a+q*ADDON_DEFS[k].duration,0);
-    }, 0);
+    const totalMins = state.cart.reduce((s,item) => s + itemDurationOf(item), 0);
     const end = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000);
     const endLabel = end.toLocaleTimeString('en-US', { hour:'numeric', minute:'2-digit', hour12:true, timeZone:'America/Denver' });
     document.getElementById('conf-datetime').textContent = `${timeLabel} – ${endLabel}, ${dateLabel}`;
@@ -1856,37 +2419,36 @@ function renderConfirmation() {
     return `
     <div class="confirm-row">
       <div class="confirm-label">${item.label}<br><small style="color:var(--muted2)">${item.vehicleLabel}${addonNames?'<br>+ '+addonNames:''}</small></div>
-      <div class="confirm-value">$${item.price}</div>
+      <div class="confirm-value">${itemPriceStr(item)}</div>
     </div>`;
   }).join('');
   renderConfirmationTotals();
-
-  // Details
-  document.getElementById('conf-name').textContent = `${state.firstName} ${state.lastName}`;
-  document.getElementById('conf-email').textContent = state.email;
-  document.getElementById('conf-phone').textContent = state.phone;
 }
 
 function renderConfirmationTotals() {
-  const subtotal = state.cart.reduce((s,i)=>s+i.price,0);
+  const subtotal = state.cart.reduce((s,i)=>s+(i.custom?0:i.price),0);
   const multiVehicle = state.cart.length > 1;
   const multiSavings = multiVehicle ? Math.round(subtotal * 0.10) : 0;
   const afterMulti = subtotal - multiSavings;
   const promoSavings = state.promoDiscount > 0
     ? Math.round(afterMulti * state.promoDiscount)
     : Math.min(state.promoFlatAmount, afterMulti);
-  const total = afterMulti - promoSavings;
+  const travelFee = state.address?.travelFee || 0;
+  const total = afterMulti - promoSavings + travelFee;
+  const hasCustom = cartHasCustom();
   const hasDiscount = multiVehicle || state.promoDiscount > 0 || state.promoFlatAmount > 0;
+  const showBreakdown = hasDiscount || travelFee > 0 || hasCustom;
+  const withCustom = (n) => hasCustom ? (n ? `$${n} + custom` : 'Custom') : `$${n}`;
 
   const block = document.getElementById('conf-totals-block');
 
   let html = '';
 
-  if (hasDiscount) {
+  if (showBreakdown) {
     html += `
       <div class="cart-subtotal" style="margin-bottom:.5rem;">
         <span class="cart-subtotal-label">Subtotal</span>
-        <span class="cart-subtotal-amount" style="color:var(--muted);">$${subtotal}</span>
+        <span class="cart-subtotal-amount" style="color:var(--muted);">${withCustom(subtotal)}</span>
       </div>`;
   }
 
@@ -1913,7 +2475,16 @@ function renderConfirmationTotals() {
       </div>`;
   }
 
-  if (hasDiscount) {
+  if (travelFee > 0) {
+    const cityLabel = state.address?.city ? ` (${state.address.city})` : '';
+    html += `
+      <div class="cart-subtotal" style="margin-bottom:.5rem;">
+        <span class="cart-subtotal-label">Travel Fee${cityLabel}</span>
+        <span class="cart-subtotal-amount" style="color:var(--text);">+$${travelFee}</span>
+      </div>`;
+  }
+
+  if (showBreakdown) {
     html += `<div style="border-top:1px solid var(--border);margin:.75rem 0;"></div>`;
   }
 
@@ -1924,7 +2495,7 @@ function renderConfirmationTotals() {
     </div>
     <div class="cart-subtotal" style="margin-bottom:0;">
       <span class="cart-subtotal-label">Estimated Total</span>
-      <span class="cart-subtotal-amount" style="color:${hasDiscount ? 'var(--gold)' : 'var(--text)'};">$${total}</span>
+      <span class="cart-subtotal-amount" style="color:${showBreakdown ? 'var(--gold)' : 'var(--text)'};">${withCustom(total)}</span>
     </div>`;
 
   block.innerHTML = html;
@@ -1983,97 +2554,312 @@ async function applyPromo() {
   renderConfirmationTotals();
 }
 
+// Carried-quote path: submit a booking request (location + contact + quote) to the
+// leads webhook the quote builder already uses, rather than a live Acuity appointment.
+async function submitQuoteRequest() {
+  const btn = document.getElementById('book-btn');
+  const errEl = document.getElementById('book-error');
+  const item = state.cart[0] || {};
+  const addonNames = Object.keys(item.addons || {}).map(k => ADDON_DEFS[k]?.name).filter(Boolean).join(', ');
+  const travelFee = state.address?.travelFee || 0;
+  const priceStr = item.custom ? `Custom (${item.vehicleLabel || ''})` : `$${item.price || 0}`;
+
+  let notes = `[Booking Request from Quote] ${item.label} — ${item.vehicleLabel || ''}`;
+  if (addonNames) notes += ` + ${addonNames}`;
+  notes += ` | Price: ${priceStr}`;
+  if (travelFee) notes += ` | Travel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
+  if (state.comments) notes += ` | Notes: ${state.comments}`;
+
+  const payload = {
+    full_name: `${state.firstName} ${state.lastName}`.trim(),
+    phone: state.phone,
+    email: state.email,
+    address: state.address?.formatted || '',
+    service: item.label + (addonNames ? ' + ' + addonNames : ''),
+    vehicle: item.vehicleLabel || '',
+    platform: 'WEB',
+    notes,
+    booking: {
+      requestType: 'quote-booking',
+      address: state.address?.formatted || '',
+      city: state.address?.city || '',
+      lat: state.address?.lat, lng: state.address?.lng,
+      travelFee, needsDriveBuffer: !!state.address?.needsBuffer,
+      driveBufferMins: state.address?.needsBuffer ? 30 : 0,
+      vehicle: item.vehicle, vehicleLabel: item.vehicleLabel,
+      service: item.label, addons: addonNames,
+      price: item.custom ? null : item.price, custom: !!item.custom
+    }
+  };
+
+  try {
+    const resp = await fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+    });
+    if (!resp.ok && resp.status !== 201) throw new Error('Something went wrong. Please call or text us at (970) 851-6433.');
+    try { localStorage.removeItem('sfac_quote'); } catch (e) {}
+    clearBookingProgress();
+
+    const titleEl = document.querySelector('.success-title');
+    if (titleEl) titleEl.textContent = 'Request Received!';
+    document.getElementById('success-sub').textContent =
+      "We've got your quote and location. We'll reach out shortly to lock in a time that works for you. Prefer to talk now? Call or text us at (970) 851-6433.";
+    document.getElementById('success-conf').textContent =
+      `${item.label} · ${priceStr}${travelFee ? ' + $' + travelFee + ' travel' : ''}`;
+    const g = document.getElementById('gcal-btn'); if (g) g.style.display = 'none';
+    document.getElementById('success-screen').classList.add('show');
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Request This Booking';
+    errEl.textContent = e.message;
+    errEl.style.display = 'block';
+  }
+}
+
+// Record a booking (with the chosen date/time) to the leads webhook — used while
+// Acuity is being retired and the CRM handles scheduling. Throws on failure so the
+// caller's catch resets the button.
+async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, itemDuration }) {
+  const primary = state.cart[0];
+  const bufferMins = state.address?.needsBuffer ? 30 : 0;
+  const totalMins = state.cart.reduce((s, item) => s + itemDuration(item), 0);
+  const itemLine = it => {
+    const an = Object.keys(it.addons).filter(k => it.addons[k] > 0).map(k => ADDON_DEFS[k].name).join(', ');
+    return `${it.label} (${it.vehicleLabel})${an ? ' + ' + an : ''}${it.custom ? ' — Custom' : ' — $' + it.price}`;
+  };
+  const svcSummary = state.cart.map(itemLine).join(' | ');
+  const whenLabel = document.getElementById('conf-datetime').textContent;
+
+  let notes = `[Booking] ${svcSummary}`;
+  notes += `\nWhen: ${whenLabel}`;
+  notes += `\nAddress: ${state.address?.formatted || ''}`;
+  if (travelFee > 0) notes += `\nTravel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
+  if (state.address?.needsBuffer) notes += `\nDrive buffer: 30 min each side`;
+  if (state.comments) notes += `\nNotes: ${state.comments}`;
+
+  // One visit = one booking, however many vehicles. `duration` is the sum of
+  // every vehicle with no gap between them; the buffer is reserved only before
+  // the first and after the last.
+  const [datePart, timePart] = state.selectedTime.split('T');
+
+  const payload = {
+    serviceId:   primary?.serviceKey || '',
+    serviceName: svcSummary,
+    vehicleSize: primary?.vehicle || '',
+    date:        datePart,
+    time:        timePart.slice(0, 5),
+    firstName:   state.firstName,
+    lastName:    state.lastName,
+    phone:       state.phone,
+    email:       state.email,
+    address:     state.address?.formatted || '',
+    vehicleMake: primary?.vehicleLabel || '',
+    notes,
+    promoCode:   state.promoCode || '',
+    discount:    Math.max(0, rawTotal - finalTotal),
+    price:       rawTotal,
+    total:       finalTotal,
+    duration:      totalMins,
+    bufferBefore:  bufferMins,
+    bufferAfter:   bufferMins,
+    vehicleCount:  state.cart.length,
+  };
+
+  const resp = await fetch(`${CRM_API}/api/book/create`, {
+    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload)
+  });
+  if (resp.status === 409) {
+    // The CRM refused because the slot collides with an existing visit or its
+    // drive time. Send them back to the calendar rather than failing silently.
+    throw new Error('Sorry, that time was just taken. Please pick another time.');
+  }
+  if (!resp.ok && resp.status !== 201) throw new Error('Something went wrong. Please call or text us at (970) 851-6433.');
+  try { localStorage.removeItem('sfac_quote'); } catch (e) {}
+  clearBookingProgress();
+
+  // Success screen
+  const titleEl = document.querySelector('.success-title'); if (titleEl) titleEl.textContent = "You're Booked!";
+  document.getElementById('success-sub').textContent =
+    `Your ${multiVehicle ? state.cart.length + ' services are' : 'appointment is'} set for ${whenLabel}. We'll text you to confirm. Questions? Call or text (970) 851-6433.`;
+  const totalStr = cartHasCustom() ? (finalTotal ? `$${finalTotal} + custom` : 'Custom') : `$${finalTotal}`;
+  document.getElementById('success-conf').textContent = `Estimated total: ${totalStr} (due in person)`;
+
+  // Google Calendar link (with 30-min drive buffer each side for fee-45 areas)
+  const startDt = new Date(new Date(state.selectedTime).getTime() - bufferMins * 60000);
+  const endDt = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000 + bufferMins * 60000);
+  const fmt = d => d.toISOString().replace(/[-:]/g, '').slice(0, 15);
+  const calLabel = multiVehicle ? `Shine for a Cause — ${state.cart.length} Vehicles` : `Shine for a Cause — ${primary.label}`;
+  let calDetails = `Shine for a Cause Mobile Detailing\n(970) 851-6433\nshineforacause.com\n\nService: ${svcSummary}`;
+  if (travelFee > 0) calDetails += `\nTravel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
+  if (bufferMins) calDetails += `\nIncludes 30 min drive time before and after.`;
+  calDetails += `\nEstimated total: ${totalStr} (due in person)`;
+  const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
+    + `&text=${encodeURIComponent(calLabel)}`
+    + `&dates=${fmt(startDt)}/${fmt(endDt)}`
+    + `&details=${encodeURIComponent(calDetails)}`
+    + `&location=${encodeURIComponent(state.address?.formatted || '')}`;
+  const gcalBtn = document.getElementById('gcal-btn');
+  if (gcalBtn) { gcalBtn.href = gcalUrl; gcalBtn.style.display = ''; }
+
+  document.getElementById('success-screen').classList.add('show');
+}
+
 async function confirmBooking() {
   const btn = document.getElementById('book-btn');
   const errEl = document.getElementById('book-error');
+
+  // Validate the contact details (form is on this page)
+  const email = document.getElementById('f-email').value.trim();
+  const first = document.getElementById('f-first').value.trim();
+  const last  = document.getElementById('f-last').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  if (!email || !first || !last || !phone) {
+    errEl.textContent = 'Please fill in your name, email, and phone number.';
+    errEl.style.display = 'block';
+    return;
+  }
+  state.email = email; state.firstName = first; state.lastName = last; state.phone = phone;
+
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner"></span>';
   errEl.style.display = 'none';
 
   state.comments = document.getElementById('f-comments').value.trim();
 
-  const primary = state.cart[0];
-  const extraItems = state.cart.slice(1);
-
-  // Build notes
-  let notes = `Service Address: ${state.address?.formatted}\n`;
-  if (extraItems.length) {
-    notes += `\nAdditional Vehicles (same appointment):\n`;
-    extraItems.forEach(item => {
-      const addons = Object.keys(item.addons).map(k=>ADDON_DEFS[k].name).join(', ');
-      notes += `- ${item.label} (${item.vehicleLabel})${addons ? ' + '+addons : ''} — $${item.price}\n`;
-    });
-  }
-  const rawTotal = state.cart.reduce((s,i)=>s+i.price,0);
   const multiVehicle = state.cart.length > 1;
+  const rawTotal = state.cart.reduce((s,i) => s + i.price, 0);
   const multiSavings = multiVehicle ? Math.round(rawTotal * 0.10) : 0;
   const afterMulti = rawTotal - multiSavings;
   const promoSavings = state.promoDiscount > 0
     ? Math.round(afterMulti * state.promoDiscount)
     : Math.min(state.promoFlatAmount, afterMulti);
-  const finalTotal = afterMulti - promoSavings;
+  const travelFee = state.address?.travelFee || 0;
+  const finalTotal = afterMulti - promoSavings + travelFee;
 
-  if (multiVehicle || state.promoCode) {
-    notes += `\nPricing Summary:\nSubtotal: $${rawTotal}`;
-    if (multiVehicle) notes += `\nMulti-Vehicle Discount (10%): -$${multiSavings}`;
+  // Duration in minutes for a single cart item (ceramic carries its own)
+  const itemDuration = itemDurationOf;
+
+  // Pricing block appended to every appointment note
+  let pricingNotes = '';
+  if (multiVehicle || state.promoCode || travelFee > 0) {
+    pricingNotes += `\nPricing Summary:\nSubtotal: $${rawTotal}`;
+    if (multiVehicle) pricingNotes += `\nMulti-Vehicle Discount (10%): -$${multiSavings}`;
     if (state.promoCode) {
-      if (state.promoDiscount > 0) notes += `\nPromo Code (${state.promoCode}, ${Math.round(state.promoDiscount*100)}% off): -$${promoSavings}`;
-      else notes += `\nPromo Code (${state.promoCode}, $${state.promoFlatAmount} off): -$${promoSavings}`;
+      if (state.promoDiscount > 0) pricingNotes += `\nPromo Code (${state.promoCode}, ${Math.round(state.promoDiscount*100)}% off): -$${promoSavings}`;
+      else pricingNotes += `\nPromo Code (${state.promoCode}, $${state.promoFlatAmount} off): -$${promoSavings}`;
     }
-    notes += `\nTotal Due: $${finalTotal} (due in person)`;
+    if (travelFee > 0) pricingNotes += `\nTravel Fee${state.address?.city ? ' ('+state.address.city+')' : ''}: +$${travelFee}`;
+    pricingNotes += `\nTotal Due: $${finalTotal} (due in person)`;
   }
-  if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
-
-  // Build addon IDs for primary item
-  const addonIDs = Object.entries(primary.addons)
-    .filter(([,q])=>q>0)
-    .map(([k])=>ADDON_DEFS[k].id);
-
-  const payload = {
-    appointmentTypeID: primary.acuityTypeId,
-    datetime: state.selectedTime,
-    firstName: state.firstName,
-    lastName: state.lastName,
-    email: state.email,
-    phone: state.phone,
-    addonIDs,
-    notes,
-    ...(state.promoCode && { couponCode: state.promoCode })
-  };
 
   try {
-    const resp = await fetch('https://sfac-mu.vercel.app/api/acuity/appointments', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-    const result = await resp.json();
+    // No live Acuity scheduling (IDs are placeholders) — record the booking with the
+    // chosen date/time to the leads webhook so the CRM can pick it up.
+    const usesAcuity = state.cart.some(it => it.acuityTypeId);
+    if (!usesAcuity) { await recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, itemDuration }); return; }
 
-    if (!resp.ok || result.status_code) {
-      throw new Error(result.message || 'Booking failed. Please try again.');
+    let cumulativeOffset = 0; // minutes from selectedTime
+    let firstAcuityId = null;
+
+    for (let i = 0; i < state.cart.length; i++) {
+      const item = state.cart[i];
+      const dur = itemDuration(item);
+      const startMs = new Date(state.selectedTime).getTime() + cumulativeOffset * 60000;
+      const datetime = new Date(startMs).toISOString();
+
+      const addonIDs = Object.entries(item.addons)
+        .filter(([,q]) => q > 0)
+        .map(([k]) => ADDON_DEFS[k].id);
+
+      const addonNames = Object.keys(item.addons).filter(k=>item.addons[k]>0).map(k=>ADDON_DEFS[k].name).join(', ');
+
+      let notes = `Service Address: ${state.address?.formatted}`;
+      if (state.address?.city) notes += `\nCity: ${state.address.city}`;
+      notes += `\nVehicle: ${item.vehicleLabel}`;
+      notes += `\nService: ${item.label}`;
+      if (addonNames) notes += `\nAdd-ons: ${addonNames}`;
+      if (multiVehicle) notes += `\nVehicle ${i + 1} of ${state.cart.length}`;
+      if (state.address?.needsBuffer) notes += `\nDrive buffer: block 30 min before + 30 min after this job (travel time).`;
+      notes += pricingNotes;
+      if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
+
+      const payload = {
+        appointmentTypeID: item.acuityTypeId,
+        datetime,
+        firstName: state.firstName,
+        lastName: state.lastName,
+        email: state.email,
+        phone: state.phone,
+        addonIDs,
+        notes,
+        // Structured fields for the CRM (safely ignored by the Acuity proxy if unused).
+        booking: {
+          address: state.address?.formatted || '',
+          city: state.address?.city || '',
+          lat: state.address?.lat, lng: state.address?.lng,
+          travelFee: state.address?.travelFee || 0,
+          needsDriveBuffer: !!state.address?.needsBuffer,
+          driveBufferMins: state.address?.needsBuffer ? 30 : 0,
+          vehicle: item.vehicle,
+          vehicleLabel: item.vehicleLabel,
+          service: item.label,
+          serviceKey: item.serviceKey,
+          addons: addonNames,
+          price: item.price,
+          promoCode: state.promoCode || '',
+          orderTotal: finalTotal
+        },
+        ...(i === 0 && state.promoCode && { couponCode: state.promoCode }),
+      };
+
+      const resp = await fetch('https://sfac-mu.vercel.app/api/acuity/appointments', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const result = await resp.json();
+
+      if (!resp.ok || result.status_code) {
+        throw new Error(result.message || `Booking failed for vehicle ${i + 1}. Please try again.`);
+      }
+
+      if (i === 0) firstAcuityId = result.acuityId;
+      cumulativeOffset += dur;
     }
 
     // Success!
+    const primary = state.cart[0];
+    const vehicleWord = multiVehicle ? `${state.cart.length} vehicle appointments` : primary.label;
     document.getElementById('success-sub').textContent =
-      `Your ${primary.label} has been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
+      `Your ${vehicleWord} ${multiVehicle ? 'have' : 'has'} been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
 
     let discountParts = [];
     if (multiVehicle) discountParts.push('10% multi-vehicle');
     if (state.promoDiscount > 0) discountParts.push(`${Math.round(state.promoDiscount*100)}% promo`);
-    const totalLine = discountParts.length > 0
-      ? `Confirmation #${result.acuityId} · Total: $${finalTotal} (${discountParts.join(' + ')} applied — due in person)`
-      : `Confirmation #${result.acuityId} · Estimated Total: $${rawTotal} (due in person)`;
+    if (travelFee > 0) discountParts.push(`$${travelFee} travel fee`);
+    const totalLine = (discountParts.length > 0 || finalTotal !== rawTotal)
+      ? `Confirmation #${firstAcuityId} · Total: $${finalTotal}${discountParts.length ? ' ('+discountParts.join(' + ')+' applied' : ' (due in person'}, due in person)`
+      : `Confirmation #${firstAcuityId} · Estimated Total: $${rawTotal} (due in person)`;
     document.getElementById('success-conf').textContent = totalLine;
     document.getElementById('success-screen').classList.add('show');
 
-    // Build Google Calendar link for the client
-    const startDt = new Date(state.selectedTime);
-    const endDt = new Date(startDt.getTime() + (primary.duration || 120) * 60000);
+    // Google Calendar link spanning entire multi-vehicle block.
+    // Fee-45 areas reserve a 30-min drive buffer on each side of the job.
+    const bufferMins = state.address?.needsBuffer ? 30 : 0;
+    const totalMins = state.cart.reduce((s, item) => s + itemDuration(item), 0);
+    const startDt = new Date(new Date(state.selectedTime).getTime() - bufferMins * 60000);
+    const endDt = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000 + bufferMins * 60000);
     const fmt = d => d.toISOString().replace(/[-:]/g,'').slice(0,15);
+    const calLabel = multiVehicle ? `Shine for a Cause — ${state.cart.length} Vehicles` : `Shine for a Cause — ${primary.label}`;
+    let calDetails = `Shine for a Cause Mobile Detailing\n(970) 851-6433\nshineforacause.com`;
+    calDetails += `\n\nService: ${multiVehicle ? state.cart.length + ' vehicles' : primary.label}`;
+    if (travelFee > 0) calDetails += `\nTravel fee: $${travelFee}${state.address?.city ? ' ('+state.address.city+')' : ''}`;
+    if (bufferMins) calDetails += `\nIncludes 30 min drive time before and after.`;
+    calDetails += `\nEstimated total: $${finalTotal} (due in person)`;
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
-      + `&text=${encodeURIComponent('Shine for a Cause — ' + primary.label)}`
+      + `&text=${encodeURIComponent(calLabel)}`
       + `&dates=${fmt(startDt)}/${fmt(endDt)}`
-      + `&details=${encodeURIComponent('Shine for a Cause Mobile Detailing\n(970) 295-3577\nshineforacause.com')}`
+      + `&details=${encodeURIComponent(calDetails)}`
       + `&location=${encodeURIComponent(state.address?.formatted||'')}`;
     const gcalBtn = document.getElementById('gcal-btn');
     if (gcalBtn) gcalBtn.href = gcalUrl;
@@ -2091,10 +2877,10 @@ async function confirmBooking() {
 // ═══════════════════════════════════════════════════════════════════
 function vehicleSVG(key) {
   const imgs = {
-    small: 'web.screenshots/Small car illistration.jpg',
-    mid:   'web.screenshots/Mid size illistration.png',
-    large: 'web.screenshots/Large illistration.webp',
-    van:   'web.screenshots/Van illistration.avif',
+    small: 'web.screenshots/vehicle-small.png',
+    mid:   'web.screenshots/vehicle-mid.png',
+    large: 'web.screenshots/vehicle-large.png',
+    van:   'web.screenshots/vehicle-van.png',
   };
   const extraClass = { small: 'vehicle-img-small', van: 'vehicle-img-van', large: 'vehicle-img-large' };
   if (imgs[key]) return `<img class="vehicle-img ${extraClass[key]||''}" src="${imgs[key]}" alt="${key}" />`;
@@ -2377,6 +3163,9 @@ function packageIcon(key) {
   };
   return icons[key] || icons.full;
 }
+
+// On load: restore an in-progress cart if there is one; otherwise pull in a carried quote.
+if (!restoreBookingProgress()) loadCarriedQuote();
 </script>
 
 <!-- Google Maps API -->

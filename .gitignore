@@ -4,6 +4,13 @@ temporary screenshots/
 screenshot*.mjs
 web.screenshots/*.mp4
 !web.screenshots/Untitled-compressed.mp4
+!web.screenshots/detailing-rangerover.mp4
 .claude/
 package-lock.json
 serve.mjs
+!web.screenshots/ceramic-pour.mp4
+!web.screenshots/revuelto-turntable-web.mp4
+!web.screenshots/boat-turntable-web.mp4
+!web.screenshots/gt3-turntable-web.mp4
+!web.screenshots/cqb-size.mp4
+!web.screenshots/cqb-rim.mp4

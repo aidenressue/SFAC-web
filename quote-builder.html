@@ -3,954 +3,774 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Build Your Coating Package | Shine for a Cause — Fort Collins</title>
-  <meta name="description" content="Build your custom ceramic coating package — choose your paint prep level, System X coating tier, and get an instant estimate. Serving Fort Collins and Northern Colorado." />
-  <meta name="robots" content="index, follow" />
-  <link rel="icon" type="image/png" href="/brand_assets/Shine for a Cause LOGO.png" />
-  <link rel="canonical" href="https://shineforacause.com/quote-builder.html" />
+  <title>Free Instant Detailing Quote | Fort Collins & Northern Colorado | Shine for a Cause</title>
+  <meta name="description" content="Build a free instant detailing quote in a few taps. Pick your vehicle, package, and add-ons and see your price. Serving Fort Collins and Northern Colorado." />
+  <meta property="og:title" content="Free Instant Detailing Quote | Fort Collins &amp; Northern Colorado | Shine for a Cause" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Free Instant Detailing Quote | Fort Collins &amp; Northern Colorado | Shine for a Cause" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,400;1,500;1,600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Instrument+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="canonical" href="https://shineforacause.com/quote-builder" />
   <style>
     :root {
-      --bg:       #0B0B0D;
-      --surface:  #141618;
-      --surface2: #1A1C20;
-      --gold:     #D4A851;
-      --gold-soft:#E0BF7A;
-      --gold-dim: rgba(212,168,81,0.10);
-      --gold-bdr: rgba(212,168,81,0.35);
-      --text:     #FFFFFF;
-      --muted:    #C8CDD6;
-      --border:   #333840;
-      --fh: 'Montserrat', sans-serif;
-      --fb: 'Inter', sans-serif;
-      --radius: 14px;
+      --bg:#FFFFFF; --bg-soft:#F7F6F3; --bg-warm:#FBFAF7; --ink:#101112; --ink-2:#3E4144;
+      --muted:#74777B; --line:#E8E6E1; --gold:#C9973A; --gold-deep:#A87B27;
+      --gold-soft:rgba(201,151,58,.10); --gold-line:rgba(201,151,58,.32);
+      --font-d:'Archivo',sans-serif; --font-b:'Instrument Sans',sans-serif;
+      --shadow-card:0 1px 2px rgba(16,17,18,.04), 0 8px 28px rgba(16,17,18,.07);
+      --shadow-lift:0 2px 6px rgba(16,17,18,.06), 0 18px 44px rgba(16,17,18,.12);
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
-    body { font-family: var(--fb); background: var(--bg); color: var(--text); overflow-x: hidden; line-height: 1.6; }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-padding-top:7rem; scroll-behavior:smooth; }
+    body { font-family:var(--font-b); background:var(--bg-soft); color:var(--ink); -webkit-font-smoothing:antialiased; }
+    a { color:inherit; text-decoration:none; }
+    img { max-width:100%; display:block; }
+    button { font-family:inherit; cursor:pointer; border:none; background:none; }
+    ul { list-style:none; }
+    .wrap { max-width:1100px; margin:0 auto; padding:0 1.5rem; }
+    .h-sec { font-family:var(--font-d); font-weight:800; letter-spacing:-.025em; line-height:1.05; font-size:clamp(1.9rem,3.4vw,2.75rem); color:var(--ink); }
+    .btn { display:inline-flex; align-items:center; justify-content:center; gap:.5rem; font-family:var(--font-d); font-weight:700; font-size:.82rem; padding:.7rem 1.5rem; border-radius:999px; transition:transform .18s, box-shadow .18s, background .18s; white-space:nowrap; }
+    .btn-gold { background:var(--gold); color:#141005; box-shadow:0 4px 16px rgba(201,151,58,.32); }
+    .btn-gold:hover { background:#D8A648; transform:translateY(-1px); }
+    .btn-ghost { border:1.5px solid var(--line); color:var(--ink); background:#fff; }
+    .btn-ghost:hover { border-color:var(--gold); color:var(--gold-deep); }
 
     /* NAV */
-    nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: rgba(11,11,13,0.94); backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border);
-      padding: 0 3rem; height: 74px;
-      display: grid; grid-template-columns: 1fr auto 1fr; align-items: center;
-    }
-    .nav-logo a { display: flex; align-items: center; }
-    .nav-logo img { height: 64px; width: auto; mix-blend-mode: screen; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; justify-content: center; }
-    .nav-cta { display: flex; justify-content: flex-end; align-items: center; gap: .75rem; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-family: var(--fh); font-size: .75rem; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; transition: color .2s; }
-    .nav-links a:hover { color: var(--gold); }
-    .btn-gold { background: var(--gold); color: #0B0B0D; border: none; border-radius: 999px; font-family: var(--fh); font-weight: 700; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; padding: .65rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 18px rgba(212,168,81,.25); }
-    .btn-gold:hover { background: var(--gold-soft); transform: translateY(-1px); box-shadow: 0 8px 26px rgba(212,168,81,.38); }
-    .btn-outline { background: transparent; color: var(--text); border: 1.5px solid var(--gold); border-radius: 999px; font-family: var(--fh); font-weight: 700; font-size: .78rem; letter-spacing: .06em; text-transform: uppercase; padding: .65rem 1.5rem; cursor: pointer; text-decoration: none; display: inline-block; transition: background .2s, color .2s, transform .15s; }
-    .btn-outline:hover { background: var(--gold); color: #0B0B0D; }
-    .nav-hamburger { display: none; background: none; border: none; cursor: pointer; padding: .4rem; flex-direction: column; gap: 5px; }
-    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--text); border-radius: 2px; }
-    .mobile-nav { display: none; position: fixed; top: 74px; left: 0; right: 0; z-index: 99; background: rgba(11,11,13,0.97); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); padding: 1.5rem 2rem 2rem; flex-direction: column; gap: 1rem; }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav-link { color: var(--muted); text-decoration: none; font-family: var(--fh); font-size: .85rem; font-weight: 600; letter-spacing: .07em; text-transform: uppercase; padding: .5rem 0; border-bottom: 1px solid var(--border); }
+    .nav { position:sticky; top:0; z-index:100; background:rgba(247,246,243,.85); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
+    .nav-inner { max-width:1240px; margin:0 auto; padding:.9rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
+    .nav-logo img { height:38px; width:auto; }
+    .nav-links { display:flex; align-items:center; gap:1.8rem; }
+    .nav-links a { font-family:var(--font-d); font-size:.98rem; font-weight:700; color:var(--ink-2); transition:color .15s; }
+    .nav-links a:hover { color:var(--gold-deep); }
+    .nav-cta { display:flex; align-items:center; gap:.7rem; }
+    .nav-phone { font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--ink); }
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:6px; }
+    .hamburger span { width:22px; height:2px; background:var(--ink); border-radius:2px; }
+    .m-menu { display:none; flex-direction:column; gap:.2rem; padding:.5rem 1.5rem 1.2rem; background:#fff; border-bottom:1px solid var(--line); }
+    .m-menu.open { display:flex; }
+    .m-menu a { font-family:var(--font-d); font-weight:700; color:var(--ink-2); padding:.6rem 0; }
 
-    /* HERO */
-    .page-hero { padding-top: 74px; background: var(--bg); position: relative; overflow: hidden; }
-    .page-hero::before { content: ''; position: absolute; top: -200px; left: 50%; transform: translateX(-50%); width: 900px; height: 600px; background: radial-gradient(ellipse, rgba(212,168,81,0.06) 0%, transparent 65%); pointer-events: none; }
-    .page-hero-inner { max-width: 720px; margin: 0 auto; padding: 4rem 3rem 3rem; text-align: center; position: relative; z-index: 1; }
-    .page-hero-label { font-family: var(--fh); font-size: .62rem; font-weight: 700; letter-spacing: .3em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; display: flex; align-items: center; justify-content: center; gap: .75rem; }
-    .page-hero-label::before, .page-hero-label::after { content: ''; flex: 1; max-width: 60px; height: 1px; background: linear-gradient(90deg, transparent, rgba(212,168,81,0.4)); }
-    .page-hero-label::after { transform: scaleX(-1); }
-    .page-hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.4rem, 4.5vw, 3.8rem); font-weight: 300; line-height: 1.1; letter-spacing: -.02em; color: var(--text); margin-bottom: 1rem; }
-    .page-hero h1 em { color: var(--gold); font-style: italic; }
-    .page-hero p { font-size: .9rem; color: var(--muted); line-height: 1.8; max-width: 520px; margin: 0 auto; }
+    /* CONFIGURATOR */
+    .qc { padding:6rem 0 4rem; }
+    .qc .qc-head { text-align:center; margin-bottom:1.8rem; }
+    .qc .qc-head .eyebrow { font-family:var(--font-d); font-size:.68rem; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--gold-deep); display:inline-flex; align-items:center; gap:.55rem; margin-bottom:.9rem; }
+    .qc .qc-head .eyebrow::before, .qc .qc-head .eyebrow::after { content:''; width:20px; height:2px; background:var(--gold); }
+    .qc .qc-head p { color:var(--ink-2); font-size:1.02rem; max-width:540px; margin:.7rem auto 0; line-height:1.6; }
+    .qc-config { display:grid; grid-template-columns:0.85fr 1.15fr; gap:2.6rem; align-items:start; max-width:1180px; margin:0 auto; }
+    .qc-preview { position:sticky; top:92px; border-radius:18px; overflow:hidden; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); }
+    .qc-media { position:relative; width:100%; aspect-ratio:16/10; overflow:hidden; background:#ECEAE4; }
+    .qc-media img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+    .qc-scrim { position:absolute; inset:0; background:linear-gradient(to top, rgba(12,12,13,.85) 0%, rgba(12,12,13,.28) 46%, rgba(12,12,13,0) 72%); }
+    .qc-cap { position:absolute; left:0; right:0; bottom:0; padding:1.1rem 1.2rem; color:#fff; }
+    .qc-cap-title { font-family:var(--font-d); font-weight:800; font-size:1.1rem; letter-spacing:-.02em; line-height:1.15; }
+    .qc-cap-sub { font-size:.76rem; color:rgba(255,255,255,.8); margin-top:.2rem; }
+    .qc-price-wrap { display:flex; align-items:baseline; justify-content:space-between; margin-top:.65rem; }
+    .qc-price-wrap.hide { display:none; }
+    .qc-price-label { font-family:var(--font-d); font-size:.54rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.72); }
+    .qc-price { font-family:var(--font-d); font-weight:900; font-size:1.85rem; letter-spacing:-.03em; color:#F0C06A; line-height:1; }
+    .qc-progress { display:flex; gap:.4rem; margin-bottom:1.4rem; }
+    .qc-progress span { height:4px; flex:1; border-radius:999px; background:var(--line); transition:background .3s; }
+    .qc-progress span.on { background:var(--gold); }
+    .qc-step { display:none; }
+    .qc-step.show { display:block; animation:qcIn .3s ease; }
+    @keyframes qcIn { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:none; } }
+    .qc-glabel { font-family:var(--font-d); font-size:.72rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); display:flex; align-items:center; gap:.6rem; margin-bottom:.9rem; }
+    .qc-glabel .qc-num { width:22px; height:22px; border-radius:50%; background:var(--gold-soft); border:1px solid var(--gold-line); color:var(--gold-deep); font-size:.68rem; display:flex; align-items:center; justify-content:center; }
+    .qc-hint { font-size:.78rem; color:var(--muted); font-weight:400; letter-spacing:0; text-transform:none; font-family:var(--font-b); margin-left:auto; }
+    .qc-grid { display:grid; gap:.7rem; }
+    .qc-grid.c2 { grid-template-columns:1fr 1fr; }
+    .qc-opt { position:relative; background:#fff; border:1.5px solid var(--line); border-radius:14px; padding:1rem 1.1rem; cursor:pointer; transition:border-color .16s, background .16s, box-shadow .16s; }
+    .qc-opt:hover { border-color:var(--gold-line); }
+    .qc-opt.selected { border-color:var(--gold); background:var(--gold-soft); box-shadow:0 4px 16px rgba(201,151,58,.14); }
+    .qc-check { position:absolute; top:.8rem; right:.8rem; width:18px; height:18px; border-radius:50%; border:1.5px solid var(--line); background:#fff; transition:all .16s; }
+    .qc-opt.selected .qc-check { border-color:var(--gold); background:var(--gold); }
+    .qc-opt.selected .qc-check::after { content:''; position:absolute; top:4px; left:4px; width:8px; height:5px; border-left:2px solid #fff; border-bottom:2px solid #fff; transform:rotate(-45deg); }
+    .qc-check.sq { border-radius:5px; }
+    .qc-name { font-family:var(--font-d); font-weight:800; font-size:.98rem; color:var(--ink); }
+    .qc-opt:not(.row):not(.vic) .qc-name { padding-right:1.4rem; }
+    .qc-desc { font-size:.76rem; color:var(--ink-2); line-height:1.45; margin-top:.25rem; }
+    .qc-addprice { display:inline-block; font-family:var(--font-d); font-weight:800; font-size:.8rem; color:var(--gold-deep); margin-top:.45rem; background:var(--gold-soft); border:1px solid var(--gold-line); padding:.12rem .5rem; border-radius:999px; }
+    .qc-opt.vic { padding:0; overflow:hidden; }
+    .qc-vic-img { width:100%; aspect-ratio:16/10; background:#fff; display:flex; align-items:center; justify-content:center; border-bottom:1px solid var(--line); }
+    .qc-vic-img img { width:100%; height:100%; object-fit:contain; padding:.3rem; }
+    .qc-vic-body { padding:.85rem 1.05rem 1rem; }
+    .qc-opt.vic .qc-check { top:.7rem; right:.7rem; background:rgba(255,255,255,.9); }
+    .qc-opt.row { display:flex; align-items:center; gap:.9rem; padding:.7rem .85rem; }
+    .qc-thumb { width:82px; height:64px; border-radius:10px; object-fit:cover; flex-shrink:0; background:#ECEAE4; }
+    .qc-opt.row .qc-body { flex:1; padding-right:1.3rem; }
+    .qc-nav { display:flex; align-items:center; margin-top:1.3rem; gap:1rem; }
+    .qc-back { display:inline-flex; align-items:center; gap:.4rem; font-family:var(--font-d); font-weight:700; font-size:.85rem; color:var(--muted); background:none; }
+    .qc-back:hover { color:var(--ink); }
+    .qc-back.hide { display:none; }
+    .qc-continue { margin-left:auto; display:inline-flex; align-items:center; gap:.45rem; background:var(--gold); color:#141005; font-family:var(--font-d); font-weight:800; font-size:.92rem; padding:.75rem 1.6rem; border-radius:11px; box-shadow:0 4px 14px rgba(201,151,58,.3); transition:background .16s, transform .16s; }
+    .qc-continue:hover { background:#D8A648; transform:translateY(-1px); }
+    .qc-continue.hide { display:none; }
+    .qc-est { background:#fff; border:1px solid var(--line); border-radius:16px; padding:1.2rem 1.3rem; box-shadow:var(--shadow-card); margin-bottom:1.1rem; }
+    .qc-est-row { display:flex; justify-content:space-between; align-items:center; padding:.45rem 0; border-bottom:1px solid var(--line); gap:1rem; }
+    .qc-est-row:last-of-type { border-bottom:none; }
+    .qc-est-label { font-size:.78rem; color:var(--muted); }
+    .qc-est-val { font-family:var(--font-d); font-size:.82rem; font-weight:700; color:var(--ink); text-align:right; }
+    .qc-est-total { display:flex; justify-content:space-between; align-items:center; margin-top:.9rem; padding:.85rem 1rem; background:var(--gold-soft); border:1px solid var(--gold-line); border-radius:11px; }
+    .qc-est-total-label { font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--gold-deep); }
+    .qc-est-total-val { font-family:var(--font-d); font-size:1.55rem; font-weight:900; color:var(--gold-deep); letter-spacing:-.02em; }
+    .qc-est-note { font-size:.68rem; color:var(--muted); line-height:1.55; margin-top:.7rem; }
+    .qc-finish { width:100%; background:var(--ink); color:#fff; font-family:var(--font-d); font-weight:800; font-size:1rem; padding:1.05rem 1.5rem; border-radius:13px; transition:background .18s, transform .18s; display:flex; align-items:center; justify-content:center; gap:.5rem; }
+    .qc-finish:hover { background:#000; transform:translateY(-1px); }
+    .qc-finish.qc-book { background:var(--gold); color:#141005; }
+    .qc-finish.qc-book:hover { background:#D8A648; }
+    .qc-finish.qc-finish-alt { background:#fff; color:var(--ink); border:1.5px solid var(--line); font-size:.9rem; font-weight:700; padding:.85rem 1.5rem; }
+    .qc-finish.qc-finish-alt:hover { background:var(--bg-warm); border-color:var(--gold); }
+    /* Modal */
+    .qc-modal { display:none; position:fixed; inset:0; z-index:500; background:rgba(16,17,18,.55); backdrop-filter:blur(6px); overflow-y:auto; padding:1.5rem; }
+    .qc-modal.open { display:block; }
+    .qc-modal-card { background:#fff; border:1px solid var(--line); border-radius:22px; max-width:520px; margin:2.5rem auto; padding:2rem 2rem 2.4rem; position:relative; box-shadow:0 30px 80px rgba(16,17,18,.3); }
+    .qc-modal-close { position:absolute; top:1.2rem; right:1.2rem; color:var(--muted); padding:4px; display:flex; }
+    .qc-modal-close:hover { color:var(--ink); }
+    .qc-modal-eyebrow { font-family:var(--font-d); font-size:.65rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:.4rem; }
+    .qc-modal-h { font-family:var(--font-d); font-size:1.5rem; font-weight:900; letter-spacing:-.02em; margin-bottom:.5rem; }
+    .qc-modal-sub { font-size:.85rem; color:var(--ink-2); line-height:1.6; }
+    .qc-modal-summary { display:flex; justify-content:space-between; align-items:center; gap:1rem; background:var(--bg-warm); border:1px solid var(--gold-line); border-radius:12px; padding:.9rem 1.1rem; margin:1.4rem 0; }
+    .qc-ms-lbl { font-size:.62rem; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:3px; }
+    .qc-ms-pkg { font-family:var(--font-d); font-size:.85rem; font-weight:700; color:var(--ink); }
+    .qc-ms-total { font-family:var(--font-d); font-size:1.4rem; font-weight:900; color:var(--gold-deep); text-align:right; }
+    .qc-fgrid { display:grid; grid-template-columns:1fr 1fr; gap:.9rem; }
+    .qc-field { display:flex; flex-direction:column; gap:.35rem; }
+    .qc-field.full { grid-column:1 / -1; }
+    .qc-field label { font-family:var(--font-d); font-size:.72rem; font-weight:700; color:var(--ink-2); }
+    .qc-field input, .qc-field select, .qc-field textarea { font-family:var(--font-b); font-size:.9rem; color:var(--ink); background:var(--bg-warm); border:1.5px solid var(--line); border-radius:10px; padding:.7rem .85rem; transition:border-color .15s; }
+    .qc-field input:focus, .qc-field select:focus, .qc-field textarea:focus { outline:none; border-color:var(--gold); }
+    .qc-field textarea { min-height:80px; resize:vertical; }
 
-    /* BUILDER LAYOUT */
-    .builder-wrap { max-width: 1100px; margin: 0 auto; padding: 3rem 2rem 6rem; display: grid; grid-template-columns: 1fr 340px; gap: 2.5rem; align-items: start; }
-    .builder-steps { display: flex; flex-direction: column; gap: 2rem; }
-
-    /* STEP */
-    .step { background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
-    .step-header { padding: 1.4rem 1.6rem 1.2rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; }
-    .step-num { width: 28px; height: 28px; border-radius: 50%; background: var(--gold-dim); border: 1px solid var(--gold-bdr); display: flex; align-items: center; justify-content: center; font-family: var(--fh); font-size: .65rem; font-weight: 800; color: var(--gold); flex-shrink: 0; }
-    .step-title { font-family: var(--fh); font-size: .88rem; font-weight: 800; color: var(--text); }
-    .step-sub { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
-    .step-body { padding: 1.4rem 1.6rem; }
-
-    /* OPTION CARDS */
-    .option-grid { display: grid; gap: .75rem; }
-    .option-grid.cols2 { grid-template-columns: 1fr 1fr; }
-    .option-grid.cols3 { grid-template-columns: repeat(3, 1fr); }
-    .option-card { position: relative; cursor: pointer; border: 1.5px solid var(--border); border-radius: var(--radius); padding: 1rem 1.1rem; background: var(--surface2); transition: border-color .2s, background .2s; }
-    .option-card:hover { border-color: var(--gold-bdr); }
-    .option-card.selected { border-color: var(--gold); background: var(--gold-dim); }
-    .option-card input[type=radio] { position: absolute; opacity: 0; pointer-events: none; }
-    .option-card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .5rem; margin-bottom: .35rem; }
-    .option-name { font-family: var(--fh); font-size: .8rem; font-weight: 800; color: var(--text); }
-    .option-badge { font-family: var(--fh); font-size: .5rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: .18rem .45rem; border-radius: 999px; flex-shrink: 0; }
-    .badge-gold { background: var(--gold); color: #0B0B0D; }
-    .badge-subtle { background: rgba(255,255,255,.07); border: 1px solid var(--border); color: var(--muted); }
-    .badge-premium { background: rgba(212,168,81,.15); border: 1px solid var(--gold-bdr); color: var(--gold); }
-    .option-desc { font-size: .72rem; color: var(--muted); line-height: 1.55; }
-    .option-includes { list-style: none; margin: .6rem 0 0; padding: 0; display: flex; flex-direction: column; gap: .3rem; }
-    .option-includes li { font-size: .69rem; color: var(--muted); line-height: 1.4; padding-left: 1rem; position: relative; }
-    .option-includes li::before { content: '✓'; position: absolute; left: 0; color: var(--gold); font-size: .6rem; font-weight: 700; top: .05rem; }
-    .option-price { margin-top: .6rem; font-family: var(--fh); font-size: .72rem; color: var(--muted); }
-    .option-price strong { color: var(--gold); font-size: 1rem; font-weight: 800; letter-spacing: -.02em; }
-    .option-check { position: absolute; top: .75rem; right: .75rem; width: 16px; height: 16px; border-radius: 50%; border: 1.5px solid var(--border); background: transparent; transition: all .2s; display: flex; align-items: center; justify-content: center; }
-    .option-card.selected .option-check { background: var(--gold); border-color: var(--gold); }
-    .option-check::after { content: ''; display: block; width: 5px; height: 5px; border-radius: 50%; background: #0B0B0D; opacity: 0; transition: opacity .15s; }
-    .option-card.selected .option-check::after { opacity: 1; }
-
-    /* Coating tier cards */
-    .coating-card { cursor: pointer; border: 1.5px solid var(--border); border-radius: var(--radius); overflow: hidden; background: var(--surface2); transition: border-color .2s, background .2s; }
-    .coating-card:hover { border-color: var(--gold-bdr); }
-    .coating-card.selected { border-color: var(--gold); }
-    .coating-card input[type=radio] { position: absolute; opacity: 0; pointer-events: none; }
-    .coating-card-header { padding: 1rem 1.2rem; display: flex; align-items: center; justify-content: space-between; gap: .5rem; }
-    .coating-card-name { font-family: var(--fh); font-size: .82rem; font-weight: 800; color: var(--text); }
-    .coating-card-warranty { font-family: var(--fh); font-size: .55rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; padding: .22rem .55rem; border-radius: 999px; }
-    .coating-card-body { padding: .6rem 1.2rem 1rem; border-top: 1px solid var(--border); }
-    .coating-card-desc { font-size: .72rem; color: var(--muted); line-height: 1.55; margin-bottom: .7rem; }
-    .coating-specs { display: flex; flex-wrap: wrap; gap: .4rem; }
-    .coating-spec { font-size: .62rem; color: var(--muted); background: rgba(255,255,255,.04); border: 1px solid var(--border); border-radius: 6px; padding: .2rem .5rem; }
-    .coating-card-footer { padding: .75rem 1.2rem; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .coating-card-footer .price-label { font-size: .65rem; color: var(--muted); font-family: var(--fh); }
-    .coating-card-footer .price-val { font-family: var(--fh); font-size: 1.05rem; font-weight: 800; color: var(--gold); letter-spacing: -.02em; }
-    .coating-card.selected .coating-card-header { background: var(--gold-dim); }
-
-    /* Lifetime addon */
-    .lifetime-addon { margin-top: 1rem; border: 1px solid var(--gold-bdr); border-radius: var(--radius); padding: 1rem 1.2rem; background: rgba(212,168,81,0.04); display: none; }
-    .lifetime-addon.visible { display: block; }
-    .lifetime-addon-label { display: flex; align-items: center; gap: .75rem; cursor: pointer; }
-    .lifetime-addon-label input[type=checkbox] { accent-color: var(--gold); width: 14px; height: 14px; }
-    .lifetime-addon-text { font-family: var(--fh); font-size: .78rem; font-weight: 700; color: var(--text); }
-    .lifetime-addon-desc { font-size: .7rem; color: var(--muted); margin-top: .4rem; margin-left: calc(14px + .75rem); line-height: 1.55; }
-
-    /* CONTACT FORM */
-    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
-    .form-field { display: flex; flex-direction: column; gap: .35rem; }
-    .form-field.full { grid-column: 1 / -1; }
-    .form-field label { font-family: var(--fh); font-size: .6rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
-    .form-field input, .form-field select, .form-field textarea {
-      background: var(--surface2); border: 1px solid var(--border); border-radius: 8px;
-      padding: .65rem .9rem; font-size: .82rem; color: var(--text); font-family: var(--fb);
-      outline: none; transition: border-color .2s;
-    }
-    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--gold-bdr); }
-    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--muted); opacity: .5; }
-    .form-field textarea { resize: vertical; min-height: 80px; }
-    .form-field select { appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23A7ADB5' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right .9rem center; padding-right: 2.5rem; }
-
-    /* ESTIMATE PANEL */
-    .estimate-panel { position: sticky; top: calc(74px + 2rem); background: var(--surface); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; }
-    .estimate-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: .75rem; }
-    .estimate-icon { width: 32px; height: 32px; border-radius: 50%; background: var(--gold-dim); border: 1px solid var(--gold-bdr); display: flex; align-items: center; justify-content: center; }
-    .estimate-title { font-family: var(--fh); font-size: .82rem; font-weight: 800; color: var(--text); }
-    .estimate-body { padding: 1.25rem 1.5rem; }
-    .estimate-row { display: flex; justify-content: space-between; align-items: center; padding: .5rem 0; border-bottom: 1px solid rgba(44,49,58,0.6); }
-    .estimate-row:last-of-type { border-bottom: none; }
-    .estimate-row-label { font-size: .73rem; color: var(--muted); }
-    .estimate-row-val { font-family: var(--fh); font-size: .75rem; font-weight: 600; color: var(--text); }
-    .estimate-row-val.empty { color: var(--muted); font-weight: 400; font-style: italic; }
-    .estimate-total { margin-top: 1rem; padding: 1rem; background: var(--gold-dim); border: 1px solid var(--gold-bdr); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; }
-    .estimate-total-label { font-family: var(--fh); font-size: .65rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); }
-    .estimate-total-val { font-family: var(--fh); font-size: 1.5rem; font-weight: 800; color: var(--gold); letter-spacing: -.02em; }
-    .estimate-note { font-size: .65rem; color: var(--muted); line-height: 1.6; margin-top: .75rem; }
-    .estimate-system-x { margin-top: 1rem; padding: .75rem 1rem; background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 10px; }
-    .estimate-system-x-label { font-family: var(--fh); font-size: .55rem; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: .35rem; }
-    .estimate-system-x-name { font-family: var(--fh); font-size: .78rem; font-weight: 700; color: var(--text); }
-    .estimate-system-x-warranty { font-size: .68rem; color: var(--gold); }
-
-    /* SUBMIT */
-    .submit-btn { width: 100%; margin-top: 1.25rem; background: var(--gold); color: #0B0B0D; border: none; border-radius: 10px; font-family: var(--fh); font-weight: 800; font-size: .82rem; letter-spacing: .06em; text-transform: uppercase; padding: 1rem 1.5rem; cursor: pointer; transition: background .2s, transform .15s, box-shadow .2s; box-shadow: 0 4px 18px rgba(212,168,81,.25); }
-    .submit-btn:hover { background: var(--gold-soft); transform: translateY(-1px); box-shadow: 0 8px 26px rgba(212,168,81,.38); }
-    .submit-btn:disabled { opacity: .4; cursor: not-allowed; transform: none; }
-
-    /* SUCCESS */
-    .success-state { display: none; text-align: center; padding: 2rem; }
-    .success-state.visible { display: block; }
-    .success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-    .success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 400; color: var(--text); margin-bottom: .5rem; }
-    .success-sub { font-size: .82rem; color: var(--muted); line-height: 1.7; }
-
+    /* REVIEWS */
+    .qr { padding:3.4rem 0 1rem; }
+    .qr-head { display:flex; flex-direction:column; align-items:center; gap:.4rem; text-align:center; margin-bottom:2rem; }
+    .qr-stars { color:#E8B04B; font-size:1.4rem; letter-spacing:.15em; }
+    .qr-head .qr-meta { font-size:.92rem; color:var(--ink-2); }
+    .qr-head .qr-meta strong { font-family:var(--font-d); color:var(--ink); }
+    .qr-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.2rem; }
+    .qr-card { background:#fff; border:1px solid var(--line); border-radius:16px; padding:1.4rem 1.5rem; box-shadow:var(--shadow-card); }
+    .qr-top { display:flex; align-items:center; gap:.7rem; margin-bottom:.7rem; }
+    .qr-av { width:38px; height:38px; border-radius:50%; color:#fff; font-family:var(--font-d); font-weight:800; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+    .qr-name { font-family:var(--font-d); font-weight:700; font-size:.95rem; }
+    .qr-cstars { color:#E8B04B; font-size:.85rem; letter-spacing:.08em; }
+    .qr-text { font-size:.9rem; line-height:1.6; color:var(--ink-2); }
+    /* SERVICE AREAS */
+    .areas-sec { padding:3.4rem 0 1rem; }
+    .areas-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:1.3rem; margin-top:1.8rem; }
+    .area-card { display:block; transition:transform .2s; }
+    .area-card:hover { transform:translateY(-6px); }
+    .area-img { position:relative; aspect-ratio:5/6; border-radius:16px; overflow:hidden; background:linear-gradient(135deg,#EDEBE6,#E1DED7); display:flex; align-items:center; justify-content:center; box-shadow:var(--shadow-card); transition:box-shadow .2s; }
+    .area-card:hover .area-img { box-shadow:var(--shadow-lift); }
+    .area-img::after { content:'Photo coming soon'; font-family:var(--font-d); font-size:.56rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:#B4B1A9; }
+    .area-img img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; }
+    .area-name { text-align:center; font-family:var(--font-d); font-weight:800; font-size:1.15rem; color:var(--ink); margin-top:.9rem; }
+    @media (max-width:820px) { .qr-grid { grid-template-columns:1fr; } .areas-grid { grid-template-columns:repeat(2,1fr); gap:1rem; } }
     /* FOOTER */
-    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 3rem 5rem 2rem; }
-    .footer-inner { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-    .footer-brand img { height: 56px; mix-blend-mode: screen; margin-bottom: 1rem; }
-    .footer-brand p { font-size: .8rem; color: var(--muted); line-height: 1.75; max-width: 220px; }
-    .footer-col h4 { font-family: var(--fh); font-size: .65rem; font-weight: 700; letter-spacing: .18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
-    .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .5rem; }
-    .footer-col ul li a { font-size: .8rem; color: var(--muted); text-decoration: none; transition: color .2s; }
-    .footer-col ul li a:hover { color: var(--text); }
-    .footer-bot { border-top: 1px solid var(--border); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
-    .footer-bot p { font-size: .72rem; color: var(--muted); }
-    .footer-bot a { color: var(--muted); text-decoration: none; }
+    footer { background:var(--ink); color:#C9C6C0; padding:3rem 1.5rem 1.6rem; }
+    .footer-inner { max-width:1240px; margin:0 auto; display:grid; grid-template-columns:1.6fr 1fr 1fr 1fr; gap:2rem; }
+    .footer-brand img { height:40px; margin-bottom:.9rem; }
+    .footer-brand p { font-size:.82rem; line-height:1.6; color:#9A968F; max-width:280px; }
+    .footer-col h4 { font-family:var(--font-d); font-size:.78rem; font-weight:800; letter-spacing:.1em; text-transform:uppercase; color:#fff; margin-bottom:.9rem; }
+    .footer-col li { margin-bottom:.5rem; }
+    .footer-col a { font-size:.85rem; color:#9A968F; transition:color .15s; }
+    .footer-col a:hover { color:var(--gold); }
+    .footer-bot { max-width:1240px; margin:2rem auto 0; padding-top:1.4rem; border-top:1px solid rgba(255,255,255,.1); display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; }
+    .footer-bot p, .footer-bot a { font-size:.75rem; color:#7E7A74; }
 
-    /* MOBILE STICKY TOTAL BAR */
-    .mobile-total-bar {
-      display: none;
+    @media (max-width:900px) {
+      .nav-links, .nav-phone { display:none; }
+      .hamburger { display:flex; }
+      .qc-config { grid-template-columns:1fr; gap:1.4rem; max-width:560px; }
+      .qc-preview { position:static; }
+      .footer-inner { grid-template-columns:1fr 1fr; }
     }
-    @media (max-width: 900px) {
-      .estimate-panel { display: none; }
-      .mobile-total-bar {
-        display: block;
-        position: fixed;
-        bottom: 0; left: 0; right: 0;
-        z-index: 200;
-        background: rgba(20,22,24,0.97);
-        backdrop-filter: blur(16px);
-        border-top: 1px solid var(--border);
-      }
-      .mobile-total-collapsed {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 12px 20px;
-        cursor: pointer;
-        gap: 12px;
-      }
-      .mobile-total-left { display: flex; align-items: center; gap: 12px; }
-      .mobile-total-amount { font-family: var(--fh); font-size: 1.6rem; font-weight: 800; color: var(--gold); letter-spacing: -.03em; line-height: 1; }
-      .mobile-total-label { font-size: .65rem; color: var(--muted); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 2px; }
-      .mobile-total-chevron { transition: transform .25s; color: var(--muted); flex-shrink: 0; }
-      .mobile-total-bar.open .mobile-total-chevron { transform: rotate(180deg); }
-      .mobile-total-expanded {
-        display: none;
-        border-top: 1px solid var(--border);
-        padding: 16px 20px 20px;
-        animation: slideUp .2s ease;
-      }
-      .mobile-total-bar.open .mobile-total-expanded { display: block; }
-      @keyframes slideUp { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-      .mobile-total-rows { display: flex; flex-direction: column; gap: 8px; margin-bottom: 16px; }
-      .mobile-total-row { display: flex; justify-content: space-between; align-items: center; font-size: .82rem; }
-      .mobile-total-row-label { color: var(--muted); }
-      .mobile-total-row-val { font-family: var(--fh); font-weight: 600; color: var(--text); }
-      .mobile-total-row-val.green { color: #22c55e; }
-      .mobile-total-row-val.gold { color: var(--gold); }
-      .mobile-total-divider { border: none; border-top: 1px solid var(--border); margin: 4px 0 12px; }
-      .builder-wrap { padding-bottom: 100px; }
-    }
+    @media (max-width:560px) { .qc-fgrid { grid-template-columns:1fr; } .footer-inner { grid-template-columns:1fr; } }
+  
+    /* ── Standardized site nav (shared, self-contained) ── */
+    .nav { position:sticky; top:0; z-index:100; padding:1rem 1.5rem; transition:padding .25s ease; background:none; border:none; box-shadow:none; }
+    .nav.scrolled { padding-top:.65rem; }
+    .nav-inner { position:relative; isolation:isolate; max-width:1200px; margin:0 auto; display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:1rem; padding:.5rem .6rem .5rem 1.2rem; background:none; border:none; }
+    .nav-inner::before { content:''; position:absolute; inset:0; z-index:-1; border-radius:999px; background:rgba(255,255,255,.28); -webkit-backdrop-filter:blur(30px) saturate(1.7); backdrop-filter:blur(30px) saturate(1.7); border:1px solid rgba(255,255,255,.55); box-shadow:0 8px 30px rgba(16,17,18,.10), inset 0 1px 0 rgba(255,255,255,.6); transition:box-shadow .25s ease, background .3s ease, border-color .3s ease; }
+    .nav.scrolled .nav-inner::before { box-shadow:0 12px 38px rgba(16,17,18,.16), inset 0 1px 0 rgba(255,255,255,.7); }
+    .nav-logo { display:inline-flex; align-items:center; justify-self:start; transition:transform .18s ease; }
+    .nav-logo:hover { transform:translateY(-1px); }
+    .nav-logo img { height:92px; width:auto; display:block; margin:-22px 0; transition:filter .3s ease; }
+    .nav-links { display:flex; align-items:center; gap:2rem; justify-self:center; list-style:none; margin:0; padding:0; }
+    .nav-links > li { position:relative; }
+    .nav-links a { font-family:'Archivo',sans-serif; font-size:1.05rem; font-weight:700; letter-spacing:-.01em; color:#3E4144; text-decoration:none; transition:color .15s; }
+    .nav-links a:hover { color:#A87B27; }
+    .nav-drop-toggle { display:inline-flex; align-items:center; gap:.4rem; font-family:'Archivo',sans-serif; font-size:1.05rem; font-weight:700; letter-spacing:-.01em; color:#3E4144; background:none; border:none; cursor:pointer; transition:color .3s ease; }
+    .nav-drop-toggle svg { transition:transform .2s; }
+    .nav-drop { position:absolute; z-index:300; top:calc(100% + 14px); left:50%; transform:translateX(-50%) translateY(6px); background:#fff; border:1px solid #E8E6E1; border-radius:14px; box-shadow:0 2px 6px rgba(16,17,18,.06), 0 18px 44px rgba(16,17,18,.12); padding:.5rem; min-width:190px; opacity:0; pointer-events:none; transition:opacity .18s, transform .18s; }
+    .nav-links li:hover .nav-drop, .nav-links li:focus-within .nav-drop { opacity:1; pointer-events:auto; transform:translateX(-50%) translateY(0); }
+    .nav-links li:hover .nav-drop-toggle svg { transform:rotate(180deg); }
+    .nav-drop::before { content:''; position:absolute; left:0; right:0; top:-18px; height:18px; }
+    .nav-drop a { display:block; padding:.6rem 1rem; border-radius:9px; font-size:.92rem; font-weight:600; color:#101112; text-decoration:none; }
+    .nav-drop a:hover { background:#F7F6F3; }
+    .nav-cta { display:flex; align-items:center; gap:.9rem; justify-self:end; }
+    .nav-phone { display:inline-flex; align-items:center; gap:.45rem; font-family:'Archivo',sans-serif; font-weight:800; font-size:.92rem; color:#101112; white-space:nowrap; text-decoration:none; transition:color .3s ease; }
+    .nav-phone:hover { color:#A87B27; }
+    .nav-book { display:inline-flex; align-items:center; justify-content:center; font-family:'Archivo',sans-serif; font-weight:800; font-size:.9rem; padding:.7rem 1.5rem; border-radius:999px; background:#C9973A; color:#141005; text-decoration:none; box-shadow:0 4px 16px rgba(201,151,58,.32); transition:transform .18s, background .18s; }
+    .nav-book:hover { background:#D8A648; transform:translateY(-1px); }
+    .hamburger { display:none; flex-direction:column; gap:5px; padding:.5rem; background:none; border:none; cursor:pointer; }
+    .hamburger span { width:24px; height:2.5px; background:#101112; border-radius:2px; transition:.25s; }
+    .nav-dark .nav-links a, .nav-dark .nav-drop-toggle, .nav-dark .nav-phone { color:#fff; }
+    .nav-dark .nav-drop a { color:#101112; }
+    .nav-dark .hamburger span { background:#fff; }
+    .nav-dark .nav-logo img { filter:brightness(0) invert(1); }
+    .nav-dark .nav-inner::before { background:rgba(18,19,21,.5); border-color:rgba(255,255,255,.16); box-shadow:0 8px 30px rgba(0,0,0,.45), inset 0 1px 0 rgba(255,255,255,.12); }
+    .m-menu { position:fixed; inset:0; z-index:200; background:#fff; padding:5.5rem 2rem 2rem; display:flex; flex-direction:column; gap:.25rem; transform:translateX(100%); transition:transform .3s cubic-bezier(.4,0,.2,1); }
+    .m-menu.open { transform:translateX(0); }
+    .m-menu a { font-family:'Archivo',sans-serif; font-size:1.35rem; font-weight:800; padding:.85rem 0; border-bottom:1px solid #E8E6E1; color:#101112; text-decoration:none; }
+    .m-menu .m-sub { font-size:1rem; font-weight:600; color:#3E4144; padding-left:1rem; }
+    .m-menu .m-book { margin-top:1.6rem; background:#C9973A; color:#141005; border-radius:999px; border-bottom:none; text-align:center; padding:.9rem 1.5rem; }
+    .m-close { position:absolute; top:1.4rem; right:1.6rem; font-size:2rem; line-height:1; color:#101112; background:none; border:none; cursor:pointer; }
+    @media (max-width:900px) { .nav-links, .nav-cta .nav-book { display:none; } .hamburger { display:flex; } .nav-logo img { height:66px; margin:-14px 0; } .nav-phone { font-size:.78rem; } }
 
-    /* RESPONSIVE */
-    @media (max-width: 900px) {
-      .builder-wrap { grid-template-columns: 1fr; }
-    }
-    @media (max-width: 768px) {
-      nav { padding: 0 1.25rem; grid-template-columns: 1fr auto; }
-      .nav-links { display: none; }
-      .nav-hamburger { display: flex; }
-      .builder-wrap { padding: 2rem 1.25rem 4rem; }
-      .option-grid.cols2, .option-grid.cols3 { grid-template-columns: 1fr; }
-      .form-grid { grid-template-columns: 1fr; }
-      footer { padding: 3rem 1.5rem 2rem; }
-      .footer-inner { grid-template-columns: 1fr; gap: 2rem; }
-    }
-  </style>
+    /* ── Site footer (matches homepage, white) ── */
+    footer { background:#fff; color:#3E4144; border-top:1px solid #E8E6E1; padding:0; margin:0; text-align:left; }
+    .foot-inner { max-width:1280px; margin:0 auto; padding:4.5rem 2rem 2rem; display:grid; grid-template-columns:1.3fr 1fr 1fr 1.4fr; gap:3rem; }
+    .foot-inner h5 { font-family:'Archivo',sans-serif; color:#101112; font-size:.78rem; font-weight:800; letter-spacing:.16em; text-transform:uppercase; margin-bottom:1.1rem; }
+    .foot-inner ul { list-style:none; margin:0; padding:0; }
+    .foot-inner li { margin-bottom:.6rem; font-size:.84rem; }
+    .foot-inner a { color:inherit; text-decoration:none; }
+    .foot-inner a:hover { color:#C9973A; }
+    .foot-logo img { height:64px; width:auto; margin-bottom:1rem; display:block; }
+    .foot-mission { font-size:.82rem; line-height:1.7; color:#3E4144; }
+    .socials { display:flex; gap:.7rem; }
+    .socials a { width:34px; height:34px; border-radius:50%; border:1px solid #E8E6E1; display:flex; align-items:center; justify-content:center; transition:border-color .2s, background .2s; }
+    .socials a:hover { border-color:#C9973A; background:rgba(201,151,58,.12); }
+    .foot-map { border-radius:14px; overflow:hidden; border:1px solid #E8E6E1; }
+    .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.15); }
+    .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid #E8E6E1; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:#74777B; }
+    @media (max-width:900px) { .foot-inner { grid-template-columns:1fr 1fr; } }
+    @media (max-width:600px) { .foot-inner { grid-template-columns:1fr; gap:2.2rem; } }
+</style>
+  <link rel="icon" type="image/png" href="/brand_assets/favicon.png" />
+  <script src="/ga.js"></script>
 </head>
 <body>
 
 <!-- NAV -->
-<nav>
-  <div class="nav-logo">
-    <a href="/"><img src="brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause" /></a>
-  </div>
-  <ul class="nav-links">
-    <li><a href="/services.html">Services</a></li>
-    <li><a href="/#ceramic">Ceramic Coating</a></li>
-    <li><a href="/maintenance.html">Maintenance</a></li>
-    <li><a href="/#reviews">Reviews</a></li>
-    <li><a href="/#faq">FAQ</a></li>
-  </ul>
-  <div class="nav-cta">
-    <a href="/booking.html" class="btn-gold" style="padding:.5rem 1.2rem;font-size:.72rem;">Book Now</a>
-    <button class="nav-hamburger" id="hamburger" aria-label="Open menu"><span></span><span></span><span></span></button>
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="Shine for a Cause, Home"><img src="/brand_assets/logo-nav.png" alt="Shine for a Cause Mobile Detailing" /></a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li>
+        <button class="nav-drop-toggle">Services
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-drop">
+          <a href="/#packages">Mobile Detailing</a>
+          <a href="/ceramic-coating.html">Ceramic Coating</a>
+          <a href="/paint-correction.html">Paint Correction</a>
+          <a href="/fleet-cleaning.html">Fleet Cleaning</a>
+        </div>
+      </li>
+      <li><a href="/maintenance.html">Maintenance Plans</a></li>
+      <li>
+        <button class="nav-drop-toggle">Resources
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="nav-drop">
+          <a href="/#areas">Locations</a>
+          <a href="/gallery.html">Photo Gallery</a>
+          <a href="/testimonials.html">Testimonials</a>
+          <a href="/contact.html">Contact Us</a>
+          <a href="/blog.html">Blog</a>
+        </div>
+      </li>
+    </ul>
+    <div class="nav-cta">
+      <a class="nav-phone" href="tel:+19708516433">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        (970) 851-6433
+      </a>
+      <a href="/booking.html" class="nav-book">Book Now</a>
+      <button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </nav>
-<div class="mobile-nav" id="mobileNav">
-  <a href="/services.html" class="mobile-nav-link">Services</a>
-  <a href="/#ceramic" class="mobile-nav-link">Ceramic Coating</a>
-  <a href="/maintenance.html" class="mobile-nav-link">Maintenance</a>
-  <a href="/#reviews" class="mobile-nav-link">Reviews</a>
-  <a href="/#faq" class="mobile-nav-link">FAQ</a>
-  <a href="/booking.html" class="btn-gold" style="margin-top:.5rem;">Book Now</a>
+
+<div class="m-menu" id="mMenu">
+  <button class="m-close" id="mClose" aria-label="Close">&times;</button>
+  <a href="/">Home</a>
+  <a href="/#packages" class="m-sub">Mobile Detailing</a>
+  <a href="/ceramic-coating.html" class="m-sub">Ceramic Coating</a>
+  <a href="/paint-correction.html" class="m-sub">Paint Correction</a>
+  <a href="/fleet-cleaning.html" class="m-sub">Fleet Cleaning</a>
+  <a href="/maintenance.html">Maintenance Plans</a>
+  <a href="/#areas" class="m-sub">Locations</a>
+  <a href="/gallery.html" class="m-sub">Photo Gallery</a>
+  <a href="/testimonials.html" class="m-sub">Testimonials</a>
+  <a href="/contact.html" class="m-sub">Contact Us</a>
+  <a href="/blog.html" class="m-sub">Blog</a>
+  <a href="/booking.html" class="m-book">Book Now</a>
 </div>
 
-<!-- HERO V1 BACKUP
-<div class="page-hero">
-  <div class="page-hero-inner">
-    <div class="page-hero-label">System X Certified Installer</div>
-    <h1>Build your<br><em>coating package.</em></h1>
-    <p>Choose your paint prep level and coating tier. We'll send you a confirmed quote and set up your appointment.</p>
-  </div>
-</div>
-END HERO V1 BACKUP -->
-
-<div class="page-hero">
-  <div class="page-hero-inner">
-    <div class="page-hero-label">System X Certified Installer</div>
-    <h1>Build your<br><em>coating package.</em></h1>
-    <p>Choose your paint prep level and coating tier. We'll send you a confirmed quote and set up your appointment.</p>
-    <div style="margin-top:1.75rem;display:flex;align-items:center;justify-content:center;gap:.75rem;flex-wrap:wrap;">
-      <a href="tel:+19702953577" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--gold);color:#0B0B0D;border-radius:999px;padding:.6rem 1.4rem;font-family:var(--fh);font-size:.72rem;font-weight:800;letter-spacing:.06em;text-transform:uppercase;text-decoration:none;box-shadow:0 4px 18px rgba(212,168,81,.3);transition:background .2s,transform .15s;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.37a16 16 0 0 0 6 6l1.27-.85a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.05z"/></svg>
-        Call or Text
-      </a>
-      <span style="font-size:.75rem;color:var(--muted);">Not sure what you need? We'll walk you through it.</span>
+<!-- CONFIGURATOR -->
+<main class="qc" id="quote">
+  <div class="wrap">
+    <div class="qc-head">
+      <div class="eyebrow">Free Instant Quote</div>
+      <h1 class="h-sec">Build Your Quote</h1>
+      <p>Answer a few quick questions and see your price. No email needed to see it.</p>
     </div>
-  </div>
-</div>
-
-<!-- BUILDER -->
-<div class="builder-wrap">
-  <div class="builder-steps" id="builderForm">
-
-    <!-- STEP 1: VEHICLE SIZE -->
-    <div class="step">
-      <div class="step-header">
-        <div class="step-num">1</div>
-        <div>
-          <div class="step-title">Vehicle Size</div>
-          <div class="step-sub">Select your vehicle — pricing adjusts automatically</div>
+    <div class="qc-config">
+      <!-- PREVIEW -->
+      <div class="qc-preview">
+        <div class="qc-media">
+          <img id="qc-img" src="brand_assets/svc-mobile-detailing.jpg" alt="Detailing preview" />
+          <div class="qc-scrim"></div>
+          <div class="qc-cap">
+            <div class="qc-cap-title" id="qc-title">Mobile Detailing</div>
+            <div class="qc-cap-sub" id="qc-sub">Build your quote</div>
+            <div class="qc-price-wrap hide" id="qc-price-wrap">
+              <span class="qc-price-label">Price</span>
+              <span class="qc-price" id="qc-price">—</span>
+            </div>
+          </div>
         </div>
       </div>
-      <div class="step-body">
-        <div class="option-grid cols2">
-          <label class="option-card selected" data-group="size" data-val="small" data-mult="1.0">
-            <input type="radio" name="size" value="small" checked />
-            <div class="option-check"></div>
-            <div class="option-card-top"><div class="option-name">Small</div></div>
-            <div class="option-desc">Coupe / Sedan / Hatchback</div>
-          </label>
-          <label class="option-card" data-group="size" data-val="mid" data-mult="1.2">
-            <input type="radio" name="size" value="mid" />
-            <div class="option-check"></div>
-            <div class="option-card-top"><div class="option-name">Mid-Size</div></div>
-            <div class="option-desc">Crossover / Mid-Size SUV / Standard Pickup</div>
-          </label>
-          <label class="option-card" data-group="size" data-val="large" data-mult="1.45">
-            <input type="radio" name="size" value="large" />
-            <div class="option-check"></div>
-            <div class="option-card-top"><div class="option-name">Large</div></div>
-            <div class="option-desc">Full-Size SUV / Crew Cab / Large Truck</div>
-          </label>
-          <label class="option-card" data-group="size" data-val="van">
-            <input type="radio" name="size" value="van" />
-            <div class="option-check"></div>
-            <div class="option-card-top"><div class="option-name">Van / Oversized</div></div>
-            <div class="option-desc">Minivan / Full-Size Van / Cargo Van / Sprinter</div>
-          </label>
+
+      <!-- QUESTIONS -->
+      <div class="qc-panel">
+        <div class="qc-progress"><span id="qc-p0"></span><span id="qc-p1"></span><span id="qc-p2"></span><span id="qc-p3"></span></div>
+
+        <!-- STEP 1: VEHICLE SIZE -->
+        <div class="qc-step show" id="qc-step-size">
+          <div class="qc-glabel"><span class="qc-num">1</span> Vehicle Size <span class="qc-hint">Pricing varies by vehicle</span></div>
+          <div class="qc-grid c2">
+            <label class="qc-opt vic" data-q="size" data-v="small"><div class="qc-vic-img"><img src="web.screenshots/vehicle-small.png" alt="Small car" loading="lazy" /></div><div class="qc-vic-body"><div class="qc-name">Small</div><div class="qc-desc">Coupe / Sedan / Hatchback</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt vic" data-q="size" data-v="mid"><div class="qc-vic-img"><img src="web.screenshots/vehicle-mid.png" alt="Mid-size SUV" loading="lazy" /></div><div class="qc-vic-body"><div class="qc-name">Mid-Size</div><div class="qc-desc">Crossover / Mid-Size SUV / Standard Pickup</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt vic" data-q="size" data-v="large"><div class="qc-vic-img"><img src="web.screenshots/vehicle-large.png" alt="Large truck" loading="lazy" /></div><div class="qc-vic-body"><div class="qc-name">Large</div><div class="qc-desc">Full-Size SUV / Crew Cab / Large Truck</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt vic" data-q="size" data-v="van"><div class="qc-vic-img"><img src="web.screenshots/vehicle-van.png" alt="Van" loading="lazy" /></div><div class="qc-vic-body"><div class="qc-name">Van / Oversized</div><div class="qc-desc">Minivan / Full-Size Van / Cargo Van / Sprinter</div></div><div class="qc-check"></div></label>
+          </div>
+          <div class="qc-nav"><button class="qc-back hide">&larr; Back</button><button class="qc-continue hide" data-qc-next>Continue &rarr;</button></div>
+        </div>
+
+        <!-- STEP 2: PACKAGE -->
+        <div class="qc-step" id="qc-step-pkg">
+          <div class="qc-glabel"><span class="qc-num">2</span> Package</div>
+          <div class="qc-grid">
+            <label class="qc-opt row" data-q="pkg" data-v="full"><img class="qc-thumb" src="web.screenshots/pkg-reset.jpg" alt="Full detail package preview" loading="lazy" /><div class="qc-body"><div class="qc-name">Full Detail</div><div class="qc-desc">Complete interior and exterior in one appointment.</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt row" data-q="pkg" data-v="exterior"><img class="qc-thumb" src="web.screenshots/pkg-ext-reset.jpg" alt="Exterior detail package preview" loading="lazy" /><div class="qc-body"><div class="qc-name">Exterior Only</div><div class="qc-desc">Outside only. Wash, wheels, tires, paint and protection.</div></div><div class="qc-check"></div></label>
+            <label class="qc-opt row" data-q="pkg" data-v="interior"><img class="qc-thumb" src="web.screenshots/pkg-int-reset.jpg" alt="Interior detail package preview" loading="lazy" /><div class="qc-body"><div class="qc-name">Interior Only</div><div class="qc-desc">Inside only. Vacuum, all surfaces, windows and door panels.</div></div><div class="qc-check"></div></label>
+          </div>
+          <div class="qc-nav"><button class="qc-back">&larr; Back</button><button class="qc-continue hide" data-qc-next>Continue &rarr;</button></div>
+        </div>
+
+        <!-- STEP 3: PACKAGE LEVEL -->
+        <div class="qc-step" id="qc-step-tier">
+          <div class="qc-glabel"><span class="qc-num">3</span> Package Level</div>
+          <div class="qc-grid" id="qc-tier-grid"></div>
+          <div class="qc-nav"><button class="qc-back">&larr; Back</button><button class="qc-continue hide" data-qc-next>Continue &rarr;</button></div>
+        </div>
+
+        <!-- STEP 4: ADD-ONS -->
+        <div class="qc-step" id="qc-step-add">
+          <div class="qc-glabel"><span class="qc-num">4</span> Add-ons <span class="qc-hint">Optional</span></div>
+          <div class="qc-grid c2">
+            <label class="qc-opt qc-addon" data-addon="pet-hair"><div class="qc-check sq"></div><div class="qc-name">Pet Hair Removal</div><div class="qc-desc">Deep extraction of embedded pet hair from carpets and upholstery.</div><span class="qc-addprice">+$35</span></label>
+            <label class="qc-opt qc-addon" data-addon="headlight"><div class="qc-check sq"></div><div class="qc-name">Headlight Restoration</div><div class="qc-desc">Sand, polish and seal foggy, yellowed headlights back to clear.</div><span class="qc-addprice">+$70</span></label>
+            <label class="qc-opt qc-addon" data-addon="engine-bay"><div class="qc-check sq"></div><div class="qc-name">Engine Bay Detail</div><div class="qc-desc">Degrease, clean and dress the engine bay for a factory-fresh look.</div><span class="qc-addprice">+$50</span></label>
+            <label class="qc-opt qc-addon" data-addon="trim"><div class="qc-check sq"></div><div class="qc-name">Trim Restoration</div><div class="qc-desc">Restore faded plastic and rubber exterior trim to a rich finish.</div><span class="qc-addprice">+$30</span></label>
+          </div>
+          <div class="qc-nav"><button class="qc-back">&larr; Back</button><button class="qc-continue" data-qc-next>Continue &rarr;</button></div>
+        </div>
+
+        <!-- STEP 5: REVIEW -->
+        <div class="qc-step" id="qc-step-review">
+          <div class="qc-glabel"><span class="qc-num">&#10003;</span> Your Quote</div>
+          <div class="qc-est">
+            <div class="qc-est-row"><span class="qc-est-label">Package</span><span class="qc-est-val" id="qc-e-pkg">—</span></div>
+            <div class="qc-est-row"><span class="qc-est-label">Vehicle</span><span class="qc-est-val" id="qc-e-size">—</span></div>
+            <div class="qc-est-row" id="qc-e-add-row" style="display:none;"><span class="qc-est-label" id="qc-e-add-label">Add-ons</span><span class="qc-est-val" id="qc-e-add-val">+$0</span></div>
+            <div class="qc-est-total"><span class="qc-est-total-label">Price</span><span class="qc-est-total-val" id="qc-e-total">—</span></div>
+            <p class="qc-est-note" id="qc-e-note" style="display:none;">We only have small-vehicle pricing so far. Pick <strong>Small</strong> to see a price, or finish and we'll confirm the price for your vehicle.</p>
+          </div>
+          <div class="qc-nav"><button class="qc-back">&larr; Back</button></div>
+          <button class="qc-finish qc-book" data-qc-book style="margin-top:1rem;">Book This Quote &rarr;</button>
+          <button class="qc-finish qc-finish-alt" data-qc-finish style="margin-top:.6rem;">Just Send Me the Quote</button>
         </div>
       </div>
-    </div>
-
-    <!-- STEP 2: PAINT CORRECTION -->
-    <div class="step">
-      <div class="step-header">
-        <div class="step-num">2</div>
-        <div>
-          <div class="step-title">Paint Correction</div>
-          <div class="step-sub">Every package starts here — your paint is fully corrected and prepped before the coating goes on</div>
-        </div>
-      </div>
-      <div class="step-body">
-        <div class="option-grid">
-          <label class="option-card selected" data-group="prep" data-val="polish">
-            <input type="radio" name="prep" value="polish" checked />
-            <div class="option-check"></div>
-            <div class="option-card-top">
-              <div class="option-name">Enhancement</div>
-            </div>
-            <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before coating. A fine machine polish then enhances and restores your paint's gloss, bringing out depth and clarity in the clear coat. Best for paint already in good condition. This service does not remove swirl marks or scratches.</div>
-            <ul class="option-includes">
-              <li>Iron remover &amp; clay bar decontamination</li>
-              <li>Fine machine polish — enhances gloss &amp; clarity</li>
-              <li>Best for paint already in good condition</li>
-              <li>Does <em>not</em> remove swirl marks or scratches</li>
-            </ul>
-          </label>
-          <label class="option-card" data-group="prep" data-val="one-step">
-            <input type="radio" name="prep" value="one-step" />
-            <div class="option-check"></div>
-            <div class="option-card-top">
-              <div class="option-name">1-Step Correction</div>
-            </div>
-            <div style="margin-bottom:.5rem;"><span class="option-badge badge-gold">Most Common</span></div>
-            <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before correction. A single-stage machine polish removes 65–75% of swirl marks, water spots, and light surface scratches, restoring real clarity and gloss before the coating locks it in.</div>
-            <ul class="option-includes">
-              <li>Iron remover &amp; clay bar decontamination</li>
-              <li>Single-stage machine polish</li>
-              <li>65–75% swirl mark &amp; water spot removal</li>
-              <li>Restored gloss and paint clarity</li>
-              <li>Full executive exterior detail included</li>
-            </ul>
-          </label>
-          <label class="option-card" data-group="prep" data-val="two-step">
-            <input type="radio" name="prep" value="two-step" />
-            <div class="option-check"></div>
-            <div class="option-card-top">
-              <div class="option-name">2-Step Correction</div>
-            </div>
-            <div style="margin-bottom:.5rem;"><span class="option-badge badge-subtle">Maximum Correction</span></div>
-            <div class="option-desc">Full paint decontamination with iron remover and clay bar to completely strip the surface before correction. A compound cut followed by a fine polish removes 85–95% of swirl marks and surface defects for maximum paint clarity. Scratches that have cut through the clear coat cannot be removed by polishing and are outside the scope of this service.</div>
-            <ul class="option-includes">
-              <li>Iron remover &amp; clay bar decontamination</li>
-              <li>Compound cut — removes deeper defects</li>
-              <li>Fine polish stage for maximum clarity</li>
-              <li>85–95% swirl mark &amp; defect removal</li>
-              <li>Full executive exterior detail included</li>
-            </ul>
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <!-- STEP 3: COATING TIER -->
-    <div class="step">
-      <div class="step-header">
-        <div class="step-num">3</div>
-        <div>
-          <div class="step-title">Ceramic Coating</div>
-          <div class="step-sub">Choose your System X coating — all tiers are 9H hardness, UV protection, self-cleaning, and Carfax reported</div>
-        </div>
-      </div>
-      <div class="step-body">
-        <div class="option-grid" style="gap:1rem;">
-
-          <!-- Crystal+ -->
-          <label class="coating-card selected" data-group="coating" data-val="crystal">
-            <input type="radio" name="coating" value="crystal" checked />
-            <div class="coating-card-header">
-              <div>
-                <div class="coating-card-name">System X Crystal+</div>
-                <div style="font-size:.65rem;color:var(--muted);margin-top:.15rem;">Entry-level professional ceramic protection</div>
-              </div>
-              <div class="coating-card-warranty" style="background:rgba(167,173,181,.1);border:1px solid var(--border);color:var(--muted);">2-Year Warranty</div>
-            </div>
-            <div class="coating-card-body">
-              <div class="coating-card-desc">Professional-grade 9H ceramic coating with deep gloss, hydrophobic surface, and Boeing-approval tested paint safety. Ideal for vehicles wanting lasting protection at an accessible price point.</div>
-              <ul class="option-includes">
-                <li>9H ceramic hardness — scratch &amp; UV resistant</li>
-                <li>Deep gloss &amp; hydrophobic finish</li>
-                <li>Boeing-approval tested for paint safety</li>
-                <li>Self-cleaning surface</li>
-                <li>2-year manufacturer warranty</li>
-                <li>Reported to Carfax</li>
-              </ul>
-              <div class="coating-specs">
-                <span class="coating-spec">9H Hardness</span>
-                <span class="coating-spec">High Gloss</span>
-                <span class="coating-spec">Hydrophobic</span>
-                <span class="coating-spec">UV Protection</span>
-                <span class="coating-spec">Self-Cleaning</span>
-                <span class="coating-spec">Carfax Reported</span>
-              </div>
-            </div>
-          </label>
-
-          <!-- Pro+ -->
-          <label class="coating-card" data-group="coating" data-val="pro">
-            <input type="radio" name="coating" value="pro" />
-            <div class="coating-card-header">
-              <div>
-                <div class="coating-card-name">System X Pro+</div>
-                <div style="font-size:.65rem;color:var(--muted);margin-top:.15rem;">Long-term ultra-hydrophobic protection</div>
-              </div>
-              <div class="coating-card-warranty" style="background:rgba(212,168,81,.12);border:1px solid var(--gold-bdr);color:var(--gold);">6-Year Warranty</div>
-            </div>
-            <div class="coating-card-body">
-              <div class="coating-card-desc">Ultra-hydrophobic 9H coating with a thicker film for superior chemical and salt resistance. Boeing-approval tested and SGS laboratory verified for hardness. The most popular long-term protection choice.</div>
-              <ul class="option-includes">
-                <li>9H hardness — 5µm thick film</li>
-                <li>Ultra-hydrophobic surface</li>
-                <li>Superior chemical &amp; salt resistance</li>
-                <li>Boeing tested, SGS lab verified</li>
-                <li>6-year manufacturer warranty</li>
-                <li>Reported to Carfax</li>
-              </ul>
-              <div class="coating-specs">
-                <span class="coating-spec">9H Hardness</span>
-                <span class="coating-spec">5µm Film</span>
-                <span class="coating-spec">Ultra-Hydrophobic</span>
-                <span class="coating-spec">Boeing Tested</span>
-                <span class="coating-spec">Salt Resistant</span>
-                <span class="coating-spec">Carfax Reported</span>
-              </div>
-            </div>
-          </label>
-
-          <!-- Max G+ -->
-          <label class="coating-card" data-group="coating" data-val="max" id="maxCard">
-            <input type="radio" name="coating" value="max" />
-            <div class="coating-card-header">
-              <div>
-                <div class="coating-card-name">System X Max G+</div>
-                <div style="font-size:.65rem;color:var(--muted);margin-top:.15rem;">The thickest, most durable coating available</div>
-              </div>
-              <div class="coating-card-warranty badge-gold" style="padding:.22rem .55rem;border-radius:999px;font-family:var(--fh);font-size:.55rem;font-weight:800;letter-spacing:.08em;text-transform:uppercase;">Lifetime Warranty</div>
-            </div>
-            <div class="coating-card-body">
-              <div class="coating-card-desc">The pinnacle of ceramic protection. 9µm film with outstanding chemical resistance and mirror-like gloss built to last a lifetime. Annual maintenance keeps the lifetime warranty active at $150/yr after year one.</div>
-              <ul class="option-includes">
-                <li>9H hardness — 9µm film (thickest available)</li>
-                <li>Mirror-like gloss, super-slick finish</li>
-                <li>Outstanding chemical resistance</li>
-                <li>Lifetime manufacturer warranty</li>
-                <li>First annual service included free</li>
-                <li>Reported to Carfax</li>
-              </ul>
-              <div class="coating-specs">
-                <span class="coating-spec">9H Hardness</span>
-                <span class="coating-spec">9µm Film</span>
-                <span class="coating-spec">Super-Slick Gloss</span>
-                <span class="coating-spec">Chemical Resistant</span>
-                <span class="coating-spec">Lifetime Warranty</span>
-                <span class="coating-spec">Carfax Reported</span>
-              </div>
-            </div>
-          </label>
-
-
-        </div>
-      </div>
-    </div>
-
-    <!-- WARRANTY MAINTENANCE CALLOUT -->
-    <div style="display:flex;align-items:flex-start;gap:1rem;background:rgba(212,168,81,0.06);border:1px solid rgba(212,168,81,0.25);border-radius:14px;padding:1.1rem 1.3rem;">
-      <div style="flex-shrink:0;margin-top:.1rem;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-      </div>
-      <div>
-        <div style="font-family:var(--fh);font-size:.75rem;font-weight:700;color:var(--text);margin-bottom:.25rem;">Warranty Maintenance — First Year Free on Every Package</div>
-        <div style="font-size:.75rem;color:var(--muted);line-height:1.65;">Every System X coating we install includes a <strong style="color:var(--text);">free first-year inspection and topcoat</strong> to keep your coating performing and your warranty valid. After year one, annual maintenance is $150/yr — we come to you. You can opt out at any time and we'll go over all of it when we confirm your quote.</div>
-      </div>
-    </div>
-
-    <!-- FREE WINDSHIELD COATING OFFER -->
-    <div style="display:flex;align-items:flex-start;gap:1rem;background:rgba(34,197,94,0.07);border:1px solid rgba(34,197,94,0.3);border-radius:14px;padding:1.1rem 1.3rem;">
-      <div style="flex-shrink:0;margin-top:.1rem;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div>
-        <div style="display:flex;align-items:center;gap:.6rem;margin-bottom:.25rem;flex-wrap:wrap;">
-          <div style="font-family:var(--fh);font-size:.75rem;font-weight:700;color:var(--text);">Free Windshield Ceramic Coating — Included With Every Package</div>
-          <span style="font-family:var(--fh);font-size:.5rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;background:#22c55e;color:#fff;padding:.18rem .5rem;border-radius:999px;">Limited Offer</span>
-        </div>
-        <div style="font-size:.75rem;color:var(--muted);line-height:1.65;">Book any ceramic coating package right now and we'll coat your <strong style="color:var(--text);">windshield for free</strong> — same 9H ceramic protection, hydrophobic finish, and rain-beading clarity. A $150 value, included at no charge while this offer lasts.</div>
-      </div>
-    </div>
-
-    <!-- FINISH QUOTE BUTTON -->
-    <div style="margin-top:.5rem;">
-      <button class="submit-btn" id="finishBtn" onclick="openQuoteModal()" style="width:100%;font-size:1rem;padding:1.1rem 2rem;">
-        Finish Quote →
-      </button>
-    </div>
-
-  </div><!-- /builder-steps -->
-
-  <!-- ESTIMATE PANEL -->
-  <div class="estimate-panel">
-    <div class="estimate-header">
-      <div class="estimate-icon">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4A851" stroke-width="2"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-      </div>
-      <div class="estimate-title">Package Estimate</div>
-    </div>
-    <div class="estimate-body">
-      <div class="estimate-row">
-        <span class="estimate-row-label">Vehicle Size</span>
-        <span class="estimate-row-val" id="est-size">Small</span>
-      </div>
-      <div class="estimate-row">
-        <span class="estimate-row-label">Paint Prep</span>
-        <span class="estimate-row-val" id="est-prep">Enhancement</span>
-      </div>
-      <div class="estimate-row">
-        <span class="estimate-row-label">Coating</span>
-        <span class="estimate-row-val" id="est-coating">System X Crystal+</span>
-      </div>
-      <div class="estimate-row" id="est-lifetime-row" style="display:none;">
-        <span class="estimate-row-label">Lifetime Warranty</span>
-        <span class="estimate-row-val" style="color:var(--gold);">+$150/yr</span>
-      </div>
-      <div class="estimate-row">
-        <span class="estimate-row-label">Windshield Coating</span>
-        <span class="estimate-row-val" style="color:#22c55e;font-weight:700;">FREE</span>
-      </div>
-
-      <div class="estimate-total">
-        <div class="estimate-total-label">Estimate</div>
-        <div class="estimate-total-val" id="est-total">$750</div>
-      </div>
-      <div class="estimate-note">Starting estimate — final price confirmed when we reach out. Varies by vehicle condition and any additional prep needed on the day.</div>
-      <div class="estimate-system-x" id="est-product-box">
-        <div class="estimate-system-x-label">System X Product</div>
-        <div class="estimate-system-x-name" id="est-product-name">Crystal+</div>
-        <div class="estimate-system-x-warranty" id="est-product-warranty">2-Year Warranty</div>
-      </div>
-      <div style="display:flex;align-items:center;gap:.75rem;margin-top:.75rem;padding:.75rem 1rem;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:10px;">
-        <div style="background:#fff;border-radius:6px;padding:3px 6px;flex-shrink:0;display:flex;align-items:center;">
-          <img src="brand_assets/carfax-logo.svg" alt="CARFAX" style="height:18px;width:auto;display:block;" />
-        </div>
-        <span style="font-size:.65rem;color:var(--muted);line-height:1.4;">Your coating is <strong style="color:var(--text);">reported to Carfax</strong> — adding verified, documented value to your vehicle history.</span>
-      </div>
-      <div style="display:flex;align-items:center;justify-content:center;margin-top:.75rem;">
-        <a href="https://www.bbb.org/us/co/timnath/profile/mobile-auto-detailing/shine-for-a-cause-mobile-detailing-llc-0805-46154063/#sealclick" target="_blank" rel="nofollow" style="background:#fff;border-radius:8px;padding:4px 8px;display:inline-flex;align-items:center;">
-          <img src="https://seal-wynco.bbb.org/seals/blue-seal-293-61-bbb-46154063.png" style="border:0;height:50px;width:auto;display:block;" alt="Shine for a Cause Mobile Detailing LLC BBB Business Review" />
-        </a>
-      </div>
-      <!-- Desktop finish button -->
-      <button onclick="openQuoteModal()" class="submit-btn" style="width:100%;margin-top:1.25rem;font-size:.9rem;padding:.9rem 1.5rem;">Finish Quote →</button>
     </div>
   </div>
 
-</div><!-- /builder-wrap -->
-
-<!-- MOBILE STICKY TOTAL BAR -->
-<div class="mobile-total-bar" id="mobileTotalBar">
-  <div class="mobile-total-collapsed" onclick="toggleMobileBar()">
-    <div class="mobile-total-left">
-      <div>
-        <div class="mobile-total-label">Estimate</div>
-        <div class="mobile-total-amount" id="mob-total">$750</div>
+  <!-- QUOTE MODAL -->
+  <div class="qc-modal" id="qcModal">
+    <div class="qc-modal-card">
+      <button class="qc-modal-close" id="qcClose" aria-label="Close"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      <div class="qc-modal-eyebrow">Almost there</div>
+      <h2 class="qc-modal-h">Lock in your quote</h2>
+      <p class="qc-modal-sub">We'll reach out within 12 hours to confirm and get you on the schedule.</p>
+      <div class="qc-modal-summary" id="qcModalSummary">
+        <div><div class="qc-ms-lbl">Your Package</div><div class="qc-ms-pkg" id="qcModalPkg">—</div></div>
+        <div><div class="qc-ms-lbl" style="text-align:right;">Price</div><div class="qc-ms-total" id="qcModalTotal">—</div></div>
+      </div>
+      <div id="qcModalSuccess" style="display:none;text-align:center;padding:1.5rem 0;">
+        <div style="width:52px;height:52px;background:rgba(34,163,74,.12);border:1.5px solid rgba(34,163,74,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22A34A" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg></div>
+        <div style="font-family:var(--font-d);font-size:1.2rem;font-weight:900;margin-bottom:.5rem;">Quote sent!</div>
+        <div style="font-size:.85rem;color:var(--ink-2);line-height:1.65;max-width:340px;margin:0 auto;">We'll be in touch within 12 hours. You can also call or text us anytime at <strong style="color:var(--ink);">(970) 851-6433</strong>.</div>
+      </div>
+      <div id="qcModalForm">
+        <div class="qc-fgrid">
+          <div class="qc-field"><label>Full Name</label><input type="text" id="qcName" placeholder="John Smith" required /></div>
+          <div class="qc-field"><label>Phone Number</label><input type="tel" id="qcPhone" placeholder="(970) 000-0000" required /></div>
+          <div class="qc-field full"><label>Address</label><input type="text" id="qcAddress" placeholder="123 Main St, Fort Collins, CO" /></div>
+          <div class="qc-field full"><label>Preferred Timeline</label><select id="qcTimeline"><option value="">Select…</option><option>As soon as possible</option><option>Within 2 weeks</option><option>Within a month</option><option>Just getting a quote</option></select></div>
+          <div class="qc-field full"><label>Notes or questions?</label><textarea id="qcNotes" placeholder="Paint condition, special requests, questions…"></textarea></div>
+        </div>
+        <button class="qc-finish" id="qcSubmit" style="margin-top:1.25rem;">Send Quote Request &rarr;</button>
       </div>
     </div>
-    <div style="flex:1;text-align:right;margin-right:10px;min-width:0;">
-      <div style="font-size:.72rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="mob-coating">System X Crystal+</div>
-      <div style="font-size:.65rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;" id="mob-prep">Enhancement · Small</div>
-    </div>
-    <svg class="mobile-total-chevron" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="18 15 12 9 6 15"/></svg>
   </div>
-  <div class="mobile-total-expanded">
-    <div class="mobile-total-rows" id="mob-rows"></div>
-    <hr class="mobile-total-divider"/>
-    <div style="display:flex;justify-content:space-between;align-items:center;">
-      <span style="font-family:var(--fh);font-size:.65rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);">Total Estimate</span>
-      <span style="font-family:var(--fh);font-size:1.8rem;font-weight:800;color:var(--gold);" id="mob-total-2">$750</span>
+</main>
+
+<!-- REVIEWS -->
+<section class="qr">
+  <div class="wrap">
+    <div class="qr-head">
+      <span class="qr-stars" aria-hidden="true">★★★★★</span>
+      <div class="qr-meta"><strong>Excellent</strong> · 5.0 on Google · Trusted by 300+ Northern Colorado drivers</div>
     </div>
-    <p style="font-size:.63rem;color:var(--muted);margin-top:6px;">Starting estimate — final price confirmed when we reach out.</p>
-    <button onclick="closeExpandAndOpenModal()" class="submit-btn" style="width:100%;margin-top:1rem;font-size:.9rem;padding:.85rem 1.5rem;">Finish Quote →</button>
+    <div class="qr-grid">
+      <div class="qr-card">
+        <div class="qr-top"><span class="qr-av" style="background:#9334E6">B</span><div><div class="qr-name">Benjamin Isaacson</div><span class="qr-cstars">★★★★★</span></div></div>
+        <p class="qr-text">Absolutely fantastic work! Showed up exactly on time, and the car is SPOTLESS afterwards! Highly recommend!</p>
+      </div>
+      <div class="qr-card">
+        <div class="qr-top"><span class="qr-av" style="background:#D93025">C</span><div><div class="qr-name">Chris Talmage</div><span class="qr-cstars">★★★★★</span></div></div>
+        <p class="qr-text">Aiden was exceptional. He was competent, thorough and enthusiastic. My car has never looked better.</p>
+      </div>
+      <div class="qr-card">
+        <div class="qr-top"><span class="qr-av" style="background:#F9AB00">B</span><div><div class="qr-name">Brandon Barnholt</div><span class="qr-cstars">★★★★★</span></div></div>
+        <p class="qr-text">Aiden and team were on time, professional and extremely hard working. My car has never looked better. I'll become a regular customer.</p>
+      </div>
+    </div>
   </div>
-</div>
+</section>
 
-<!-- QUOTE MODAL -->
-<div id="quoteModal" style="display:none;position:fixed;inset:0;z-index:500;background:rgba(0,0,0,0.75);backdrop-filter:blur(6px);overflow-y:auto;padding:1.5rem;" onclick="handleModalBackdrop(event)">
-  <div style="background:var(--surface);border:1px solid var(--border);border-radius:20px;max-width:520px;margin:2rem auto;padding:2rem 2rem 2.5rem;position:relative;" onclick="event.stopPropagation()">
-
-    <!-- Close -->
-    <button onclick="closeQuoteModal()" style="position:absolute;top:1.25rem;right:1.25rem;background:transparent;border:none;color:var(--muted);cursor:pointer;padding:4px;display:flex;align-items:center;justify-content:center;border-radius:6px;transition:color .15s;" onmouseover="this.style.color='var(--text)'" onmouseout="this.style.color='var(--muted)'">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-    </button>
-
-    <!-- Modal header -->
-    <div style="margin-bottom:1.5rem;">
-      <p style="font-family:var(--fh);font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);margin-bottom:.4rem;">Almost there</p>
-      <h2 style="font-family:var(--fh);font-size:1.5rem;font-weight:800;color:var(--text);line-height:1.2;margin-bottom:.5rem;">Lock in your quote</h2>
-      <p style="font-size:.82rem;color:var(--muted);line-height:1.6;">We'll reach out within 12 hours to confirm pricing and get you on the schedule.</p>
+<!-- SERVICE AREAS -->
+<section class="areas-sec" id="areas">
+  <div class="wrap">
+    <div style="text-align:center;"><h2 class="h-sec">Proudly Serving These Cities &amp; Surrounding Areas</h2></div>
+    <div class="areas-grid">
+      <a href="/area-fort-collins.html" class="area-card"><div class="area-img"><img src="web.screenshots/area-fort-collins.jpg" alt="Fort Collins, Colorado" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Fort Collins</div></a>
+      <a href="/area-timnath.html" class="area-card"><div class="area-img"><img src="web.screenshots/area-timnath.jpg" alt="Timnath, Colorado" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Timnath</div></a>
+      <a href="/area-windsor.html" class="area-card"><div class="area-img"><img src="web.screenshots/area-windsor.jpg" alt="Windsor, Colorado" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Windsor</div></a>
+      <a href="/area-loveland.html" class="area-card"><div class="area-img"><img src="web.screenshots/area-loveland.jpg" alt="Loveland, Colorado" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Loveland</div></a>
+      <a href="/area-surrounding.html" class="area-card"><div class="area-img"><img src="web.screenshots/area-surrounding.jpg" alt="Surrounding Northern Colorado areas" loading="lazy" onerror="this.style.display='none'"></div><div class="area-name">Surrounding Areas</div></a>
     </div>
-
-    <!-- Quote summary pill -->
-    <div id="modalSummary" style="background:var(--surface2);border:1px solid var(--gold-bdr);border-radius:12px;padding:.85rem 1.1rem;margin-bottom:1.5rem;display:flex;justify-content:space-between;align-items:center;">
-      <div>
-        <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;">Your Package</div>
-        <div style="font-family:var(--fh);font-size:.82rem;font-weight:700;color:var(--text);" id="modalPkg">Enhancement · System X Crystal+</div>
-      </div>
-      <div style="text-align:right;">
-        <div style="font-size:.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:2px;">Estimate</div>
-        <div style="font-family:var(--fh);font-size:1.4rem;font-weight:800;color:var(--gold);" id="modalTotal">$750</div>
-      </div>
-    </div>
-
-    <!-- Success state -->
-    <div id="modalSuccess" style="display:none;text-align:center;padding:1.5rem 0;">
-      <div style="width:52px;height:52px;background:rgba(34,197,94,.15);border:1.5px solid rgba(34,197,94,.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 1rem;">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-      </div>
-      <div style="font-family:var(--fh);font-size:1.2rem;font-weight:800;color:var(--text);margin-bottom:.5rem;">Quote sent!</div>
-      <div style="font-size:.82rem;color:var(--muted);line-height:1.65;max-width:340px;margin:0 auto;">We'll be in touch within 12 hours. You can also call or text us anytime at <strong style="color:var(--text);">(970) 295-3577</strong>.</div>
-    </div>
-
-    <!-- Form fields -->
-    <div id="modalForm">
-      <div class="form-grid">
-        <div class="form-field">
-          <label>Full Name</label>
-          <input type="text" id="fName" placeholder="John Smith" required />
-        </div>
-        <div class="form-field">
-          <label>Phone Number</label>
-          <input type="tel" id="fPhone" placeholder="(970) 000-0000" required />
-        </div>
-        <div class="form-field full">
-          <label>Address</label>
-          <input type="text" id="fAddress" placeholder="123 Main St, Fort Collins, CO" />
-        </div>
-        <div class="form-field full">
-          <label>Preferred Timeline</label>
-          <select id="fTimeline">
-            <option value="">Select…</option>
-            <option>As soon as possible</option>
-            <option>Within 2 weeks</option>
-            <option>Within a month</option>
-            <option>Just getting a quote</option>
-          </select>
-        </div>
-        <div class="form-field full">
-          <label>Notes or questions?</label>
-          <textarea id="fNotes" placeholder="Paint condition, special requests, questions about the coating…"></textarea>
-        </div>
-      </div>
-      <button class="submit-btn" id="submitBtn" onclick="submitQuote()" style="width:100%;margin-top:1.25rem;font-size:1rem;padding:1.05rem 2rem;">Send Quote Request →</button>
-    </div>
-
   </div>
-</div>
+</section>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
-    <div class="footer-brand">
-      <img src="brand_assets/Shine for a Cause LOGO.png" alt="Shine for a Cause" />
-      <p>Premium mobile auto detailing serving Northern Colorado — and giving back to those who need it most.</p>
+  <div class="foot-inner">
+    <div class="foot-logo">
+      <img src="/brand_assets/logo-nav.png" alt="Shine for a Cause" />
+      <p class="foot-mission">Mobile auto detailing that gives back. A portion of every booking supports recovery programs across Northern Colorado.</p>
+      <div class="socials" style="margin-top:1.2rem;">
+        <a href="https://www.instagram.com/shineforacause" target="_blank" rel="noopener" aria-label="Instagram"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#101112" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="#101112"/></svg></a>
+        <a href="https://g.page/r/shineforacause/review" target="_blank" rel="noopener" aria-label="Google"><svg width="15" height="15" viewBox="0 0 24 24" fill="#101112"><path d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81z"/></svg></a>
+      </div>
     </div>
-    <div class="footer-col">
-      <h4>Services</h4>
+    <div>
+      <h5>Services</h5>
       <ul>
-        <li><a href="/services.html#express">Express Detail</a></li>
-        <li><a href="/services.html#executive">Executive Detail</a></li>
-        <li><a href="/services.html#paint-ceramic">Paint Correction</a></li>
-        <li><a href="/services.html#ceramic">Ceramic Coating</a></li>
-        <li><a href="/maintenance.html">Maintenance Program</a></li>
+        <li><a href="/#packages">Mobile Detailing</a></li>
+        <li><a href="/ceramic-coating.html">Ceramic Coating</a></li>
+        <li><a href="/paint-correction.html">Paint Correction</a></li>
+        <li><a href="/maintenance.html">Maintenance Plans</a></li>
+        <li><a href="/booking.html">Book Online</a></li>
       </ul>
     </div>
-    <div class="footer-col">
-      <h4>Company</h4>
+    <div id="areas">
+      <h5>Service Areas</h5>
       <ul>
-        <li><a href="/">Home</a></li>
-        <li><a href="/#reviews">Reviews</a></li>
-        <li><a href="/#portfolio">Our Work</a></li>
-        <li><a href="/#faq">FAQ</a></li>
+        <li><a href="/area-fort-collins.html">Fort Collins, CO</a></li>
+        <li><a href="/area-loveland.html">Loveland, CO</a></li>
+        <li><a href="/area-surrounding.html">Greeley, CO</a></li>
+        <li><a href="/area-windsor.html">Windsor, CO</a></li>
+        <li><a href="/area-surrounding.html">Northern Colorado</a></li>
+      </ul>
+      <h5 style="margin-top:1.6rem;">Contact</h5>
+      <ul>
+        <li><a href="tel:+19708516433">(970) 851-6433</a></li>
+        <li><a href="mailto:shineforacausemd@gmail.com">shineforacausemd@gmail.com</a></li>
       </ul>
     </div>
-    <div class="footer-col">
-      <h4>Contact</h4>
-      <ul>
-        <li><a href="tel:+19702953577">📞 (970) 295-3577</a></li>
-        <li><a href="mailto:shineforacausemd@gmail.com">✉ shineforacausemd@gmail.com</a></li>
-        <li><a>📍 Northern Colorado</a></li>
-        <li><a>⏰ Mon–Sat: 7am – 7pm</a></li>
-      </ul>
+    <div>
+      <h5>Proudly Serving Northern Colorado</h5>
+      <div class="foot-map">
+        <iframe src="https://www.google.com/maps?q=Shine+for+a+Cause+Mobile+Detailing&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Shine for a Cause Mobile Detailing on Google Maps"></iframe>
+      </div>
     </div>
   </div>
-  <div class="footer-bot">
-    <p>© 2026 Shine for a Cause Mobile Detailing — Fort Collins &amp; Northern Colorado.</p>
-    <a href="https://www.bbb.org/us/co/timnath/profile/mobile-auto-detailing/shine-for-a-cause-mobile-detailing-llc-0805-46154063/#sealclick" target="_blank" rel="nofollow" style="background:#fff;border-radius:8px;padding:4px 8px;display:inline-flex;align-items:center;">
-      <img src="https://seal-wynco.bbb.org/seals/blue-seal-293-61-bbb-46154063.png" style="border:0;height:44px;width:auto;display:block;" alt="Shine for a Cause Mobile Detailing LLC BBB Business Review" />
-    </a>
-    <p><a href="/privacy-policy.html">Privacy Policy</a></p>
+  <div class="foot-base">
+    <span>&copy; 2026 Shine for a Cause LLC &middot; Fort Collins, Colorado</span>
+    <span>Licensed &amp; Insured &middot; System X Certified Installer</span>
   </div>
 </footer>
 
 <script>
-  // --- Nav ---
-  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobileNav').classList.toggle('open'));
+  document.getElementById('hamburger').addEventListener('click', function () { document.getElementById('mMenu').classList.toggle('open'); });
 
-  // --- Pricing data (exact prices per size) ---
-  const PREP_PRICES = {
-    polish:     { small: 300, mid: 350,  large: 400,  van: 500  },
-    'one-step': { small: 550, mid: 650,  large: 750,  van: 900  },
-    'two-step': { small: 900, mid: 1000, large: 1100, van: 1400 }
-  };
-  const COATING_PRICES = {
-    crystal: { small: 199, mid: 225, large: 250, van: 300 },
-    pro:     { small: 350, mid: 450, large: 550, van: 600 },
-    max:     { small: 400, mid: 500, large: 600, van: 750 }
-  };
-  const PREP_LABELS = { polish: 'Enhancement', 'one-step': '1-Step Correction', 'two-step': '2-Step Correction' };
-  const COATING_LABELS = { crystal: 'System X Crystal+', pro: 'System X Pro+', max: 'System X Max G+' };
-  const PRODUCT_NAMES = { crystal: 'Crystal+', pro: 'Pro+', max: 'Max G+' };
-  const WARRANTY_LABELS = { crystal: '2-Year Warranty', pro: '6-Year Warranty', max: 'Lifetime Warranty' };
-  const SIZE_LABELS = { small: 'Small', mid: 'Mid-Size', large: 'Large', van: 'Van / Oversized' };
+  (function () {
+    var root = document.getElementById('quote'); if (!root) return;
+    var $ = function (id) { return document.getElementById(id); };
+    var fmt = function (n) { return '$' + n.toLocaleString(); };
 
-  let sel = { size: 'small', prep: 'polish', coating: 'crystal', lifetime: false };
-  let discountType = 'percent'; // 'percent' | 'flat'
+    var SIZE_LABELS = { small:'Small', mid:'Mid-Size', large:'Large', van:'Van / Oversized' };
+    var PACKAGES = {
+      full: { label:'Full Detail', thumb:'web.screenshots/pkg-reset.jpg', levels:[
+        { v:'l1', name:'Full Maintenance', price:180, img:'web.screenshots/pkg-maintenance.jpg', desc:'Regular upkeep clean, inside and out.' },
+        { v:'l2', name:'Full Reset',       price:299, img:'web.screenshots/pkg-reset.jpg',       desc:'Deeper reset of built-up dirt and grime, inside and out.' },
+        { v:'l3', name:'Full Executive',   price:499, img:'web.screenshots/pkg-executive.jpg',   desc:'Our most thorough detail, with paint enhancement and a full interior reset.' }
+      ]},
+      exterior: { label:'Exterior', thumb:'web.screenshots/pkg-ext-reset.jpg', levels:[
+        { v:'l1', name:'Exterior Reset',     price:99,  img:'brand_assets/svc-mobile-detailing.jpg', desc:'Exterior wash, wheels, tires and paint protection.' },
+        { v:'l2', name:'Exterior Executive', price:225, img:'web.screenshots/pkg-ext-reset.jpg',     desc:'Deep exterior with decontamination, polish and sealant.' },
+        { v:'l3', name:'Ceramic Coating',    price:499, img:'web.screenshots/pkg-ext-ceramic.jpg',   desc:'Paint correction plus a System X ceramic coating.' }
+      ]},
+      interior: { label:'Interior', thumb:'web.screenshots/pkg-int-reset.jpg', levels:[
+        { v:'l1', name:'Interior Maintenance', price:125, img:'web.screenshots/pkg-int-maintenance.jpg', desc:'Interior vacuum, wipe-down, windows and door panels.' },
+        { v:'l2', name:'Interior Reset',       price:225, img:'web.screenshots/pkg-int-reset.jpg',       desc:'Deep interior reset with steam and spot treatment.' },
+        { v:'l3', name:'Interior Executive',   price:325, img:'web.screenshots/pkg-int-executive.jpg',   desc:'Full interior reset with shampoo, leather care and steam.' }
+      ]}
+    };
+    var ADDONS = {
+      'pet-hair':   { label:'Pet Hair Removal',      price:35 },
+      'headlight':  { label:'Headlight Restoration', price:70 },
+      'engine-bay': { label:'Engine Bay Detail',     price:50 },
+      'trim':       { label:'Trim Restoration',      price:30 }
+    };
 
-  function fmt(n) { return '$' + n.toLocaleString(); }
+    var STEPS = ['qc-step-size', 'qc-step-pkg', 'qc-step-tier', 'qc-step-add', 'qc-step-review'];
+    var st = { size:null, pkg:null, tier:null };
+    var idx = 0;
 
-  function setDiscountType(type) {
-    discountType = type;
-    const pctBtn  = document.getElementById('disc-pct-btn');
-    const flatBtn = document.getElementById('disc-flat-btn');
-    const prefix  = document.getElementById('disc-prefix');
-    if (type === 'percent') {
-      pctBtn.style.background  = 'var(--gold)';
-      pctBtn.style.color       = '#0E0E10';
-      pctBtn.style.borderColor = 'var(--gold)';
-      flatBtn.style.background = 'transparent';
-      flatBtn.style.color      = 'var(--muted)';
-      flatBtn.style.borderColor = 'rgba(212,168,81,.3)';
-      prefix.textContent = '%';
-    } else {
-      flatBtn.style.background  = 'var(--gold)';
-      flatBtn.style.color       = '#0E0E10';
-      flatBtn.style.borderColor = 'var(--gold)';
-      pctBtn.style.background   = 'transparent';
-      pctBtn.style.color        = 'var(--muted)';
-      pctBtn.style.borderColor  = 'rgba(212,168,81,.3)';
-      prefix.textContent = '$';
+    function currentTier() {
+      if (!st.pkg || !st.tier) return null;
+      var lv = PACKAGES[st.pkg].levels;
+      for (var i = 0; i < lv.length; i++) { if (lv[i].v === st.tier) return lv[i]; }
+      return null;
     }
-    updateEstimate();
-  }
-
-  function updateEstimate() {
-    const sz = sel.size;
-    const prepPrice    = PREP_PRICES[sel.prep][sz];
-    const coatingPrice = COATING_PRICES[sel.coating][sz];
-    const lifetimePrice = (sel.lifetime && sel.coating === 'max') ? 150 : 0;
-    const baseTotal    = prepPrice + coatingPrice + lifetimePrice;
-
-    const total = baseTotal;
-
-    // Update estimate panel
-    document.getElementById('est-size').textContent    = SIZE_LABELS[sz];
-    document.getElementById('est-prep').textContent    = PREP_LABELS[sel.prep];
-    document.getElementById('est-coating').textContent = COATING_LABELS[sel.coating];
-    document.getElementById('est-total').textContent   = fmt(total);
-    document.getElementById('est-product-name').textContent    = PRODUCT_NAMES[sel.coating];
-    document.getElementById('est-product-warranty').textContent = sel.lifetime && sel.coating === 'max' ? 'Lifetime Warranty' : WARRANTY_LABELS[sel.coating];
-
-    // Lifetime row
-    document.getElementById('est-lifetime-row').style.display = sel.lifetime && sel.coating === 'max' ? 'flex' : 'none';
-
-    // Update mobile sticky bar
-    const fmtTotal = fmt(total);
-    document.getElementById('mob-total').textContent  = fmtTotal;
-    document.getElementById('mob-total-2').textContent = fmtTotal;
-    document.getElementById('mob-coating').textContent = COATING_LABELS[sel.coating];
-    document.getElementById('mob-prep').textContent   = PREP_LABELS[sel.prep] + ' · ' + SIZE_LABELS[sz];
-
-    const rows = [
-      { label: 'Paint Prep',        val: fmt(prepPrice),    cls: '' },
-      { label: 'Coating',           val: fmt(coatingPrice), cls: '' },
-    ];
-    if (lifetimePrice) rows.push({ label: 'Lifetime Warranty', val: '+$150/yr', cls: ' gold' });
-    rows.push({ label: 'Windshield Coating', val: 'FREE', cls: ' green' });
-
-    document.getElementById('mob-rows').innerHTML = rows.map(r => `
-      <div class="mobile-total-row">
-        <span class="mobile-total-row-label">${r.label}</span>
-        <span class="mobile-total-row-val${r.cls}">${r.val}</span>
-      </div>`).join('');
-  }
-
-  function toggleMobileBar() {
-    document.getElementById('mobileTotalBar').classList.toggle('open');
-  }
-
-  function closeExpandAndOpenModal() {
-    document.getElementById('mobileTotalBar').classList.remove('open');
-    openQuoteModal();
-  }
-
-  // Option card selection
-  document.querySelectorAll('.option-card').forEach(card => {
-    card.addEventListener('click', () => {
-      const group = card.dataset.group;
-      const val = card.dataset.val;
-      document.querySelectorAll(`.option-card[data-group="${group}"]`).forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      card.querySelector('input[type=radio]').checked = true;
-      sel[group] = val;
-      updateEstimate();
-    });
-  });
-
-  // Coating card selection
-  document.querySelectorAll('.coating-card').forEach(card => {
-    card.addEventListener('click', () => {
-      document.querySelectorAll('.coating-card').forEach(c => c.classList.remove('selected'));
-      card.classList.add('selected');
-      card.querySelector('input[type=radio]').checked = true;
-      sel.coating = card.dataset.val;
-      updateEstimate();
-    });
-  });
-
-  // Init
-  updateEstimate();
-
-  // Modal open/close
-  function openQuoteModal() {
-    const total = PREP_PRICES[sel.prep][sel.size] + COATING_PRICES[sel.coating][sel.size];
-    const lifetimeExtra = (sel.lifetime && sel.coating === 'max') ? 150 : 0;
-    document.getElementById('modalPkg').textContent   = PREP_LABELS[sel.prep] + ' · ' + COATING_LABELS[sel.coating];
-    document.getElementById('modalTotal').textContent = fmt(total + lifetimeExtra);
-    document.getElementById('quoteModal').style.display = 'block';
-    document.body.style.overflow = 'hidden';
-    setTimeout(() => document.getElementById('fName').focus(), 100);
-  }
-
-  function closeQuoteModal() {
-    document.getElementById('quoteModal').style.display = 'none';
-    document.body.style.overflow = '';
-  }
-
-  function handleModalBackdrop(e) {
-    if (e.target === document.getElementById('quoteModal')) closeQuoteModal();
-  }
-
-  // Close on Escape
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeQuoteModal(); });
-
-  // Submit
-  async function submitQuote() {
-    const name     = document.getElementById('fName').value.trim();
-    const phone    = document.getElementById('fPhone').value.trim();
-    const address  = document.getElementById('fAddress').value.trim();
-    const timeline = document.getElementById('fTimeline').value;
-    const notes    = document.getElementById('fNotes').value.trim();
-
-    if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
-
-    const btn = document.getElementById('submitBtn');
-    btn.textContent = 'Sending…';
-    btn.disabled = true;
-
-    const total = PREP_PRICES[sel.prep][sel.size] + COATING_PRICES[sel.coating][sel.size];
-    const service = `${COATING_LABELS[sel.coating]} — ${PREP_LABELS[sel.prep]} — ${SIZE_LABELS[sel.size]}${sel.lifetime ? ' + Lifetime Warranty' : ''}`;
-    const notesOut = `[Coating Quote] ${service} | Estimate: $${total.toLocaleString()}${timeline ? ` | Timeline: ${timeline}` : ''}${notes ? ` | Notes: ${notes}` : ''}`;
-
-    try {
-      const res = await fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          full_name: name,
-          phone,
-          address,
-          service,
-          vehicle: SIZE_LABELS[sel.size] || sel.size,
-          timeline,
-          platform: 'WEB',
-          notes: notesOut,
-        }),
+    function getAddons() {
+      var total = 0, labels = [];
+      root.querySelectorAll('[data-addon].selected').forEach(function (c) {
+        var a = ADDONS[c.dataset.addon]; if (a) { total += a.price; labels.push(a.label); }
       });
-      if (res.ok || res.status === 201) {
-        document.getElementById('modalForm').style.display    = 'none';
-        document.getElementById('modalSummary').style.display = 'none';
-        document.getElementById('modalSuccess').style.display = 'block';
-      } else {
-        throw new Error('Server error');
-      }
-    } catch {
-      btn.textContent = 'Send Quote Request →';
-      btn.disabled = false;
-      alert('Something went wrong — please call or text us at (970) 295-3577.');
+      return { total: total, labels: labels };
     }
+    function priceNumber() {
+      var t = currentTier(); if (!t) return null;
+      if (st.size !== 'small') return null;
+      return t.price + getAddons().total;
+    }
+    function stepAnswered(i) {
+      if (i === 0) return !!st.size;
+      if (i === 1) return !!st.pkg;
+      if (i === 2) return !!st.tier;
+      return true;
+    }
+    function showStep(i) {
+      idx = i;
+      STEPS.forEach(function (id, k) { $(id).classList.toggle('show', k === i); });
+      for (var k = 0; k < 4; k++) { $('qc-p' + k).classList.toggle('on', i >= k); }
+      var cont = $(STEPS[i]).querySelector('.qc-continue');
+      if (cont && !cont.hasAttribute('data-always')) {
+        // add-ons continue (index 3) is always shown; others only when answered
+        if (i === 3) cont.classList.remove('hide');
+        else cont.classList.toggle('hide', !stepAnswered(i));
+      }
+      root.scrollIntoView({ block:'start', behavior:'smooth' });
+    }
+    function next() { if (idx < STEPS.length - 1) showStep(idx + 1); }
+    function back() { if (idx > 0) showStep(idx - 1); }
+
+    function renderTiers() {
+      var grid = $('qc-tier-grid');
+      grid.innerHTML = PACKAGES[st.pkg].levels.map(function (l) {
+        return '<label class="qc-opt row" data-q="tier" data-v="' + l.v + '">' +
+          '<img class="qc-thumb" src="' + l.img + '" alt="' + l.name + '" loading="lazy" />' +
+          '<div class="qc-body"><div class="qc-name">' + l.name + '</div>' +
+          '<div class="qc-desc">' + l.desc + '</div></div>' +
+          '<div class="qc-check"></div></label>';
+      }).join('');
+      grid.querySelectorAll('[data-q="tier"]').forEach(function (card) {
+        card.addEventListener('click', function () { selectTier(card); });
+      });
+    }
+
+    function updatePreview() {
+      var t = currentTier();
+      if (t) {
+        $('qc-img').src = t.img;
+        $('qc-title').textContent = t.name;
+        $('qc-sub').textContent = PACKAGES[st.pkg].label + (st.size ? ' · ' + SIZE_LABELS[st.size] : '');
+      } else if (st.pkg) {
+        $('qc-img').src = PACKAGES[st.pkg].thumb;
+        $('qc-title').textContent = PACKAGES[st.pkg].label;
+        $('qc-sub').textContent = 'Choose a package level';
+      } else {
+        $('qc-img').src = 'brand_assets/svc-mobile-detailing.jpg';
+        $('qc-title').textContent = 'Mobile Detailing';
+        $('qc-sub').textContent = st.size ? SIZE_LABELS[st.size] : 'Build your quote';
+      }
+      var pr = priceNumber();
+      if (pr != null) { $('qc-price-wrap').classList.remove('hide'); $('qc-price').textContent = fmt(pr); }
+      else { $('qc-price-wrap').classList.add('hide'); }
+    }
+
+    function updateReview() {
+      var t = currentTier();
+      $('qc-e-pkg').textContent = t ? t.name + ' (' + PACKAGES[st.pkg].label + ')' : '—';
+      $('qc-e-size').textContent = st.size ? SIZE_LABELS[st.size] : '—';
+      var add = getAddons();
+      var row = $('qc-e-add-row');
+      if (add.total) {
+        row.style.display = 'flex';
+        $('qc-e-add-label').textContent = add.labels.length + ' Add-on' + (add.labels.length > 1 ? 's' : '');
+        $('qc-e-add-val').textContent = '+$' + add.total;
+      } else { row.style.display = 'none'; }
+      var pr = priceNumber();
+      if (pr != null) { $('qc-e-total').textContent = fmt(pr); $('qc-e-note').style.display = 'none'; }
+      else { $('qc-e-total').textContent = 'Custom'; $('qc-e-note').style.display = t ? 'block' : 'none'; }
+    }
+
+    function selectSize(card) {
+      root.querySelectorAll('[data-q="size"]').forEach(function (c) { c.classList.remove('selected'); });
+      card.classList.add('selected'); st.size = card.dataset.v;
+      updatePreview(); updateReview();
+      if (idx === 0) next();
+    }
+    function selectPkg(card) {
+      root.querySelectorAll('[data-q="pkg"]').forEach(function (c) { c.classList.remove('selected'); });
+      card.classList.add('selected'); st.pkg = card.dataset.v; st.tier = null;
+      renderTiers(); updatePreview(); updateReview();
+      if (idx === 1) next();
+    }
+    function selectTier(card) {
+      root.querySelectorAll('[data-q="tier"]').forEach(function (c) { c.classList.remove('selected'); });
+      card.classList.add('selected'); st.tier = card.dataset.v;
+      updatePreview(); updateReview();
+      if (idx === 2) next();
+    }
+
+    root.querySelectorAll('[data-q="size"]').forEach(function (c) { c.addEventListener('click', function () { selectSize(c); }); });
+    root.querySelectorAll('[data-q="pkg"]').forEach(function (c) { c.addEventListener('click', function () { selectPkg(c); }); });
+    root.querySelectorAll('[data-addon]').forEach(function (c) { c.addEventListener('click', function () { c.classList.toggle('selected'); updatePreview(); updateReview(); }); });
+    root.querySelectorAll('.qc-back').forEach(function (b) { b.addEventListener('click', back); });
+    root.querySelectorAll('[data-qc-next]').forEach(function (b) { b.addEventListener('click', next); });
+
+    function currentQuote() {
+      var t = currentTier();
+      var add = getAddons();
+      var addStr = add.labels.length ? ' + ' + add.labels.join(', ') : '';
+      var pr = priceNumber();
+      return {
+        priced: pr != null,
+        total: pr,
+        pkg: t.name + ' · ' + SIZE_LABELS[st.size],
+        service: t.name + ' (' + PACKAGES[st.pkg].label + ') — ' + SIZE_LABELS[st.size] + addStr,
+        vehicle: SIZE_LABELS[st.size],
+        addStr: addStr
+      };
+    }
+
+    var modal = $('qcModal');
+    function openModal() {
+      if (!currentTier() || !st.size) { alert('Please choose your vehicle, package and level first.'); return; }
+      var q = currentQuote();
+      $('qcModalPkg').textContent = q.pkg;
+      $('qcModalTotal').textContent = q.priced ? fmt(q.total) : 'Custom';
+      $('qcModalForm').style.display = ''; $('qcModalSummary').style.display = 'flex'; $('qcModalSuccess').style.display = 'none';
+      modal.classList.add('open'); document.body.style.overflow = 'hidden';
+      setTimeout(function () { $('qcName').focus(); }, 100);
+    }
+    function closeModal() { modal.classList.remove('open'); document.body.style.overflow = ''; }
+    root.querySelectorAll('[data-qc-finish]').forEach(function (b) { b.addEventListener('click', openModal); });
+
+    // Carry the built quote into the booking flow so the customer skips re-selecting.
+    var ADDON_BOOKING_KEYS = { 'pet-hair':'petHair', 'headlight':'headlight', 'engine-bay':'engine', 'trim':'trim' };
+    function bookQuote() {
+      var t = currentTier();
+      if (!t || !st.size) { alert('Please choose your vehicle, package and level first.'); return; }
+      var add = getAddons();
+      var addonKeys = [];
+      root.querySelectorAll('[data-addon].selected').forEach(function (c) {
+        var k = ADDON_BOOKING_KEYS[c.dataset.addon]; if (k) addonKeys.push(k);
+      });
+      var pr = priceNumber();
+      var quote = {
+        v: 1,
+        size: st.size,                                   // small | mid | large | van (matches booking)
+        pkgKey: st.pkg,
+        pkgLabel: PACKAGES[st.pkg].label,
+        tierKey: st.tier,
+        serviceName: t.name,
+        priced: pr != null,
+        total: pr != null ? pr : null,                  // includes add-ons
+        addons: addonKeys,                              // booking add-on keys
+        addonLabels: add.labels,
+        vehicleLabel: SIZE_LABELS[st.size],
+        ts: Date.now()
+      };
+      try { localStorage.setItem('sfac_quote', JSON.stringify(quote)); } catch (e) {}
+      window.location.href = '/booking.html';
+    }
+    root.querySelectorAll('[data-qc-book]').forEach(function (b) { b.addEventListener('click', bookQuote); });
+    $('qcClose').addEventListener('click', closeModal);
+    modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && modal.classList.contains('open')) closeModal(); });
+
+    $('qcSubmit').addEventListener('click', function () {
+      var name = $('qcName').value.trim(), phone = $('qcPhone').value.trim();
+      var address = $('qcAddress').value.trim(), timeline = $('qcTimeline').value, notes = $('qcNotes').value.trim();
+      if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+      var btn = $('qcSubmit'); btn.textContent = 'Sending…'; btn.disabled = true;
+      var q = currentQuote();
+      var priceStr = q.priced ? '$' + q.total.toLocaleString() : 'Custom (' + q.vehicle + ')';
+      var notesOut = '[Detail Quote] ' + q.service + ' | Price: ' + priceStr + (timeline ? ' | Timeline: ' + timeline : '') + (notes ? ' | Notes: ' + notes : '');
+      fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ full_name: name, phone: phone, address: address, service: q.service, vehicle: q.vehicle, timeline: timeline, platform: 'WEB', notes: notesOut })
+      }).then(function (res) {
+        if (res.ok || res.status === 201) {
+          $('qcModalForm').style.display = 'none'; $('qcModalSummary').style.display = 'none'; $('qcModalSuccess').style.display = 'block';
+        } else { throw new Error('err'); }
+      }).catch(function () {
+        btn.textContent = 'Send Quote Request →'; btn.disabled = false;
+        alert('Something went wrong — please call or text us at (970) 851-6433.');
+      });
+    });
+
+    showStep(0);
+  })();
+</script>
+<script>
+(function(){
+  var nav=document.getElementById('nav'); if(!nav) return;
+  var staticDark=false;
+  var darkSecs=document.querySelectorAll('.nav-dark-sec');
+  function upd(){
+    if(staticDark){ return; }
+    var r=nav.querySelector('.nav-inner').getBoundingClientRect();
+    var probe=r.top+r.height/2, dark=false;
+    darkSecs.forEach(function(s){ var b=s.getBoundingClientRect(); if(b.top<=probe&&b.bottom>=probe) dark=true; });
+    nav.classList.toggle('nav-dark',dark);
   }
+  window.addEventListener('scroll',function(){ nav.classList.toggle('scrolled',window.scrollY>10); upd(); },{passive:true});
+  window.addEventListener('resize',upd,{passive:true}); upd();
+  var m=document.getElementById('mMenu');
+  document.getElementById('hamburger').addEventListener('click',function(){ m.classList.add('open'); });
+  document.getElementById('mClose').addEventListener('click',function(){ m.classList.remove('open'); });
+  m.querySelectorAll('a').forEach(function(a){ a.addEventListener('click',function(){ m.classList.remove('open'); }); });
+})();
 </script>
 </body>
 </html>

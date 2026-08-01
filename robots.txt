@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /pay
+Disallow: /packages-slides.html
 
 # Allow major AI/LLM crawlers explicitly
 User-agent: GPTBot
