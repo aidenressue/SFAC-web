@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Your Quote | Shine for a Cause</title>
+  <meta name="robots" content="noindex, nofollow" />
+
+  <!-- Open Graph: makes iMessage show a card preview instead of a raw URL -->
+  <meta property="og:title" content="Your detailing quote — Shine for a Cause" />
+  <meta property="og:description" content="Your options and pricing, ready to book." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://shineforacause.com/brand_assets/Shine%20for%20a%20Cause%20LOGO.png" />
+
+  <link rel="icon" href="/brand_assets/favicon.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* Matches pay.html so a quote and an invoice feel like the same business. */
+    :root {
+      --bg:       #0A0C0F;
+      --surface:  #13161C;
+      --card:     #1A1E27;
+      --border:   #272D3A;
+      --gold:     #D4A851;
+      --gold-dim: rgba(212,168,81,0.12);
+      --text:     #F0EDE8;
+      --sub:      #B8BFCA;
+      --muted:    #7A8494;
+      --font-h:   'Montserrat', sans-serif;
+      --font-b:   'Inter', sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-b);
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.6;
+    }
+
+    .wrap { max-width: 860px; margin: 0 auto; padding: 28px 18px 72px; }
+
+    header { text-align: center; margin-bottom: 26px; }
+    header img { height: 62px; width: auto; }
+    .eyebrow {
+      font-family: var(--font-h); font-size: 10px; font-weight: 700;
+      letter-spacing: .28em; text-transform: uppercase; color: var(--gold);
+      margin: 14px 0 4px;
+    }
+    h1 { font-family: var(--font-h); font-size: 27px; font-weight: 800; margin: 0; letter-spacing: -.02em; }
+    .sub { color: var(--sub); font-size: 15px; margin-top: 6px; }
+    .qnum { color: var(--muted); font-size: 12px; margin-top: 8px; }
+
+    .banner {
+      background: var(--gold-dim); border: 1px solid rgba(212,168,81,.32);
+      border-radius: 12px; padding: 12px 16px; margin-bottom: 22px;
+      font-size: 14px; color: var(--text); text-align: center;
+    }
+
+    .grid { display: grid; gap: 14px; }
+    @media (min-width: 700px) { .grid { grid-template-columns: 1fr 1fr; } }
+
+    .card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; padding: 20px; display: flex; flex-direction: column;
+    }
+    .card.best { border-color: var(--gold); box-shadow: 0 8px 30px rgba(212,168,81,.14); }
+
+    .tag {
+      font-family: var(--font-h); font-size: 9px; font-weight: 800;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--gold);
+    }
+    .name { font-family: var(--font-h); font-size: 20px; font-weight: 800; margin: 4px 0 2px; }
+    .desc { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
+
+    .price { font-family: var(--font-h); font-size: 34px; font-weight: 900; letter-spacing: -.02em; }
+    .was { color: var(--muted); text-decoration: line-through; font-size: 15px; margin-left: 8px; }
+    .per { color: var(--muted); font-size: 12px; }
+
+    ul { list-style: none; padding: 0; margin: 14px 0 0; }
+    li { font-size: 13.5px; color: var(--sub); padding-left: 22px; position: relative; margin-bottom: 6px; }
+    li::before {
+      content: ""; position: absolute; left: 0; top: 7px;
+      width: 12px; height: 12px; border-radius: 50%;
+      background: rgba(212,168,81,.18);
+      box-shadow: inset 0 0 0 1.5px var(--gold);
+    }
+
+    .book {
+      display: block; text-align: center; margin-top: 18px;
+      background: var(--gold); color: #10131A;
+      font-family: var(--font-h); font-weight: 800; font-size: 15px;
+      padding: 13px; border-radius: 11px; text-decoration: none;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+    .book:hover { transform: translateY(-1px); opacity: .93; }
+    .book.ghost {
+      background: transparent; color: var(--gold);
+      border: 1px solid rgba(212,168,81,.45);
+    }
+
+    .cta {
+      margin-top: 26px; background: var(--surface);
+      border: 1px solid var(--border); border-radius: 16px;
+      padding: 22px; text-align: center;
+    }
+    .cta h2 { font-family: var(--font-h); font-size: 19px; margin: 0 0 6px; }
+    .cta p { color: var(--sub); font-size: 14px; margin: 0 0 16px; }
+
+    .notes {
+      margin-top: 22px; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 12px; padding: 16px; font-size: 14px; color: var(--sub);
+    }
+    .notes strong { color: var(--text); display: block; margin-bottom: 4px; font-family: var(--font-h); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
+
+    footer { text-align: center; margin-top: 34px; color: var(--muted); font-size: 12.5px; }
+    footer a { color: var(--gold); text-decoration: none; }
+
+    .state { text-align: center; padding: 70px 20px; color: var(--sub); }
+    .state h2 { font-family: var(--font-h); color: var(--text); }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <img src="/brand_assets/Shine for a Cause LOGO transparent.png" alt="Shine for a Cause" />
+      <p class="eyebrow">Your Quote</p>
+      <h1 id="greeting">Your detailing options</h1>
+      <p class="sub" id="subtitle">Prepared just for you.</p>
+      <p class="qnum" id="qnum"></p>
+    </header>
+
+    <div id="content"></div>
+
+    <div class="state" id="loading"><p>Loading your quote…</p></div>
+  </div>
+
+  <script>
+    // The quote is fetched from the CRM rather than baked into a PDF, so the
+    // customer always sees current pricing and can book straight from it.
+    const CRM = 'https://sfac-mu.vercel.app';
+    const PHONE = '(970) 851-6433';
+
+    const money = (n) =>
+      new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(n ?? 0);
+
+    const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
+      ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+    function fail(message) {
+      document.getElementById('loading').innerHTML =
+        '<h2>' + esc(message) + '</h2>' +
+        '<p>Give us a text on ' + PHONE + ' and we will send it again.</p>';
+    }
+
+    async function load() {
+      const id = new URLSearchParams(location.search).get('id');
+      if (!id) return fail('This link is missing its quote.');
+
+      let data;
+      try {
+        const res = await fetch(CRM + '/api/quotes/public?id=' + encodeURIComponent(id));
+        if (!res.ok) return fail('We could not find that quote.');
+        data = await res.json();
+      } catch (e) {
+        return fail('We could not load your quote just now.');
+      }
+
+      const q = data && data.quote;
+      if (!q) return fail('We could not find that quote.');
+
+      const first = (q.clientName || '').trim().split(' ')[0];
+      if (first) {
+        document.getElementById('greeting').textContent = first + ', here are your options';
+      }
+      if (q.quoteNumber) {
+        document.getElementById('qnum').textContent = 'Quote ' + q.quoteNumber;
+      }
+
+      const packages = Array.isArray(q.packages) ? q.packages : [];
+      let html = '';
+
+      const savings = (q.frequencyDiscountPct || 0) + (q.extraDiscountPct || 0);
+      if (savings > 0) {
+        html += '<div class="banner">Your pricing below already includes <strong>' + savings + '% off</strong>.</div>';
+      }
+
+      if (packages.length) {
+        // The dearest package is marked, matching how the quote was presented.
+        let bestIdx = 0;
+        packages.forEach((p, i) => { if ((p.price ?? 0) > (packages[bestIdx].price ?? 0)) bestIdx = i; });
+
+        html += '<div class="grid">';
+        packages.forEach((p, i) => {
+          const discounted = (p.retail ?? 0) > (p.price ?? 0);
+          html += ''
+            + '<div class="card' + (i === bestIdx ? ' best' : '') + '">'
+            +   '<span class="tag">' + esc(
+                  p.packageType === 'full' ? 'Interior + Exterior'
+                  : p.packageType === 'interior' ? 'Interior Only'
+                  : p.packageType === 'exterior' ? 'Exterior Only'
+                  : p.packageType === 'paint' ? 'Paint Correction' : 'Ceramic Coating') + '</span>'
+            +   '<h3 class="name">' + esc(p.label) + '</h3>'
+            +   (p.description ? '<p class="desc">' + esc(p.description) + '</p>' : '')
+            +   '<div><span class="price">' + money(p.price) + '</span>'
+            +     (discounted ? '<span class="was">' + money(p.retail) + '</span>' : '')
+            +   '</div>'
+            +   '<p class="per">Total for your vehicle' + ((p.vehicleLines || []).length > 1 ? 's' : '') + '</p>'
+            +   '<ul>' + (p.includes || []).map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>'
+            +   '<a class="book' + (i === bestIdx ? '' : ' ghost') + '" href="/booking">Book ' + esc(p.label) + '</a>'
+            + '</div>';
+        });
+        html += '</div>';
+      } else if (q.total) {
+        html += '<div class="card best" style="text-align:center">'
+          + '<h3 class="name">' + esc(q.serviceType || 'Your detail') + '</h3>'
+          + '<div><span class="price">' + money(q.total) + '</span></div>'
+          + '<a class="book" href="/booking">Book this</a>'
+          + '</div>';
+      }
+
+      if (q.notes) {
+        html += '<div class="notes"><strong>A note from Aiden</strong>' + esc(q.notes) + '</div>';
+      }
+
+      html += ''
+        + '<div class="cta">'
+        +   '<h2>Ready when you are</h2>'
+        +   '<p>Pick your day and time online, or text us and we will sort it out for you.</p>'
+        +   '<a class="book" href="/booking">Book your detail</a>'
+        +   '<a class="book ghost" style="margin-top:10px" href="sms:+19708516433">Text ' + PHONE + '</a>'
+        + '</div>'
+        + '<footer>Shine for a Cause Mobile Detailing · Northern Colorado<br>'
+        +   '<a href="/">shineforacause.com</a> · ' + PHONE
+        + '</footer>';
+
+      document.getElementById('content').innerHTML = html;
+      document.getElementById('loading').style.display = 'none';
+    }
+
+    load();
+  </script>
+</body>
+</html>
