@@ -112,6 +112,17 @@
     .hamburger { display:none; flex-direction:column; gap:5px; padding:.5rem; background:none; border:none; cursor:pointer; }
     .hamburger span { width:24px; height:2.5px; background:#101112; border-radius:2px; transition:.25s; }
     .nav-dark .nav-links a, .nav-dark .nav-drop-toggle, .nav-dark .nav-phone { color:#fff; }
+
+    /* The dropdown panel is always white, so its links are always dark. Pinned
+       because `.nav-dark .nav-links a { color:#fff }` above reaches inside the
+       panel when the bar sits over a dark section, and these pages had nothing
+       countering it, so the Resources and Services menus read white on white. */
+    .nav-drop a,
+    .nav-dark .nav-links .nav-drop a,
+    .nav-dark .nav-drop a { color:var(--ink) !important; }
+    .nav-drop a span,
+    .nav-dark .nav-drop a span { color:var(--muted) !important; }
+    .nav-drop { background:#fff !important; }
     .nav-dark .nav-drop a { color:#101112; }
     .nav-dark .hamburger span { background:#fff; }
     .nav-logo .logo-dark { display:none; } .nav-dark .nav-logo .logo-light { display:none; } .nav-dark .nav-logo .logo-dark { display:block; }
