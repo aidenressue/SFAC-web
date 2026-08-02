@@ -175,9 +175,16 @@
       const q = data && data.quote;
       if (!q) return fail('We could not find that quote.');
 
+      const KIND_TITLES = {
+        coating: 'your ceramic coating options',
+        maintenance: 'your maintenance plan options',
+        fleet: 'your fleet options',
+      };
+      const kindTitle = KIND_TITLES[q.kind] || 'here are your options';
+
       const first = (q.clientName || '').trim().split(' ')[0];
       if (first) {
-        document.getElementById('greeting').textContent = first + ', here are your options';
+        document.getElementById('greeting').textContent = first + ', ' + (q.kind && KIND_TITLES[q.kind] ? kindTitle : 'here are your options');
       }
       if (q.quoteNumber) {
         document.getElementById('qnum').textContent = 'Quote ' + q.quoteNumber;
@@ -192,9 +199,13 @@
       }
 
       if (packages.length) {
-        // The dearest package is marked, matching how the quote was presented.
-        let bestIdx = 0;
-        packages.forEach((p, i) => { if ((p.price ?? 0) > (packages[bestIdx].price ?? 0)) bestIdx = i; });
+        // The builder marks what was recommended. Older quotes have no flag, so
+        // fall back to the dearest, which is how they were presented.
+        let bestIdx = packages.findIndex((p) => p.recommended);
+        if (bestIdx < 0) {
+          bestIdx = 0;
+          packages.forEach((p, i) => { if ((p.price ?? 0) > (packages[bestIdx].price ?? 0)) bestIdx = i; });
+        }
 
         html += '<div class="grid">';
         packages.forEach((p, i) => {
@@ -211,7 +222,17 @@
             +   '<div><span class="price">' + money(p.price) + '</span>'
             +     (discounted ? '<span class="was">' + money(p.retail) + '</span>' : '')
             +   '</div>'
-            +   '<p class="per">Total for your vehicle' + ((p.vehicleLines || []).length > 1 ? 's' : '') + '</p>'
+            +   '<p class="per">' + (
+                  q.kind === 'maintenance' ? 'Per visit' :
+                  q.kind === 'coating' ? 'All in, fitted' :
+                  'Total for your vehicle' + ((p.vehicleLines || []).length > 1 ? 's' : '')
+                ) + '</p>'
+            +   ((p.lines || []).length
+                  ? '<ul>' + p.lines.map((l) => '<li>' + esc(l.label) + ' — ' + money(l.amount) + '</li>').join('') + '</ul>'
+                  : '')
+            +   (p.annualSavings
+                  ? '<p class="per" style="color:var(--gold);margin-top:8px">Saves ' + money(p.annualSavings) + ' a year</p>'
+                  : '')
             +   '<ul>' + (p.includes || []).map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>'
             +   '<a class="book' + (i === bestIdx ? '' : ' ghost') + '" href="/booking">Book ' + esc(p.label) + '</a>'
             + '</div>';

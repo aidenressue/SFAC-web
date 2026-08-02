@@ -1175,7 +1175,7 @@ const SERVICE_CONFIGS = {
     },
     pricing: { small:180, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
-    addons: ['headlight','engine','petHair','trim']
+    addons: ['headlight','engine','petHair','trim', 'carSeats']
   },
   'reset-full': {
     label: 'Full Reset', packageType: 'full', tier: 'reset',
@@ -1187,7 +1187,7 @@ const SERVICE_CONFIGS = {
     },
     pricing: { small:299, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
-    addons: ['headlight','engine','petHair','trim']
+    addons: ['headlight','engine','petHair','trim', 'carSeats']
   },
   'executive-full': {
     label: 'Full Executive', packageType: 'full', tier: 'executive',
@@ -1225,7 +1225,7 @@ const SERVICE_CONFIGS = {
     bullets: ['Interior vacuum', 'Wipe all surfaces', 'Floor mats', 'Windows & mirrors', 'Trunk & door jambs'],
     pricing: { small:125, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
-    addons: ['petHair']
+    addons: ['petHair', 'carSeats']
   },
   'reset-interior': {
     label: 'Interior Reset', packageType: 'interior', tier: 'reset',
@@ -1233,7 +1233,7 @@ const SERVICE_CONFIGS = {
     bullets: ['Thorough vacuum', 'Clean & protect plastics', 'Spot steam cleaning', 'Stain spot treatment', 'Floor mats detailed & shined', 'Windows, trunk & door jambs'],
     pricing: { small:225, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
-    addons: ['petHair']
+    addons: ['petHair', 'carSeats']
   },
   'executive-interior': {
     label: 'Interior Executive', packageType: 'interior', tier: 'executive',
@@ -1331,7 +1331,8 @@ const ADDON_DEFS = {
   headlight: { id:6906837, name:'Headlight Restoration', price:65, duration:45, desc:'Restore clarity to cloudy, yellowed headlights — improves night visibility.' },
   engine:    { id:6906838, name:'Engine Bay Cleaning',   price:50, duration:30, desc:'Degrease, rinse, and detail the engine bay for a clean under-hood look.' },
   trim:      { id:6906840, name:'Trim Restoration',      price:40, duration:30, desc:'Restore faded exterior plastic trim to a rich, factory-black finish.' },
-  petHair:   { id:6906841, name:'Pet Hair Removal',      price:40, duration:30, desc:'Thorough removal of embedded pet hair from all upholstery surfaces.' }
+  petHair:   { id:6906841, name:'Pet Hair Removal',      price:40, duration:30, desc:'Thorough removal of embedded pet hair from all upholstery surfaces.' },
+  carSeats:  { id:0,       name:'Car Seat Deep Clean',   price:25, duration:30, desc:'Child seats removed, shampooed and steamed, then refitted.' }
 };
 
 const TIER_INFO = {
