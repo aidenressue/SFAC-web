@@ -46,7 +46,9 @@
     .wrap { max-width: 860px; margin: 0 auto; padding: 28px 18px 72px; }
 
     header { text-align: center; margin-bottom: 26px; }
-    header img { height: 62px; width: auto; }
+    /* The mark sits inside a lot of transparent padding, so it needs the extra
+       height to read at a glance on a phone. */
+    header img { height: 108px; width: auto; }
     .eyebrow {
       font-family: var(--font-h); font-size: 10px; font-weight: 700;
       letter-spacing: .28em; text-transform: uppercase; color: var(--gold);
@@ -129,7 +131,9 @@
 <body>
   <div class="wrap">
     <header>
-      <img src="/brand_assets/Shine for a Cause LOGO transparent.png" alt="Shine for a Cause" />
+      <!-- The white-and-gold mark. The standard logo is dark and all but
+           disappeared against this page's near-black background. -->
+      <img src="/brand_assets/logo-nav-dark.png" alt="Shine for a Cause" />
       <p class="eyebrow">Your Quote</p>
       <h1 id="greeting">Your detailing options</h1>
       <p class="sub" id="subtitle">Prepared just for you.</p>
@@ -147,8 +151,17 @@
     const CRM = 'https://sfac-mu.vercel.app';
     const PHONE = '(970) 851-6433';
 
-    const money = (n) =>
-      new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0 }).format(n ?? 0);
+    // Whole dollars stay clean; anything with cents shows both of them. With a
+    // flat minimumFractionDigits of 0 a discounted price rendered as "$332.5".
+    const money = (n) => {
+      const v = n ?? 0;
+      const cents = Math.abs(v % 1) > 0.0001;
+      return new Intl.NumberFormat('en-US', {
+        style: 'currency', currency: 'USD',
+        minimumFractionDigits: cents ? 2 : 0,
+        maximumFractionDigits: cents ? 2 : 0,
+      }).format(v);
+    };
 
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -213,7 +226,11 @@
           html += ''
             + '<div class="card' + (i === bestIdx ? ' best' : '') + '">'
             +   '<span class="tag">' + esc(
-                  p.packageType === 'full' ? 'Interior + Exterior'
+                  // Every card here is the same kind of service, so the level is
+                  // what tells them apart. Scope is only worth saying when there
+                  // is no level, as on a coating.
+                  p.tierLabel ? p.tierLabel
+                  : p.packageType === 'full' ? 'Interior + Exterior'
                   : p.packageType === 'interior' ? 'Interior Only'
                   : p.packageType === 'exterior' ? 'Exterior Only'
                   : p.packageType === 'paint' ? 'Paint Correction' : 'Ceramic Coating') + '</span>'
