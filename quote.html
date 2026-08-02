@@ -18,141 +18,240 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    /* Matches pay.html so a quote and an invoice feel like the same business. */
     :root {
-      --bg:       #0A0C0F;
-      --surface:  #13161C;
-      --card:     #1A1E27;
-      --border:   #272D3A;
-      --gold:     #D4A851;
-      --gold-dim: rgba(212,168,81,0.12);
-      --text:     #F0EDE8;
-      --sub:      #B8BFCA;
-      --muted:    #7A8494;
-      --font-h:   'Montserrat', sans-serif;
-      --font-b:   'Inter', sans-serif;
+      --gold:      #C9973A;
+      --gold-deep: #A87B27;
+      --ink:       #101112;
+      --line:      #E2E5EA;
+      --line-soft: #EFF1F4;
+      --sub:       #4A5261;
+      --muted:     #7A8494;
+      --page:      #F4F6F8;
+      --font-h:    'Montserrat', sans-serif;
+      --font-b:    'Inter', sans-serif;
     }
 
     * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
     body {
       margin: 0;
       font-family: var(--font-b);
-      background: var(--bg);
-      color: var(--text);
+      background: var(--page);
+      color: var(--ink);
       -webkit-font-smoothing: antialiased;
-      line-height: 1.6;
+      line-height: 1.55;
     }
 
-    .wrap { max-width: 860px; margin: 0 auto; padding: 28px 18px 72px; }
-
-    header { text-align: center; margin-bottom: 26px; }
-    /* The mark sits inside a lot of transparent padding, so it needs the extra
-       height to read at a glance on a phone. */
-    header img { height: 108px; width: auto; }
-    .eyebrow {
-      font-family: var(--font-h); font-size: 10px; font-weight: 700;
-      letter-spacing: .28em; text-transform: uppercase; color: var(--gold);
-      margin: 14px 0 4px;
+    /* ── Top bar: logo left, Book Now + phone right. No menu. ── */
+    .bar {
+      position: sticky; top: 0; z-index: 20;
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 12px;
+      padding: 10px 18px;
+      background: #fff;
+      border-bottom: 1px solid var(--line);
     }
-    h1 { font-family: var(--font-h); font-size: 27px; font-weight: 800; margin: 0; letter-spacing: -.02em; }
-    .sub { color: var(--sub); font-size: 15px; margin-top: 6px; }
-    .qnum { color: var(--muted); font-size: 12px; margin-top: 8px; }
+    .bar-logo { display: flex; align-items: center; flex-shrink: 0; }
+    .bar-logo img { height: 60px; width: auto; display: block; }
+    .bar-right { display: flex; align-items: center; gap: 10px; }
+    .bar-tel {
+      font-family: var(--font-h); font-weight: 700; font-size: 14px;
+      color: var(--ink); text-decoration: none; white-space: nowrap;
+    }
+    .bar-tel:hover { color: var(--gold-deep); }
+    .bar-book {
+      background: var(--gold); color: #fff;
+      font-family: var(--font-h); font-weight: 800; font-size: 14px;
+      padding: 9px 18px; border-radius: 999px; text-decoration: none;
+      white-space: nowrap; transition: background .15s ease, transform .15s ease;
+    }
+    .bar-book:hover { background: var(--gold-deep); transform: translateY(-1px); }
 
-    .banner {
-      background: var(--gold-dim); border: 1px solid rgba(212,168,81,.32);
-      border-radius: 12px; padding: 12px 16px; margin-bottom: 22px;
-      font-size: 14px; color: var(--text); text-align: center;
+    @media (max-width: 460px) {
+      .bar { padding: 8px 12px; }
+      .bar-logo img { height: 46px; }
+      .bar-tel { font-size: 13px; }
+      .bar-book { font-size: 13px; padding: 8px 14px; }
+    }
+
+    /* ── The sheet ── */
+    .wrap { max-width: 1040px; margin: 0 auto; padding: 22px 16px 64px; }
+    .sheet {
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 14px; padding: 26px;
+      box-shadow: 0 1px 3px rgba(16,17,18,.05), 0 12px 32px rgba(16,17,18,.05);
+    }
+    @media (max-width: 560px) { .sheet { padding: 18px; border-radius: 12px; } }
+
+    .sheet-head {
+      display: flex; justify-content: space-between; gap: 24px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--line); padding-bottom: 18px;
+    }
+    .biz { display: flex; gap: 14px; align-items: flex-start; }
+    .biz img { height: 68px; width: auto; object-fit: contain; }
+    .biz h1 { font-family: var(--font-h); font-size: 21px; font-weight: 800; margin: 0; letter-spacing: -.01em; }
+    .biz p { margin: 2px 0 0; font-size: 13px; color: var(--sub); }
+    .biz .fine { font-size: 12px; color: var(--muted); }
+    .meta { text-align: right; font-size: 12px; color: var(--muted); min-width: 150px; }
+    .meta .lab {
+      font-family: var(--font-h); font-size: 10px; font-weight: 800;
+      letter-spacing: .2em; color: var(--muted); text-transform: uppercase;
+    }
+    .meta b { color: var(--ink); font-weight: 700; }
+    @media (max-width: 560px) { .meta { text-align: left; } }
+
+    .facts { display: grid; gap: 18px; margin-top: 18px; }
+    @media (min-width: 640px) { .facts { grid-template-columns: 1fr 1fr; } }
+    .facts h2 {
+      font-family: var(--font-h); font-size: 10px; font-weight: 800;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+      margin: 0 0 6px;
+    }
+    .facts .who { font-size: 17px; font-weight: 700; margin: 0; }
+    .facts p { margin: 0; font-size: 13.5px; color: var(--sub); }
+    .save { color: #15803D; font-weight: 700; }
+
+    .cat {
+      font-family: var(--font-h); font-size: 11px; font-weight: 800;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+      margin: 26px 0 8px;
     }
 
     .grid { display: grid; gap: 14px; }
-    @media (min-width: 700px) { .grid { grid-template-columns: 1fr 1fr; } }
+    @media (min-width: 720px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 560px) and (max-width: 719px) { .grid { grid-template-columns: 1fr 1fr; } }
 
     .card {
-      background: var(--card); border: 1px solid var(--border);
-      border-radius: 16px; padding: 20px; display: flex; flex-direction: column;
+      position: relative; display: flex; flex-direction: column;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 14px; padding: 18px;
     }
-    .card.best { border-color: var(--gold); box-shadow: 0 8px 30px rgba(212,168,81,.14); }
-
-    .tag {
-      font-family: var(--font-h); font-size: 9px; font-weight: 800;
-      letter-spacing: .18em; text-transform: uppercase; color: var(--gold);
+    .card.best {
+      border: 2px solid var(--gold);
+      box-shadow: 0 8px 24px rgba(201,151,58,.18);
     }
-    .name { font-family: var(--font-h); font-size: 20px; font-weight: 800; margin: 4px 0 2px; }
-    .desc { color: var(--muted); font-size: 13px; margin: 0 0 12px; }
-
-    .price { font-family: var(--font-h); font-size: 34px; font-weight: 900; letter-spacing: -.02em; }
-    .was { color: var(--muted); text-decoration: line-through; font-size: 15px; margin-left: 8px; }
-    .per { color: var(--muted); font-size: 12px; }
-
-    ul { list-style: none; padding: 0; margin: 14px 0 0; }
-    li { font-size: 13.5px; color: var(--sub); padding-left: 22px; position: relative; margin-bottom: 6px; }
-    li::before {
-      content: ""; position: absolute; left: 0; top: 7px;
-      width: 12px; height: 12px; border-radius: 50%;
-      background: rgba(212,168,81,.18);
-      box-shadow: inset 0 0 0 1.5px var(--gold);
+    .badge {
+      position: absolute; top: -11px; left: 50%; transform: translateX(-50%);
+      background: var(--gold); color: #fff; white-space: nowrap;
+      font-family: var(--font-h); font-size: 10px; font-weight: 800;
+      letter-spacing: .14em; text-transform: uppercase;
+      padding: 4px 12px; border-radius: 999px;
     }
+    .tier {
+      font-family: var(--font-h); font-size: 10px; font-weight: 800;
+      letter-spacing: .18em; text-transform: uppercase; color: var(--gold-deep);
+    }
+    .name { font-family: var(--font-h); font-size: 19px; font-weight: 800; margin: 4px 0 0; letter-spacing: -.01em; }
+    .dur { font-size: 12px; color: var(--muted); margin: 2px 0 0; }
+    .plab {
+      display: block; margin-top: 12px;
+      font-family: var(--font-h); font-size: 10px; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+    }
+    .price { font-family: var(--font-h); font-size: 30px; font-weight: 900; letter-spacing: -.02em; }
+    .was { color: var(--muted); text-decoration: line-through; font-size: 14px; margin-left: 7px; font-weight: 600; }
 
-    .book {
-      display: block; text-align: center; margin-top: 18px;
-      background: var(--gold); color: #10131A;
+    .inc-head {
+      margin: 14px 0 8px; padding-bottom: 6px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-h); font-size: 11px; font-weight: 800;
+      letter-spacing: .12em; text-transform: uppercase;
+    }
+    .side {
+      font-family: var(--font-h); font-size: 10px; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+      margin: 0 0 5px;
+    }
+    ul.inc { list-style: none; padding: 0; margin: 0 0 10px; }
+    ul.inc:last-child { margin-bottom: 0; }
+    ul.inc li {
+      display: flex; gap: 8px; align-items: flex-start;
+      font-size: 13px; line-height: 1.4; color: var(--sub); margin-bottom: 5px;
+    }
+    ul.inc li::before {
+      content: "✓"; flex: 0 0 15px;
+      display: inline-flex; align-items: center; justify-content: center;
+      height: 15px; margin-top: 2px; border-radius: 50%;
+      background: #16A34A; color: #fff; font-size: 9px; font-weight: 700;
+    }
+    .lines { margin: 10px 0 0; padding: 0; list-style: none; }
+    .lines li { font-size: 12.5px; color: var(--sub); display: flex; justify-content: space-between; gap: 10px; }
+
+    .addons { margin-top: 26px; }
+    .addon-grid { display: grid; gap: 9px; }
+    @media (min-width: 640px) { .addon-grid { grid-template-columns: 1fr 1fr; } }
+    .addon {
+      display: flex; justify-content: space-between; gap: 12px;
+      border: 1px solid var(--line); border-radius: 10px; padding: 11px 13px;
+    }
+    .addon .an { font-size: 13.5px; font-weight: 600; margin: 0; }
+    .addon .ad { font-size: 12px; color: var(--muted); margin: 2px 0 0; }
+    .addon .ai { font-size: 12px; color: #15803D; font-weight: 600; margin: 4px 0 0; }
+    .addon .ap { font-size: 13.5px; font-weight: 700; white-space: nowrap; }
+
+    .foot-grid { display: grid; gap: 12px; margin-top: 20px; }
+    @media (min-width: 640px) { .foot-grid { grid-template-columns: 1fr 1fr; } }
+    .box { background: #F7F8FA; border: 1px solid var(--line-soft); border-radius: 10px; padding: 13px; }
+    .box h3 {
+      font-family: var(--font-h); font-size: 10px; font-weight: 800;
+      letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+      margin: 0 0 5px;
+    }
+    .box p { margin: 0; font-size: 13px; color: var(--sub); white-space: pre-wrap; }
+    .box .tiny { font-size: 11.5px; }
+    .box .valid { margin-top: 7px; font-weight: 700; color: var(--ink); font-size: 12px; }
+
+    .cta { margin-top: 22px; text-align: center; }
+    .cta h2 { font-family: var(--font-h); font-size: 19px; margin: 0 0 4px; }
+    .cta p { color: var(--sub); font-size: 14px; margin: 0 0 14px; }
+    .btn {
+      display: inline-block; text-align: center;
+      background: var(--gold); color: #fff;
       font-family: var(--font-h); font-weight: 800; font-size: 15px;
-      padding: 13px; border-radius: 11px; text-decoration: none;
-      transition: transform .15s ease, opacity .15s ease;
+      padding: 13px 30px; border-radius: 11px; text-decoration: none;
+      transition: background .15s ease, transform .15s ease;
     }
-    .book:hover { transform: translateY(-1px); opacity: .93; }
-    .book.ghost {
-      background: transparent; color: var(--gold);
-      border: 1px solid rgba(212,168,81,.45);
+    .btn:hover { background: var(--gold-deep); transform: translateY(-1px); }
+    .btn.ghost { background: #fff; color: var(--gold-deep); border: 1px solid rgba(201,151,58,.5); margin-left: 8px; }
+    .btn.ghost:hover { background: #FCF7EE; }
+    @media (max-width: 460px) {
+      .btn { display: block; }
+      .btn.ghost { margin: 9px 0 0; }
     }
 
-    .cta {
-      margin-top: 26px; background: var(--surface);
-      border: 1px solid var(--border); border-radius: 16px;
-      padding: 22px; text-align: center;
-    }
-    .cta h2 { font-family: var(--font-h); font-size: 19px; margin: 0 0 6px; }
-    .cta p { color: var(--sub); font-size: 14px; margin: 0 0 16px; }
-
-    .notes {
-      margin-top: 22px; background: var(--surface); border: 1px solid var(--border);
-      border-radius: 12px; padding: 16px; font-size: 14px; color: var(--sub);
-    }
-    .notes strong { color: var(--text); display: block; margin-bottom: 4px; font-family: var(--font-h); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
-
-    footer { text-align: center; margin-top: 34px; color: var(--muted); font-size: 12.5px; }
-    footer a { color: var(--gold); text-decoration: none; }
+    footer { text-align: center; margin-top: 26px; color: var(--muted); font-size: 12.5px; }
+    footer a { color: var(--gold-deep); text-decoration: none; }
 
     .state { text-align: center; padding: 70px 20px; color: var(--sub); }
-    .state h2 { font-family: var(--font-h); color: var(--text); }
+    .state h2 { font-family: var(--font-h); color: var(--ink); }
   </style>
   <script src="/ads-attribution.js"></script>
 </head>
 <body>
+  <!-- Logo goes home. Book Now and the phone number sit opposite. No menu on
+       purpose: this page has one job. -->
+  <header class="bar">
+    <a class="bar-logo" href="/" aria-label="Shine for a Cause home">
+      <img src="/brand_assets/logo-nav.png" alt="Shine for a Cause" />
+    </a>
+    <div class="bar-right">
+      <a class="bar-tel" href="tel:+19708516433">(970) 851-6433</a>
+      <a class="bar-book" href="/booking">Book Now</a>
+    </div>
+  </header>
+
   <div class="wrap">
-    <header>
-      <!-- The white-and-gold mark. The standard logo is dark and all but
-           disappeared against this page's near-black background. -->
-      <img src="/brand_assets/logo-nav-dark.png" alt="Shine for a Cause" />
-      <p class="eyebrow">Your Quote</p>
-      <h1 id="greeting">Your detailing options</h1>
-      <p class="sub" id="subtitle">Prepared just for you.</p>
-      <p class="qnum" id="qnum"></p>
-    </header>
-
     <div id="content"></div>
-
     <div class="state" id="loading"><p>Loading your quote…</p></div>
   </div>
 
   <script>
-    // The quote is fetched from the CRM rather than baked into a PDF, so the
+    // The quote is fetched from the CRM rather than baked into a file, so the
     // customer always sees current pricing and can book straight from it.
     const CRM = 'https://sfac-mu.vercel.app';
     const PHONE = '(970) 851-6433';
 
-    // Whole dollars stay clean; anything with cents shows both of them. With a
-    // flat minimumFractionDigits of 0 a discounted price rendered as "$332.5".
     const money = (n) => {
       const v = n ?? 0;
       const cents = Math.abs(v % 1) > 0.0001;
@@ -166,10 +265,55 @@
     const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) =>
       ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+    const day = (iso) => {
+      if (!iso) return '';
+      const d = new Date(iso);
+      return isNaN(d) ? '' : d.toLocaleDateString('en-US');
+    };
+
     function fail(message) {
       document.getElementById('loading').innerHTML =
         '<h2>' + esc(message) + '</h2>' +
         '<p>Give us a text on ' + PHONE + ' and we will send it again.</p>';
+    }
+
+    /** A tick list, with an Interior / Exterior heading when both are present. */
+    function incList(items, heading) {
+      if (!items || !items.length) return '';
+      return (heading ? '<p class="side">' + esc(heading) + '</p>' : '')
+        + '<ul class="inc">' + items.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>';
+    }
+
+    function packageCard(p, best) {
+      const discounted = (p.retail ?? 0) > (p.price ?? 0);
+      const hasBoth = (p.includesInterior || []).length && (p.includesExterior || []).length;
+      let inc = '';
+      if ((p.includesInterior || []).length || (p.includesExterior || []).length) {
+        inc = incList(p.includesInterior, hasBoth ? 'Interior' : '')
+            + incList(p.includesExterior, hasBoth ? 'Exterior' : '');
+      } else {
+        inc = incList(p.includes, '');
+      }
+      return ''
+        + '<div class="card' + (best ? ' best' : '') + '">'
+        +   (best ? '<span class="badge">Recommended</span>' : '')
+        +   '<span class="tier">' + esc(p.tierLabel || '') + '</span>'
+        +   '<h3 class="name">' + esc(p.label) + '</h3>'
+        +   (p.duration ? '<p class="dur">' + esc(p.duration) + '</p>' : '')
+        +   '<span class="plab">' + (discounted ? 'Your price' : 'Price') + '</span>'
+        +   '<div><span class="price">' + money(p.price) + '</span>'
+        +     (discounted ? '<span class="was">' + money(p.retail) + '</span>' : '')
+        +   '</div>'
+        +   ((p.lines || []).length
+              ? '<ul class="lines">' + p.lines.map((l) =>
+                  '<li><span>' + esc(l.label) + '</span><span>' + money(l.amount) + '</span></li>').join('') + '</ul>'
+              : '')
+        +   (p.annualSavings
+              ? '<p class="dur" style="color:var(--gold-deep);font-weight:700;margin-top:8px">Saves ' + money(p.annualSavings) + ' a year</p>'
+              : '')
+        +   '<p class="inc-head">What&rsquo;s Included</p>'
+        +   inc
+        + '</div>';
     }
 
     async function load() {
@@ -188,91 +332,112 @@
       const q = data && data.quote;
       if (!q) return fail('We could not find that quote.');
 
-      const KIND_TITLES = {
-        coating: 'your ceramic coating options',
-        maintenance: 'your maintenance plan options',
-        fleet: 'your fleet options',
-      };
-      const kindTitle = KIND_TITLES[q.kind] || 'here are your options';
-
-      const first = (q.clientName || '').trim().split(' ')[0];
-      if (first) {
-        document.getElementById('greeting').textContent = first + ', ' + (q.kind && KIND_TITLES[q.kind] ? kindTitle : 'here are your options');
-      }
-      if (q.quoteNumber) {
-        document.getElementById('qnum').textContent = 'Quote ' + q.quoteNumber;
-      }
-
       const packages = Array.isArray(q.packages) ? q.packages : [];
-      let html = '';
+
+      // The builder marks what was recommended. Older quotes have no flag, so
+      // fall back to the dearest, which is how they were presented.
+      let bestIdx = packages.findIndex((p) => p.recommended);
+      if (bestIdx < 0 && packages.length) {
+        bestIdx = 0;
+        packages.forEach((p, i) => { if ((p.price ?? 0) > (packages[bestIdx].price ?? 0)) bestIdx = i; });
+      }
 
       const savings = (q.frequencyDiscountPct || 0) + (q.extraDiscountPct || 0);
-      if (savings > 0) {
-        html += '<div class="banner">Your pricing below already includes <strong>' + savings + '% off</strong>.</div>';
-      }
+      const KIND_TITLE = {
+        coating: 'Ceramic Coating Quote',
+        maintenance: 'Maintenance Plan Quote',
+        fleet: 'Fleet Quote',
+      };
 
+      let html = '<div class="sheet">';
+
+      // ── Header ──
+      html += ''
+        + '<div class="sheet-head">'
+        +   '<div class="biz">'
+        +     '<img src="/brand_assets/logo-nav.png" alt="Shine for a Cause" />'
+        +     '<div>'
+        +       '<h1>Shine for a Cause Mobile Detailing</h1>'
+        +       '<p>Mobile Auto Detailing · Northern Colorado</p>'
+        +       '<p class="fine">Phone: ' + PHONE + '</p>'
+        +       '<p class="fine">Email: shineforacausemd@gmail.com</p>'
+        +     '</div>'
+        +   '</div>'
+        +   '<div class="meta">'
+        +     '<p class="lab">' + esc(KIND_TITLE[q.kind] || 'Quote') + '</p>'
+        +     (q.quoteNumber ? '<p><b>Quote #:</b> ' + esc(q.quoteNumber) + '</p>' : '')
+        +     (q.createdAt ? '<p><b>Date:</b> ' + day(q.createdAt) + '</p>' : '')
+        +     (q.validUntil ? '<p><b>Valid Until:</b> ' + day(q.validUntil) + '</p>' : '')
+        +   '</div>'
+        + '</div>';
+
+      // ── Client and service ──
+      const details = []
+        .concat((q.vehicleSummary || []))
+        .concat(q.frequency && q.frequency !== 'one-time' ? [] : (q.kind === 'residential' ? ['One-Time'] : []));
+      html += ''
+        + '<div class="facts">'
+        +   '<div>'
+        +     '<h2>Client</h2>'
+        +     '<p class="who">' + esc(q.clientName || 'Your quote') + '</p>'
+        +   '</div>'
+        +   '<div>'
+        +     '<h2>Service Details</h2>'
+        +     (details.length
+                ? details.map((d) => '<p>' + esc(d) + '</p>').join('')
+                : '<p>' + esc(q.serviceType || '') + '</p>')
+        +     (savings > 0 ? '<p class="save">Includes ' + savings + '% off</p>' : '')
+        +   '</div>'
+        + '</div>';
+
+      // ── Packages ──
       if (packages.length) {
-        // The builder marks what was recommended. Older quotes have no flag, so
-        // fall back to the dearest, which is how they were presented.
-        let bestIdx = packages.findIndex((p) => p.recommended);
-        if (bestIdx < 0) {
-          bestIdx = 0;
-          packages.forEach((p, i) => { if ((p.price ?? 0) > (packages[bestIdx].price ?? 0)) bestIdx = i; });
-        }
-
-        html += '<div class="grid">';
-        packages.forEach((p, i) => {
-          const discounted = (p.retail ?? 0) > (p.price ?? 0);
-          html += ''
-            + '<div class="card' + (i === bestIdx ? ' best' : '') + '">'
-            +   '<span class="tag">' + esc(
-                  // Every card here is the same kind of service, so the level is
-                  // what tells them apart. Scope is only worth saying when there
-                  // is no level, as on a coating.
-                  p.tierLabel ? p.tierLabel
-                  : p.packageType === 'full' ? 'Interior + Exterior'
-                  : p.packageType === 'interior' ? 'Interior Only'
-                  : p.packageType === 'exterior' ? 'Exterior Only'
-                  : p.packageType === 'paint' ? 'Paint Correction' : 'Ceramic Coating') + '</span>'
-            +   '<h3 class="name">' + esc(p.label) + '</h3>'
-            +   (p.description ? '<p class="desc">' + esc(p.description) + '</p>' : '')
-            +   '<div><span class="price">' + money(p.price) + '</span>'
-            +     (discounted ? '<span class="was">' + money(p.retail) + '</span>' : '')
-            +   '</div>'
-            +   '<p class="per">' + (
-                  q.kind === 'maintenance' ? 'Per visit' :
-                  q.kind === 'coating' ? 'All in, fitted' :
-                  'Total for your vehicle' + ((p.vehicleLines || []).length > 1 ? 's' : '')
-                ) + '</p>'
-            +   ((p.lines || []).length
-                  ? '<ul>' + p.lines.map((l) => '<li>' + esc(l.label) + ' — ' + money(l.amount) + '</li>').join('') + '</ul>'
-                  : '')
-            +   (p.annualSavings
-                  ? '<p class="per" style="color:var(--gold);margin-top:8px">Saves ' + money(p.annualSavings) + ' a year</p>'
-                  : '')
-            +   '<ul>' + (p.includes || []).map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>'
-            +   '<a class="book' + (i === bestIdx ? '' : ' ghost') + '" href="/booking">Book ' + esc(p.label) + '</a>'
-            + '</div>';
-        });
-        html += '</div>';
+        if (q.category) html += '<p class="cat">' + esc(q.category) + '</p>';
+        html += '<div class="grid">'
+          + packages.map((p, i) => packageCard(p, i === bestIdx)).join('')
+          + '</div>';
       } else if (q.total) {
-        html += '<div class="card best" style="text-align:center">'
+        html += '<div class="grid"><div class="card best">'
           + '<h3 class="name">' + esc(q.serviceType || 'Your detail') + '</h3>'
           + '<div><span class="price">' + money(q.total) + '</span></div>'
-          + '<a class="book" href="/booking">Book this</a>'
-          + '</div>';
+          + '</div></div>';
       }
 
-      if (q.notes) {
-        html += '<div class="notes"><strong>A note from Aiden</strong>' + esc(q.notes) + '</div>';
+      // ── Add-ons ──
+      if ((q.addonOffers || []).length) {
+        html += '<div class="addons"><p class="cat" style="margin-top:0">Add-Ons</p><div class="addon-grid">'
+          + q.addonOffers.map((a) => ''
+            + '<div class="addon">'
+            +   '<div>'
+            +     '<p class="an">' + esc(a.name) + '</p>'
+            +     (a.description ? '<p class="ad">' + esc(a.description) + '</p>' : '')
+            +     ((a.includedIn || []).length
+                    ? '<p class="ai">Included in ' + esc(a.includedIn.join(' and ')) + '</p>' : '')
+            +   '</div>'
+            +   '<span class="ap">+' + money(a.price) + '</span>'
+            + '</div>').join('')
+          + '</div></div>';
       }
 
+      // ── Notes and terms ──
+      html += '<div class="foot-grid">'
+        +   '<div class="box"><h3>Notes</h3><p>' + esc(q.notes || 'No additional notes.') + '</p></div>'
+        +   (q.terms
+              ? '<div class="box"><h3>Terms &amp; Conditions</h3><p class="tiny">' + esc(q.terms) + '</p>'
+                + (q.validUntil ? '<p class="valid">Valid for 30 days (through ' + day(q.validUntil) + ').</p>' : '')
+                + '</div>'
+              : '')
+        + '</div>';
+
+      html += '</div>'; // .sheet
+
+      // ── Book ──
       html += ''
         + '<div class="cta">'
         +   '<h2>Ready when you are</h2>'
         +   '<p>Pick your day and time online, or text us and we will sort it out for you.</p>'
-        +   '<a class="book" href="/booking">Book your detail</a>'
-        +   '<a class="book ghost" style="margin-top:10px" href="sms:+19708516433">Text ' + PHONE + '</a>'
+        +   '<a class="btn" href="/booking">Book your detail</a>'
+        +   '<a class="btn ghost" href="sms:+19708516433">Text ' + PHONE + '</a>'
         + '</div>'
         + '<footer>Shine for a Cause Mobile Detailing · Northern Colorado<br>'
         +   '<a href="/">shineforacause.com</a> · ' + PHONE

@@ -1180,10 +1180,10 @@ const SERVICE_CONFIGS = {
   'reset-full': {
     label: 'Full Reset', packageType: 'full', tier: 'reset',
     description: 'A deeper reset of built-up dirt and grime, inside and out.',
-    bullets: ['Thorough interior vacuum', 'Clean & protect plastics', 'Spot steam & stain treatment', 'Floor mats detailed & shined', 'Professional hand wash & spot polish', 'Wax, rims, wheel wells & tires'],
+    bullets: ['Thorough interior vacuum', 'Clean & protect plastics', 'Spot steam & stain treatment', 'Floor mats detailed & shined', 'Professional hand wash', 'Wax, rims, wheel wells & tires'],
     included: {
       interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Stains (spot treatment)', 'Spot steam cleaning', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
-      exterior: ['Professional hand wash', 'Spot polish', 'Wax protection', 'Detail rims', 'Wheel wells', 'Detail tires']
+      exterior: ['Professional hand wash', 'Wax protection', 'Detail rims', 'Wheel wells', 'Detail tires']
     },
     pricing: { small:299, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
@@ -1192,10 +1192,10 @@ const SERVICE_CONFIGS = {
   'executive-full': {
     label: 'Full Executive', packageType: 'full', tier: 'executive',
     description: 'Our most thorough detail, with paint enhancement and a full interior reset.',
-    bullets: ['Full carpet & seat shampoo', 'Leather conditioning & full steam', 'Pet hair & trim restoration', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)'],
+    bullets: ['Full carpet & seat shampoo', 'Leather conditioning & full steam', 'Pet hair & trim restoration', '2-step decontamination', 'Spot paint enhancement', 'Ceramic sealant (4 to 6 month)'],
     included: {
       interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Stains (spot treatment)', 'Full carpet shampoo', 'Seat shampoo', 'Leather conditioning', 'Full steam cleaning', 'Pet hair removal', 'Trim restoration', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
-      exterior: ['Professional hand wash', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Detail rims', 'Wheel wells', 'Detail tires']
+      exterior: ['Professional hand wash', '2-step decontamination', 'Spot paint enhancement', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Detail rims', 'Wheel wells', 'Detail tires']
     },
     pricing: { small:499, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
@@ -1213,7 +1213,7 @@ const SERVICE_CONFIGS = {
   'executive-exterior': {
     label: 'Exterior Executive', packageType: 'exterior', tier: 'executive',
     description: 'A deep exterior with decontamination, polish, and sealant.',
-    bullets: ['Professional hand wash', '2-step decontamination', 'Full paint enhancement (polish)', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Rims, wheel wells & tires'],
+    bullets: ['Professional hand wash', '2-step decontamination', 'Spot paint enhancement', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Rims, wheel wells & tires'],
     pricing: { small:225, mid:null, large:null, van:null },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine'] // trim restoration included
@@ -1346,7 +1346,7 @@ const TIER_INFO = {
   },
   executive: {
     badge: 'executive', name: 'Executive', tagline: 'Our most thorough detail, with paint enhancement and a full reset.',
-    highlights: ['Shampoo, steam & leather care', 'Full paint enhancement', 'Showroom-quality results']
+    highlights: ['Shampoo, steam & leather care', 'Spot paint enhancement', 'Showroom-quality results']
   },
   'polish': {
     badge: 'express', name: 'Polish', tagline: 'Single-stage polish to restore gloss on well-kept paint.',
