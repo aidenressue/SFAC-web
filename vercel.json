@@ -1,20 +1,75 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/api/acuity/:path*", "destination": "/api/acuity?_p=:path*" }
+    {
+      "source": "/favicon.ico",
+      "destination": "/favicon.png"
+    },
+    {
+      "source": "/api/acuity/:path*",
+      "destination": "/api/acuity?_p=:path*"
+    }
   ],
   "redirects": [
-    { "source": "/fort-collins", "destination": "/area-fort-collins", "permanent": true },
-    { "source": "/fort-collins.html", "destination": "/area-fort-collins", "permanent": true },
-    { "source": "/loveland", "destination": "/area-loveland", "permanent": true },
-    { "source": "/loveland.html", "destination": "/area-loveland", "permanent": true },
-    { "source": "/greeley", "destination": "/area-greeley", "permanent": true },
-    { "source": "/greeley.html", "destination": "/area-greeley", "permanent": true },
-    { "source": "/windsor", "destination": "/area-windsor", "permanent": true },
-    { "source": "/windsor.html", "destination": "/area-windsor", "permanent": true },
-    { "source": "/timnath", "destination": "/area-timnath", "permanent": true },
-    { "source": "/timnath.html", "destination": "/area-timnath", "permanent": true },
-    { "source": "/wellington", "destination": "/area-wellington", "permanent": true },
-    { "source": "/wellington.html", "destination": "/area-wellington", "permanent": true }
+    {
+      "source": "/fort-collins",
+      "destination": "/area-fort-collins",
+      "permanent": true
+    },
+    {
+      "source": "/fort-collins.html",
+      "destination": "/area-fort-collins",
+      "permanent": true
+    },
+    {
+      "source": "/loveland",
+      "destination": "/area-loveland",
+      "permanent": true
+    },
+    {
+      "source": "/loveland.html",
+      "destination": "/area-loveland",
+      "permanent": true
+    },
+    {
+      "source": "/greeley",
+      "destination": "/area-greeley",
+      "permanent": true
+    },
+    {
+      "source": "/greeley.html",
+      "destination": "/area-greeley",
+      "permanent": true
+    },
+    {
+      "source": "/windsor",
+      "destination": "/area-windsor",
+      "permanent": true
+    },
+    {
+      "source": "/windsor.html",
+      "destination": "/area-windsor",
+      "permanent": true
+    },
+    {
+      "source": "/timnath",
+      "destination": "/area-timnath",
+      "permanent": true
+    },
+    {
+      "source": "/timnath.html",
+      "destination": "/area-timnath",
+      "permanent": true
+    },
+    {
+      "source": "/wellington",
+      "destination": "/area-wellington",
+      "permanent": true
+    },
+    {
+      "source": "/wellington.html",
+      "destination": "/area-wellington",
+      "permanent": true
+    }
   ]
 }
