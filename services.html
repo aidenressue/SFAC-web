@@ -431,7 +431,23 @@
       .footer-bot { flex-direction: column; align-items: flex-start; }
       .page-hero-inner { padding: 4rem 1.5rem 3rem; }
     }
-  </style>
+  
+    @media (max-width: 720px) {
+      /* Book Now earns the space on a phone; the number is one tap inside the
+         menu. The nav previously showed the number and hid the button. */
+      .nav-cta .nav-phone { display:none; }
+      .nav-cta .btn { display:inline-block !important; padding:.6rem 1.1rem !important; font-size:.8rem; }
+      /* Side by side, not stacked. Two full-width buttons pushed the scroll cue
+         off the first screen. */
+      .hero-ctas, .hero-cta, .cc-hero-cta, .pc-hero-cta { display:flex !important; flex-direction:row !important; flex-wrap:nowrap; gap:.6rem; justify-content:center; }
+      .hero-ctas > *, .hero-cta > *, .cc-hero-cta > *, .pc-hero-cta > * { flex:1 1 0; min-width:0; text-align:center; padding-left:.6rem !important; padding-right:.6rem !important; font-size:.82rem !important; white-space:nowrap; }
+      /* Name and Learn More on one line, so the label stops eating half the
+         picture on each of the four service tiles. */
+      .svc-overlay { flex-direction:row; align-items:flex-end; justify-content:space-between; gap:.6rem; }
+      .svc-overlay .svc-name { margin:0; }
+      .svc-overlay .svc-learn { margin:0; flex-shrink:0; font-size:.72rem; }
+    }
+</style>
   <script src="/ga.js"></script>
   <script src="/ads-attribution.js"></script>
 </head>

@@ -136,6 +136,43 @@
     .m-menu .m-group { font-family:inherit; font-size:1.35rem; font-weight:800; color:#101112;
       padding:.85rem 0 .35rem; margin:.4rem 0 0; border-bottom:1px solid #E8E6E1; }
     .m-menu .m-book { margin-top:1.6rem; background:#C9973A; color:#141005; border-radius:999px; border-bottom:none; text-align:center; padding:.9rem 1.5rem; }
+
+    /* ── Mobile menu ──
+       Scrolls itself, and locks the page behind it. Without the lock the drawer
+       stayed put while the page scrolled underneath, so the lower menu items
+       were unreachable. */
+    .m-menu { overflow-y:auto; -webkit-overflow-scrolling:touch; overscroll-behavior:contain; padding-top:0 !important; }
+    .m-menu-top {
+      position:sticky; top:0; z-index:2; display:flex; align-items:center; gap:.55rem;
+      padding:.7rem 1.1rem; margin:0 -2rem .75rem; background:#fff;
+      border-bottom:1px solid var(--line, #E8E6E1);
+    }
+    .m-menu-top .m-close { position:static !important; flex-shrink:0; font-size:1.6rem; line-height:1; padding:0 .2rem; background:none; border:none; cursor:pointer; color:var(--ink, #101112); }
+    /* These two sit in the header, so none of the .m-menu a rules below apply. */
+    .m-menu .m-book-top {
+      flex-shrink:0; background:var(--gold, #C9973A); color:#fff; text-decoration:none;
+      font-family:var(--font-d, inherit); font-weight:800; font-size:.72rem;
+      padding:.5rem .85rem; border-radius:999px; white-space:nowrap; border-bottom:none;
+    }
+    .m-menu .m-tel-top {
+      margin-left:auto; flex-shrink:0; font-family:var(--font-d, inherit); font-weight:800;
+      font-size:.78rem; color:var(--ink, #101112); text-decoration:none; white-space:nowrap;
+      padding:0; border-bottom:none;
+    }
+    /* Anchors are inline by default. In the old flat menu they were flex
+       children so they stacked; inside a panel they flowed two to a row. */
+    .m-acc-panel a { display:block; }
+    /* Collapsible groups, so the list is short enough to take in at a glance. */
+    .m-acc {
+      display:flex; align-items:center; justify-content:space-between; width:100%;
+      background:none; border:none; cursor:pointer; text-align:left;
+      font-family:var(--font-d, inherit); font-size:1.35rem; font-weight:800;
+      color:var(--ink, #101112); padding:.85rem 0; border-bottom:1px solid var(--line, #E8E6E1);
+    }
+    .m-acc svg { transition:transform .22s ease; flex-shrink:0; }
+    .m-acc[aria-expanded="true"] svg { transform:rotate(180deg); }
+    .m-acc-panel { display:none; }
+    .m-acc-panel.open { display:block; }
     .m-close { position:absolute; top:1.4rem; right:1.6rem; font-size:2rem; line-height:1; color:#101112; background:none; border:none; cursor:pointer; }
     @media (max-width:900px) { .nav-links, .nav-cta .nav-book { display:none; } .hamburger { display:flex; } .nav-logo img { height:66px; margin:-14px 0; } .nav-phone { font-size:.78rem; } }
 
@@ -157,6 +194,22 @@
     .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid #E8E6E1; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:#74777B; }
     @media (max-width:900px) { .foot-inner { grid-template-columns:1fr 1fr; } }
     @media (max-width:600px) { .foot-inner { grid-template-columns:1fr; gap:2.2rem; } }
+
+    @media (max-width: 720px) {
+      /* Book Now earns the space on a phone; the number is one tap inside the
+         menu. The nav previously showed the number and hid the button. */
+      .nav-cta .nav-phone { display:none; }
+      .nav-cta .btn { display:inline-block !important; padding:.6rem 1.1rem !important; font-size:.8rem; }
+      /* Side by side, not stacked. Two full-width buttons pushed the scroll cue
+         off the first screen. */
+      .hero-ctas, .hero-cta, .cc-hero-cta, .pc-hero-cta { display:flex !important; flex-direction:row !important; flex-wrap:nowrap; gap:.6rem; justify-content:center; }
+      .hero-ctas > *, .hero-cta > *, .cc-hero-cta > *, .pc-hero-cta > * { flex:1 1 0; min-width:0; text-align:center; padding-left:.6rem !important; padding-right:.6rem !important; font-size:.82rem !important; white-space:nowrap; }
+      /* Name and Learn More on one line, so the label stops eating half the
+         picture on each of the four service tiles. */
+      .svc-overlay { flex-direction:row; align-items:flex-end; justify-content:space-between; gap:.6rem; }
+      .svc-overlay .svc-name { margin:0; }
+      .svc-overlay .svc-learn { margin:0; flex-shrink:0; font-size:.72rem; }
+    }
 </style>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -208,21 +261,27 @@
 </nav>
 
 <div class="m-menu" id="mMenu">
-  <button class="m-close" id="mClose" aria-label="Close">&times;</button>
-  <a href="/">Home</a>
-  <p class="m-group">Services</p>
-  <a href="/#packages" class="m-sub">Mobile Detailing</a>
-  <a href="/ceramic-coating.html" class="m-sub">Ceramic Coating</a>
-  <a href="/paint-correction.html" class="m-sub">Paint Correction</a>
-  <a href="/fleet-cleaning.html" class="m-sub">Fleet Cleaning</a>
-  <a href="/maintenance.html">Maintenance Plans</a>
-  <p class="m-group">Resources</p>
-  <a href="/#areas" class="m-sub">Locations</a>
-  <a href="/gallery.html" class="m-sub">Photo Gallery</a>
-  <a href="/testimonials.html" class="m-sub">Testimonials</a>
-  <a href="/contact.html" class="m-sub">Contact Us</a>
-  <a href="/blog.html" class="m-sub">Blog</a>
-  <a href="/booking.html" class="m-book">Book Now</a>
+  <div class="m-menu-top">
+    <button class="m-close" id="mClose" aria-label="Close">&times;</button>
+    <a class="m-book-top" href="/booking.html">Book Now</a>
+    <a class="m-tel-top" href="tel:+19708516433">(970) 851-6433</a>
+  </div>
+  <button class="m-acc" aria-expanded="false">Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+  <div class="m-acc-panel">
+    <a href="/#packages" class="m-sub">Mobile Detailing</a>
+    <a href="/ceramic-coating.html" class="m-sub">Ceramic Coating</a>
+    <a href="/paint-correction.html" class="m-sub">Paint Correction</a>
+    <a href="/fleet-cleaning.html" class="m-sub">Fleet Cleaning</a>
+  </div>
+  <button class="m-acc" aria-expanded="false">Resources <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
+  <div class="m-acc-panel">
+    <a href="/#areas" class="m-sub">Locations</a>
+    <a href="/gallery.html" class="m-sub">Photo Gallery</a>
+    <a href="/testimonials.html" class="m-sub">Testimonials</a>
+    <a href="/contact.html" class="m-sub">Contact Us</a>
+    <a href="/blog.html" class="m-sub">Blog</a>
+  </div>
+
 </div>
 
 <div class="container">
