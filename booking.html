@@ -1368,23 +1368,23 @@ const CERAMIC_PREP = [
   { key:'polish',   label:'Polish', tagline:'Included with every coating', condition:'Lightly faded paint',
     img:'web.screenshots/pc-guide-faded-new.jpg',
     desc:'A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls. It brings back the depth and clarity that daily driving and washing dull down over time, and sets up a flawless surface before the coating goes on.',
-    price:{ small:300, mid:350, large:400, van:500 },  dur:{ small:0, mid:0, large:0, van:0 } },
+    price:{ small:300, mid:350, large:400, van:500 },  dur:{ small:240, mid:260, large:280, van:300 } },
   { key:'one-step', label:'1-Step Correction', tagline:'Most popular', condition:'Scratches & swirls',
     img:'web.screenshots/pc-guide-1step.jpg',
     desc:'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
-    price:{ small:610, mid:720, large:830, van:990 },  dur:{ small:120, mid:130, large:140, van:150 } },
+    price:{ small:610, mid:720, large:830, van:990 },  dur:{ small:330, mid:350, large:370, van:390 } },
   { key:'two-step', label:'2-Step Correction', tagline:'Maximum correction', condition:'Deep defects',
     img:'web.screenshots/pc-guide-swirls.jpg',
     desc:'Two full stages of compounding and polishing that cut through even the deepest scratches and oxidation, leaving a showroom shine and paint that is about as close to perfect as it gets.',
-    price:{ small:1000, mid:1150, large:1300, van:1500 }, dur:{ small:180, mid:200, large:220, van:240 } },
+    price:{ small:1000, mid:1150, large:1300, van:1500 }, dur:{ small:450, mid:475, large:500, van:525 } },
 ];
 function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
 
 const ADDON_DEFS = {
-  headlight: { id:6906837, name:'Headlight Restoration', price:65, duration:45, desc:'Restore clarity to cloudy, yellowed headlights — improves night visibility.' },
+  headlight: { id:6906837, name:'Headlight Restoration', price:65, duration:40, desc:'Restore clarity to cloudy, yellowed headlights — improves night visibility.' },
   engine:    { id:6906838, name:'Engine Bay Cleaning',   price:50, duration:30, desc:'Degrease, rinse, and detail the engine bay for a clean under-hood look.' },
-  trim:      { id:6906840, name:'Trim Restoration',      price:40, duration:30, desc:'Restore faded exterior plastic trim to a rich, factory-black finish.' },
-  petHair:   { id:6906841, name:'Pet Hair Removal',      price:40, duration:30, desc:'Thorough removal of embedded pet hair from all upholstery surfaces.' },
+  trim:      { id:6906840, name:'Trim Restoration',      price:40, duration:25, desc:'Restore faded exterior plastic trim to a rich, factory-black finish.' },
+  petHair:   { id:6906841, name:'Pet Hair Removal',      price:40, duration:45, desc:'Thorough removal of embedded pet hair from all upholstery surfaces.' },
   carSeats:  { id:0,       name:'Kids Car Seat Deep Clean',   price:25, duration:30, desc:'Child seats removed, shampooed and steamed, then refitted.' }
 };
 
@@ -1501,14 +1501,25 @@ function extractCity(comps) {
 }
 
 // Decide whether we service a location and what travel fee applies.
+// Time reserved either side of a visit. Not symmetric: nothing is needed
+// before a local job, but pack-up and the drive home always are, so every tier
+// reserves time afterwards.
+const TRAVEL_BUFFERS = {
+  free:  { before: 0,  after: 30 },
+  fee45: { before: 15, after: 45 },
+  fee65: { before: 30, after: 60 },
+  out:   { before: 0,  after: 30 },
+};
+
 function classifyLocation(city, lat, lng) {
   const c = (city || '').toLowerCase().trim();
-  if (FREE_CITIES.includes(c))  return { serviced:true, fee:0,  buffer:false, tier:'free',  city };
-  if (FEE45_CITIES.includes(c)) return { serviced:true, fee:45, buffer:true,  tier:'fee45', city };
-  if (FEE65_CITIES.includes(c)) return { serviced:true, fee:65, buffer:false, tier:'fee65', city };
-  // Any other city within 30 miles: $65 travel fee.
-  if (milesFromTimnath(lat, lng) <= 30) return { serviced:true, fee:65, buffer:false, tier:'fee65', city };
-  return { serviced:false, fee:0, buffer:false, tier:'out', city };
+  if (FREE_CITIES.includes(c))  return { serviced:true, fee:0,  tier:'free',  city };
+  if (FEE45_CITIES.includes(c)) return { serviced:true, fee:45, tier:'fee45', city };
+  if (FEE65_CITIES.includes(c)) return { serviced:true, fee:65, tier:'fee65', city };
+  // Any other city within 30 miles: $65 travel fee, and the same timing as the
+  // local tier, since "same distance as those" is what it is.
+  if (milesFromTimnath(lat, lng) <= 30) return { serviced:true, fee:65, tier:'fee65', city };
+  return { serviced:false, fee:0, tier:'out', city };
 }
 
 function initMap() {
@@ -1605,7 +1616,7 @@ async function handleAddressConfirmed(formatted, lat, lng, city) {
     formatted, lat, lng,
     city: cls.city || city || '',
     travelFee: cls.fee,
-    needsBuffer: cls.buffer,
+    buffers: TRAVEL_BUFFERS[cls.tier] || TRAVEL_BUFFERS.free,
     feeTier: cls.tier
   };
   showTravelNotice(cls);
@@ -2055,23 +2066,31 @@ function addCeramicToCart() {
   goToStep(7);
 }
 
+// Hands-on minutes, before any add-ons and before travel time.
+//
+// MUST MATCH lib/services-catalog.ts in the CRM, which is what actually books
+// the slot. If these drift, the website offers a time the CRM then refuses, or
+// worse, books a job into a gap too small for it.
+//
+// Ceramic is the coating only. The correction chosen underneath is added on top
+// by CERAMIC_PREP, which is why all three tiers are the same length: same job,
+// different chemistry.
 function getDuration(svcKey, vehicle) {
-  // Return duration in minutes from Acuity data
   const durations = {
     'maintenance-full':    { small:150, mid:170, large:190, van:210 },
-    'reset-full':          { small:210, mid:240, large:270, van:300 },
+    'reset-full':          { small:240, mid:255, large:270, van:300 },
     'executive-full':      { small:330, mid:360, large:390, van:420 },
     'reset-exterior':      { small:90,  mid:105, large:120, van:135 },
     'executive-exterior':  { small:150, mid:170, large:190, van:210 },
     'maintenance-interior':{ small:90,  mid:105, large:120, van:135 },
-    'reset-interior':      { small:150, mid:170, large:190, van:210 },
-    'executive-interior':  { small:210, mid:230, large:250, van:270 },
-    'paint-polish':      { small:150, mid:170, large:190, van:210 },
-    'paint-1step':       { small:300, mid:320, large:340, van:360 },
-    'paint-2step':       { small:360, mid:380, large:400, van:420 },
-    'ceramic-2yr':       { small:240, mid:300, large:360, van:420 },
-    'ceramic-6yr':       { small:300, mid:360, large:420, van:480 },
-    'ceramic-life':      { small:360, mid:420, large:480, van:540 },
+    'reset-interior':      { small:165, mid:185, large:205, van:225 },
+    'executive-interior':  { small:230, mid:250, large:270, van:290 },
+    'paint-polish':      { small:240, mid:260, large:280, van:300 },
+    'paint-1step':       { small:330, mid:350, large:370, van:390 },
+    'paint-2step':       { small:450, mid:475, large:500, van:525 },
+    'ceramic-2yr':       { small:90,  mid:105, large:120, van:135 },
+    'ceramic-6yr':       { small:90,  mid:105, large:120, van:135 },
+    'ceramic-life':      { small:90,  mid:105, large:120, van:135 },
   };
   return durations[svcKey]?.[vehicle] || 0;
 }
@@ -2351,8 +2370,10 @@ function cartTotalMinutes() {
 }
 
 // Drive/pack time reserved BEFORE the first vehicle and AFTER the last one only.
+/** Total minutes reserved outside the work itself, for slot fitting. */
 function cartBufferMinutes() {
-  return state.address?.needsBuffer ? 30 : 0;
+  const b = state.address?.buffers || TRAVEL_BUFFERS.free;
+  return b.before + b.after;
 }
 
 async function fetchAvailableDates() {
@@ -2634,8 +2655,9 @@ async function submitQuoteRequest() {
       address: state.address?.formatted || '',
       city: state.address?.city || '',
       lat: state.address?.lat, lng: state.address?.lng,
-      travelFee, needsDriveBuffer: !!state.address?.needsBuffer,
-      driveBufferMins: state.address?.needsBuffer ? 30 : 0,
+      travelFee,
+      needsDriveBuffer: (state.address?.buffers?.before ?? 0) + (state.address?.buffers?.after ?? 0) > 0,
+      driveBufferMins: (state.address?.buffers?.after ?? 30),
       vehicle: item.vehicle, vehicleLabel: item.vehicleLabel,
       service: item.label, addons: addonNames,
       price: item.custom ? null : item.price, custom: !!item.custom
@@ -2670,7 +2692,7 @@ async function submitQuoteRequest() {
 // caller's catch resets the button.
 async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, itemDuration }) {
   const primary = state.cart[0];
-  const bufferMins = state.address?.needsBuffer ? 30 : 0;
+  const bfr = state.address?.buffers || TRAVEL_BUFFERS.free;
   const totalMins = state.cart.reduce((s, item) => s + itemDuration(item), 0);
   const itemLine = it => {
     const an = Object.keys(it.addons).filter(k => it.addons[k] > 0).map(k => ADDON_DEFS[k].name).join(', ');
@@ -2683,7 +2705,7 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
   notes += `\nWhen: ${whenLabel}`;
   notes += `\nAddress: ${state.address?.formatted || ''}`;
   if (travelFee > 0) notes += `\nTravel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
-  if (state.address?.needsBuffer) notes += `\nDrive buffer: 30 min each side`;
+  if (bfr.before || bfr.after) notes += `\nDrive buffer: ${bfr.before} min before, ${bfr.after} min after`;
   if (state.comments) notes += `\nNotes: ${state.comments}`;
 
   // One visit = one booking, however many vehicles. `duration` is the sum of
@@ -2709,8 +2731,8 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
     price:       rawTotal,
     total:       finalTotal,
     duration:      totalMins,
-    bufferBefore:  bufferMins,
-    bufferAfter:   bufferMins,
+    bufferBefore:  bfr.before,
+    bufferAfter:   bfr.after,
     vehicleCount:  state.cart.length,
   };
 
@@ -2736,13 +2758,13 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
   });
 
   // Google Calendar link (with 30-min drive buffer each side for fee-45 areas)
-  const startDt = new Date(new Date(state.selectedTime).getTime() - bufferMins * 60000);
-  const endDt = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000 + bufferMins * 60000);
+  const startDt = new Date(new Date(state.selectedTime).getTime() - bfr.before * 60000);
+  const endDt = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000 + bfr.after * 60000);
   const fmt = d => d.toISOString().replace(/[-:]/g, '').slice(0, 15);
   const calLabel = multiVehicle ? `Shine for a Cause — ${state.cart.length} Vehicles` : `Shine for a Cause — ${primary.label}`;
   let calDetails = `Shine for a Cause Mobile Detailing\n(970) 851-6433\nshineforacause.com\n\nService: ${svcSummary}`;
   if (travelFee > 0) calDetails += `\nTravel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
-  if (bufferMins) calDetails += `\nIncludes 30 min drive time before and after.`;
+  if (bfr.before || bfr.after) calDetails += `\nIncludes ${bfr.before} min before and ${bfr.after} min after for travel.`;
   calDetails += `\nEstimated total: ${totalStr} (due in person)`;
   const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
     + `&text=${encodeURIComponent(calLabel)}`
@@ -2859,7 +2881,8 @@ async function confirmBooking() {
       notes += `\nService: ${item.label}`;
       if (addonNames) notes += `\nAdd-ons: ${addonNames}`;
       if (multiVehicle) notes += `\nVehicle ${i + 1} of ${state.cart.length}`;
-      if (state.address?.needsBuffer) notes += `\nDrive buffer: block 30 min before + 30 min after this job (travel time).`;
+      const ab = state.address?.buffers || TRAVEL_BUFFERS.free;
+      if (ab.before || ab.after) notes += `\nDrive buffer: block ${ab.before} min before + ${ab.after} min after this job (travel time).`;
       notes += pricingNotes;
       if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
 
@@ -2878,8 +2901,8 @@ async function confirmBooking() {
           city: state.address?.city || '',
           lat: state.address?.lat, lng: state.address?.lng,
           travelFee: state.address?.travelFee || 0,
-          needsDriveBuffer: !!state.address?.needsBuffer,
-          driveBufferMins: state.address?.needsBuffer ? 30 : 0,
+          needsDriveBuffer: (state.address?.buffers?.before ?? 0) + (state.address?.buffers?.after ?? 0) > 0,
+          driveBufferMins: (state.address?.buffers?.after ?? 30),
           vehicle: item.vehicle,
           vehicleLabel: item.vehicleLabel,
           service: item.label,
@@ -2916,7 +2939,7 @@ async function confirmBooking() {
 
     // Google Calendar link spanning entire multi-vehicle block.
     // Fee-45 areas reserve a 30-min drive buffer on each side of the job.
-    const bufferMins = state.address?.needsBuffer ? 30 : 0;
+    const bfr = state.address?.buffers || TRAVEL_BUFFERS.free;
     const totalMins = state.cart.reduce((s, item) => s + itemDuration(item), 0);
     const startDt = new Date(new Date(state.selectedTime).getTime() - bufferMins * 60000);
     const endDt = new Date(new Date(state.selectedTime).getTime() + totalMins * 60000 + bufferMins * 60000);
@@ -2925,7 +2948,7 @@ async function confirmBooking() {
     let calDetails = `Shine for a Cause Mobile Detailing\n(970) 851-6433\nshineforacause.com`;
     calDetails += `\n\nService: ${multiVehicle ? state.cart.length + ' vehicles' : primary.label}`;
     if (travelFee > 0) calDetails += `\nTravel fee: $${travelFee}${state.address?.city ? ' ('+state.address.city+')' : ''}`;
-    if (bufferMins) calDetails += `\nIncludes 30 min drive time before and after.`;
+    if (bfr.before || bfr.after) calDetails += `\nIncludes ${bfr.before} min before and ${bfr.after} min after for travel.`;
     calDetails += `\nEstimated total: $${finalTotal} (due in person)`;
     const gcalUrl = `https://calendar.google.com/calendar/render?action=TEMPLATE`
       + `&text=${encodeURIComponent(calLabel)}`
