@@ -24,7 +24,7 @@
     .nav { position:sticky; top:0; z-index:100; background:rgba(247,246,243,.88); backdrop-filter:blur(14px); border-bottom:1px solid var(--line); }
     .nav-inner { max-width:1240px; margin:0 auto; padding:.9rem 1.5rem; display:flex; align-items:center; justify-content:space-between; gap:1rem; }
     .nav-logo img { height:38px; } .nav-links { display:flex; gap:1.8rem; } .nav-links a { font-family:var(--font-d); font-size:.98rem; font-weight:700; color:var(--ink-2); } .nav-links a:hover { color:var(--gold-deep); }
-    .nav-cta { display:flex; align-items:center; gap:.7rem; } .nav-phone { font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--ink); white-space:nowrap; }
+    .nav-cta { display:flex; align-items:center; gap:.7rem; grid-column:3; } .nav-phone { font-family:var(--font-d); font-weight:800; font-size:.9rem; color:var(--ink); white-space:nowrap; }
     .hamburger { display:none; flex-direction:column; gap:5px; padding:6px; } .hamburger span { width:22px; height:2px; background:var(--ink); border-radius:2px; }
     .m-menu { display:none; flex-direction:column; gap:.2rem; padding:.5rem 1.5rem 1.2rem; background:#fff; border-bottom:1px solid var(--line); } .m-menu.open { display:flex; } .m-menu a { font-family:var(--font-d); font-weight:700; color:var(--ink-2); padding:.6rem 0; }
     .t-hero { text-align:center; padding:3rem 1.5rem 1rem; }
@@ -66,7 +66,7 @@
     .nav-drop::before { content:''; position:absolute; left:0; right:0; top:-18px; height:18px; }
     .nav-drop a { display:block; padding:.6rem 1rem; border-radius:9px; font-size:.92rem; font-weight:600; color:#101112; text-decoration:none; }
     .nav-drop a:hover { background:#F7F6F3; }
-    .nav-cta { display:flex; align-items:center; gap:.9rem; justify-self:end; }
+    .nav-cta { display:flex; align-items:center; gap:.9rem; justify-self:end; grid-column:3; }
     .nav-phone { display:inline-flex; align-items:center; gap:.45rem; font-family:'Archivo',sans-serif; font-weight:800; font-size:.92rem; color:#101112; white-space:nowrap; text-decoration:none; transition:color .3s ease; }
     .nav-phone:hover { color:#A87B27; }
     .nav-book { display:inline-flex; align-items:center; justify-content:center; font-family:'Archivo',sans-serif; font-weight:800; font-size:.9rem; padding:.7rem 1.5rem; border-radius:999px; background:#C9973A; color:#141005; text-decoration:none; box-shadow:0 4px 16px rgba(201,151,58,.32); transition:transform .18s, background .18s; }
@@ -93,6 +93,9 @@
     .m-menu.open { transform:translateX(0); }
     .m-menu a { font-family:'Archivo',sans-serif; font-size:1.35rem; font-weight:800; padding:.85rem 0; border-bottom:1px solid #E8E6E1; color:#101112; text-decoration:none; }
     .m-menu .m-sub { font-size:1rem; font-weight:600; color:#3E4144; padding-left:1rem; }
+    /* A group label, not a link. Tapping "Resources" used to navigate. */
+    .m-menu .m-group { font-family:inherit; font-size:1.35rem; font-weight:800; color:#101112;
+      padding:.85rem 0 .35rem; margin:.4rem 0 0; border-bottom:1px solid #E8E6E1; }
     .m-menu .m-book { margin-top:1.6rem; background:#C9973A; color:#141005; border-radius:999px; border-bottom:none; text-align:center; padding:.9rem 1.5rem; }
     .m-close { position:absolute; top:1.4rem; right:1.6rem; font-size:2rem; line-height:1; color:#101112; background:none; border:none; cursor:pointer; }
     @media (max-width:900px) { .nav-links, .nav-cta .nav-book { display:none; } .hamburger { display:flex; } .nav-logo img { height:66px; margin:-14px 0; } .nav-phone { font-size:.78rem; } }
@@ -164,11 +167,13 @@
 <div class="m-menu" id="mMenu">
   <button class="m-close" id="mClose" aria-label="Close">&times;</button>
   <a href="/">Home</a>
+  <p class="m-group">Services</p>
   <a href="/#packages" class="m-sub">Mobile Detailing</a>
   <a href="/ceramic-coating.html" class="m-sub">Ceramic Coating</a>
   <a href="/paint-correction.html" class="m-sub">Paint Correction</a>
   <a href="/fleet-cleaning.html" class="m-sub">Fleet Cleaning</a>
   <a href="/maintenance.html">Maintenance Plans</a>
+  <p class="m-group">Resources</p>
   <a href="/#areas" class="m-sub">Locations</a>
   <a href="/gallery.html" class="m-sub">Photo Gallery</a>
   <a href="/testimonials.html" class="m-sub">Testimonials</a>

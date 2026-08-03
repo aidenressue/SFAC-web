@@ -94,7 +94,7 @@
     .nav-drop { background:#fff !important; }
     .nav-drop a:hover { background:var(--bg-soft); }
     .nav-drop a span { display:block; font-size:.7rem; font-weight:400; color:var(--muted); margin-top:.15rem; }
-    .nav-cta { display:flex; align-items:center; gap:.9rem; justify-self:end; }
+    .nav-cta { display:flex; align-items:center; gap:.9rem; justify-self:end; grid-column:3; }
     .nav-phone { display:inline-flex; align-items:center; gap:.45rem; font-family:var(--font-d); font-weight:800; font-size:.92rem; color:var(--ink); white-space:nowrap; transition:color .3s ease; }
     .nav-phone:hover { color:var(--gold-deep); }
     .hamburger { display:none; flex-direction:column; gap:5px; padding:.5rem; }
@@ -108,6 +108,11 @@
     .m-menu.open { transform:translateX(0); }
     .m-menu a { font-family:var(--font-d); font-size:1.35rem; font-weight:800; padding:.85rem 0; border-bottom:1px solid var(--line); }
     .m-menu .m-sub { font-size:1rem; font-weight:600; color:var(--ink-2); padding-left:1rem; }
+    /* A group label, not a link. "Services" had no label at all and
+       "Resources" was an <a> pointing at #home, so tapping it jumped you to the
+       top of the homepage instead of opening anything. */
+    .m-menu .m-group { font-family:var(--font-d); font-size:1.35rem; font-weight:800; color:var(--ink);
+      padding:.85rem 0 .35rem; margin:.4rem 0 0; border-bottom:1px solid var(--line); }
     .m-close { position:absolute; top:1.4rem; right:1.6rem; font-size:2rem; line-height:1; color:var(--ink); }
 
     /* HERO */
@@ -269,11 +274,13 @@
 <div class="m-menu" id="mMenu">
   <button class="m-close" id="mClose" aria-label="Close">&times;</button>
   <a href="/" class="m-link">Home</a>
+  <p class="m-group">Services</p>
   <a href="/#packages" class="m-sub">Mobile Detailing</a>
   <a href="/ceramic-coating.html" class="m-sub">Ceramic Coating</a>
   <a href="/paint-correction.html" class="m-sub">Paint Correction</a>
   <a href="/fleet-cleaning.html" class="m-sub">Fleet Cleaning</a>
   <a href="/maintenance.html" class="m-link">Maintenance Plans</a>
+  <p class="m-group">Resources</p>
   <a href="/#areas" class="m-sub">Locations</a>
   <a href="/gallery.html" class="m-sub">Photo Gallery</a>
   <a href="/testimonials.html" class="m-sub">Testimonials</a>
