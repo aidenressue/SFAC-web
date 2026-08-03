@@ -788,12 +788,55 @@
       text-align: center; padding: 2rem;
     }
     #success-screen.show { display: flex; }
-    .success-icon { font-size: 4rem; margin-bottom: 1.5rem; }
-    .success-title { font-family: var(--fh); font-weight: 900; font-size: 1.8rem; margin-bottom: .75rem; color: var(--text); }
-    .success-sub { font-size: .92rem; color: var(--muted); max-width: 380px; line-height: 1.7; }
-    .success-conf { font-family: var(--fh); font-weight: 700; font-size: .8rem; color: var(--gold); margin-top: 1rem; }
+    /* The logo, not a sparkle. This screen is white, so it takes the dark
+       (black and gold) mark. */
+    .success-logo { height: 96px; width: auto; margin-bottom: .5rem; }
+    .success-title { font-family: var(--fh); font-weight: 900; font-size: 2.1rem; margin-bottom: .6rem; color: var(--text); letter-spacing: -.02em; }
+    .success-sub { font-size: 1rem; color: var(--text); max-width: 420px; line-height: 1.6; font-weight: 600; }
+    .success-note { font-size: .88rem; color: var(--muted); max-width: 400px; line-height: 1.6; margin-top: .6rem; }
+    .success-phone {
+      display: block; margin-top: 1.4rem;
+      font-family: var(--fh); font-weight: 800; font-size: 1.5rem;
+      color: var(--gold); text-decoration: none; letter-spacing: -.01em;
+    }
+    .success-phone:hover { text-decoration: underline; }
+    .success-callnote { font-size: .86rem; color: var(--muted); margin-top: .15rem; }
+    .success-conf {
+      margin-top: 1.6rem; padding: .85rem 1.5rem;
+      background: var(--gold-dim); border: 1px solid rgba(181,117,26,.3); border-radius: 12px;
+      font-family: var(--fh); font-weight: 800; font-size: 1rem; color: var(--text);
+    }
+    /* Plain lines, no box. The old dark panel was a leftover from when this
+       page had a dark theme and read as a black slab on white. */
+    .success-points {
+      list-style: none; padding: 0; margin: 1.5rem 0 0;
+      max-width: 440px; text-align: left;
+    }
+    .success-points li {
+      font-size: .88rem; color: var(--muted); line-height: 1.5;
+      padding: .4rem 0 .4rem 1.1rem; position: relative;
+    }
+    .success-points li::before {
+      content: ""; position: absolute; left: 0; top: .95rem;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--gold);
+    }
+    .success-actions { display: flex; gap: .75rem; flex-wrap: wrap; justify-content: center; margin-top: 1.75rem; }
+    .btn-reschedule {
+      background: transparent; color: var(--text);
+      border: 1px solid var(--border2); border-radius: 999px;
+      font-family: var(--fh); font-weight: 800; font-size: .82rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 1rem 2.5rem; text-decoration: none; display: inline-block; cursor: pointer;
+    }
+    .btn-reschedule:hover { border-color: var(--gold); color: var(--gold); }
+
+    @media (max-width: 480px) {
+      .success-logo { height: 74px; }
+      .success-title { font-size: 1.7rem; }
+      .success-phone { font-size: 1.3rem; }
+    }
     .btn-home {
-      margin-top: 2rem; background: var(--gold); color: #fff;
+      margin-top: 0; background: var(--gold); color: #fff;
       font-family: var(--fh); font-weight: 800; font-size: .82rem;
       letter-spacing: .08em; text-transform: uppercase;
       border: none; border-radius: 999px; cursor: pointer; padding: 1rem 2.5rem;
@@ -1115,26 +1158,36 @@
 
 <!-- SUCCESS SCREEN -->
 <div id="success-screen">
-  <div class="success-icon">✨</div>
-  <div class="success-title">You're Booked!</div>
-  <div class="success-sub" id="success-sub">Your appointment has been confirmed. You'll receive an email and text confirmation shortly.</div>
+  <img class="success-logo" src="/brand_assets/logo-nav.png" alt="Shine for a Cause Mobile Detailing" />
+  <div class="success-title">You&rsquo;re booked</div>
+  <div class="success-sub" id="success-sub"></div>
+  <div class="success-note" id="success-note">You will receive a confirmation and reminder text.</div>
+
+  <a class="success-phone" href="tel:+19708516433">(970) 851-6433</a>
+  <div class="success-callnote">Call our number with any questions!</div>
+
   <div class="success-conf" id="success-conf"></div>
-  <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin:.75rem 0 0;">
-    <a id="gcal-btn" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;background:#171A1F;border:1px solid #2C313A;color:#F7F5F0;text-decoration:none;padding:.6rem 1.25rem;border-radius:9999px;font-size:.82rem;font-weight:600;font-family:var(--fh);">
+
+  <div style="display:flex;gap:.75rem;flex-wrap:wrap;justify-content:center;margin:1.25rem 0 0;">
+    <a id="gcal-btn" href="#" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--border2);color:var(--text);text-decoration:none;padding:.7rem 1.4rem;border-radius:9999px;font-size:.85rem;font-weight:700;font-family:var(--fh);">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.5 3h-3V1.5h-1.5V3h-6V1.5H7.5V3h-3C3.675 3 3 3.675 3 4.5v15c0 .825.675 1.5 1.5 1.5h15c.825 0 1.5-.675 1.5-1.5v-15c0-.825-.675-1.5-1.5-1.5zm0 16.5h-15V9h15v10.5zm0-12h-15V4.5h3V6H9V4.5h6V6h1.5V4.5h3V7.5z"/></svg>
-      Add to Google Calendar
+      Add to Calendar
     </a>
   </div>
-  <div style="margin:1.25rem 0;padding:1rem 1.25rem;background:#111317;border-radius:12px;font-size:.82rem;color:#A7ADB5;line-height:1.7;text-align:left;max-width:380px;">
-    <div style="color:#D4A851;font-weight:700;font-size:.72rem;letter-spacing:2px;text-transform:uppercase;margin-bottom:.5rem;">What to expect</div>
-    <div>📱 We'll text you the morning of to confirm</div>
-    <div>🚗 Please have your vehicle accessible at your address</div>
-    <div>💳 Payment due at end — Cash, Venmo, Zelle, CashApp, or Card</div>
-    <div>❌ Free cancellation up to 24 hours before</div>
+
+  <ul class="success-points">
+    <li>You will receive a reminder 6 hours before your detail</li>
+    <li>Please have your vehicle accessible, and remove all personal items</li>
+    <li>Payment due after service is completed: cash, Venmo, PayPal, card</li>
+    <li>No fee cancellations up to 12 hours before your appointment</li>
+  </ul>
+
+  <div class="success-actions">
+    <a href="/" class="btn-home">Back to Home</a>
+    <a href="#" id="reschedule-btn" class="btn-reschedule">Reschedule</a>
   </div>
-  <div style="font-size:.8rem;color:#A7ADB5;">Questions? <a href="tel:9708516433" style="color:#D4A851;text-decoration:none;font-weight:600;">(970) 851-6433</a></div>
-  <a href="/" class="btn-home" style="margin-top:1.25rem;">Back to Home</a>
-</div>
+
+  </div>
 
 <script>
 // ═══════════════════════════════════════════════════════════════════
@@ -2597,14 +2650,13 @@ async function submitQuoteRequest() {
     try { localStorage.removeItem('sfac_quote'); } catch (e) {}
     clearBookingProgress();
 
-    const titleEl = document.querySelector('.success-title');
-    if (titleEl) titleEl.textContent = 'Request Received!';
-    document.getElementById('success-sub').textContent =
-      "We've got your quote and location. We'll reach out shortly to lock in a time that works for you. Prefer to talk now? Call or text us at (970) 851-6433.";
-    document.getElementById('success-conf').textContent =
-      `${item.label} · ${priceStr}${travelFee ? ' + $' + travelFee + ' travel' : ''}`;
+    showSuccess({
+      title: 'Request received',
+      whenText: "We've got your quote and location.",
+      note: 'We will reach out shortly to lock in a time that works for you.',
+      totalText: `${item.label} \u00b7 ${priceStr}${travelFee ? ' + $' + travelFee + ' travel' : ''}`,
+    });
     const g = document.getElementById('gcal-btn'); if (g) g.style.display = 'none';
-    document.getElementById('success-screen').classList.add('show');
   } catch (e) {
     btn.disabled = false;
     btn.textContent = 'Request This Booking';
@@ -2671,15 +2723,17 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
     throw new Error('Sorry, that time was just taken. Please pick another time.');
   }
   if (!resp.ok && resp.status !== 201) throw new Error('Something went wrong. Please call or text us at (970) 851-6433.');
+  const created = await resp.json().catch(() => null);
   try { localStorage.removeItem('sfac_quote'); } catch (e) {}
   clearBookingProgress();
 
   // Success screen
-  const titleEl = document.querySelector('.success-title'); if (titleEl) titleEl.textContent = "You're Booked!";
-  document.getElementById('success-sub').textContent =
-    `Your ${multiVehicle ? state.cart.length + ' services are' : 'appointment is'} set for ${whenLabel}. We'll text you to confirm. Questions? Call or text (970) 851-6433.`;
   const totalStr = cartHasCustom() ? (finalTotal ? `$${finalTotal} + custom` : 'Custom') : `$${finalTotal}`;
-  document.getElementById('success-conf').textContent = `Estimated total: ${totalStr} (due in person)`;
+  showSuccess({
+    whenText: whenSentence(state.selectedTime) || `You\u2019re scheduled for ${whenLabel}.`,
+    totalText: `Total due after service: ${totalStr}`,
+    bookingId: created && created.bookingId,
+  });
 
   // Google Calendar link (with 30-min drive buffer each side for fee-45 areas)
   const startDt = new Date(new Date(state.selectedTime).getTime() - bufferMins * 60000);
@@ -2697,8 +2751,37 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
     + `&location=${encodeURIComponent(state.address?.formatted || '')}`;
   const gcalBtn = document.getElementById('gcal-btn');
   if (gcalBtn) { gcalBtn.href = gcalUrl; gcalBtn.style.display = ''; }
+}
+
+
+// ── Confirmation screen ────────────────────────────────────────────────────
+// One place that fills it, so the three booking paths cannot drift apart.
+function showSuccess({ title, whenText, totalText, note, bookingId }) {
+  const t = document.querySelector('.success-title');
+  if (t) t.innerHTML = title || 'You&rsquo;re booked';
+  document.getElementById('success-sub').textContent = whenText || '';
+  document.getElementById('success-note').textContent =
+    note || 'You will receive a confirmation and reminder text.';
+  document.getElementById('success-conf').textContent = totalText || '';
+
+  // Their own page for this booking. Without an id there is nothing to point
+  // at, so the button is hidden rather than leading somewhere broken.
+  const rb = document.getElementById('reschedule-btn');
+  if (rb) {
+    if (bookingId) { rb.href = `/reschedule?id=${encodeURIComponent(bookingId)}`; rb.style.display = ''; }
+    else rb.style.display = 'none';
+  }
 
   document.getElementById('success-screen').classList.add('show');
+}
+
+/** "4:00 PM on Wednesday, August 5, 2026" from whatever the booking holds. */
+function whenSentence(when) {
+  const d = when instanceof Date ? when : new Date(when);
+  if (isNaN(d)) return '';
+  const time = d.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+  const day  = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+  return `You\u2019re scheduled for ${time} on ${day}.`;
 }
 
 async function confirmBooking() {
@@ -2825,20 +2908,11 @@ async function confirmBooking() {
     }
 
     // Success!
-    const primary = state.cart[0];
-    const vehicleWord = multiVehicle ? `${state.cart.length} vehicle appointments` : primary.label;
-    document.getElementById('success-sub').textContent =
-      `Your ${vehicleWord} ${multiVehicle ? 'have' : 'has'} been confirmed for ${document.getElementById('conf-datetime').textContent}. You'll receive a confirmation email and text shortly.`;
-
-    let discountParts = [];
-    if (multiVehicle) discountParts.push('10% multi-vehicle');
-    if (state.promoDiscount > 0) discountParts.push(`${Math.round(state.promoDiscount*100)}% promo`);
-    if (travelFee > 0) discountParts.push(`$${travelFee} travel fee`);
-    const totalLine = (discountParts.length > 0 || finalTotal !== rawTotal)
-      ? `Confirmation #${firstAcuityId} · Total: $${finalTotal}${discountParts.length ? ' ('+discountParts.join(' + ')+' applied' : ' (due in person'}, due in person)`
-      : `Confirmation #${firstAcuityId} · Estimated Total: $${rawTotal} (due in person)`;
-    document.getElementById('success-conf').textContent = totalLine;
-    document.getElementById('success-screen').classList.add('show');
+    showSuccess({
+      whenText: whenSentence(state.selectedTime)
+        || `You\u2019re scheduled for ${document.getElementById('conf-datetime').textContent}.`,
+      totalText: `Total due after service: $${finalTotal}`,
+    });
 
     // Google Calendar link spanning entire multi-vehicle block.
     // Fee-45 areas reserve a 30-min drive buffer on each side of the job.
