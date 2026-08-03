@@ -2503,54 +2503,49 @@ function renderConfirmationTotals() {
   block.innerHTML = html;
 }
 
-const PROMO_CODES = {
-  'SFAC10': { type: 'percent', value: 0.10 },
-  'SFAC20': { type: 'percent', value: 0.20 },
-  'SFAC50': {
-    type: 'flat', value: 50,
-    requires: 'full',
-    requiresMsg: 'SFAC50 is only valid on Full Detail packages (Interior + Exterior combined). It can\'t be applied to an Interior-only or Exterior-only booking — select a Full Detail package and try again.'
-  }
-};
-
+// Promo codes come from the CRM now, one code at a time, so ending a
+// promotion or setting an expiry does not need the website redeployed. The
+// full list is never sent to the browser.
 async function applyPromo() {
   const code = document.getElementById('promo-code').value.trim().toUpperCase();
   const msgEl = document.getElementById('promo-msg');
   if (!code) return;
 
+  const clear = (text) => {
+    state.promoCode = '';
+    state.promoDiscount = 0;
+    state.promoFlatAmount = 0;
+    msgEl.textContent = text;
+    msgEl.className = 'promo-msg err';
+    renderConfirmationTotals();
+  };
+
   msgEl.className = 'promo-msg';
+  msgEl.textContent = 'Checking…';
 
-  const promo = PROMO_CODES[code];
-  if (!promo) {
-    state.promoCode = '';
-    state.promoDiscount = 0;
-    state.promoFlatAmount = 0;
-    msgEl.textContent = 'Invalid promo code. Please try again.';
-    msgEl.className = 'promo-msg err';
-    renderConfirmationTotals();
-    return;
+  let promo;
+  try {
+    const res = await fetch(
+      CRM_API + '/api/promo-codes/check?code=' + encodeURIComponent(code)
+      + '&package=' + encodeURIComponent(state.packageType || '')
+    );
+    promo = await res.json();
+  } catch (e) {
+    return clear('We could not check that code just now. Please try again.');
   }
 
-  // Check package type restriction
-  if (promo.requires && state.packageType !== promo.requires) {
-    state.promoCode = '';
-    state.promoDiscount = 0;
-    state.promoFlatAmount = 0;
-    msgEl.textContent = promo.requiresMsg;
-    msgEl.className = 'promo-msg err';
-    renderConfirmationTotals();
-    return;
-  }
+  if (!promo || !promo.valid) return clear((promo && promo.message) || 'Invalid promo code. Please try again.');
 
-  state.promoCode = code;
+  state.promoCode = promo.code;
   if (promo.type === 'percent') {
-    state.promoDiscount = promo.value;
+    // Stored as 0-100 in the CRM; the rest of this page works in fractions.
+    state.promoDiscount = promo.value / 100;
     state.promoFlatAmount = 0;
-    msgEl.textContent = `✓ ${Math.round(promo.value * 100)}% off applied!`;
+    msgEl.textContent = '\u2713 ' + Math.round(promo.value) + '% off applied!';
   } else {
     state.promoDiscount = 0;
     state.promoFlatAmount = promo.value;
-    msgEl.textContent = `✓ $${promo.value} off applied!`;
+    msgEl.textContent = '\u2713 $' + promo.value + ' off applied!';
   }
   msgEl.className = 'promo-msg ok';
   renderConfirmationTotals();
