@@ -1683,6 +1683,10 @@ function goToStep(n) {
     state.stepHistory.push(n);
   }
 
+  // Every step, so a refresh anywhere lands back on the same one. Saving only
+  // at the cart meant a refresh on "what service?" started you over.
+  saveBookingProgress();
+
   // Render step content
   renderStep(n);
 
@@ -2273,30 +2277,93 @@ function removeCartItem(i) {
 }
 
 // ── Save / restore an in-progress cart so it survives leaving and returning ──
+// ── Keeping a half-finished booking ────────────────────────────────────────
+//
+// Refreshing, or nipping back to the homepage, used to throw away everything
+// short of a full cart, and even then it always dumped you back on the cart
+// page rather than where you were.
+//
+// Now the whole in-progress selection is kept, along with which step you were
+// on, so a refresh puts you back exactly where you were.
+//
+// It expires. A cart from a fortnight ago is not something anyone wants
+// restored: prices move, the car is probably already clean, and being dropped
+// into a stale half-booking is confusing. Twelve hours covers a refresh, a trip
+// to the homepage, dinner, and coming back the same evening. Anything older is
+// dropped and the page starts fresh.
+const BOOKING_TTL_MS = 12 * 60 * 60 * 1000;
+const BOOKING_KEY = 'sfac_booking_cart';
+
 function saveBookingProgress() {
   try {
-    if (!state.cart.length || !state.address) { localStorage.removeItem('sfac_booking_cart'); return; }
-    localStorage.setItem('sfac_booking_cart', JSON.stringify({
-      cart: state.cart, address: state.address,
-      promoCode: state.promoCode || '', ts: Date.now()
+    // Nothing worth keeping until they have at least said where they are.
+    if (!state.address && !state.cart.length) { localStorage.removeItem(BOOKING_KEY); return; }
+    localStorage.setItem(BOOKING_KEY, JSON.stringify({
+      ts: Date.now(),
+      step: state.currentStep,
+      stepHistory: state.stepHistory,
+      address: state.address,
+      cart: state.cart,
+      // What is being configured right now, so a refresh mid-way keeps it.
+      service: state.service,
+      vehicle: state.vehicle,
+      packageType: state.packageType,
+      ceramicCoating: state.ceramicCoating,
+      ceramicPrep: state.ceramicPrep,
+      tier: state.tier,
+      addons: state.addons,
+      selectedDate: state.selectedDate,
+      promoCode: state.promoCode || '',
+      firstName: state.firstName, lastName: state.lastName,
+      email: state.email, phone: state.phone, comments: state.comments,
     }));
   } catch (e) {}
 }
-function clearBookingProgress() { try { localStorage.removeItem('sfac_booking_cart'); } catch (e) {} }
+
+function clearBookingProgress() { try { localStorage.removeItem(BOOKING_KEY); } catch (e) {} }
+
 function restoreBookingProgress() {
-  let raw; try { raw = localStorage.getItem('sfac_booking_cart'); } catch (e) { return false; }
+  let raw; try { raw = localStorage.getItem(BOOKING_KEY); } catch (e) { return false; }
   if (!raw) return false;
-  let data; try { data = JSON.parse(raw); } catch (e) { return false; }
-  if (!data || !Array.isArray(data.cart) || !data.cart.length || !data.address) return false;
-  state.cart = data.cart;
-  state.address = data.address;
-  if (data.promoCode) state.promoCode = data.promoCode;
-  // Open straight to the cart (address already saved)
+  let d; try { d = JSON.parse(raw); } catch (e) { return false; }
+  if (!d) return false;
+
+  // Too old to be useful. Drop it rather than restoring a stale booking.
+  if (!d.ts || Date.now() - d.ts > BOOKING_TTL_MS) { clearBookingProgress(); return false; }
+  if (!d.address) return false;
+
+  state.address        = d.address;
+  state.cart           = Array.isArray(d.cart) ? d.cart : [];
+  state.service        = d.service ?? null;
+  state.vehicle        = d.vehicle ?? null;
+  state.packageType    = d.packageType ?? null;
+  state.ceramicCoating = d.ceramicCoating ?? null;
+  state.ceramicPrep    = d.ceramicPrep ?? null;
+  state.tier           = d.tier ?? null;
+  state.addons         = d.addons && typeof d.addons === 'object' ? d.addons : {};
+  state.promoCode      = d.promoCode || '';
+  state.firstName      = d.firstName || '';
+  state.lastName       = d.lastName || '';
+  state.email          = d.email || '';
+  state.phone          = d.phone || '';
+  state.comments       = d.comments || '';
+  // The chosen day is kept; the time is not. Slots move as other people book,
+  // so an hour-old time may be gone and re-offering it would fail at the end.
+  state.selectedDate   = d.selectedDate ?? null;
+  state.selectedTime   = null;
+
   document.getElementById('map').classList.add('split');
   document.getElementById('step1-overlay').classList.add('hidden');
   document.getElementById('steps-panel').classList.add('open');
-  state.stepHistory = [1, 2];
-  goToStep(7);
+  state.stepHistory = Array.isArray(d.stepHistory) && d.stepHistory.length ? d.stepHistory : [1, 2];
+
+  // Back to the step they were on. Step 8 is the calendar, and its times are
+  // fetched fresh, so landing there is fine; anything past it needs a time, so
+  // those fall back to the calendar.
+  let step = Number(d.step) || 2;
+  if (step > 8) step = 8;
+  if (step < 2) step = 2;
+  goToStep(step);
   return true;
 }
 
