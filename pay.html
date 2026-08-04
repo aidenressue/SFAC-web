@@ -254,10 +254,28 @@
   const fmtUrl = (n) => Number(n).toFixed(2);
   const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
-  async function loadInvoice(code) {
+  /**
+   * Returns 'ok', 'missing' or 'unreachable'.
+   *
+   * The difference matters. "We could not find that invoice" is alarming and
+   * wrong when the server was simply restarting, which is exactly what it said
+   * during a deploy. Only a 404 means the invoice is genuinely not there.
+   */
+  async function loadInvoice(code, attempt) {
+    let r;
     try {
-      const r = await fetch(API + '/api/invoice/public?i=' + encodeURIComponent(code));
-      if (!r.ok) return false;
+      r = await fetch(API + '/api/invoice/public?i=' + encodeURIComponent(code), { cache: 'no-store' });
+    } catch (e) {
+      // Network or the server is down. Worth one retry before giving up.
+      if (!attempt) { await new Promise(res => setTimeout(res, 1500)); return loadInvoice(code, 1); }
+      return 'unreachable';
+    }
+    if (r.status === 404) return 'missing';
+    if (!r.ok) {
+      if (!attempt) { await new Promise(res => setTimeout(res, 1500)); return loadInvoice(code, 1); }
+      return 'unreachable';
+    }
+    try {
       const d = await r.json();
       name = d.firstName || '';
       fullName = d.clientName || name;
@@ -268,8 +286,8 @@
       issued = d.date || '';
       lines = Array.isArray(d.lineItems) ? d.lineItems : [];
       discountAmount = Number(d.discountAmount) || 0;
-      return amount > 0;
-    } catch (e) { return false; }
+      return amount > 0 ? 'ok' : 'missing';
+    } catch (e) { return 'unreachable'; }
   }
 
   function prettyDate(iso) {
@@ -382,8 +400,19 @@
 
   async function init() {
     if (shortCode) {
-      const ok = await loadInvoice(shortCode);
-      if (!ok) { el('invalid').classList.add('show'); return; }
+      const state = await loadInvoice(shortCode, 0);
+      if (state !== 'ok') {
+        const box = el('invalid');
+        box.innerHTML = state === 'unreachable'
+          ? '<h2>We could not load your invoice just now.</h2>'
+            + '<p>It is still there. Please refresh in a moment, or text us on (970) 851-6433.</p>'
+            + '<p><button onclick="location.reload()" style="margin-top:12px;padding:12px 24px;border:0;border-radius:999px;'
+            + 'background:#C9973A;color:#fff;font-weight:700;font-size:15px;cursor:pointer">Try again</button></p>'
+          : '<h2>We could not find that invoice.</h2>'
+            + '<p>Give us a text on (970) 851-6433 and we will send it again.</p>';
+        box.classList.add('show');
+        return;
+      }
     } else if (token !== KEY) {
       el('invalid').classList.add('show'); return;
     } else {
