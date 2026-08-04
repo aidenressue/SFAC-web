@@ -356,7 +356,13 @@
     label.textContent = 'Setting up secure checkout…';
     track('card');
     try {
-      const back = location.origin + location.pathname + '?paid=1' + (name ? '&name=' + encodeURIComponent(name) : '');
+      // The code has to come back too. Without it the page returned from
+      // Stripe with nothing to look up and told a customer who had just paid
+      // that their invoice could not be found.
+      const back = location.origin + location.pathname + '?paid=1'
+        + (shortCode ? '&i=' + encodeURIComponent(shortCode) : '')
+        + (token ? '&k=' + encodeURIComponent(token) : '')
+        + (name ? '&name=' + encodeURIComponent(name) : '');
       const resp = await fetch(CRM_PAY_API + '?k=' + encodeURIComponent(KEY), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -400,6 +406,16 @@
   }
 
   async function init() {
+    // Back from a payment with no code to look up: say thank you. Never tell
+    // someone who has just paid that their invoice is missing.
+    if (!shortCode && token !== KEY && p.get('paid') === '1') {
+      const box = el('invalid');
+      box.innerHTML = '<h2>Payment received</h2>'
+        + '<p>Thank you! A receipt is on its way from Stripe.</p>';
+      box.classList.add('show');
+      return;
+    }
+
     if (shortCode) {
       const state = await loadInvoice(shortCode, 0);
       if (state !== 'ok') {
