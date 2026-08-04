@@ -600,40 +600,66 @@
 
     const p       = new URLSearchParams(location.search);
     const token   = p.get('k')        || '';
-    const name    = p.get('name')     || '';
-    const amount  = parseFloat(p.get('amount') || '0');
-    const invoice = p.get('invoice')  || '';
+    // Short form: /pay?i=2da4e35a. The amount comes from the CRM rather than the
+    // URL, so nobody can edit what they owe by changing the address bar, and the
+    // link is short enough to read in a text.
+    const shortCode = (p.get('i') || '').trim();
+
+    let name    = p.get('name')     || '';
+    let amount  = parseFloat(p.get('amount') || '0');
+    let invoice = p.get('invoice')  || '';
     const lead_id = p.get('lead_id')  || '';
 
-    // ── Auth gate ────────────────────────────────────────────────────────
-    if (token !== KEY) {
-      document.getElementById('invalid').classList.add('show');
-    } else {
-      show('hdr'); show('main'); show('ftr');
-      ping({ action: 'viewed', client_name: name, base_amount: amount, invoice_number: invoice });
+    async function loadShortInvoice(code) {
+      try {
+        const r = await fetch(API + '/api/invoice/public?i=' + encodeURIComponent(code));
+        if (!r.ok) return false;
+        const d = await r.json();
+        name    = d.firstName || '';
+        amount  = Number(d.amount) || 0;
+        invoice = d.invoiceNumber || '';
+        return amount > 0;
+      } catch (e) { return false; }
     }
 
     // ── Populate invoice card ────────────────────────────────────────────
-    if (name)    document.getElementById('invoice-for').textContent = 'Invoice for ' + name;
-    if (amount > 0) {
-      el('invoice-amount').textContent = '$' + fmt(amount);
-      el('invoice-amount').style.display = '';
-    }
-    if (invoice) {
-      const n = el('invoice-num');
-      n.className = 'invoice-num';
-      n.textContent = invoice;
-      n.style.display = '';
-    }
-    if (name || amount > 0) el('invoice-note').style.display = '';
+    // Async, because a short link has to fetch the amount before anything can
+    // be drawn. The old style has everything in the URL and skips the wait.
+    async function init() {
+      if (shortCode) {
+        const ok = await loadShortInvoice(shortCode);
+        if (!ok) { document.getElementById('invalid').classList.add('show'); return; }
+      } else if (token !== KEY) {
+        // The long link is gated on the shared key. A short code is its own key.
+        document.getElementById('invalid').classList.add('show');
+        return;
+      }
 
-    // Tip card: show when there's an amount, with dollar labels on presets
-    if (amount > 0) {
-      el('tip-card').style.display = '';
-      [10, 15, 20].forEach(pct => {
-        const lbl = el('tl' + pct);
-        if (lbl) lbl.textContent = '$' + fmt(round(amount * pct / 100));
-      });
+      show('hdr'); show('main'); show('ftr');
+      ping({ action: 'viewed', client_name: name, base_amount: amount, invoice_number: invoice });
+
+      if (name) el('invoice-for').textContent = 'Invoice for ' + name;
+      if (amount > 0) {
+        el('invoice-amount').textContent = '$' + fmt(amount);
+        el('invoice-amount').style.display = '';
+      }
+      if (invoice) {
+        const n = el('invoice-num');
+        n.className = 'invoice-num';
+        n.textContent = invoice;
+        n.style.display = '';
+      }
+      if (name || amount > 0) el('invoice-note').style.display = '';
+
+      // Tip card: show when there's an amount, with dollar labels on presets
+      if (amount > 0) {
+        el('tip-card').style.display = '';
+        [10, 15, 20].forEach(pct => {
+          const lbl = el('tl' + pct);
+          if (lbl) lbl.textContent = '$' + fmt(round(amount * pct / 100));
+        });
+      }
+      render();
     }
 
     // ── Tip state ────────────────────────────────────────────────────────
@@ -851,8 +877,9 @@
              client_name: name || null });
     }
 
-    // Init
-    render();
+    // Init. A short link fetches the amount first, so this has to be awaited
+    // rather than rendering an empty invoice and filling it in later.
+    init();
   </script>
 
 </body>
