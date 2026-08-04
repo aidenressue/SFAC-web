@@ -2,6 +2,14 @@
   "cleanUrls": true,
   "rewrites": [
     {
+      "source": "/api/invoice/:path*",
+      "destination": "https://sfac-mu.vercel.app/api/invoice/:path*"
+    },
+    {
+      "source": "/api/stripe/:path*",
+      "destination": "https://sfac-mu.vercel.app/api/stripe/:path*"
+    },
+    {
       "source": "/favicon.ico",
       "destination": "/favicon.png"
     },
