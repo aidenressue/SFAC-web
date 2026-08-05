@@ -689,13 +689,16 @@
       /* Hero was a full screen tall with the title at the top, a black gap, the
          car floating in the middle and the buttons pinned to the bottom. Now it
          is sized to its content: title, car right under it, buttons under that.
-         The video is painted into an absolute strip, so --cc-vid-top has to
-         clear the title block, which is a different height on each page. */
+         The video is 1920x1080. `contain` capped it at 390x220 on a phone no
+         matter how tall the strip was, so it is `cover` here. Taller means a
+         narrower slice of the frame: this is a turntable, and across the
+         rotation the car reaches 11% and 85% of the frame width, so 255px
+         is the tallest the strip goes before the wing and nose clip. */
       .cc-hero, .cc-hero-inner { min-height:0 !important; }
-      .cc-hero-inner { padding:8rem 1.25rem 1.2rem; }
+      .cc-hero-inner { padding:11rem 1.25rem 1.2rem; }
       .cc-hero h1 { font-size:clamp(2.25rem,11vw,2.85rem); }
-      .cc-hero-vid { top:282px; height:220px; }
-      .cc-hero-top { margin-bottom:298px; }
+      .cc-hero-vid { top:325px; height:255px; object-fit:cover; }
+      .cc-hero-top { margin-bottom:355px; }
     }
 /* The shared `bob` keyframes bake in translateX(-50%). .scroll-cue needs
        that (it is positioned with left:50%), but .cc-scrollcue is centred by
