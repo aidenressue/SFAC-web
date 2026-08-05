@@ -1651,18 +1651,44 @@ function loadCarriedQuote() {
   const addonsObj = {};
   (q.addons || []).forEach(k => { if (ADDON_DEFS[k]) addonsObj[k] = 1; });
 
-  state.cart.push({
-    serviceKey: 'quote',
-    vehicle: q.size,
-    vehicleLabel,
-    label: q.serviceName + (q.pkgLabel ? ` (${q.pkgLabel})` : ''),
-    addons: addonsObj,
-    price: q.priced ? q.total : 0,
-    acuityTypeId: 0,      // carried quotes need real scheduling IDs before they book live
-    fromQuote: true,
-    custom: !q.priced
-  });
-  state.fromQuote = true;
+  // A quote from /quote carries a real catalog service key, so it can be booked
+  // like anything else: real duration, real price, real calendar. Only a quote
+  // from the older custom builder has no key, and that still goes through as a
+  // request for a time to be agreed.
+  const cfg = q.serviceKey ? SERVICE_CONFIGS[q.serviceKey] : null;
+
+  if (cfg && q.priced) {
+    state.cart.push({
+      serviceKey: q.serviceKey,
+      vehicle: q.size,
+      vehicleLabel,
+      label: cfg.label,
+      addons: addonsObj,
+      price: q.total,
+      custom: false,
+      acuityTypeId: cfg.acuityIds ? cfg.acuityIds[q.size] : 0,
+      fromQuote: true,
+      quoteNumber: q.quoteNumber || '',
+    });
+    // Bookable, so it goes to the calendar rather than the request form. The
+    // whole point is that the vehicle, package and level are already settled.
+    state.fromQuote = true;
+    state.quoteIsBookable = true;
+  } else {
+    state.cart.push({
+      serviceKey: 'quote',
+      vehicle: q.size,
+      vehicleLabel,
+      label: q.serviceName + (q.pkgLabel ? ` (${q.pkgLabel})` : ''),
+      addons: addonsObj,
+      price: q.priced ? q.total : 0,
+      acuityTypeId: 0,
+      fromQuote: true,
+      custom: !q.priced
+    });
+    state.fromQuote = true;
+    state.quoteIsBookable = false;
+  }
 }
 
 function proceedToStep2() {
@@ -2257,7 +2283,6 @@ function renderCart() {
   `}).join('');
 
   document.getElementById('cart-subtotal').textContent = cartSubtotalStr();
-  // A carried quote skips the calendar and goes straight to contact details.
   const contBtn = document.getElementById('to-calendar-btn');
   if (contBtn) contBtn.textContent = 'Select Date';
 }

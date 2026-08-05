@@ -177,6 +177,18 @@
       height: 15px; margin-top: 2px; border-radius: 50%;
       background: #16A34A; color: #fff; font-size: 9px; font-weight: 700;
     }
+
+    /* Carries the package into the booking cart, so nothing is re-entered. */
+    .pick {
+      display: block; width: 100%; margin-top: auto; padding-top: 14px;
+      border: 0; background: none; cursor: pointer;
+    }
+    .pick { margin-top: 16px; background: var(--gold); color: #fff; border-radius: 11px;
+      font-family: var(--font-h); font-weight: 800; font-size: 14px; padding: 12px;
+      transition: background .15s ease, transform .15s ease; }
+    .pick:hover { background: var(--gold-deep); transform: translateY(-1px); }
+    .pick.ghost { background: #fff; color: var(--gold-deep); border: 1px solid rgba(201,151,58,.5); }
+    .pick.ghost:hover { background: #FCF7EE; }
     .lines { margin: 10px 0 0; padding: 0; list-style: none; }
     .lines li { font-size: 12.5px; color: var(--sub); display: flex; justify-content: space-between; gap: 10px; }
 
@@ -286,7 +298,7 @@
         + '<ul class="inc">' + items.map((x) => '<li>' + esc(x) + '</li>').join('') + '</ul>';
     }
 
-    function packageCard(p, best) {
+    function packageCard(p, best, idx) {
       const discounted = (p.retail ?? 0) > (p.price ?? 0);
       const hasBoth = (p.includesInterior || []).length && (p.includesExterior || []).length;
       let inc = '';
@@ -315,6 +327,8 @@
               : '')
         +   '<p class="inc-head">What&rsquo;s Included</p>'
         +   inc
+        +   '<button class="pick' + (best ? '' : ' ghost') + '" data-pick="' + idx + '">'
+        +     'Book this' + '</button>'
         + '</div>';
     }
 
@@ -396,7 +410,7 @@
       if (packages.length) {
         if (q.category) html += '<p class="cat">' + esc(q.category) + '</p>';
         html += '<div class="grid">'
-          + packages.map((p, i) => packageCard(p, i === bestIdx)).join('')
+          + packages.map((p, i) => packageCard(p, i === bestIdx, i)).join('')
           + '</div>';
       } else if (q.total) {
         html += '<div class="grid"><div class="card best">'
@@ -447,6 +461,33 @@
 
       document.getElementById('content').innerHTML = html;
       document.getElementById('loading').style.display = 'none';
+
+      // Picking a package carries it into the booking page's cart, so nobody
+      // re-enters a vehicle, a package and a level they already chose here.
+      // Only the address and a time are left to give.
+      document.querySelectorAll('[data-pick]').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          const pkg = packages[Number(btn.dataset.pick)];
+          if (!pkg) return;
+          try {
+            localStorage.setItem('sfac_quote', JSON.stringify({
+              serviceKey: pkg.key,
+              size: q.size || 'mid',
+              serviceName: pkg.label,
+              pkgLabel: q.category || '',
+              // Priced from the catalog, so the booking page can treat it as a
+              // normal service: real duration, real price, real calendar.
+              priced: true,
+              total: pkg.price,
+              addons: [],
+              quoteId: q.id,
+              quoteNumber: q.quoteNumber || '',
+              ts: Date.now(),
+            }));
+          } catch (e) { /* private mode: fall through and book normally */ }
+          location.href = '/booking';
+        });
+      });
     }
 
     load();
