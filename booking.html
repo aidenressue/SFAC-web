@@ -781,6 +781,22 @@
     .btn-book:hover { background: var(--gold-soft); transform: translateY(-2px); box-shadow: 0 12px 40px rgba(212,168,81,.5); }
     .btn-book:disabled { opacity: .5; cursor: default; transform: none; }
 
+    /* ── SMS CONSENT ──
+       Sits under the button because the carriers want the disclosure next to the
+       action it consents to. Small, but never smaller than the rest of the fine
+       print on the page, and the whole block is the label so the tap target is
+       the sentence rather than a 16px box. */
+    .sms-consent {
+      display: flex; align-items: flex-start; gap: .6rem;
+      margin-top: 1rem; padding: .85rem .95rem;
+      background: rgba(255,255,255,.03); border: 1px solid var(--line);
+      border-radius: 12px; cursor: pointer;
+      font-size: .74rem; line-height: 1.55; color: var(--muted);
+    }
+    .sms-consent input { flex-shrink: 0; width: 17px; height: 17px; margin-top: .1rem; accent-color: var(--gold); cursor: pointer; }
+    .sms-consent a { color: var(--gold); text-decoration: underline; }
+    .sms-consent.needed { border-color: var(--red); background: rgba(239,68,68,.06); }
+
     /* ── SUCCESS ── */
     #success-screen {
       display: none; position: fixed; inset: 0; z-index: 500;
@@ -1148,6 +1164,24 @@
           <div id="conf-totals-block" style="margin-bottom:1.25rem;"></div>
 
           <button class="btn-book" id="book-btn" onclick="confirmBooking()">Book Now</button>
+
+          <!-- Express written consent for the A2P 10DLC campaign. It has to be an
+               unchecked box the customer ticks themselves, and the disclosure has
+               to name the sender, say what gets sent, and spell out STOP and HELP.
+               Only transactional messages are listed: consent for marketing cannot
+               be made a condition of booking, so nothing promotional is in scope. -->
+          <label class="sms-consent" for="sms-optin">
+            <input type="checkbox" id="sms-optin" />
+            <span>
+              I agree to receive text messages from Shine for a Cause Mobile Detailing
+              at the number I provided about this booking: appointment confirmation,
+              reminders, day-of arrival updates, and my invoice. Msg &amp; data rates may
+              apply. Message frequency varies. Reply STOP to opt out or HELP for help.
+              See our <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
+              and <a href="/terms-conditions.html" target="_blank" rel="noopener">Terms</a>.
+            </span>
+          </label>
+
           <div id="book-error" style="color:var(--red);font-size:.78rem;text-align:center;margin-top:.75rem;display:none;"></div>
         </div>
       </div>
@@ -2799,6 +2833,8 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
   if (travelFee > 0) notes += `\nTravel fee: $${travelFee}${state.address?.city ? ' (' + state.address.city + ')' : ''}`;
   if (bfr.before || bfr.after) notes += `\nDrive buffer: ${bfr.before} min before, ${bfr.after} min after`;
   if (state.comments) notes += `\nNotes: ${state.comments}`;
+  // Same consent record on the non-Acuity path.
+  if (state.smsConsentAt) notes += `\nSMS consent: opted in on the booking page at ${state.smsConsentAt}`;
 
   // One visit = one booking, however many vehicles. `duration` is the sum of
   // every vehicle with no gap between them; the buffer is reserved only before
@@ -2912,6 +2948,21 @@ async function confirmBooking() {
     errEl.style.display = 'block';
     return;
   }
+
+  // The carriers require proof that this box was ticked by hand, so the booking
+  // does not go through without it and the timestamp rides along with the job.
+  const optIn = document.getElementById('sms-optin');
+  const consentBox = document.querySelector('.sms-consent');
+  if (!optIn.checked) {
+    consentBox.classList.add('needed');
+    errEl.textContent = 'Please agree to receive texts about your appointment so we can confirm it and send your invoice.';
+    errEl.style.display = 'block';
+    consentBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  consentBox.classList.remove('needed');
+  state.smsConsentAt = new Date().toISOString();
+
   state.email = email; state.firstName = first; state.lastName = last; state.phone = phone;
 
   btn.disabled = true;
@@ -2977,6 +3028,9 @@ async function confirmBooking() {
       if (ab.before || ab.after) notes += `\nDrive buffer: block ${ab.before} min before + ${ab.after} min after this job (travel time).`;
       notes += pricingNotes;
       if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
+      // Written into the record so consent can be produced on request, which is
+      // what the carriers ask for if a campaign is ever audited.
+      if (state.smsConsentAt) notes += `\nSMS consent: opted in on the booking page at ${state.smsConsentAt}`;
 
       const payload = {
         appointmentTypeID: item.acuityTypeId,
