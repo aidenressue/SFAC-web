@@ -179,16 +179,21 @@
     }
 
     /* Carries the package into the booking cart, so nothing is re-entered. */
+    /* Gold on every card, not only the recommended one — each package is a real
+       choice and the badge already says which one we suggest.
+       The border is always there, just the same colour as the fill, so the
+       hover state does not shift the button by a pixel. */
     .pick {
-      display: block; width: 100%; margin-top: auto; padding-top: 14px;
-      border: 0; background: none; cursor: pointer;
+      display: block; width: 100%; margin-top: 16px; padding: 12px;
+      background: var(--gold); color: #fff;
+      border: 1px solid var(--gold); border-radius: 11px; cursor: pointer;
+      font-family: var(--font-h); font-weight: 800; font-size: 14px;
+      transition: background .15s ease, color .15s ease, transform .15s ease;
     }
-    .pick { margin-top: 16px; background: var(--gold); color: #fff; border-radius: 11px;
-      font-family: var(--font-h); font-weight: 800; font-size: 14px; padding: 12px;
-      transition: background .15s ease, transform .15s ease; }
-    .pick:hover { background: var(--gold-deep); transform: translateY(-1px); }
-    .pick.ghost { background: #fff; color: var(--gold-deep); border: 1px solid rgba(201,151,58,.5); }
-    .pick.ghost:hover { background: #FCF7EE; }
+    .pick:hover, .pick.ghost:hover {
+      background: #fff; color: var(--gold-deep);
+      border-color: var(--gold); transform: translateY(-1px);
+    }
     .lines { margin: 10px 0 0; padding: 0; list-style: none; }
     .lines li { font-size: 12.5px; color: var(--sub); display: flex; justify-content: space-between; gap: 10px; }
 
