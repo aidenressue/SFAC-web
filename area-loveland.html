@@ -121,13 +121,13 @@
     /* These two sit in the header, so none of the .m-menu a rules below apply. */
     .m-menu .m-book-top {
       flex-shrink:0; background:var(--gold, #C9973A); color:#fff; text-decoration:none;
-      font-family:var(--font-d, inherit); font-weight:800; font-size:.72rem;
-      padding:.5rem .85rem; border-radius:999px; white-space:nowrap; border-bottom:none;
+      font-family:var(--font-d, inherit); font-weight:800; font-size:.95rem;
+      padding:.72rem 1.35rem; border-radius:999px; white-space:nowrap; border-bottom:none;
     }
     .m-menu .m-tel-top {
-      margin-left:auto; flex-shrink:0; font-family:var(--font-d, inherit); font-weight:800;
-      font-size:.78rem; color:var(--ink, #101112); text-decoration:none; white-space:nowrap;
-      padding:0; border-bottom:none;
+      margin-left:auto; margin-right:.7rem; flex-shrink:0; font-family:var(--font-d, inherit);
+      font-weight:800; font-size:.85rem; color:var(--ink, #101112); text-decoration:none;
+      white-space:nowrap; padding:0; border-bottom:none;
     }
     /* Anchors are inline by default. In the old flat menu they were flex
        children so they stacked; inside a panel they flowed two to a row. */
@@ -349,8 +349,8 @@
 <div class="m-menu" id="mMenu">
   <div class="m-menu-top">
     <button class="m-close" id="mClose" aria-label="Close">&times;</button>
-    <a class="m-book-top" href="/booking.html">Book Now</a>
     <a class="m-tel-top" href="tel:+19708516433">(970) 851-6433</a>
+    <a class="m-book-top" href="/booking.html">Book Now</a>
   </div>
   <a href="/" class="m-link">Home</a>
   <button class="m-acc" aria-expanded="false">Services <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="6 9 12 15 18 9"/></svg></button>
@@ -369,7 +369,6 @@
     <a href="/contact.html" class="m-sub">Contact Us</a>
     <a href="/blog.html" class="m-sub">Blog</a>
   </div>
-
 </div>
 
 <header class="area-hero">
