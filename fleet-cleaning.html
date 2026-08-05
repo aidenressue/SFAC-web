@@ -615,7 +615,18 @@
       .svc-overlay { flex-direction:row; align-items:flex-end; justify-content:space-between; gap:.6rem; }
       .svc-overlay .svc-name { margin:0; }
       .svc-overlay .svc-learn { margin:0; flex-shrink:0; font-size:.72rem; }
+
+      /* The photo already reaches the top of the page. What read as black space
+         up there was the scrim, which opened at 50% black over the sky. Eased
+         off so the lot shows all the way up behind the nav. */
+      .fl-hero::after { background:linear-gradient(180deg, rgba(5,5,5,.20) 0%, rgba(5,5,5,.10) 30%, rgba(5,5,5,.14) 60%, rgba(5,5,5,.62) 88%, #050505 100%); }
+      .cc-title { font-size:clamp(2.35rem,9.6vw,3rem); }
     }
+/* The shared `bob` keyframes bake in translateX(-50%). .scroll-cue needs
+       that (it is positioned with left:50%), but .cc-scrollcue is centred by
+       flexbox, so the -50% dragged it half its own width off centre. */
+    @keyframes bob-c { 0%,100% { transform:translateY(0); } 50% { transform:translateY(10px); } }
+    .cc-scrollcue { align-self:center; animation-name:bob-c; }
 </style>
   <script src="/ga.js"></script>
   <script type="application/ld+json">

@@ -418,13 +418,28 @@
       .nav-cta .btn { display:inline-block !important; padding:.6rem 1.1rem !important; font-size:.8rem; }
       /* Side by side, not stacked. Two full-width buttons pushed the scroll cue
          off the first screen. */
-      .hero-ctas, .hero-cta, .cc-hero-cta, .pc-hero-cta { display:flex !important; flex-direction:row !important; flex-wrap:nowrap; gap:.6rem; justify-content:center; }
-      .hero-ctas > *, .hero-cta > *, .cc-hero-cta > *, .pc-hero-cta > * { flex:1 1 0; min-width:0; text-align:center; padding-left:.6rem !important; padding-right:.6rem !important; font-size:.82rem !important; white-space:nowrap; }
+      .hero-ctas, .hero-cta, .cc-hero-cta, .pc-hero-cta, .mt-hero-cta { display:flex !important; flex-direction:row !important; flex-wrap:nowrap; gap:.6rem; justify-content:center; }
+      .hero-ctas > *, .hero-cta > *, .cc-hero-cta > *, .pc-hero-cta > *, .mt-hero-cta > * { flex:1 1 0; min-width:0; text-align:center; padding-left:.6rem !important; padding-right:.6rem !important; font-size:.82rem !important; white-space:nowrap; }
       /* Name and Learn More on one line, so the label stops eating half the
          picture on each of the four service tiles. */
       .svc-overlay { flex-direction:row; align-items:flex-end; justify-content:space-between; gap:.6rem; }
       .svc-overlay .svc-name { margin:0; }
       .svc-overlay .svc-learn { margin:0; flex-shrink:0; font-size:.72rem; }
+
+      /* The hero was a full screen tall for a landscape photo, so cover scaled
+         it to 1742px wide and only about a fifth of the car was ever on screen.
+         Sized to its content and switched to contain, the whole car shows. */
+      .mt-hero, .mt-hero-inner { min-height:0 !important; }
+      .mt-hero-inner { padding:11rem 1.25rem 1.6rem; }
+      .mt-title { font-size:clamp(2.5rem,11.5vw,3.1rem); }
+      /* The band is 390x218, the photo's own 1376x768 aspect, so nothing is
+         cropped and nothing is letterboxed. It sits under the title rather than
+         behind it, and .mt-hero-top reserves the room so the buttons clear it. */
+      .mt-hero-bg { inset:auto 0 auto 0; top:288px; height:218px; }
+      .mt-hero-top { margin-bottom:260px; }
+      /* The scrim was tuned for a full-bleed photo. Over a band it only greys
+         the empty space above and below. */
+      .mt-hero::after { background:linear-gradient(180deg, rgba(5,5,5,.35) 0%, rgba(5,5,5,.10) 34%, transparent 64%); }
     }
 </style>
   <script src="/ga.js"></script>
