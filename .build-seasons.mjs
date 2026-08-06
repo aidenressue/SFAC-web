@@ -1,10 +1,13 @@
 // Builds the maintenance hero: two seasonal photos side by side with a thin
-// divider, each under a hanging wall calendar (June on the left, January on the
-// right).
+// divider, each carrying a small wall calendar pinned into its top right corner.
 //
 // The calendars are drawn here rather than generated, because image models
 // garble date grids: wrong weekday alignment, repeated numbers, 32-day months.
 // These come from the real 2026 calendar, so they are simply correct.
+//
+// The card is sized so the month name survives being scaled down to a phone:
+// at 390px wide each panel is only ~195px, so the month is set large relative
+// to the panel and the date grid is allowed to become texture.
 //
 //   node .build-seasons.mjs <summer.jpg> <winter.jpg> [out.jpg]
 
@@ -17,10 +20,7 @@ if (!summer || !winter) {
   process.exit(1);
 }
 
-/** Each photo is square, so the pair lands near 2:1 before the calendars. */
-const HALF = 900;
-const PHOTO_H = 900;
-const CAL_H = 420;
+const PANEL = 1024;      // native size of the source images, so nothing is resampled
 const DIVIDER = 6;
 
 const dataUri = (p) => {
@@ -41,57 +41,55 @@ function monthGrid(year, month) {
   return rows;
 }
 
-const calendar = (label, year, month) => `
-      <div class="calbar">
-        <div class="cal">
-          <div class="cal-rings"><i></i><i></i><i></i><i></i><i></i></div>
-          <div class="cal-month">${label}</div>
-          <table>
-            <thead><tr>${['S','M','T','W','T','F','S'].map(d => `<th>${d}</th>`).join('')}</tr></thead>
-            <tbody>${monthGrid(year, month)
-              .map(r => `<tr>${r.map(d => `<td>${d ?? ''}</td>`).join('')}</tr>`).join('')}</tbody>
-          </table>
-        </div>
-      </div>`;
-
-const column = (label, year, month, photo) => `
-    <div class="col">
-      ${calendar(label, year, month)}
-      <img class="photo" src="${dataUri(photo)}">
+const panel = (label, year, month, photo) => `
+    <div class="panel">
+      <img src="${dataUri(photo)}">
+      <div class="cal">
+        <div class="cal-rings"><i></i><i></i><i></i></div>
+        <div class="cal-month">${label}</div>
+        <table>
+          <thead><tr>${['S','M','T','W','T','F','S'].map(d => `<th>${d}</th>`).join('')}</tr></thead>
+          <tbody>${monthGrid(year, month)
+            .map(r => `<tr>${r.map(d => `<td>${d ?? ''}</td>`).join('')}</tr>`).join('')}</tbody>
+        </table>
+      </div>
     </div>`;
 
 const html = `<style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { width:${HALF * 2 + DIVIDER}px; background:#fff;
+  body { width:${PANEL * 2 + DIVIDER}px; background:#000;
          font-family:'Archivo','Helvetica Neue',Arial,sans-serif; }
-  .wrap { display:flex; align-items:stretch; width:${HALF * 2 + DIVIDER}px; }
-  .col { width:${HALF}px; }
+  .wrap { display:flex; width:${PANEL * 2 + DIVIDER}px; }
+  .panel { position:relative; width:${PANEL}px; height:${PANEL}px; overflow:hidden; }
+  .panel img { width:100%; height:100%; object-fit:cover; display:block; }
   .rule { width:${DIVIDER}px; background:#101112; }
-  .calbar { height:${CAL_H}px; display:flex; align-items:center; justify-content:center;
-            background:#F4F3F0; }
-  .cal { width:440px; background:#fff; border:1px solid #DED9CF; border-radius:10px;
-         padding:26px 26px 22px; position:relative;
-         box-shadow:0 10px 30px rgba(16,17,18,.13); }
-  .cal-rings { position:absolute; top:-11px; left:0; right:0;
-               display:flex; justify-content:center; gap:52px; }
-  .cal-rings i { width:13px; height:22px; border-radius:7px;
-                 background:linear-gradient(180deg,#C9CBCE,#8C9095); display:block; }
-  .cal-month { text-align:center; font-size:44px; font-weight:800; letter-spacing:-.02em;
-               color:#101112; margin:6px 0 16px; }
+
+  /* Pinned into the corner of the photo, no band of its own. */
+  .cal {
+    position:absolute; top:40px; right:40px; width:372px;
+    background:rgba(255,255,255,.94); border-radius:14px;
+    padding:22px 20px 18px; backdrop-filter:blur(2px);
+    box-shadow:0 14px 40px rgba(0,0,0,.34);
+  }
+  .cal-rings { position:absolute; top:-9px; left:0; right:0;
+               display:flex; justify-content:center; gap:84px; }
+  .cal-rings i { width:11px; height:18px; border-radius:6px;
+                 background:linear-gradient(180deg,#E2E4E7,#9AA0A6); display:block; }
+  .cal-month { text-align:center; font-size:74px; font-weight:800; letter-spacing:-.02em;
+               line-height:1; color:#101112; margin:2px 0 14px; }
   table { width:100%; border-collapse:collapse; }
-  th { font-size:17px; font-weight:800; color:#A87B27; padding-bottom:10px; letter-spacing:.06em; }
-  td { height:46px; text-align:center; font-size:21px; font-weight:600; color:#2B2D30; }
-  .photo { width:${HALF}px; height:${PHOTO_H}px; object-fit:cover; display:block; }
+  th { font-size:16px; font-weight:800; color:#A87B27; padding-bottom:6px; letter-spacing:.04em; }
+  td { height:32px; text-align:center; font-size:17px; font-weight:600; color:#3A3D42; }
 </style>
 <div class="wrap">
-${column('June', 2026, 6, summer)}
+${panel('June', 2026, 6, summer)}
   <div class="rule"></div>
-${column('January', 2026, 1, winter)}
+${panel('January', 2026, 1, winter)}
 </div>`;
 
 const b = await puppeteer.launch({ headless: 'shell' });
 const p = await b.newPage();
-await p.setViewport({ width: HALF * 2 + DIVIDER, height: PHOTO_H + CAL_H });
+await p.setViewport({ width: PANEL * 2 + DIVIDER, height: PANEL });
 await p.setContent(html, { waitUntil: 'networkidle0' });
 await new Promise(r => setTimeout(r, 300));
 await (await p.$('.wrap')).screenshot({ path: out, quality: 92, type: 'jpeg' });

@@ -159,8 +159,11 @@
 
     /* Hero */
     .mt-hero { position:relative; min-height:calc(100vh + 128px); margin-top:-128px; overflow:hidden; background:#050505; }
-    .mt-hero-bg { display:block; width:min(880px, 100%); height:auto; margin:2.2rem auto 3rem;
-                  border-radius:16px; box-shadow:0 18px 60px rgba(0,0,0,.45); }
+    /* The picture sits inside .mt-hero-inner, which is a centred 820px column with
+       side padding. This breaks it back out to the full width of the hero so there
+       is no black gutter down either side. .mt-hero already clips overflow. */
+    .mt-hero-bg { display:block; width:100vw; max-width:none; height:auto;
+                  margin-left:50%; transform:translateX(-50%); }
     .mt-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, rgba(5,5,5,.58) 0%, rgba(5,5,5,.22) 34%, transparent 64%); }
     .mt-hero-cta .btn-ghost-d { background:rgba(23,24,26,.82); border:1px solid rgba(255,255,255,.18); color:#fff; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
     .mt-hero-cta .btn-ghost-d:hover { background:rgba(23,24,26,.95); }
@@ -183,8 +186,6 @@
       .mt-hero, .mt-hero-inner { min-height:0; }
       .mt-hero-inner { padding:9.5rem 1.5rem 2.5rem; }
       .mt-hero-cta { margin-top:0; }
-      /* Tuned for a full-bleed photo; over a framed one it only greys the page. */
-      .mt-hero::after { background:linear-gradient(180deg, rgba(5,5,5,.25) 0%, transparent 40%); }
     }
 
     .mt-stat strong { display:block; font-family:var(--font-d); font-weight:900; font-size:2rem; color:var(--gold); letter-spacing:-.02em; }
@@ -444,13 +445,15 @@
       /* The hero was a full screen tall for a landscape photo, so cover scaled
          it to 1742px wide and only about a fifth of the car was ever on screen.
          Sized to its content and switched to contain, the whole car shows. */
+      /* Sized to its content. Stretching this to 100svh only opened big black
+         gaps above and below the picture: a two-panel side-by-side is a wide
+         shape and cannot fill a tall screen without cropping the cars away. */
       .mt-hero, .mt-hero-inner { min-height:0 !important; }
-      .mt-hero-inner { padding:11rem 1.25rem 1.6rem; }
+      .mt-hero-inner { padding:8.5rem 1.25rem 2rem; }
       .mt-title { font-size:clamp(2.5rem,11.5vw,3.1rem); }
       /* The band is 390x218, the photo's own 1376x768 aspect, so nothing is
          cropped and nothing is letterboxed. It sits under the title rather than
          behind it, and .mt-hero-top reserves the room so the buttons clear it. */
-      .mt-hero-bg { margin:1.5rem auto 2rem; border-radius:12px; }
       .mt-hero-cta { margin-top:0; }
       /* The scrim was tuned for a full-bleed photo. Over a band it only greys
          the empty space above and below. */
