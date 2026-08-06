@@ -71,8 +71,8 @@ const html = `<style>
   /* Pinned into the corner of the photo, no band of its own. */
   .cal {
     position:absolute; top:250px; right:34px; width:330px;
-    background:rgba(255,255,255,.94); border-radius:14px;
-    padding:22px 20px 18px; backdrop-filter:blur(2px);
+    background:#fff; border-radius:14px;
+    padding:22px 20px 18px;
     box-shadow:0 14px 40px rgba(0,0,0,.34);
   }
   .cal-rings { position:absolute; top:-9px; left:0; right:0;
