@@ -20,7 +20,11 @@ if (!summer || !winter) {
   process.exit(1);
 }
 
-const PANEL = 1024;      // native size of the source images, so nothing is resampled
+// Panels are cropped from the square sources to 3:4. That makes the pair a
+// 1.5:1 strip instead of 2:1, which is the tallest it goes before the crop
+// starts eating the back end of the Broncos. 9:16 was tried and cut both.
+const PANEL_W = 768;
+const PANEL_H = 1024;
 const DIVIDER = 6;
 
 const dataUri = (p) => {
@@ -57,16 +61,16 @@ const panel = (label, year, month, photo) => `
 
 const html = `<style>
   * { margin:0; padding:0; box-sizing:border-box; }
-  body { width:${PANEL * 2 + DIVIDER}px; background:#000;
+  body { width:${PANEL_W * 2 + DIVIDER}px; background:#000;
          font-family:'Archivo','Helvetica Neue',Arial,sans-serif; }
-  .wrap { display:flex; width:${PANEL * 2 + DIVIDER}px; }
-  .panel { position:relative; width:${PANEL}px; height:${PANEL}px; overflow:hidden; }
+  .wrap { display:flex; width:${PANEL_W * 2 + DIVIDER}px; }
+  .panel { position:relative; width:${PANEL_W}px; height:${PANEL_H}px; overflow:hidden; }
   .panel img { width:100%; height:100%; object-fit:cover; display:block; }
   .rule { width:${DIVIDER}px; background:#101112; }
 
   /* Pinned into the corner of the photo, no band of its own. */
   .cal {
-    position:absolute; top:40px; right:40px; width:372px;
+    position:absolute; top:250px; right:34px; width:330px;
     background:rgba(255,255,255,.94); border-radius:14px;
     padding:22px 20px 18px; backdrop-filter:blur(2px);
     box-shadow:0 14px 40px rgba(0,0,0,.34);
@@ -89,7 +93,7 @@ ${panel('January', 2026, 1, winter)}
 
 const b = await puppeteer.launch({ headless: 'shell' });
 const p = await b.newPage();
-await p.setViewport({ width: PANEL * 2 + DIVIDER, height: PANEL });
+await p.setViewport({ width: PANEL_W * 2 + DIVIDER, height: PANEL_H });
 await p.setContent(html, { waitUntil: 'networkidle0' });
 await new Promise(r => setTimeout(r, 300));
 await (await p.$('.wrap')).screenshot({ path: out, quality: 92, type: 'jpeg' });

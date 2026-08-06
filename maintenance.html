@@ -159,11 +159,15 @@
 
     /* Hero */
     .mt-hero { position:relative; min-height:calc(100vh + 128px); margin-top:-128px; overflow:hidden; background:#050505; }
-    /* The picture sits inside .mt-hero-inner, which is a centred 820px column with
-       side padding. This breaks it back out to the full width of the hero so there
-       is no black gutter down either side. .mt-hero already clips overflow. */
-    .mt-hero-bg { display:block; width:100vw; max-width:none; height:auto;
-                  margin-left:50%; transform:translateX(-50%); }
+    /* The picture IS the hero: it fills the section edge to edge and the headline
+       and buttons sit over it, so there is no black band anywhere around it. */
+    .mt-hero-bg { position:absolute; inset:0; width:100%; height:100%;
+                  object-fit:cover; object-position:center; z-index:0; }
+    /* Just enough darkening top and bottom to keep white text legible over a
+       bright summer sky and a pale concrete driveway. */
+    .mt-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:linear-gradient(180deg, rgba(5,5,5,.62) 0%, rgba(5,5,5,.12) 26%,
+                                 rgba(5,5,5,0) 45%, rgba(5,5,5,.20) 68%, rgba(5,5,5,.68) 100%); }
     .mt-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none; background:linear-gradient(180deg, rgba(5,5,5,.58) 0%, rgba(5,5,5,.22) 34%, transparent 64%); }
     .mt-hero-cta .btn-ghost-d { background:rgba(23,24,26,.82); border:1px solid rgba(255,255,255,.18); color:#fff; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
     .mt-hero-cta .btn-ghost-d:hover { background:rgba(23,24,26,.95); }
@@ -183,8 +187,9 @@
        buttons under that. The width is capped because the composite is 1.368:1
        and a full-bleed 1440px version would stand over 1000px tall on its own. */
     @media (min-width: 721px) {
-      .mt-hero, .mt-hero-inner { min-height:0; }
-      .mt-hero-inner { padding:9.5rem 1.5rem 2.5rem; }
+      .mt-hero { min-height:0; aspect-ratio:1542 / 1024; }
+      .mt-hero-inner { min-height:0; height:100%; padding:9rem 1.5rem 3rem;
+                       justify-content:space-between; }
       .mt-hero-cta { margin-top:0; }
     }
 
@@ -445,11 +450,21 @@
       /* The hero was a full screen tall for a landscape photo, so cover scaled
          it to 1742px wide and only about a fifth of the car was ever on screen.
          Sized to its content and switched to contain, the whole car shows. */
-      /* Sized to its content. Stretching this to 100svh only opened big black
-         gaps above and below the picture: a two-panel side-by-side is a wide
-         shape and cannot fill a tall screen without cropping the cars away. */
-      .mt-hero, .mt-hero-inner { min-height:0 !important; }
-      .mt-hero-inner { padding:8.5rem 1.25rem 2rem; }
+      /* The picture cannot carry the text on a phone. At 390px wide the strip is
+         only 259px tall and the nav bubble alone covers half of it; forcing the
+         hero taller crops 24% off the sides, which eats the work truck on the
+         left and the January calendar on the right. So on a phone the headline
+         and buttons sit above and below it instead, and the picture still runs
+         edge to edge. Flexbox order puts it between them: it is a child of the
+         hero, not of the text column. */
+      .mt-hero { display:flex; flex-direction:column; min-height:0 !important;
+                 height:auto; aspect-ratio:auto; }
+      .mt-hero-inner { display:contents; }
+      .mt-hero-top { order:1; padding:7.5rem 1.25rem 1.1rem; }
+      .mt-hero-bg { order:2; position:static; inset:auto; width:100%; height:auto;
+                    object-fit:fill; }
+      .mt-hero-cta { order:3; padding:1.1rem 1.25rem 1.4rem; }
+      .mt-hero::after { display:none; }
       .mt-title { font-size:clamp(2.5rem,11.5vw,3.1rem); }
       /* The band is 390x218, the photo's own 1376x768 aspect, so nothing is
          cropped and nothing is letterboxed. It sits under the title rather than
@@ -609,14 +624,13 @@
 
 <!-- ═══ HERO ═══ -->
 <header class="mt-hero" id="home">
+  <!-- Direct child of the hero, not of .mt-hero-inner: inset:0 has to resolve
+       against the full-width hero, not the centred 820px text column. -->
+  <img class="mt-hero-bg" src="web.screenshots/mt-hero-seasons.jpg" alt="The same Ford Bronco being foamed down on a driveway in June and again in January, showing year round service" />
   <div class="mt-hero-inner">
     <div class="mt-hero-top">
       <h1 class="mt-title">Maintenance Plans</h1>
     </div>
-    <!-- In normal flow between the title and the buttons. It used to be an
-         absolutely positioned backdrop with text over it, which stopped working
-         once the picture had its own composition to protect. -->
-    <img class="mt-hero-bg" src="web.screenshots/mt-hero-seasons.jpg" alt="The same Ford Bronco being foamed down on a driveway in June and again in January, showing year round service" />
     <div class="mt-hero-cta">
       <a href="#plans" class="btn btn-gold">See the Plans &rarr;</a>
       <a href="#contact" class="btn btn-ghost-d">Contact Us</a>
