@@ -152,7 +152,9 @@
       letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
     }
     .price { font-family: var(--font-h); font-size: 30px; font-weight: 900; letter-spacing: -.02em; }
-    .was { color: var(--muted); text-decoration: line-through; font-size: 14px; margin-left: 7px; font-weight: 600; }
+    /* Struck through in red so the saving reads as a saving, not as small print. */
+    .was { color: #DC2626; text-decoration: line-through; text-decoration-color: #DC2626;
+           text-decoration-thickness: 2px; font-size: 15px; margin-left: 7px; font-weight: 700; }
 
     .inc-head {
       margin: 14px 0 8px; padding-bottom: 6px;

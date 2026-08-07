@@ -515,6 +515,13 @@
     .cqb-total { max-width:400px; margin:1.2rem auto 0; padding-top:1.1rem; border-top:1px solid rgba(255,255,255,.12); display:flex; justify-content:space-between; align-items:baseline; }
     .cqb-total span { font-family:var(--font-d); font-weight:800; font-size:.95rem; color:#fff; }
     .cqb-total strong { font-family:var(--font-d); font-weight:900; font-size:1.9rem; color:var(--gold); letter-spacing:-.02em; }
+    /* Sale pricing on a dark panel: old figure struck through in red, new in gold.
+       These beat `.cqb-total span`, which would otherwise shrink them to label size. */
+    .cqb-total .was, .cqb-total span.was {
+      color:#F2555A; text-decoration:line-through; text-decoration-color:#F2555A;
+      text-decoration-thickness:2px; font-size:1.15rem; font-weight:700; margin-right:.3rem; }
+    .cqb-total .now, .cqb-total span.now {
+      color:var(--gold); font-weight:900; font-size:1.9rem; letter-spacing:-.02em; }
     .cqb-note { max-width:440px; margin:1.1rem auto 0; font-size:.78rem; color:#84878C; line-height:1.6; }
     .cqb-cta { display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; align-items:center; margin-top:1.8rem; }
     @media (max-width:640px) { .cqb { padding:1.9rem 1.3rem; } .cqb-opts.cols-2, .cqb-opts.cols-3 { grid-template-columns:1fr; } }
@@ -1474,12 +1481,20 @@
     }
 
     var PREP_PRICES = {
-      'polish':   { small: 300,  mid: 350,  large: 400,  van: 500  },
-      'one-step': { small: 610,  mid: 720,  large: 830,  van: 990  },
-      'two-step': { small: 1000, mid: 1150, large: 1300, van: 1500 }
+      'polish':   { small: 449,  mid: 499,  large: 549,  van: 649  },
+      'one-step': { small: 699,  mid: 749,  large: 799,  van: 899  },
+      'two-step': { small: 1500, mid: 1700, large: 1900, van: 2200 }
     };
-    // crystal (2 Year) is tuned so "2 Year + Polish" lands on the flat entry price:
-    // $599 for small/mid/large and $699 for van (only the combined total is shown).
+    // Live promotions. "2 Year + Polish" is held at the old entry price while the
+    // list price moves up around it, so the old figure is shown struck through.
+    var SALE_PRICES = {
+      crystal: { polish: { small: 599, mid: 599, large: 599, van: 699 } }
+    };
+    function salePrice(coating, prep, size) {
+      var c = SALE_PRICES[coating]; if (!c) return null;
+      var pr = c[prep]; if (!pr) return null;
+      return pr[size] != null ? pr[size] : null;
+    }
     var COATING_PRICES = {
       crystal: { small: 299, mid: 249, large: 199, van: 199 },
       pro:     { small: 390, mid: 500, large: 610, van: 660 },
@@ -1532,17 +1547,29 @@
     function result() {
       var prep = PREP_PRICES[state.prep][state.size];
       var coat = COATING_PRICES[state.coating][state.size];
-      var total = prep + coat;
+      var listBase = prep + coat;
+      var sale = salePrice(state.coating, state.prep, state.size);
+      var onSale = sale !== null && sale < listBase;
+      var base = onSale ? sale : listBase;
+      var addonTotal = 0;
       var lines =
         '<div class="cqb-line"><span class="lbl">Vehicle</span><span class="val">' + SIZE_LABELS[state.size] + '</span></div>' +
         '<div class="cqb-line"><span class="lbl">Paint Correction</span><span class="val">' + PREP_LABELS[state.prep] + '</span></div>' +
         '<div class="cqb-line"><span class="lbl">Ceramic Coating</span><span class="val">' + COAT_LABELS[state.coating] + '</span></div>';
       ['glass','wheel'].forEach(function (k) {
-        if (state[k]) { total += ADDON_PRICES[k]; lines += '<div class="cqb-line"><span class="lbl">' + ADDON_LABELS[k] + '</span><span class="val">Included</span></div>'; }
+        if (state[k]) { addonTotal += ADDON_PRICES[k]; lines += '<div class="cqb-line"><span class="lbl">' + ADDON_LABELS[k] + '</span><span class="val">Included</span></div>'; }
       });
       document.getElementById('cqbRec').textContent = COAT_LABELS[state.coating] + ' on a ' + SIZE_LABELS[state.size] + ' vehicle';
       document.getElementById('cqbLines').innerHTML = lines;
-      document.getElementById('cqbTotal').textContent = fmt(total);
+      // Add-ons are extra coatings, never part of the sale, so they land on
+      // both figures and the saving stays exactly the discount on the package.
+      var total = base + addonTotal;
+      var totalEl = document.getElementById('cqbTotal');
+      if (onSale) {
+        totalEl.innerHTML = '<s class="was">' + fmt(listBase + addonTotal) + '</s> <span class="now">' + fmt(total) + '</span>';
+      } else {
+        totalEl.textContent = fmt(total);
+      }
       goForward(5);
     }
 

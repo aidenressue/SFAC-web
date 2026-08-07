@@ -353,6 +353,10 @@
     .pkg-price { font-family:var(--font-d); margin-bottom:1.3rem; }
     .pkg-price .from { display:block; font-size:.68rem; font-weight:600; color:var(--muted); text-transform:uppercase; letter-spacing:.1em; margin-bottom:.15rem; }
     .pkg-price .amt { font-size:2.3rem; font-weight:900; letter-spacing:-.03em; color:var(--ink); }
+    /* Sale pricing: old figure struck through in red, discounted figure in ink. */
+    .pkg-price .was { color:#DC2626; text-decoration:line-through; text-decoration-color:#DC2626;
+                      text-decoration-thickness:2.5px; font-size:1.5rem; font-weight:800; margin-right:.15em; }
+    .pkg-price .now { color:var(--ink); font-weight:900; }
     .pkg-inc { margin-bottom:1.6rem; }
     .pkg-inc.two { display:grid; grid-template-columns:1fr 1fr; gap:1.3rem 1.2rem; }
     .pkg-inc-head { font-family:var(--font-d); font-size:.78rem; font-weight:800; letter-spacing:.12em; text-transform:uppercase; color:var(--ink); margin-bottom:.7rem; padding-bottom:.4rem; border-bottom:1px solid var(--line); }
@@ -1104,7 +1108,7 @@
         <div class="pkg-card-img"><span>Image coming soon</span><img src="web.screenshots/pkg-ext-ceramic.jpg" alt="Gloved detailer applying ceramic coating to a white Porsche 911 under a canopy" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Ceramic Coating</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$599</span></div>
+          <div class="pkg-price"><span class="from">Starting at</span><span class="amt"><s class="was">$748</s> <span class="now">$599</span></span></div>
           <div class="pkg-inc">
             <div class="pkg-inc-head">What's Included</div>
             <ul class="pkg-list">

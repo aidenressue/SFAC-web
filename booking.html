@@ -594,6 +594,14 @@
     .cart-item-header { display: flex; justify-content: space-between; align-items: flex-start; }
     .cart-item-name { font-family: var(--fh); font-weight: 700; font-size: .88rem; color: var(--text); }
     .cart-item-price { font-family: var(--fh); font-weight: 800; font-size: .95rem; color: var(--gold); }
+    /* Sale pricing: the old figure struck through in red, the new one in gold. */
+    .was { color: var(--red, #EF4444); text-decoration: line-through;
+           text-decoration-color: var(--red, #EF4444); text-decoration-thickness: 2px;
+           font-weight: 700; opacity: .95; margin-right: .18em; }
+    /* Beats `.tier-price span`, which would otherwise render the sale price
+       small and muted: the discounted figure has to be the prominent one. */
+    .now, .tier-price span.now, .cer-foot-total .now, .cart-item-price .now {
+      color: var(--gold); font-weight: 900; font-size: inherit; }
     .cart-item-vehicle { font-size: .75rem; color: var(--muted); }
     .cart-item-addons { font-size: .73rem; color: var(--muted2); margin-top: .2rem; }
     .cart-item-remove {
@@ -1335,7 +1343,7 @@ const SERVICE_CONFIGS = {
     img: 'web.screenshots/pc-guide-faded-new.jpg', condition: 'Lightly faded paint',
     description: 'A single machine polish stage that restores gloss to your paint and removes up to 10% of light scratches and swirls. It brings back depth and clarity, and it makes the ideal prep before a ceramic coating.',
     bullets: ['Full wash & decontamination', 'Single-stage machine polish', 'Restores gloss, depth & clarity', 'Removes up to 10% of light swirls', 'Great refresh or ceramic prep'],
-    pricing: { small:300, mid:350, large:400, van:500 },
+    pricing: { small:449, mid:499, large:549, van:649 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
@@ -1344,7 +1352,7 @@ const SERVICE_CONFIGS = {
     img: 'web.screenshots/pc-guide-1step.jpg', condition: 'Scratches & swirls',
     description: 'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
     bullets: ['Full wash & decontamination', 'Single-stage machine correction', 'Removes 65 to 70% of scratches & swirls', 'Deep, reflective showroom gloss', 'Premium finish, sealed'],
-    pricing: { small:610, mid:720, large:830, van:990 },
+    pricing: { small:699, mid:749, large:799, van:899 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
@@ -1353,7 +1361,7 @@ const SERVICE_CONFIGS = {
     img: 'web.screenshots/pc-guide-swirls.jpg', condition: 'Deep defects',
     description: 'Our highest level of paint correction, with two full stages of compounding and polishing. They cut through even the deepest defects, leaving a showroom shine and paint that is about as close to perfect as it gets.',
     bullets: ['Full wash & decontamination', 'Two-stage compound cut + fine polish', 'Removes deep scratches & oxidation', 'Maximum gloss restoration', 'Premium finish, sealed'],
-    pricing: { small:1000, mid:1150, large:1300, van:1500 },
+    pricing: { small:1500, mid:1700, large:1900, van:2200 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
@@ -1363,7 +1371,7 @@ const SERVICE_CONFIGS = {
     label: '2 Year Shield', packageType: 'ceramic', tier: '2yr',
     description: 'A System X 9H ceramic coating with a 2 year warranty, applied over a full gloss-boosting polish. Deep gloss, extreme water beading, and UV protection.',
     bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'System X 9H ceramic coating', '2 year full warranty', 'Extreme hydrophobics & UV protection'],
-    pricing: { small:599, mid:599, large:599, van:699 },
+    pricing: { small:748, mid:748, large:748, van:848 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: []
   },
@@ -1371,7 +1379,7 @@ const SERVICE_CONFIGS = {
     label: '6 Year Armor', packageType: 'ceramic', tier: '6yr',
     description: 'A thicker, multi-layer System X coating with a 6 year warranty and stronger chemical resistance, applied over a full gloss-boosting polish.',
     bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'Multi-layer System X coating', '6 year full warranty', 'Stronger chemical & etch resistance'],
-    pricing: { small:690, mid:850, large:1010, van:1160 },
+    pricing: { small:839, mid:999, large:1159, van:1309 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: []
   },
@@ -1379,7 +1387,7 @@ const SERVICE_CONFIGS = {
     label: 'Lifetime Diamond', packageType: 'ceramic', tier: 'life',
     description: 'Our maximum-durability System X coating with a lifetime warranty and a free first annual inspection, applied over a full gloss-boosting polish.',
     bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'Maximum-thickness System X coating', 'Lifetime warranty', 'Free first annual inspection'],
-    pricing: { small:740, mid:900, large:1060, van:1330 },
+    pricing: { small:889, mid:1049, large:1209, van:1479 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: []
   },
@@ -1402,17 +1410,33 @@ const CERAMIC_PREP = [
   { key:'polish',   label:'Polish', tagline:'Included with every coating', condition:'Lightly faded paint',
     img:'web.screenshots/pc-guide-faded-new.jpg',
     desc:'A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls. It brings back the depth and clarity that daily driving and washing dull down over time, and sets up a flawless surface before the coating goes on.',
-    price:{ small:300, mid:350, large:400, van:500 },  dur:{ small:240, mid:260, large:280, van:300 } },
+    price:{ small:449, mid:499, large:549, van:649 },  dur:{ small:240, mid:260, large:280, van:300 } },
   { key:'one-step', label:'1-Step Correction', tagline:'Most popular', condition:'Scratches & swirls',
     img:'web.screenshots/pc-guide-1step.jpg',
     desc:'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
-    price:{ small:610, mid:720, large:830, van:990 },  dur:{ small:330, mid:350, large:370, van:390 } },
+    price:{ small:699, mid:749, large:799, van:899 },  dur:{ small:330, mid:350, large:370, van:390 } },
   { key:'two-step', label:'2-Step Correction', tagline:'Maximum correction', condition:'Deep defects',
     img:'web.screenshots/pc-guide-swirls.jpg',
     desc:'Two full stages of compounding and polishing that cut through even the deepest scratches and oxidation, leaving a showroom shine and paint that is about as close to perfect as it gets.',
-    price:{ small:1000, mid:1150, large:1300, van:1500 }, dur:{ small:450, mid:475, large:500, van:525 } },
+    price:{ small:1500, mid:1700, large:1900, van:2200 }, dur:{ small:450, mid:475, large:500, van:525 } },
 ];
 function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
+
+// Live promotions. A sale holds one coating + correction combination at its old
+// price while the list price moves up around it, so the saving is real and the
+// old figure is shown struck through rather than the price just being lower.
+const CERAMIC_SALES = [
+  { coating:'2yr', prep:'polish', price:{ small:599, mid:599, large:599, van:699 } },
+];
+function ceramicSalePrice(coatingKey, prepKey, size) {
+  const s = CERAMIC_SALES.find(x => x.coating === coatingKey && x.prep === prepKey);
+  return s ? (s.price[size] ?? null) : null;
+}
+/** "$599" on its own, or the list price struck through beside the sale price. */
+function priceWithSale(listPrice, salePrice) {
+  if (salePrice === null || salePrice >= listPrice) return `$${listPrice}`;
+  return `<s class="was">$${listPrice}</s> <span class="now">$${salePrice}</span>`;
+}
 
 const ADDON_DEFS = {
   headlight: { id:6906837, name:'Headlight Restoration', price:65, duration:40, desc:'Restore clarity to cloudy, yellowed headlights — improves night visibility.' },
@@ -2021,7 +2045,7 @@ function renderCeramicStep() {
         <div class="tier-name">${c.label}</div>
         <div class="tier-tagline">${c.desc}</div>
         <div class="tinc"><ul class="tinc-list">${feats}</ul>${moreBtn}</div>
-        <div class="tier-price">$${base}<span> · with polish</span></div>
+        <div class="tier-price">${priceWithSale(base, ceramicSalePrice(c.key, 'polish', size))}<span> · with polish</span></div>
       </div>`;
   }).join('');
 
@@ -2057,10 +2081,11 @@ function renderCeramicStep() {
   if (state.ceramicCoating && state.ceramicPrep) {
     const coating = CERAMIC_COATINGS.find(c => c.key === state.ceramicCoating);
     const prep = CERAMIC_PREP.find(p => p.key === state.ceramicPrep);
-    const total = (coating.coating[size] || 0) + (prep.price[size] || 0);
+    const listTotal = (coating.coating[size] || 0) + (prep.price[size] || 0);
+    const saleTotal = ceramicSalePrice(coating.key, prep.key, size);
     footHtml = `
       <div class="cer-foot" id="cer-foot">
-        <div class="cer-foot-total"><span>Total</span> $${total}</div>
+        <div class="cer-foot-total"><span>Total</span> ${priceWithSale(listTotal, saleTotal)}</div>
         <button class="btn-cart" onclick="addCeramicToCart()">Add to Cart</button>
       </div>`;
   }
@@ -2096,7 +2121,10 @@ function addCeramicToCart() {
   const coating = CERAMIC_COATINGS.find(c => c.key === state.ceramicCoating);
   const prep = CERAMIC_PREP.find(p => p.key === state.ceramicPrep);
   if (!coating || !prep) return;
-  const price = (coating.coating[size] || 0) + (prep.price[size] || 0);
+  const listPrice = (coating.coating[size] || 0) + (prep.price[size] || 0);
+  // The sale is what actually gets charged, not just what gets shown.
+  const salePrice = ceramicSalePrice(coating.key, prep.key, size);
+  const price = (salePrice !== null && salePrice < listPrice) ? salePrice : listPrice;
   const vt = VEHICLE_TYPES.find(v => v.key === size);
   const label = `${coating.label} + ${prep.label}`;
 
@@ -2107,6 +2135,7 @@ function addCeramicToCart() {
     label,
     addons: {},
     price,
+    listPrice: price < listPrice ? listPrice : null,
     custom: false,
     acuityTypeId: 0,
     ceramicCoating: coating.key,
@@ -2291,7 +2320,11 @@ function addToCart() {
 }
 
 // Carried quotes for larger vehicles have no set price yet — show "Custom".
-function itemPriceStr(item) { return item.custom ? 'Custom' : `$${item.price}`; }
+function itemPriceStr(item) {
+  if (item.custom) return 'Custom';
+  return item.listPrice ? `<s class="was">$${item.listPrice}</s> <span class="now">$${item.price}</span>`
+                        : `$${item.price}`;
+}
 function cartHasCustom() { return state.cart.some(i => i.custom); }
 function cartSubtotalStr() {
   const sum = state.cart.reduce((s, i) => s + (i.custom ? 0 : i.price), 0);
