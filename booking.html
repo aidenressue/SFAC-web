@@ -4,13 +4,7 @@
   <link rel="icon" type="image/png" sizes="96x96" href="/favicon.png" />
   <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png" />
   <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QPPG6HRJVN"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-QPPG6HRJVN');
-  </script>
+  <script src="/ga.js"></script>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Book Mobile Detailing Online | Fort Collins, Loveland & Northern Colorado | Shine for a Cause</title>
@@ -2963,6 +2957,18 @@ function showSuccess({ title, whenText, totalText, note, bookingId }) {
   }
 
   document.getElementById('success-screen').classList.add('show');
+
+  // Google Ads / GA4 conversion. Fired here rather than on the Book button so
+  // it only counts bookings that actually went through. The booking id makes it
+  // idempotent, so refreshing the confirmation cannot count it twice.
+  try {
+    if (typeof sfacTrack === 'function') {
+      var v = null;
+      var m = String(totalText || '').match(/\$([\d,]+(?:\.\d{2})?)/);
+      if (m) v = Number(m[1].replace(/,/g, ''));
+      sfacTrack('booking', { value: v, id: bookingId || undefined });
+    }
+  } catch (e) { /* tracking must never block the confirmation */ }
 }
 
 /** "4:00 PM on Wednesday, August 5, 2026" from whatever the booking holds. */
