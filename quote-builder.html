@@ -71,6 +71,9 @@
     .qc-price-wrap.hide { display:none; }
     .qc-price-label { font-family:var(--font-d); font-size:.54rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,.72); }
     .qc-price { font-family:var(--font-d); font-weight:900; font-size:1.85rem; letter-spacing:-.03em; color:#F0C06A; line-height:1; }
+    .qc-price .was { color:#F2555A; text-decoration:line-through; text-decoration-color:#F2555A;
+                     text-decoration-thickness:2px; font-size:1.1rem; font-weight:700; margin-right:.25rem; }
+    .qc-price .now { color:inherit; font-weight:900; }
     .qc-progress { display:flex; gap:.4rem; margin-bottom:1.4rem; }
     .qc-progress span { height:4px; flex:1; border-radius:999px; background:var(--line); transition:background .3s; }
     .qc-progress span.on { background:var(--gold); }
@@ -646,7 +649,7 @@
       exterior: { label:'Exterior', thumb:'web.screenshots/pkg-ext-reset.jpg', levels:[
         { v:'l1', name:'Exterior Reset',     price:{small:99,mid:124,large:149,van:174},  img:'brand_assets/svc-mobile-detailing.jpg', desc:'Exterior wash, wheels, tires and paint protection.' },
         { v:'l2', name:'Exterior Executive', price:{small:225,mid:250,large:275,van:305}, img:'web.screenshots/pkg-ext-reset.jpg',     desc:'Deep exterior with decontamination, polish and sealant.' },
-        { v:'l3', name:'Ceramic Coating',    price:{small:599,mid:599,large:599,van:699}, img:'web.screenshots/pkg-ext-ceramic.jpg',   desc:'Paint correction plus a System X ceramic coating.' }
+        { v:'l3', name:'Ceramic Coating',    price:{small:599,mid:599,large:599,van:699}, list:{small:748,mid:748,large:748,van:848}, img:'web.screenshots/pkg-ext-ceramic.jpg',   desc:'Paint correction plus a System X ceramic coating.' }
       ]},
       interior: { label:'Interior', thumb:'web.screenshots/pkg-int-reset.jpg', levels:[
         { v:'l1', name:'Interior Maintenance', price:{small:125,mid:140,large:155,van:180}, img:'web.screenshots/pkg-int-maintenance.jpg', desc:'Interior vacuum, wipe-down, windows and door panels.' },
@@ -738,7 +741,20 @@
         $('qc-sub').textContent = st.size ? SIZE_LABELS[st.size] : 'Build your quote';
       }
       var pr = priceNumber();
-      if (pr != null) { $('qc-price-wrap').classList.remove('hide'); $('qc-price').textContent = fmt(pr); }
+      if (pr != null) {
+        $('qc-price-wrap').classList.remove('hide');
+        // A tier carrying a `list` price is on sale, so show what it was with a
+        // line through it. Add-ons sit on top of both figures, which is why the
+        // difference is taken from the package price rather than the total.
+        var _t = currentTier();
+        var _list = (_t && _t.list && st.size) ? _t.list[st.size] : null;
+        var _pkg  = (_t && _t.price && st.size) ? _t.price[st.size] : null;
+        if (_list != null && _pkg != null && _list > _pkg) {
+          $('qc-price').innerHTML = '<s class="was">' + fmt(pr + (_list - _pkg)) + '</s> <span class="now">' + fmt(pr) + '</span>';
+        } else {
+          $('qc-price').textContent = fmt(pr);
+        }
+      }
       else { $('qc-price-wrap').classList.add('hide'); }
     }
 
