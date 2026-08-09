@@ -41,6 +41,10 @@
     .c-field input, .c-field textarea { font-family:var(--font-b); font-size:.9rem; color:var(--ink); background:var(--bg-warm); border:1.5px solid var(--line); border-radius:10px; padding:.7rem .85rem; }
     .c-field input:focus, .c-field textarea:focus { outline:none; border-color:var(--gold); }
     .c-field textarea { min-height:110px; resize:vertical; }
+    .c-consent { display:flex; align-items:flex-start; gap:.6rem; margin:1rem 0 .25rem;
+                 font-size:.76rem; line-height:1.55; color:var(--ink-2); cursor:pointer; }
+    .c-consent input { flex-shrink:0; width:17px; height:17px; margin-top:.12rem; accent-color:var(--gold); cursor:pointer; }
+    .c-consent a { color:var(--gold); text-decoration:underline; }
     .c-submit { width:100%; margin-top:1.1rem; background:var(--ink); color:#fff; font-family:var(--font-d); font-weight:800; font-size:1rem; padding:1rem 1.5rem; border-radius:13px; }
     .c-submit:hover { background:#000; }
     .c-ok { display:none; text-align:center; padding:1rem 0; color:var(--ink-2); line-height:1.6; }
@@ -170,6 +174,8 @@
     .foot-map { border-radius:14px; overflow:hidden; border:1px solid #E8E6E1; }
     .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.15); }
     .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid #E8E6E1; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:#74777B; }
+    .foot-legal a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
+    .foot-legal a:hover { color:var(--gold); }
     @media (max-width:900px) { .foot-inner { grid-template-columns:1fr 1fr; grid-template-areas:
         "logo     services"
         "areas    contact"
@@ -465,6 +471,16 @@
         <div class="c-field full"><label>Email</label><input type="email" id="cEmail" placeholder="you@email.com" /></div>
         <div class="c-field full"><label>Message</label><textarea id="cMsg" placeholder="How can we help?"></textarea></div>
       </div>
+      <label class="c-consent" for="cSms">
+        <input type="checkbox" id="cSms" />
+        <span>
+          I agree to receive text messages from Shine for a Cause Mobile Detailing
+          at the number I provided about my enquiry and any booking that comes from it.
+          Msg &amp; data rates may apply. Message frequency varies. Reply STOP to opt out
+          or HELP for help. See our <a href="/privacy-policy.html">Privacy Policy</a>
+          and <a href="/terms-conditions.html#sms">SMS Terms</a>.
+        </span>
+      </label>
       <button class="c-submit" id="cSubmit">Send Message →</button>
     </div>
     <div class="c-ok" id="cOk">
@@ -523,6 +539,7 @@
   <div class="foot-base">
     <span>&copy; 2026 Shine for a Cause LLC &middot; Fort Collins, Colorado</span>
     <span>Licensed &amp; Insured &middot; System X Certified Installer</span>
+    <span class="foot-legal"><a href="/privacy-policy.html">Privacy Policy</a> &middot; <a href="/terms-conditions.html">Terms &amp; Conditions</a> &middot; <a href="/terms-conditions.html#sms">SMS Terms</a></span>
   </div>
 </footer>
 
@@ -531,10 +548,11 @@
   document.getElementById('cSubmit').addEventListener('click', function(){
     var name=document.getElementById('cName').value.trim(), phone=document.getElementById('cPhone').value.trim();
     var email=document.getElementById('cEmail').value.trim(), msg=document.getElementById('cMsg').value.trim();
+    var sms=document.getElementById('cSms').checked;
     if(!name || (!phone && !email)){ alert('Please enter your name and a phone number or email.'); return; }
     var btn=this; btn.textContent='Sending…'; btn.disabled=true;
     fetch('https://sfac-mu.vercel.app/api/leads/webhook',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({full_name:name,phone:phone,address:'',service:'Contact form',vehicle:'',timeline:'',platform:'WEB',notes:'[Contact Form]'+(email?' | Email: '+email:'')+(msg?' | Message: '+msg:'')})
+      body:JSON.stringify({full_name:name,phone:phone,address:'',service:'Contact form',vehicle:'',timeline:'',platform:'WEB',notes:'[Contact Form]'+(email?' | Email: '+email:'')+(msg?' | Message: '+msg:'')+(sms?' | SMS consent: opted in on the contact form at '+new Date().toISOString():' | SMS consent: NOT given')})
     }).then(function(res){ if(res.ok||res.status===201){ document.getElementById('cForm').style.display='none'; document.getElementById('cOk').style.display='block'; } else { throw new Error('err'); } })
     .catch(function(){ btn.textContent='Send Message →'; btn.disabled=false; alert('Something went wrong — please call or text us at (970) 851-6433.'); });
   });

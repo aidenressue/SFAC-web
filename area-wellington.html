@@ -263,6 +263,8 @@
     .foot-map { border-radius:14px; overflow:hidden; border:1px solid #E8E6E1; }
     .foot-map iframe { width:100%; height:200px; border:0; display:block; filter:grayscale(.15); }
     .foot-base { max-width:1280px; margin:0 auto; padding:1.4rem 2rem; border-top:1px solid #E8E6E1; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; font-size:.74rem; color:#74777B; }
+    .foot-legal a { color:inherit; text-decoration:underline; text-underline-offset:2px; }
+    .foot-legal a:hover { color:var(--gold); }
     @media (max-width:900px) { .foot-inner { grid-template-columns:1fr 1fr; grid-template-areas:
         "logo     services"
         "areas    contact"
@@ -537,6 +539,7 @@
   <div class="foot-base">
     <span>&copy; 2026 Shine for a Cause LLC &middot; Fort Collins, Colorado</span>
     <span>Licensed &amp; Insured &middot; System X Certified Installer</span>
+    <span class="foot-legal"><a href="/privacy-policy.html">Privacy Policy</a> &middot; <a href="/terms-conditions.html">Terms &amp; Conditions</a> &middot; <a href="/terms-conditions.html#sms">SMS Terms</a></span>
   </div>
 </footer>
 
