@@ -21,13 +21,13 @@
   var GA_MEASUREMENT_ID = 'G-QPPG6HRJVN';
 
   // ── Google Ads ──────────────────────────────────────────────────────────
-  var GOOGLE_ADS_ID = '';        // e.g. 'AW-123456789'
+  var GOOGLE_ADS_ID = 'AW-18036663664';
 
   /* One label per conversion action created in Google Ads. Leave a label empty
      and that conversion simply does not fire, so you can switch them on as you
      create them. */
   var CONVERSIONS = {
-    booking: '',                 // "Booking Completed"  — the main one
+    booking: 'SDwlCNaitN4cEPDKxphD',   // "Booking Completed" — the only Primary goal
     phone:   '',                 // "Phone Click"
     email:   '',                 // "Email Click"
     quote:   '',                 // "Quote Requested"
