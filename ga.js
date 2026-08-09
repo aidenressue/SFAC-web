@@ -31,6 +31,7 @@
     phone:   '',                 // "Phone Click"
     email:   '',                 // "Email Click"
     quote:   '',                 // "Quote Requested"
+    contact: '',                 // "Contact Form Submitted"
   };
 
   if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID.indexOf('XXXX') !== -1) return; // not configured

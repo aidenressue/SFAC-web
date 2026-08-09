@@ -553,7 +553,7 @@
     var btn=this; btn.textContent='Sending…'; btn.disabled=true;
     fetch('https://sfac-mu.vercel.app/api/leads/webhook',{method:'POST',headers:{'Content-Type':'application/json'},
       body:JSON.stringify({full_name:name,phone:phone,address:'',service:'Contact form',vehicle:'',timeline:'',platform:'WEB',notes:'[Contact Form]'+(email?' | Email: '+email:'')+(msg?' | Message: '+msg:'')+(sms?' | SMS consent: opted in on the contact form at '+new Date().toISOString():' | SMS consent: NOT given')})
-    }).then(function(res){ if(res.ok||res.status===201){ document.getElementById('cForm').style.display='none'; document.getElementById('cOk').style.display='block'; } else { throw new Error('err'); } })
+    }).then(function(res){ if(res.ok||res.status===201){ document.getElementById('cForm').style.display='none'; document.getElementById('cOk').style.display='block'; try{ if(typeof sfacTrack==='function') sfacTrack('contact'); }catch(e){} } else { throw new Error('err'); } })
     .catch(function(){ btn.textContent='Send Message →'; btn.disabled=false; alert('Something went wrong — please call or text us at (970) 851-6433.'); });
   });
 </script>
