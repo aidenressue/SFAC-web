@@ -1182,12 +1182,13 @@
           <label class="sms-consent" for="sms-optin">
             <input type="checkbox" id="sms-optin" />
             <span>
-              I agree to receive text messages from Shine for a Cause Mobile Detailing
-              at the number I provided about this booking: appointment confirmation,
-              reminders, day-of arrival updates, and my invoice. Msg &amp; data rates may
-              apply. Message frequency varies. Reply STOP to opt out or HELP for help.
+              <strong>Optional.</strong> I agree to receive text messages from Shine for a Cause
+              Mobile Detailing at the number I provided about this booking: appointment
+              confirmation, reminders, day-of arrival updates, and my invoice.
+              Consent is not a condition of purchase. Msg &amp; data rates may apply.
+              Message frequency varies. Reply STOP to opt out or HELP for help.
               See our <a href="/privacy-policy.html" target="_blank" rel="noopener">Privacy Policy</a>
-              and <a href="/terms-conditions.html" target="_blank" rel="noopener">Terms</a>.
+              and <a href="/terms-conditions.html#sms" target="_blank" rel="noopener">SMS Terms</a>.
             </span>
           </label>
 
@@ -2868,7 +2869,9 @@ async function recordBooking({ rawTotal, finalTotal, travelFee, multiVehicle, it
   if (bfr.before || bfr.after) notes += `\nDrive buffer: ${bfr.before} min before, ${bfr.after} min after`;
   if (state.comments) notes += `\nNotes: ${state.comments}`;
   // Same consent record on the non-Acuity path.
-  if (state.smsConsentAt) notes += `\nSMS consent: opted in on the booking page at ${state.smsConsentAt}`;
+  notes += state.smsConsentAt
+        ? `\nSMS consent: opted in on the booking page at ${state.smsConsentAt}`
+        : `\nSMS consent: NOT given (do not text this customer)`;
 
   // One visit = one booking, however many vehicles. `duration` is the sum of
   // every vehicle with no gap between them; the buffer is reserved only before
@@ -2995,19 +2998,11 @@ async function confirmBooking() {
     return;
   }
 
-  // The carriers require proof that this box was ticked by hand, so the booking
-  // does not go through without it and the timestamp rides along with the job.
+  // Optional, deliberately. Carriers forbid making message consent a condition
+  // of buying the service (Twilio rejection 30923), so the booking goes through
+  // either way and we simply record which it was.
   const optIn = document.getElementById('sms-optin');
-  const consentBox = document.querySelector('.sms-consent');
-  if (!optIn.checked) {
-    consentBox.classList.add('needed');
-    errEl.textContent = 'Please agree to receive texts about your appointment so we can confirm it and send your invoice.';
-    errEl.style.display = 'block';
-    consentBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    return;
-  }
-  consentBox.classList.remove('needed');
-  state.smsConsentAt = new Date().toISOString();
+  state.smsConsentAt = optIn && optIn.checked ? new Date().toISOString() : null;
 
   state.email = email; state.firstName = first; state.lastName = last; state.phone = phone;
 
@@ -3076,7 +3071,9 @@ async function confirmBooking() {
       if (state.comments) notes += `\nCustomer Notes: ${state.comments}`;
       // Written into the record so consent can be produced on request, which is
       // what the carriers ask for if a campaign is ever audited.
-      if (state.smsConsentAt) notes += `\nSMS consent: opted in on the booking page at ${state.smsConsentAt}`;
+      notes += state.smsConsentAt
+        ? `\nSMS consent: opted in on the booking page at ${state.smsConsentAt}`
+        : `\nSMS consent: NOT given (do not text this customer)`;
 
       const payload = {
         appointmentTypeID: item.acuityTypeId,
