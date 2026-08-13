@@ -1511,6 +1511,7 @@ const state = {
   ceramicPrep: null,    // 'polish' | 'one-step' | 'two-step'
   tier: null,           // 'maintenance' | 'reset' | 'executive' | 'polish' | '1step' | '2step'
   addons: {},           // { addonKey: quantity }
+  fromPackage: false,   // arrived from a package card: only the vehicle is missing
 
   // Cart
   cart: [],             // [{ serviceKey, vehicle, addons, price, acuityTypeId, label, vehicleLabel }]
@@ -1751,6 +1752,35 @@ function loadCarriedQuote() {
   }
 }
 
+/**
+ * Arrived from a "Book Now" button on a package card.
+ *
+ * The card knows exactly which package was picked, so the service type, package
+ * type and level are all settled before they get here. What it CANNOT know is
+ * the vehicle, and every package is priced per size (a Full Maintenance is $180
+ * on a sedan and $245 on a van) and booked against a different Acuity slot. So
+ * this skips three of the four selection steps and asks only for the vehicle.
+ */
+function loadCarriedPackage() {
+  let raw;
+  try { raw = localStorage.getItem('sfac_pkg'); } catch (e) { return; }
+  if (!raw) return;
+  try { localStorage.removeItem('sfac_pkg'); } catch (e) {}
+
+  let p;
+  try { p = JSON.parse(raw); } catch (e) { return; }
+  if (!p || !p.serviceKey) return;
+
+  const cfg = SERVICE_CONFIGS[p.serviceKey];
+  if (!cfg) return;
+
+  state.service     = 'detailing';
+  state.packageType = cfg.packageType;
+  state.tier        = cfg.tier;
+  state.addons      = {};
+  state.fromPackage = true;
+}
+
 function proceedToStep2() {
   if (!state.address) return;
   document.getElementById('map').classList.add('split');
@@ -1758,6 +1788,8 @@ function proceedToStep2() {
   document.getElementById('steps-panel').classList.add('open');
   // Carried a quote in? Skip service/vehicle/package/level and go straight to the cart.
   if (state.fromQuote && state.cart.length) goToStep(7);
+  // Carried a package in? Everything but the vehicle is already decided.
+  else if (state.fromPackage) goToStep(3);
   else goToStep(2);
 }
 
@@ -1892,6 +1924,9 @@ function renderVehicleTypes() {
 function selectVehicle(key) {
   state.vehicle = key;
   renderVehicleTypes();
+  // Came in from a package card: the package and level are already chosen, so
+  // the vehicle was the last thing missing. Straight into the cart.
+  if (state.fromPackage) { setTimeout(addToCart, 220); return; }
   // Detailing picks a package type next; ceramic/paint skip straight to the level step.
   const next = (state.service === 'detailing') ? 4 : 5;
   setTimeout(() => goToStep(next), 220);
@@ -2307,12 +2342,14 @@ function addToCart() {
     acuityTypeId: cfg.acuityIds[state.vehicle]
   });
 
-  // Reset selections
+  // Reset selections. fromPackage goes with them: the carried package has been
+  // banked, so adding a second vehicle runs the normal full flow.
   state.service = null;
   state.vehicle = null;
   state.packageType = null;
   state.tier = null;
   state.addons = {};
+  state.fromPackage = false;
 
   // Back from the cart returns to the service step (selection state was reset),
   // never into a now-empty selection step.
@@ -2406,6 +2443,7 @@ function saveBookingProgress() {
       ceramicPrep: state.ceramicPrep,
       tier: state.tier,
       addons: state.addons,
+      fromPackage: state.fromPackage,
       selectedDate: state.selectedDate,
       promoCode: state.promoCode || '',
       firstName: state.firstName, lastName: state.lastName,
@@ -2435,6 +2473,7 @@ function restoreBookingProgress() {
   state.ceramicPrep    = d.ceramicPrep ?? null;
   state.tier           = d.tier ?? null;
   state.addons         = d.addons && typeof d.addons === 'object' ? d.addons : {};
+  state.fromPackage    = !!d.fromPackage;
   state.promoCode      = d.promoCode || '';
   state.firstName      = d.firstName || '';
   state.lastName       = d.lastName || '';
@@ -3448,7 +3487,7 @@ function packageIcon(key) {
 }
 
 // On load: restore an in-progress cart if there is one; otherwise pull in a carried quote.
-if (!restoreBookingProgress()) loadCarriedQuote();
+if (!restoreBookingProgress()) { loadCarriedQuote(); loadCarriedPackage(); }
 </script>
 
 <!-- Google Maps API -->
