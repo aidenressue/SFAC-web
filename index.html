@@ -844,7 +844,7 @@
       <h1 class="h-display">Northern Colorado's <span class="accent">Top</span> Mobile Detailing</h1>
     </div>
     <div class="hero-ctas">
-      <a href="/quote-builder.html" class="btn btn-ghost">Get Quote <svg class="btn-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      <a href="#packages" class="btn btn-ghost">Learn More <svg class="btn-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       <a href="tel:+19708516433" class="btn btn-gold">(970) 851-6433</a>
     </div>
   </div>
@@ -859,18 +859,18 @@
     <h2 class="h-sec">Our Main Services</h2>
   </div>
   <div class="services-grid">
-    <a href="/quote-builder.html" class="svc-card rv">
+    <a href="#packages" class="svc-card rv">
       <div class="svc-img"><span>Image coming soon</span><img src="/brand/svc-mobile-detailing.jpg" alt="Washing the hood of a black Audi RS6 from the front with a wash mitt and soap suds" loading="lazy" onerror="this.remove()" /></div>
       <div class="svc-overlay">
         <h3 class="svc-name">Mobile Detailing</h3>
-        <span class="svc-learn">Get Quote →</span>
+        <span class="svc-learn">Learn More →</span>
       </div>
     </a>
-    <a href="/ceramic-coating.html#quote" class="svc-card rv">
+    <a href="/ceramic-coating.html" class="svc-card rv">
       <div class="svc-img"><span>Image coming soon</span><img src="/brand/svc-ceramic-coating.jpg" alt="Ceramic coating being applied to the rear panel of a white Porsche 911 with black gloves" loading="lazy" onerror="this.remove()" /></div>
       <div class="svc-overlay">
         <h3 class="svc-name">Ceramic Coating</h3>
-        <span class="svc-learn">Get Quote →</span>
+        <span class="svc-learn">Learn More →</span>
       </div>
     </a>
     <a href="#packages" class="svc-card rv">
@@ -976,7 +976,7 @@
             </ul>
             </div>
           </div>
-          <a href="/booking.html" class="btn btn-dark" data-book-pkg="maintenance-full">Book Now</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -1011,7 +1011,7 @@
             </ul>
             </div>
           </div>
-          <a href="/booking.html" class="btn btn-dark" data-book-pkg="reset-full">Book Now</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -1054,7 +1054,7 @@
             </ul>
             </div>
           </div>
-          <a href="/booking.html" class="btn btn-dark" data-book-pkg="executive-full">Book Now</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       </div>
@@ -1075,7 +1075,7 @@
               <li>Detail tires</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark" data-book-pkg="reset-exterior">Book Now</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -1096,7 +1096,7 @@
               <li>Detail tires</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark" data-book-pkg="executive-exterior">Book Now</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -1115,7 +1115,7 @@
               <li>Deep gloss and long-lasting shine</li>
             </ul>
           </div>
-          <a href="/ceramic-coating.html#quote" class="btn btn-dark">Get Quote</a>
+          <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       </div>
@@ -1136,7 +1136,7 @@
               <li>Door jambs</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark" data-book-pkg="maintenance-interior">Book Now</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -1158,7 +1158,7 @@
               <li>Door jambs</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark" data-book-pkg="reset-interior">Book Now</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       <div class="pkg-card rv">
@@ -1185,7 +1185,7 @@
               <li>Door jambs</li>
             </ul>
           </div>
-          <a href="/booking.html" class="btn btn-dark" data-book-pkg="executive-interior">Book Now</a>
+          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
         </div>
       </div>
       </div>
@@ -1538,28 +1538,6 @@
   }, { threshold: 0.5 });
   document.querySelectorAll('[data-count]').forEach(el => statIO.observe(el));
 
-</script>
-
-<script>
-/* "Book Now" on a package card hands the chosen package to /booking.html the
-   same way the quote builder hands over a quote: through localStorage, read on
-   arrival. The href is a real link so it still works without JS and so
-   middle-click and "open in new tab" behave. */
-(function () {
-  document.addEventListener('click', function (e) {
-    var a = e.target && e.target.closest && e.target.closest('[data-book-pkg]');
-    if (!a) return;
-    try {
-      localStorage.setItem('sfac_pkg', JSON.stringify({
-        v: 1, serviceKey: a.getAttribute('data-book-pkg'), ts: Date.now()
-      }));
-      /* A half-finished booking would otherwise win on arrival and this package
-         would be silently dropped. */
-      localStorage.removeItem('sfac_booking_cart');
-      localStorage.removeItem('sfac_quote');
-    } catch (err) {}
-  }, true);
-})();
 </script>
 </body>
 </html>
