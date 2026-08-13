@@ -957,18 +957,18 @@
   <script src="/ads-attribution.js"></script>
 
   <!-- Social and AI link preview -->
-  <meta property="og:image" content="https://shineforacause.com/brand_assets/link-preview.png" />
+  <meta property="og:image" content="https://shineforacause.com/brand/link-preview.png" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
   <meta property="og:image:alt" content="Shine for a Cause Mobile Detailing" />
-  <meta name="twitter:image" content="https://shineforacause.com/brand_assets/link-preview.png" />
+  <meta name="twitter:image" content="https://shineforacause.com/brand/link-preview.png" />
 </head>
 <body>
 
 <!-- ── NAV ── -->
 <nav class="booking-nav">
   <a href="/" class="nav-logo" aria-label="Shine for a Cause home">
-    <img src="brand_assets/logo-nav.png" alt="Shine for a Cause" />
+    <img src="brand/logo-nav.png" alt="Shine for a Cause" />
   </a>
   <a href="tel:9708516433" class="nav-phone">
     <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3.5c0 5 4.5 9.5 9.5 9.5 .6 0 1-.4 1-1v-2c0-.5-.3-.9-.8-1l-2-.5c-.4-.1-.9.1-1.1.5l-.5.8C7.6 8.6 6.4 7.4 5.7 6l.8-.5c.4-.2.6-.7.5-1.1l-.5-2C6.4 1.8 6 1.5 5.5 1.5h-2C2.9 1.5 2.5 1.9 2.5 2.5c0 .3 0 .7.5 1z"/></svg>
@@ -1202,7 +1202,7 @@
 
 <!-- SUCCESS SCREEN -->
 <div id="success-screen">
-  <img class="success-logo" src="/brand_assets/logo-nav.png" alt="Shine for a Cause Mobile Detailing" />
+  <img class="success-logo" src="/brand/logo-nav.png" alt="Shine for a Cause Mobile Detailing" />
   <div class="success-title">You&rsquo;re booked</div>
   <div class="success-sub" id="success-sub"></div>
   <div class="success-note" id="success-note">You will receive a confirmation and reminder text.</div>
@@ -1245,9 +1245,9 @@ const VEHICLE_TYPES = [
 ];
 
 const SERVICE_CATEGORIES = [
-  { key: 'detailing', label: 'Mobile Detailing', desc: 'Interior, exterior, or full detail at your door.', img: 'brand_assets/svc-mobile-detailing.jpg' },
-  { key: 'ceramic',   label: 'Ceramic Coating',  desc: 'System X 9H protection, gloss & hydrophobics.',   img: 'web.screenshots/pkg-ext-ceramic.jpg' },
-  { key: 'paint',     label: 'Paint Correction', desc: 'Machine polish to remove swirls & restore gloss.', img: 'web.screenshots/pc-pkg-polish1.jpg' }
+  { key: 'detailing', label: 'Mobile Detailing', desc: 'Interior, exterior, or full detail at your door.', img: 'brand/svc-mobile-detailing.jpg' },
+  { key: 'ceramic',   label: 'Ceramic Coating',  desc: 'System X 9H protection, gloss & hydrophobics.',   img: 'photos/packages/pkg-ext-ceramic.jpg' },
+  { key: 'paint',     label: 'Paint Correction', desc: 'Machine polish to remove swirls & restore gloss.', img: 'photos/paint/pc-pkg-polish1.jpg' }
 ];
 
 const PACKAGE_TYPES = [
@@ -1342,7 +1342,7 @@ const SERVICE_CONFIGS = {
   },
   'paint-polish': {
     label: 'Polish', packageType: 'paint', tier: 'polish',
-    img: 'web.screenshots/pc-guide-faded-new.jpg', condition: 'Lightly faded paint',
+    img: 'photos/paint/pc-guide-faded.jpg', condition: 'Lightly faded paint',
     description: 'A single machine polish stage that restores gloss to your paint and removes up to 10% of light scratches and swirls. It brings back depth and clarity, and it makes the ideal prep before a ceramic coating.',
     bullets: ['Full wash & decontamination', 'Single-stage machine polish', 'Restores gloss, depth & clarity', 'Removes up to 10% of light swirls', 'Great refresh or ceramic prep'],
     pricing: { small:449, mid:499, large:549, van:649 },
@@ -1351,7 +1351,7 @@ const SERVICE_CONFIGS = {
   },
   'paint-1step': {
     label: '1-Step Correction', packageType: 'paint', tier: '1step',
-    img: 'web.screenshots/pc-guide-1step.jpg', condition: 'Scratches & swirls',
+    img: 'photos/paint/pc-guide-1step.jpg', condition: 'Scratches & swirls',
     description: 'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
     bullets: ['Full wash & decontamination', 'Single-stage machine correction', 'Removes 65 to 70% of scratches & swirls', 'Deep, reflective showroom gloss', 'Premium finish, sealed'],
     pricing: { small:699, mid:749, large:799, van:899 },
@@ -1360,7 +1360,7 @@ const SERVICE_CONFIGS = {
   },
   'paint-2step': {
     label: '2-Step Correction', packageType: 'paint', tier: '2step',
-    img: 'web.screenshots/pc-guide-swirls.jpg', condition: 'Deep defects',
+    img: 'photos/paint/pc-guide-swirls.jpg', condition: 'Deep defects',
     description: 'Our highest level of paint correction, with two full stages of compounding and polishing. They cut through even the deepest defects, leaving a showroom shine and paint that is about as close to perfect as it gets.',
     bullets: ['Full wash & decontamination', 'Two-stage compound cut + fine polish', 'Removes deep scratches & oxidation', 'Maximum gloss restoration', 'Premium finish, sealed'],
     pricing: { small:1500, mid:1700, large:1900, van:2200 },
@@ -1410,15 +1410,15 @@ const CERAMIC_COATINGS = [
 ];
 const CERAMIC_PREP = [
   { key:'polish',   label:'Polish', tagline:'Included with every coating', condition:'Lightly faded paint',
-    img:'web.screenshots/pc-guide-faded-new.jpg',
+    img:'photos/paint/pc-guide-faded.jpg',
     desc:'A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls. It brings back the depth and clarity that daily driving and washing dull down over time, and sets up a flawless surface before the coating goes on.',
     price:{ small:449, mid:499, large:549, van:649 },  dur:{ small:240, mid:260, large:280, van:300 } },
   { key:'one-step', label:'1-Step Correction', tagline:'Most popular', condition:'Scratches & swirls',
-    img:'web.screenshots/pc-guide-1step.jpg',
+    img:'photos/paint/pc-guide-1step.jpg',
     desc:'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
     price:{ small:699, mid:749, large:799, van:899 },  dur:{ small:330, mid:350, large:370, van:390 } },
   { key:'two-step', label:'2-Step Correction', tagline:'Maximum correction', condition:'Deep defects',
-    img:'web.screenshots/pc-guide-swirls.jpg',
+    img:'photos/paint/pc-guide-swirls.jpg',
     desc:'Two full stages of compounding and polishing that cut through even the deepest scratches and oxidation, leaving a showroom shine and paint that is about as close to perfect as it gets.',
     price:{ small:1500, mid:1700, large:1900, van:2200 }, dur:{ small:450, mid:475, large:500, van:525 } },
 ];
@@ -1915,9 +1915,9 @@ function renderPackageTypes() {
 function packageIllus(key) {
   // Same little-car illustrations as the live booking page.
   const imgs = {
-    interior: 'web.screenshots/813e921e-de36-4ec4-a308-9594dcdd3285.png', // Interior Only
-    exterior: 'web.screenshots/EXT.png',                                   // Exterior Only
-    full:     'web.screenshots/inside-and-out.png',                        // Inside & Out
+    interior: 'photos/packages/card-interior-only.png', // Interior Only
+    exterior: 'photos/packages/card-exterior-only.png',                                   // Exterior Only
+    full:     'photos/packages/card-inside-and-out.png',                        // Inside & Out
   };
   const src = imgs[key];
   if (src) return `<div class="pkg-illus"><img class="pkg-illus-img" src="${src}" alt="${key}" /></div>`;
@@ -3160,10 +3160,10 @@ async function confirmBooking() {
 // ═══════════════════════════════════════════════════════════════════
 function vehicleSVG(key) {
   const imgs = {
-    small: 'web.screenshots/vehicle-small.png',
-    mid:   'web.screenshots/vehicle-mid.png',
-    large: 'web.screenshots/vehicle-large.png',
-    van:   'web.screenshots/vehicle-van.png',
+    small: 'photos/vehicles/vehicle-small.png',
+    mid:   'photos/vehicles/vehicle-mid.png',
+    large: 'photos/vehicles/vehicle-large.png',
+    van:   'photos/vehicles/vehicle-van.png',
   };
   const extraClass = { small: 'vehicle-img-small', van: 'vehicle-img-van', large: 'vehicle-img-large' };
   if (imgs[key]) return `<img class="vehicle-img ${extraClass[key]||''}" src="${imgs[key]}" alt="${key}" />`;
