@@ -7,7 +7,8 @@
 //
 // The card is sized so the month name survives being scaled down to a phone:
 // at 390px wide each panel is only ~195px, so the month is set large relative
-// to the panel and the date grid is allowed to become texture.
+// to the card (a quarter of its width) and the date grid is allowed to become
+// texture. The card shrank for desktop; the month did not shrink with it.
 //
 //   node .build-seasons.mjs <summer.jpg> <winter.jpg> [out.jpg]
 
@@ -68,22 +69,26 @@ const html = `<style>
   .panel img { width:100%; height:100%; object-fit:cover; display:block; }
   .rule { width:${DIVIDER}px; background:#101112; }
 
-  /* Pinned into the corner of the photo, no band of its own. */
+  /* Pinned into the top LEFT corner of each photo, no band of its own.
+     The vertical offset is 29% of the panel, not the very top, for two reasons:
+     the page darkens the top of the hero so the nav reads against a bright sky,
+     and the centred page title runs across the join between the two panels.
+     Any higher and the January calendar lands on the headline. */
   .cal {
-    position:absolute; top:250px; right:34px; width:330px;
-    background:#fff; border-radius:14px;
-    padding:22px 20px 18px;
-    box-shadow:0 14px 40px rgba(0,0,0,.34);
+    position:absolute; top:300px; left:34px; width:240px;
+    background:#fff; border-radius:11px;
+    padding:16px 14px 13px;
+    box-shadow:0 11px 30px rgba(0,0,0,.34);
   }
-  .cal-rings { position:absolute; top:-9px; left:0; right:0;
-               display:flex; justify-content:center; gap:84px; }
-  .cal-rings i { width:11px; height:18px; border-radius:6px;
+  .cal-rings { position:absolute; top:-7px; left:0; right:0;
+               display:flex; justify-content:center; gap:60px; }
+  .cal-rings i { width:8px; height:14px; border-radius:5px;
                  background:linear-gradient(180deg,#E2E4E7,#9AA0A6); display:block; }
-  .cal-month { text-align:center; font-size:74px; font-weight:800; letter-spacing:-.02em;
-               line-height:1; color:#101112; margin:2px 0 14px; }
+  .cal-month { text-align:center; font-size:62px; font-weight:800; letter-spacing:-.02em;
+               line-height:1; color:#101112; margin:1px 0 10px; }
   table { width:100%; border-collapse:collapse; }
-  th { font-size:16px; font-weight:800; color:#A87B27; padding-bottom:6px; letter-spacing:.04em; }
-  td { height:32px; text-align:center; font-size:17px; font-weight:600; color:#3A3D42; }
+  th { font-size:12px; font-weight:800; color:#A87B27; padding-bottom:4px; letter-spacing:.04em; }
+  td { height:23px; text-align:center; font-size:13px; font-weight:600; color:#3A3D42; }
 </style>
 <div class="wrap">
 ${panel('June', 2026, 6, summer)}

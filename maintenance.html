@@ -161,15 +161,23 @@
     .mt-hero { position:relative; min-height:calc(100vh + 128px); margin-top:-128px; overflow:hidden; background:#050505; }
     /* The picture IS the hero: it fills the section edge to edge and the headline
        and buttons sit over it, so there is no black band anywhere around it. */
+    /* Anchored to the TOP, not centred. A centred crop moves the calendars up
+       as the window gets shorter, and on anything under ~800px tall the January
+       one slid into the headline. Anchoring means their distance from the top of
+       the page never changes, whatever the window height, and the crop only ever
+       comes off the bottom, which is spare driveway. */
     .mt-hero-bg { position:absolute; inset:0; width:100%; height:100%;
-                  object-fit:cover; object-position:center; z-index:0; }
-    /* Just enough darkening top and bottom to keep white text legible over a
-       bright summer sky and a pale concrete driveway. It goes fully clear from
-       22% to 60%, which is the band the calendars hang in, so nothing tints
-       them grey. */
+                  object-fit:cover; object-position:center top; z-index:0; }
+    /* Darkening top and bottom so white text and the floating nav bubble read
+       against a bright summer sky and a pale concrete driveway. The top is the
+       heavier end: the nav sits in the first 8% and was floating over sunlit
+       trees with almost nothing behind it.
+       It still goes fully clear from 21% to 60%, which is the band the
+       calendars hang in, so nothing tints them grey. */
     .mt-hero::after { content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
-      background:linear-gradient(180deg, rgba(5,5,5,.60) 0%, rgba(5,5,5,.10) 17%,
-                                 rgba(5,5,5,0) 22%, rgba(5,5,5,0) 60%,
+      background:linear-gradient(180deg, rgba(5,5,5,.86) 0%, rgba(5,5,5,.66) 7%,
+                                 rgba(5,5,5,.30) 14%, rgba(5,5,5,0) 21%,
+                                 rgba(5,5,5,0) 60%,
                                  rgba(5,5,5,.16) 76%, rgba(5,5,5,.66) 100%); }
     .mt-hero-cta .btn-ghost-d { background:rgba(23,24,26,.82); border:1px solid rgba(255,255,255,.18); color:#fff; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); }
     .mt-hero-cta .btn-ghost-d:hover { background:rgba(23,24,26,.95); }
@@ -189,8 +197,22 @@
        buttons under that. The width is capped because the composite is 1.368:1
        and a full-bleed 1440px version would stand over 1000px tall on its own. */
     @media (min-width: 721px) {
-      .mt-hero { min-height:0; aspect-ratio:1542 / 1024; }
-      .mt-hero-inner { min-height:0; height:100%; padding:9rem 1.5rem 3rem;
+      /* The composite's own 1.5:1 makes the hero 956px tall at 1440 wide, which
+         is taller than a laptop viewport, so the buttons landed hard against the
+         bottom edge with the picture cut off under them. Capping the height
+         keeps the whole hero, buttons included, on screen without scrolling,
+         and leaves a sliver of the next section showing so it reads as
+         scrollable. object-fit:cover trims the sky and spare driveway rather
+         than letterboxing. */
+      /* Height, not aspect-ratio. `aspect-ratio` with a max-height keeps the
+         ratio by shrinking the WIDTH instead, which left a 169px dead strip
+         down the right of the page. An explicit height holds the full width and
+         lets object-fit:cover do the trimming.
+         66.41vw is the composite's own 1024/1542 ratio, so nothing is cropped
+         until that would be taller than the screen. */
+      .mt-hero { min-height:0; aspect-ratio:auto;
+                 height:min(66.41vw, calc(100svh - 56px)); }
+      .mt-hero-inner { min-height:0; height:100%; padding:9rem 1.5rem 2.4rem;
                        justify-content:space-between; }
       .mt-hero-cta { margin-top:0; }
     }
