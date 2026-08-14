@@ -666,6 +666,20 @@
     .cal-day.selected { background: var(--gold); color: #fff; font-weight: 700; }
     .cal-day.today { outline: 1px solid var(--border2); }
     .cal-loading { text-align: center; color: var(--muted); font-size: .82rem; padding: 2rem; }
+
+    /* While availability is still loading, the numbers are drawn but pulse
+       instead of sitting flat and dead. Without this the grid is indentical to
+       "every day is unavailable", which is what it looked like. */
+    .cal-day.pending { animation: calPulse 1.1s ease-in-out infinite; }
+    @keyframes calPulse { 0%,100% { opacity:.28 } 50% { opacity:.6 } }
+    .cal-status { text-align:center; font-size:.8rem; padding:.55rem 0 .1rem; min-height:1.6rem; }
+    .cal-status.loading { color: var(--muted); }
+    .cal-status.error   { color: #C0392B; }
+    .cal-status .cal-retry {
+      background:none; border:none; color:var(--gold); font:inherit;
+      text-decoration:underline; cursor:pointer; padding:0 0 0 .35rem;
+    }
+    @media (prefers-reduced-motion: reduce) { .cal-day.pending { animation: none; opacity:.4; } }
     .time-slots-title {
       font-family: var(--fh); font-size: .72rem; font-weight: 700;
       letter-spacing: .08em; text-transform: uppercase; color: var(--muted);
@@ -1093,6 +1107,7 @@
               </button>
             </div>
             <div class="cal-grid" id="cal-grid"></div>
+            <div class="cal-status" id="cal-status"></div>
           </div>
           <div id="time-slots-section" style="display:none;">
             <div class="time-slots-title">Available Times</div>
@@ -1518,6 +1533,10 @@ const state = {
   // Booking
   calMonth: null,       // Date object for current calendar month
   availableDates: [],
+  availabilityLoading: false,
+  availabilityError: false,
+  availabilityMonth: null,  // which month availableDates describes
+  availabilityAt: 0,        // when it was fetched, so it can go stale
   blockedDates: [],
   selectedDate: null,
   selectedTime: null,
@@ -2335,6 +2354,10 @@ function cartSubtotalStr() {
 
 // ── Step 7: Cart ──
 function renderCart() {
+  // Start the availability lookup now. The calendar is the next step and the
+  // CRM's first call of a session is slow, so this buys back most of the wait.
+  prefetchAvailability();
+
   const list = document.getElementById('cart-items-list');
   list.innerHTML = state.cart.map((item, i) => {
     const addonNames = Object.keys(item.addons).map(k => ADDON_DEFS[k].name).join(', ');
@@ -2481,8 +2504,15 @@ function renderCalendar() {
     `;
   }
 
+  // The prefetch from the cart has usually already answered for this month.
+  // Re-asking would put the grid back into "checking" for no reason, so it is
+  // only refetched when the answer is for another month or has gone stale.
+  const mp = `${state.calMonth.getFullYear()}-${String(state.calMonth.getMonth()+1).padStart(2,'0')}`;
+  const fresh = state.availabilityMonth === mp &&
+                !state.availabilityError &&
+                (Date.now() - state.availabilityAt) < 60000;
   renderCalendarGrid();
-  fetchAvailableDates();
+  if (!fresh && !state.availabilityLoading) fetchAvailableDates();
 }
 
 function renderCalendarGrid() {
@@ -2516,12 +2546,37 @@ function renderCalendarGrid() {
       'cal-day',
       isAvailable && !isPast ? 'available' : '',
       isSelected ? 'selected' : '',
-      isToday ? 'today' : ''
+      isToday ? 'today' : '',
+      // Nothing is known yet, so a flat grey day would be a lie: it reads as
+      // "unavailable" when the answer has simply not arrived.
+      state.availabilityLoading && !isPast ? 'pending' : ''
     ].filter(Boolean).join(' ');
     const onclick = isAvailable && !isPast ? `onclick="selectDate('${dateStr}')"` : '';
     html += `<div class="${cls}" ${onclick}>${d}</div>`;
   }
   grid.innerHTML = html;
+  renderCalendarStatus();
+}
+
+/** Says which of the three states the calendar is in, instead of leaving the
+ *  customer to guess from a grid of grey numbers. */
+function renderCalendarStatus() {
+  const el = document.getElementById('cal-status');
+  if (!el) return;
+  if (state.availabilityLoading) {
+    el.className = 'cal-status loading';
+    el.textContent = 'Checking available days…';
+  } else if (state.availabilityError) {
+    el.className = 'cal-status error';
+    el.innerHTML = 'Could not load availability.' +
+      '<button type="button" class="cal-retry" onclick="fetchAvailableDates()">Try again</button>';
+  } else if (!state.availableDates.length) {
+    el.className = 'cal-status loading';
+    el.textContent = 'No open days this month. Try the next month.';
+  } else {
+    el.className = 'cal-status';
+    el.textContent = '';
+  }
 }
 
 // Total hands-on minutes across EVERY vehicle in the cart. No gap between them:
@@ -2537,11 +2592,23 @@ function cartBufferMinutes() {
   return b.before + b.after;
 }
 
+/** Guards against a slow response for an old month landing after a newer one
+ *  and repainting the grid with the wrong dates. Only the latest wins. */
+let availabilityRequestId = 0;
+
 async function fetchAvailableDates() {
   const m = state.calMonth;
+  if (!m) return;
   const monthParam = `${m.getFullYear()}-${String(m.getMonth()+1).padStart(2,'0')}`;
   const now = new Date();
   const todayStr = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+  const reqId = ++availabilityRequestId;
+  state.availabilityLoading = true;
+  state.availabilityError = false;
+  renderCalendarStatus();
+  // Repaint so the days show as pending rather than as flat, dead greys.
+  if (document.getElementById('cal-grid')) renderCalendarGrid();
 
   try {
     // Real availability from the CRM: working days, blocked dates, the daily job
@@ -2555,15 +2622,39 @@ async function fetchAvailableDates() {
     );
     if (!resp.ok) throw new Error('availability lookup failed');
     const data = await resp.json();
+    if (reqId !== availabilityRequestId) return;   // a newer month is in flight
     state.availableDates = (data.available || []).filter(ds => ds >= todayStr);
+    state.availabilityMonth = monthParam;
+    state.availabilityAt = Date.now();
   } catch (e) {
+    if (reqId !== availabilityRequestId) return;
     // If the CRM cannot be reached, show nothing rather than every date. Offering
     // a day we cannot verify is what causes a double booking.
     console.error('[booking] availability unavailable:', e);
     state.availableDates = [];
+    state.availabilityMonth = null;
     state.availabilityError = true;
   }
+  state.availabilityLoading = false;
   renderCalendarGrid();
+}
+
+/**
+ * Warm the availability lookup before the calendar is opened.
+ *
+ * The CRM is a separate serverless app, so the first call of a session pays a
+ * cold start and can take several seconds while the calendar sits there looking
+ * broken. The cart is the step immediately before, and the cart is settled by
+ * then, so the duration and buffer sent are the ones the calendar would send:
+ * the answer is usually already in hand by the time the grid is drawn.
+ */
+function prefetchAvailability() {
+  if (!state.cart.length) return;
+  if (!state.calMonth) {
+    const now = new Date();
+    state.calMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+  }
+  fetchAvailableDates();
 }
 
 // Open time slots for a date: 8:00 AM to 6:00 PM, every 30 minutes.
@@ -2591,6 +2682,7 @@ function changeMonth(delta) {
   const m = state.calMonth;
   state.calMonth = new Date(m.getFullYear(), m.getMonth() + delta, 1);
   state.availableDates = [];
+  state.availabilityMonth = null;
   state.selectedDate = null;
   state.selectedTime = null;
   document.getElementById('time-slots-section').style.display = 'none';
