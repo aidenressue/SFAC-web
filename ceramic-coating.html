@@ -764,13 +764,17 @@
         padding:.8rem .9rem; border-bottom:1px solid var(--line); font-family:var(--font-d);
         font-weight:800; font-size:.95rem; color:var(--ink); }
       .cqb-modal-x { background:none; border:none; font-size:1.7rem; line-height:1;
-        color:var(--ink-2); cursor:pointer; padding:0 .2rem; flex:none; }
+        color:var(--ink-2); cursor:pointer; padding:0 .3rem; flex:none;
+        position:relative; z-index:2; }
       .cqb-modal-title { flex:1 1 auto; min-width:0; text-align:center; font-size:.88rem;
         white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
-      .cqb-modal-back { flex:none; background:none; border:none; cursor:pointer;
+      /* Named -prev, not -back. .cqb-modal-back is the full-screen backdrop, and
+         reusing that name handed this button position:absolute, inset:0 and a
+         backdrop blur, so it became an invisible sheet lying over the close X. */
+      .cqb-modal-prev { flex:none; background:none; border:none; cursor:pointer;
         font-family:var(--font-d); font-weight:700; font-size:.86rem; color:var(--ink-2);
-        padding:.25rem .1rem; }
-      .cqb-modal-back[hidden] { display:none; }
+        padding:.25rem .35rem; }
+      .cqb-modal-prev[hidden] { display:none; }
       .cqb-modal-body { flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch;
                         overscroll-behavior:contain; }
 
@@ -1314,7 +1318,7 @@
       <div class="cqb-modal-back" data-cqb-close></div>
       <div class="cqb-modal-card" role="dialog" aria-modal="true" aria-label="Ceramic coating quote">
         <div class="cqb-modal-head">
-          <button type="button" class="cqb-modal-back" id="cqbModalBack" hidden>&larr; Back</button>
+          <button type="button" class="cqb-modal-prev" id="cqbModalBack" hidden>&larr; Back</button>
           <span class="cqb-modal-title">Ceramic Quote</span>
           <button type="button" class="cqb-modal-x" data-cqb-close aria-label="Close">&times;</button>
         </div>
