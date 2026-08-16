@@ -1443,13 +1443,13 @@ function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
 // price while the list price moves up around it, so the saving is real and the
 // old figure is shown struck through rather than the price just being lower.
 const CERAMIC_SALES = [
-  { coating:'2yr', prep:'polish', price:{ small:599, mid:599, large:599, van:799 } },
+  { coating:'2yr', prep:'polish', price:{ small:699, mid:699, large:699, van:699 } },
 ];
 function ceramicSalePrice(coatingKey, prepKey, size) {
   const s = CERAMIC_SALES.find(x => x.coating === coatingKey && x.prep === prepKey);
   return s ? (s.price[size] ?? null) : null;
 }
-/** "$599" on its own, or the list price struck through beside the sale price. */
+/** "$699" on its own, or the list price struck through beside the sale price. */
 function priceWithSale(listPrice, salePrice) {
   if (salePrice === null || salePrice >= listPrice) return `$${listPrice}`;
   return `<s class="was">$${listPrice}</s> <span class="now">$${salePrice}</span>`;
@@ -1741,7 +1741,10 @@ function loadCarriedQuote() {
       serviceKey: q.serviceKey,
       vehicle: q.size,
       vehicleLabel,
-      label: cfg.label,
+      // The ceramic builder sends the correction level and any extra coatings
+      // in prepLabel, so the cart says what was actually quoted rather than
+      // just the coating name.
+      label: cfg.label + (q.prepLabel ? ' \u00b7 ' + q.prepLabel : ''),
       addons: addonsObj,
       price: q.total,
       custom: false,

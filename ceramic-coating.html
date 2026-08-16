@@ -1300,7 +1300,7 @@
         </div>
         <div class="cqb-footer r-footer cqb-hide" id="cqbRFooter">
           <div class="cqb-cta">
-            <a href="/booking.html" class="btn btn-gold">Book Now</a>
+            <a href="/booking.html" class="btn btn-gold" id="cqbBook">Book Now</a>
             <a href="tel:+19708516433" class="cqb-phone">(970) 851-6433</a>
           </div>
           <button class="cqb-back cqb-restart" id="cqbRestart">Start over</button>
@@ -1652,7 +1652,7 @@
     // Live promotions. "2 Year + Polish" is held at the old entry price while the
     // list price moves up around it, so the old figure is shown struck through.
     var SALE_PRICES = {
-      crystal: { polish: { small: 599, mid: 599, large: 599, van: 799 } }
+      crystal: { polish: { small: 699, mid: 699, large: 699, van: 699 } }
     };
     function salePrice(coating, prep, size) {
       var c = SALE_PRICES[coating]; if (!c) return null;
@@ -1678,6 +1678,11 @@
       5: ['Your car, protected', '']
     };
     var state = { size: null, prep: null, coating: null, glass: false, wheel: false };
+    /* Book Now used to be a bare link to /booking.html, so the booking page
+       opened with an empty cart and the whole quote was thrown away. The quote
+       builder hands over through localStorage; this does the same. */
+    var COATING_SERVICE_KEYS = { crystal: 'ceramic-2yr', pro: 'ceramic-6yr', max: 'ceramic-life' };
+    var lastQuote = null;
     var cur = 1;
     function fmt(n) { return '$' + n.toLocaleString(); }
 
@@ -1731,6 +1736,21 @@
       // Add-ons are extra coatings, never part of the sale, so they land on
       // both figures and the saving stays exactly the discount on the package.
       var total = base + addonTotal;
+      lastQuote = {
+        v: 1,
+        size: state.size,
+        serviceKey: COATING_SERVICE_KEYS[state.coating],
+        serviceName: COAT_LABELS[state.coating],
+        prepLabel: PREP_LABELS[state.prep] +
+          (state.glass && state.wheel ? ' + Glass & Wheel Coating'
+            : state.glass ? ' + Glass Coating'
+            : state.wheel ? ' + Wheel Coating' : ''),
+        priced: true,
+        total: total,
+        addons: [],                       // glass/wheel are coatings, not booking add-ons
+        vehicleLabel: SIZE_LABELS[state.size],
+        ts: Date.now()
+      };
       var totalEl = document.getElementById('cqbTotal');
       if (onSale) {
         totalEl.innerHTML = '<s class="was">' + fmt(listBase + addonTotal) + '</s> <span class="now">' + fmt(total) + '</span>';
@@ -1868,6 +1888,16 @@
     });
     document.getElementById('cqbCont').addEventListener('click', result);
     if (backBtn) backBtn.addEventListener('click', function () { var p = prevStep(cur); if (p) goBack(p); });
+    var bookBtn = document.getElementById('cqbBook');
+    if (bookBtn) bookBtn.addEventListener('click', function () {
+      if (!lastQuote) return;                       // nothing quoted yet, plain link
+      try {
+        localStorage.setItem('sfac_quote', JSON.stringify(lastQuote));
+        // A half-finished booking would win on arrival and drop this quote.
+        localStorage.removeItem('sfac_booking_cart');
+        localStorage.removeItem('sfac_pkg');
+      } catch (e) {}
+    });
     document.getElementById('cqbRestart').addEventListener('click', function () {
       state = { size: null, prep: null, coating: null, glass: false, wheel: false };
       panelEl.querySelectorAll('.cqb-opt').forEach(function (s) { s.classList.remove('sel','on'); });
