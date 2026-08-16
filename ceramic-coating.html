@@ -731,7 +731,9 @@
       .cqb2 { display:none; }
 
       .cqb-teaser { display:block; margin-top:1.6rem; }
-      .cqb-teaser-vid { border-radius:18px; overflow:hidden; aspect-ratio:16/10;
+      /* The clip is 960x960. A 16/10 box with object-fit:cover was slicing the
+         top and bottom off it, so the box matches the footage instead. */
+      .cqb-teaser-vid { border-radius:18px; overflow:hidden; aspect-ratio:1/1;
                         background:#000; box-shadow:var(--shadow-card); }
       .cqb-teaser-vid video { width:100%; height:100%; object-fit:cover; display:block; }
       .cqb-open {
@@ -749,46 +751,64 @@
       .cqb-modal-back { position:absolute; inset:0; background:rgba(8,9,10,.55);
                         backdrop-filter:blur(2px); }
       .cqb-modal-card {
-        position:absolute; left:.85rem; right:.85rem; top:5.5vh; bottom:5.5vh;
+        position:absolute; left:.7rem; right:.7rem; top:2.6vh; bottom:2.6vh;
         background:#fff; border-radius:22px; overflow:hidden; display:flex;
         flex-direction:column; box-shadow:0 26px 70px rgba(0,0,0,.4);
         animation:cqbPop .28s cubic-bezier(.4,0,.2,1);
       }
       @keyframes cqbPop { from { opacity:0; transform:translateY(18px) scale(.98); }
                           to { opacity:1; transform:none; } }
-      .cqb-modal-head { flex:none; display:flex; align-items:center; justify-content:space-between;
-        padding:.95rem 1.1rem; border-bottom:1px solid var(--line); font-family:var(--font-d);
+      /* flex with min-width:0 on the title, so a long label shrinks instead of
+         growing over the Back button beside it. */
+      .cqb-modal-head { flex:none; display:flex; align-items:center; gap:.5rem;
+        padding:.8rem .9rem; border-bottom:1px solid var(--line); font-family:var(--font-d);
         font-weight:800; font-size:.95rem; color:var(--ink); }
       .cqb-modal-x { background:none; border:none; font-size:1.7rem; line-height:1;
-        color:var(--muted); cursor:pointer; padding:0 .2rem; }
+        color:var(--ink-2); cursor:pointer; padding:0 .2rem; flex:none; }
+      .cqb-modal-title { flex:1 1 auto; min-width:0; text-align:center; font-size:.88rem;
+        white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+      .cqb-modal-back { flex:none; background:none; border:none; cursor:pointer;
+        font-family:var(--font-d); font-weight:700; font-size:.86rem; color:var(--ink-2);
+        padding:.25rem .1rem; }
+      .cqb-modal-back[hidden] { display:none; }
       .cqb-modal-body { flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch;
                         overscroll-behavior:contain; }
 
       /* ── Repaint the panel light once it is inside the popup ── */
       .cqb-modal .cqb2-panel {
         background:#fff; border:none; box-shadow:none; border-radius:0;
-        min-height:0; padding:1.15rem 1.1rem 1.2rem;
+        min-height:0; padding:1rem .95rem 1.1rem;
       }
+      .cqb-modal .cqb-opts { gap:.7rem; }
+      .cqb-modal .cqb-opt { padding:.9rem 1rem; }
+      .cqb-modal .cqb-opt.veh { padding:0; }
       .cqb-modal .cqb-q { color:var(--ink); font-size:1.22rem; margin-bottom:1.1rem; }
       .cqb-modal .cqb-opt { background:#fff; border-color:var(--line); }
       .cqb-modal .cqb-opt:hover { background:#fff; transform:none; }
       .cqb-modal .cqb-opt.sel { border-color:var(--gold); border-width:2px;
                                 background:rgba(201,151,58,.06); }
       .cqb-modal .cqb-opt strong { color:var(--ink); }
-      .cqb-modal .cqb-opt span { color:var(--muted); }
-      .cqb-modal .cqb-opt.veh .veh-img { background:var(--bg-soft); }
-      .cqb-modal .prep-desc { color:var(--muted); }
+      /* Everything secondary was --muted (#74777B) on white, which is too light
+         to read on a phone outdoors. All of it goes to near-black. */
+      .cqb-modal .cqb-opt span { color:var(--ink); }
+      .cqb-modal .cqb-opt.veh > span:not(.veh-img) { color:var(--ink-2); }
+      /* Three of the four PNGs are narrower than the tile and carry their own
+         white background, so a grey container read as a white box floating on
+         grey. White behind all four makes the seam disappear. */
+      .cqb-modal .cqb-opt.veh .veh-img { background:#fff; }
+      .cqb-modal .prep-desc { color:var(--ink-2); }
       .cqb-modal .prep-h.yes { color:#2E7D46; }
       .cqb-modal .prep-h.no  { color:#B3402F; }
       .cqb-modal .prep-item { color:var(--ink-2); }
-      .cqb-modal .addon-pitch, .cqb-modal .addon-benes li { color:var(--muted); }
-      .cqb-modal .cqb-back { color:var(--muted); }
+      .cqb-modal .addon-pitch, .cqb-modal .addon-benes li { color:var(--ink-2); }
+      .cqb-modal .cqb-back { color:var(--ink-2); }
       .cqb-modal .cqb-rec { color:var(--ink); }
-      .cqb-modal .cqb-line { color:var(--ink-2); }
+      .cqb-modal .cqb-line { color:var(--ink); }
+      .cqb-modal .cqb-line .lbl { color:var(--ink-2); }
       .cqb-modal .cqb-line .val { color:var(--ink); }
       .cqb-modal .cqb-total { border-top-color:var(--line); }
       .cqb-modal .cqb-total span { color:var(--ink); }
-      .cqb-modal .cqb-note { color:var(--muted); }
+      .cqb-modal .cqb-note { color:var(--ink-2); }
       .cqb-modal .cqb-phone { color:var(--ink); }
       .cqb-modal .cqb-footer { padding-top:1.2rem; }
 
@@ -808,12 +828,12 @@
          normal rule, so this one has to shout to stack the footer. */
       .cqb-modal .q-footer:not(.cqb-hide) { display:flex !important; flex-direction:column;
         gap:.85rem; align-items:stretch; }
-      .cqb-modal .q-footer .cqb-progress { order:1; justify-content:center; display:flex; gap:.35rem; }
+      .cqb-modal .cqb-progress { display:none; }
       .cqb-modal .q-footer .cqb-continue {
         order:2; margin:0; width:100%; justify-content:center; border-radius:999px;
         padding:1.05rem 1.5rem; font-size:1rem; color:#fff; background:var(--gold);
         box-shadow:0 6px 20px rgba(201,151,58,.3); }
-      .cqb-modal .q-footer .cqb-back { order:3; margin:0; align-self:center; }
+      .cqb-modal .q-footer .cqb-back { display:none; }
       .cqb-modal .r-footer:not(.cqb-hide) { display:flex !important; flex-direction:column;
         align-items:stretch; gap:.2rem; padding-bottom:.4rem; }
       .cqb-modal .r-footer .cqb-restart { position:static; margin:.6rem auto 0; }
@@ -1294,7 +1314,8 @@
       <div class="cqb-modal-back" data-cqb-close></div>
       <div class="cqb-modal-card" role="dialog" aria-modal="true" aria-label="Ceramic coating quote">
         <div class="cqb-modal-head">
-          <span>Ceramic Coating Quote</span>
+          <button type="button" class="cqb-modal-back" id="cqbModalBack" hidden>&larr; Back</button>
+          <span class="cqb-modal-title">Ceramic Quote</span>
           <button type="button" class="cqb-modal-x" data-cqb-close aria-label="Close">&times;</button>
         </div>
         <div class="cqb-modal-body" id="cqbModalBody"></div>
@@ -1673,6 +1694,7 @@
     function goForward(n) {
       cur = n;
       paintCardPrices();
+      syncHeadBack();
       steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
       prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
       updateChrome(n);
@@ -1681,6 +1703,7 @@
     }
     function goBack(n) {
       cur = n;
+      syncHeadBack();
       steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
       prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
       updateChrome(n);
@@ -1701,7 +1724,7 @@
         '<div class="cqb-line"><span class="lbl">Paint Correction</span><span class="val">' + PREP_LABELS[state.prep] + '</span></div>' +
         '<div class="cqb-line"><span class="lbl">Ceramic Coating</span><span class="val">' + COAT_LABELS[state.coating] + '</span></div>';
       ['glass','wheel'].forEach(function (k) {
-        if (state[k]) { addonTotal += ADDON_PRICES[k]; lines += '<div class="cqb-line"><span class="lbl">' + ADDON_LABELS[k] + '</span><span class="val">Included</span></div>'; }
+        if (state[k]) { addonTotal += ADDON_PRICES[k]; lines += '<div class="cqb-line"><span class="lbl">' + ADDON_LABELS[k] + '</span><span class="val">Selected</span></div>'; }
       });
       document.getElementById('cqbRec').textContent = COAT_LABELS[state.coating] + ' on a ' + SIZE_LABELS[state.size] + ' vehicle';
       document.getElementById('cqbLines').innerHTML = lines;
@@ -1809,6 +1832,17 @@
       document.body.style.top = '';
       document.body.style.width = '';
       window.scrollTo(0, scrollY);
+    }
+    var headBack = document.getElementById('cqbModalBack');
+    if (headBack) headBack.addEventListener('click', function () {
+      var p = prevStep(cur); if (p) goBack(p);
+    });
+    /* Back lives in the popup header on mobile, so it is where a thumb expects
+       it rather than at the end of a long scroll. Hidden on the first question
+       and on the result, which has Start over instead. */
+    function syncHeadBack() {
+      if (!headBack) return;
+      headBack.hidden = !(isMobile() && cur > 1 && cur !== 5);
     }
     if (openBtn) openBtn.addEventListener('click', openQuote);
     if (modal) modal.addEventListener('click', function (e) {
