@@ -217,6 +217,32 @@
       .mt-hero-cta { margin-top:0; }
     }
 
+    /* Desktop follows the phone: white, headline above the picture, picture
+       below. It used to run the headline across the photo, but with the
+       calendars pinned to the top of each panel the January one sat directly
+       under the words. Nothing overlaps now because nothing is on top of
+       anything. */
+    @media (min-width:721px) {
+      .mt-hero { display:flex; flex-direction:column; height:auto; min-height:0;
+                 background:#fff; aspect-ratio:auto; }
+      .mt-hero::after { display:none; }
+      .mt-hero-inner { display:contents; }
+      .mt-hero-top { order:1; padding:8rem 1.5rem 1.4rem; }
+      /* Capped so the headline, the picture and the buttons all fit on one
+         screen. Full-bleed at 1440 made the strip 956px tall on its own and
+         pushed the buttons well below the fold. */
+      .mt-hero-bg { order:2; position:static; inset:auto; height:auto;
+                    width:min(880px, 94vw); max-height:calc(100svh - 430px);
+                    margin:0 auto; object-fit:contain; }
+      .mt-hero-cta { order:3; margin:0; padding:1.5rem 1.5rem 2rem; }
+      .mt-hero .label { color:var(--gold-deep, #A87B27); }
+      .mt-hero .mt-title { color:var(--ink, #101112); font-size:clamp(2.8rem,5.4vw,4.2rem); }
+      .mt-hero .mt-hero-sub { color:#3E4144; }
+      .mt-hero-cta .btn-ghost-d { background:#fff; border:1.5px solid #D9D6CF;
+        color:var(--ink, #101112); backdrop-filter:none; -webkit-backdrop-filter:none; }
+      .mt-hero-cta .btn-ghost-d:hover { background:#F5F3EF; }
+    }
+
     .mt-stat strong { display:block; font-family:var(--font-d); font-weight:900; font-size:2rem; color:var(--gold); letter-spacing:-.02em; }
     .mt-stat span { font-size:.8rem; color:#9A9DA2; letter-spacing:.02em; }
 
@@ -483,17 +509,28 @@
          and buttons sit above and below it instead, and the picture still runs
          edge to edge. Flexbox order puts it between them: it is a child of the
          hero, not of the text column. */
+      /* White, not black. The headline and buttons sit on the page rather than
+         over the picture here, so a black band above and below the strip just
+         read as dead weight. Dark type on white also lets the title go bigger
+         without fighting the nav bubble. */
       .mt-hero { display:flex; flex-direction:column; min-height:0 !important;
-                 height:auto; aspect-ratio:auto; }
+                 height:auto; aspect-ratio:auto; background:#fff; }
       .mt-hero-inner { display:contents; }
-      .mt-hero-top { order:1; padding:7.5rem 1.25rem 1.1rem; }
+      .mt-hero-top { order:1; padding:7.8rem 1.25rem 1.25rem; }
+      .mt-hero .label { color:var(--gold-deep, #A87B27); }
+      .mt-hero .mt-title { color:var(--ink, #101112); }
+      .mt-hero .mt-hero-sub { color:#3E4144; }
+      .mt-hero-cta { background:#fff; }
+      .mt-hero-cta .btn-ghost-d { background:#fff; border:1.5px solid #D9D6CF;
+        color:var(--ink, #101112); backdrop-filter:none; -webkit-backdrop-filter:none; }
+      .mt-hero-cta .btn-ghost-d:hover { background:#F5F3EF; }
       .mt-hero-bg { order:2; position:static; inset:auto; width:100%; height:auto;
                     object-fit:fill; }
       .mt-hero-cta { order:3; padding:1.1rem 1.25rem 1.4rem; }
       /* No scrim on a phone: the headline and buttons sit on the black above
          and below the picture, not over it, so there is nothing to darken for. */
       .mt-hero::after { display:none; }
-      .mt-title { font-size:clamp(2.5rem,11.5vw,3.1rem); }
+      .mt-title { font-size:clamp(2.9rem,13.5vw,3.6rem); line-height:.98; }
       .mt-hero-cta { margin-top:0; }
     }
 </style>
@@ -942,7 +979,9 @@
 
 <script>
   const nav = document.getElementById('nav');
-  const darkSecs = document.querySelectorAll('#home');
+  // The hero is white now, so there is no dark section on this page for the bar
+  // to sit over. Leaving #home in here painted the bubble charcoal on white.
+  const darkSecs = [];
   function updateNavTheme() {
     const r = nav.querySelector('.nav-inner').getBoundingClientRect();
     const probe = r.top + r.height / 2;

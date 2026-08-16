@@ -70,12 +70,10 @@ const html = `<style>
   .rule { width:${DIVIDER}px; background:#101112; }
 
   /* Pinned into the top LEFT corner of each photo, no band of its own.
-     The vertical offset is 29% of the panel, not the very top, for two reasons:
-     the page darkens the top of the hero so the nav reads against a bright sky,
-     and the centred page title runs across the join between the two panels.
-     Any higher and the January calendar lands on the headline. */
+     Pinned near the top of each panel. The page no longer runs its headline
+     across the picture, so nothing collides with it up here. */
   .cal {
-    position:absolute; top:300px; left:34px; width:240px;
+    position:absolute; top:84px; left:40px; width:240px;
     background:#fff; border-radius:11px;
     padding:16px 14px 13px;
     box-shadow:0 11px 30px rgba(0,0,0,.34);
