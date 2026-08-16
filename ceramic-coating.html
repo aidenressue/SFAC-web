@@ -527,6 +527,7 @@
     .cqb-note { max-width:440px; margin:1.1rem auto 0; font-size:.78rem; color:#84878C; line-height:1.6; }
     .cqb-cta { display:flex; flex-wrap:wrap; gap:.7rem; justify-content:center; align-items:center; margin-top:1.8rem; }
     @media (max-width:640px) { .cqb { padding:1.9rem 1.3rem; } .cqb-opts.cols-2, .cqb-opts.cols-3 { grid-template-columns:1fr; } }
+
     /* two-pane animated builder */
     .cqb2 { max-width:1240px; margin:3rem auto 0; display:grid; grid-template-columns:1fr 1fr; gap:1.8rem; align-items:stretch; }
     .cqb2-visual { position:relative; border-radius:20px; overflow:hidden; background:#050505; }
@@ -582,13 +583,14 @@
     /* bottom chrome, always pinned to the bottom of the panel */
     .cqb-footer { margin-top:auto; padding-top:1.6rem; align-items:center; }
     .q-footer { display:grid; grid-template-columns:1fr auto 1fr; }
+    .cqb-hide { display:none !important; }
     .q-footer .cqb-back { margin:0; justify-self:start; }
     .q-footer .cqb-progress { margin:0; justify-self:center; }
     .q-footer .cqb-continue { margin:0; justify-self:end; }
     .cqb-step[data-step="5"].active { display:flex; flex-direction:column; flex:1 1 auto; }
     .cqb-step[data-step="5"] .cqb-result { display:flex; flex-direction:column; flex:1; width:100%; }
     .cqb-breakdown { margin:auto 0; width:100%; }
-    .r-footer { display:none; justify-content:center; align-items:center; gap:1.2rem; margin-top:.4rem; padding-bottom:1.6rem; }
+    .r-footer { display:flex; justify-content:center; align-items:center; gap:1.2rem; margin-top:.4rem; padding-bottom:1.6rem; }
     .r-footer .cqb-cta { margin:0; }
     .r-footer .cqb-restart { position:absolute; right:1.5rem; bottom:.85rem; margin:0; }
     .cqb-phone { font-family:var(--font-d); font-weight:800; font-size:1rem; color:#fff; padding:.7rem 1rem; }
@@ -716,6 +718,108 @@
        flexbox, so the -50% dragged it half its own width off centre. */
     @keyframes bob-c { 0%,100% { transform:translateY(0); } 50% { transform:translateY(10px); } }
     .cc-scrollcue { align-self:center; animation-name:bob-c; }
+    /* ══ MOBILE QUOTE POPUP ══════════════════════════════════════════════
+       Desktop keeps the two-pane builder exactly as it was. Below 820px the
+       whole thing collapses to a video + one button, and the questions move
+       into a white popup. The panel element itself is MOVED into the popup
+       rather than duplicated, so there is only ever one set of steps and one
+       set of click handlers. */
+    .cqb-teaser { display:none; }
+    .cqb-modal  { display:none; }
+
+    @media (max-width:820px) {
+      .cqb2 { display:none; }
+
+      .cqb-teaser { display:block; margin-top:1.6rem; }
+      .cqb-teaser-vid { border-radius:18px; overflow:hidden; aspect-ratio:16/10;
+                        background:#000; box-shadow:var(--shadow-card); }
+      .cqb-teaser-vid video { width:100%; height:100%; object-fit:cover; display:block; }
+      .cqb-open {
+        display:block; width:100%; margin-top:1.1rem; border:none; cursor:pointer;
+        background:var(--gold); color:#fff; font-family:var(--font-d); font-weight:800;
+        font-size:1.05rem; padding:1.15rem 1.5rem; border-radius:999px;
+        box-shadow:0 6px 20px rgba(201,151,58,.32); transition:background .16s, transform .16s;
+      }
+      .cqb-open:active { transform:scale(.985); background:var(--gold-deep); }
+
+      /* The card stops short of the top and bottom so the page still shows
+         behind it and it reads as a layer, not a new screen. */
+      .cqb-modal[hidden] { display:none; }
+      .cqb-modal { display:block; position:fixed; inset:0; z-index:300; }
+      .cqb-modal-back { position:absolute; inset:0; background:rgba(8,9,10,.55);
+                        backdrop-filter:blur(2px); }
+      .cqb-modal-card {
+        position:absolute; left:.85rem; right:.85rem; top:5.5vh; bottom:5.5vh;
+        background:#fff; border-radius:22px; overflow:hidden; display:flex;
+        flex-direction:column; box-shadow:0 26px 70px rgba(0,0,0,.4);
+        animation:cqbPop .28s cubic-bezier(.4,0,.2,1);
+      }
+      @keyframes cqbPop { from { opacity:0; transform:translateY(18px) scale(.98); }
+                          to { opacity:1; transform:none; } }
+      .cqb-modal-head { flex:none; display:flex; align-items:center; justify-content:space-between;
+        padding:.95rem 1.1rem; border-bottom:1px solid var(--line); font-family:var(--font-d);
+        font-weight:800; font-size:.95rem; color:var(--ink); }
+      .cqb-modal-x { background:none; border:none; font-size:1.7rem; line-height:1;
+        color:var(--muted); cursor:pointer; padding:0 .2rem; }
+      .cqb-modal-body { flex:1 1 auto; overflow-y:auto; -webkit-overflow-scrolling:touch;
+                        overscroll-behavior:contain; }
+
+      /* ── Repaint the panel light once it is inside the popup ── */
+      .cqb-modal .cqb2-panel {
+        background:#fff; border:none; box-shadow:none; border-radius:0;
+        min-height:0; padding:1.15rem 1.1rem 1.2rem;
+      }
+      .cqb-modal .cqb-q { color:var(--ink); font-size:1.22rem; margin-bottom:1.1rem; }
+      .cqb-modal .cqb-opt { background:#fff; border-color:var(--line); }
+      .cqb-modal .cqb-opt:hover { background:#fff; transform:none; }
+      .cqb-modal .cqb-opt.sel { border-color:var(--gold); border-width:2px;
+                                background:rgba(201,151,58,.06); }
+      .cqb-modal .cqb-opt strong { color:var(--ink); }
+      .cqb-modal .cqb-opt span { color:var(--muted); }
+      .cqb-modal .cqb-opt.veh .veh-img { background:var(--bg-soft); }
+      .cqb-modal .prep-desc { color:var(--muted); }
+      .cqb-modal .prep-h.yes { color:#2E7D46; }
+      .cqb-modal .prep-h.no  { color:#B3402F; }
+      .cqb-modal .prep-item { color:var(--ink-2); }
+      .cqb-modal .addon-pitch, .cqb-modal .addon-benes li { color:var(--muted); }
+      .cqb-modal .cqb-back { color:var(--muted); }
+      .cqb-modal .cqb-rec { color:var(--ink); }
+      .cqb-modal .cqb-line { color:var(--ink-2); }
+      .cqb-modal .cqb-line .val { color:var(--ink); }
+      .cqb-modal .cqb-total { border-top-color:var(--line); }
+      .cqb-modal .cqb-total span { color:var(--ink); }
+      .cqb-modal .cqb-note { color:var(--muted); }
+      .cqb-modal .cqb-phone { color:var(--ink); }
+      .cqb-modal .cqb-footer { padding-top:1.2rem; }
+
+      /* The price line each card carries in the popup. */
+      .cqb-modal .cqb-price {
+        display:block; margin-top:.5rem; font-family:var(--font-d); font-weight:800;
+        font-size:.95rem; color:var(--gold-deep); }
+      .cqb-modal .cqb-price .pre { font-weight:600; font-size:.72rem; color:var(--muted);
+        text-transform:uppercase; letter-spacing:.1em; display:block; margin-bottom:.1rem; }
+      .cqb-modal .cqb-price.inc { color:#2E7D46; font-size:.85rem; }
+      .cqb-modal .cqb-price s.was { color:#C0392B; text-decoration:line-through;
+        text-decoration-thickness:2px; font-weight:700; margin-right:.25rem;
+        font-size:.85rem; }
+
+      /* See quote sits as a full-width pill at the bottom of the popup. */
+      /* updateChrome() sets display:grid as an INLINE style, which beats any
+         normal rule, so this one has to shout to stack the footer. */
+      .cqb-modal .q-footer:not(.cqb-hide) { display:flex !important; flex-direction:column;
+        gap:.85rem; align-items:stretch; }
+      .cqb-modal .q-footer .cqb-progress { order:1; justify-content:center; display:flex; gap:.35rem; }
+      .cqb-modal .q-footer .cqb-continue {
+        order:2; margin:0; width:100%; justify-content:center; border-radius:999px;
+        padding:1.05rem 1.5rem; font-size:1rem; color:#fff; background:var(--gold);
+        box-shadow:0 6px 20px rgba(201,151,58,.3); }
+      .cqb-modal .q-footer .cqb-back { order:3; margin:0; align-self:center; }
+      .cqb-modal .r-footer:not(.cqb-hide) { display:flex !important; flex-direction:column;
+        align-items:stretch; gap:.2rem; padding-bottom:.4rem; }
+      .cqb-modal .r-footer .cqb-restart { position:static; margin:.6rem auto 0; }
+      .cqb-modal .r-footer .cqb-cta .btn { width:100%; justify-content:center; border-radius:999px; }
+      .cqb-modal .r-footer .cqb-cta { flex-direction:column; width:100%; }
+    }
 </style>
   <script src="/ga.js"></script>
   <script type="application/ld+json">
@@ -1015,6 +1119,15 @@
     <h2 class="cc-h2">30 Second Ceramic Coating Quote</h2>
     <p class="cc-h2-sub">Answer a few quick questions and see your quote instantly.</p>
 
+    <!-- MOBILE ONLY: the builder collapses to a teaser that opens a popup. -->
+    <div class="cqb-teaser">
+      <div class="cqb-teaser-vid">
+        <video src="photos/ceramic/ceramic-pour.mp4" poster="photos/ceramic/ceramic-pour-poster.jpg"
+               autoplay muted loop playsinline></video>
+      </div>
+      <button type="button" class="cqb-open" id="cqbOpen">Get Quote</button>
+    </div>
+
     <div class="cqb2" id="cqb">
       <div class="cqb2-visual">
         <video class="cqb2-vid on" data-vstep="1" src="photos/ceramic/cqb-size.mp4" poster="photos/ceramic/cqb-size-poster.jpg" muted playsinline preload="auto" loop></video>
@@ -1165,13 +1278,26 @@
           <div class="cqb-progress"><span class="on"></span><span></span><span></span><span></span></div>
           <button class="cqb-continue" id="cqbCont">See quote &rarr;</button>
         </div>
-        <div class="cqb-footer r-footer" id="cqbRFooter">
+        <div class="cqb-footer r-footer cqb-hide" id="cqbRFooter">
           <div class="cqb-cta">
             <a href="/booking.html" class="btn btn-gold">Book Now</a>
             <a href="tel:+19708516433" class="cqb-phone">(970) 851-6433</a>
           </div>
           <button class="cqb-back cqb-restart" id="cqbRestart">Start over</button>
         </div>
+      </div>
+    </div>
+
+    <!-- MOBILE ONLY: the panel above is MOVED in here when the popup opens, so
+         there is one set of steps and one set of handlers, not two. -->
+    <div class="cqb-modal" id="cqbModal" hidden>
+      <div class="cqb-modal-back" data-cqb-close></div>
+      <div class="cqb-modal-card" role="dialog" aria-modal="true" aria-label="Ceramic coating quote">
+        <div class="cqb-modal-head">
+          <span>Ceramic Coating Quote</span>
+          <button type="button" class="cqb-modal-x" data-cqb-close aria-label="Close">&times;</button>
+        </div>
+        <div class="cqb-modal-body" id="cqbModalBody"></div>
       </div>
     </div>
   </div>
@@ -1462,8 +1588,10 @@
     var rFooter = document.getElementById('cqbRFooter');
     var backBtn = document.getElementById('cqbBack');
     function updateChrome(n) {
-      if (qFooter) qFooter.style.display = (n === 5 ? 'none' : 'grid');
-      if (rFooter) rFooter.style.display = (n === 5 ? 'flex' : 'none');
+      // A class, not an inline display: the mobile popup restacks this footer,
+      // and an inline value would beat any rule it could write.
+      if (qFooter) qFooter.classList.toggle('cqb-hide', n === 5);
+      if (rFooter) rFooter.classList.toggle('cqb-hide', n !== 5);
       if (backBtn) backBtn.style.visibility = (n <= 1 ? 'hidden' : 'visible');
       var cont = document.getElementById('cqbCont');
       if (cont) cont.style.visibility = (n === 4 ? 'visible' : 'hidden');
@@ -1544,6 +1672,7 @@
     }
     function goForward(n) {
       cur = n;
+      paintCardPrices();
       steps.forEach(function (s) { s.classList.toggle('active', s.dataset.step === String(n)); });
       prog.forEach(function (p, i) { p.classList.toggle('on', i < n); });
       updateChrome(n);
@@ -1588,25 +1717,126 @@
       goForward(5);
     }
 
+
+    /* ── Mobile popup ────────────────────────────────────────────────────
+       Below 820px the builder is a video and a button, and the questions live
+       in a popup. The panel is MOVED into the popup rather than copied, so the
+       handlers below are the only ones that exist.
+
+       The order also differs on purpose. Desktop asks size, correction, then
+       coating. Mobile asks size, COATING, then correction, because the coating
+       is the thing being bought and the correction reads as a step up from the
+       polish that is already included in it. */
+    var mq = window.matchMedia('(max-width:820px)');
+    function isMobile() { return mq.matches; }
+    /* Held once. The element moves between the grid and the popup, so anything
+       that looks it up through #cqb stops finding it the moment it is open. */
+    var panelEl = box.querySelector('.cqb2-panel');
+
+    var STEP_SIZE = 1, STEP_PREP = 2, STEP_COAT = 3, STEP_ADDON = 4;
+
+    function nextStep(key) {
+      if (isMobile()) {
+        if (key === 'size')    return STEP_COAT;
+        if (key === 'coating') return STEP_PREP;
+        return STEP_ADDON;                       // prep
+      }
+      if (key === 'size') return STEP_PREP;
+      if (key === 'prep') return STEP_COAT;
+      return STEP_ADDON;
+    }
+    function prevStep(from) {
+      if (isMobile()) {
+        if (from === STEP_COAT)  return STEP_SIZE;
+        if (from === STEP_PREP)  return STEP_COAT;
+        if (from === STEP_ADDON) return STEP_PREP;
+        if (from === 5)          return STEP_ADDON;
+        return 0;
+      }
+      return from > 1 ? from - 1 : 0;
+    }
+
+    /* Prices written onto the cards, so the popup answers "how much" without
+       making anyone reach the end first. Mobile only: desktop is untouched. */
+    function priceLine(el, html, cls) {
+      var p = el.querySelector('.cqb-price');
+      if (!p) { p = document.createElement('span'); p.className = 'cqb-price'; el.appendChild(p); }
+      p.className = 'cqb-price' + (cls ? ' ' + cls : '');
+      p.innerHTML = html;
+    }
+    function paintCardPrices() {
+      if (!isMobile() || !state.size) return;
+      var polish = PREP_PRICES.polish[state.size];
+
+      // Coating cards: the cheapest this coating can be, which is with the polish.
+      panelEl.querySelectorAll('.cqb-opt[data-key="coating"]').forEach(function (el) {
+        var k = el.dataset.val;
+        var sale = salePrice(k, 'polish', state.size);
+        var list = COATING_PRICES[k][state.size] + polish;
+        priceLine(el, sale === null
+          ? '<span class="pre">From</span>' + fmt(list)
+          : '<span class="pre">From</span><s class="was">' + fmt(list) + '</s> ' + fmt(sale));
+      });
+
+      // Correction cards: polish is already in every coating price, the other
+      // two cost the difference.
+      panelEl.querySelectorAll('.cqb-opt[data-key="prep"]').forEach(function (el) {
+        var k = el.dataset.val;
+        if (k === 'polish') { priceLine(el, 'Included with all Coatings', 'inc'); return; }
+        priceLine(el, '+' + fmt(PREP_PRICES[k][state.size] - polish));
+      });
+    }
+
+    var modal = document.getElementById('cqbModal');
+    var modalBody = document.getElementById('cqbModalBody');
+    var openBtn = document.getElementById('cqbOpen');
+    var scrollY = 0;
+
+    function openQuote() {
+      if (!modal || !panelEl) return;
+      modalBody.appendChild(panelEl);          // move, do not clone
+      modal.hidden = false;
+      scrollY = window.pageYOffset;
+      document.body.style.position = 'fixed';
+      document.body.style.top = -scrollY + 'px';
+      document.body.style.width = '100%';
+    }
+    function closeQuote() {
+      if (!modal || !panelEl) return;
+      box.appendChild(panelEl);                // put it back for desktop
+      modal.hidden = true;
+      document.body.style.position = '';
+      document.body.style.top = '';
+      document.body.style.width = '';
+      window.scrollTo(0, scrollY);
+    }
+    if (openBtn) openBtn.addEventListener('click', openQuote);
+    if (modal) modal.addEventListener('click', function (e) {
+      if (e.target.closest('[data-cqb-close]')) closeQuote();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && modal && !modal.hidden) closeQuote();
+    });
+    // Rotating to a desktop width with the popup open would strand the panel.
+    mq.addEventListener('change', function (e) { if (!e.matches && modal && !modal.hidden) closeQuote(); });
+
     box.querySelectorAll('.cqb-opt[data-key]').forEach(function (b) {
       b.addEventListener('click', function () {
         state[b.dataset.key] = b.dataset.val;
         var sib = b.parentNode.querySelectorAll('.cqb-opt');
         sib.forEach(function (s) { s.classList.remove('sel'); });
         b.classList.add('sel');
-        if (b.dataset.key === 'size') goForward(2);
-        else if (b.dataset.key === 'prep') goForward(3);
-        else goForward(4);
+        goForward(nextStep(b.dataset.key));
       });
     });
     box.querySelectorAll('.cqb-opt.addon').forEach(function (b) {
       b.addEventListener('click', function () { state[b.dataset.addon] = !state[b.dataset.addon]; b.classList.toggle('on', state[b.dataset.addon]); });
     });
     document.getElementById('cqbCont').addEventListener('click', result);
-    if (backBtn) backBtn.addEventListener('click', function () { if (cur > 1) goBack(cur - 1); });
+    if (backBtn) backBtn.addEventListener('click', function () { var p = prevStep(cur); if (p) goBack(p); });
     document.getElementById('cqbRestart').addEventListener('click', function () {
       state = { size: null, prep: null, coating: null, glass: false, wheel: false };
-      box.querySelectorAll('.cqb-opt').forEach(function (s) { s.classList.remove('sel','on'); });
+      panelEl.querySelectorAll('.cqb-opt').forEach(function (s) { s.classList.remove('sel','on'); });
       goForward(1);
     });
     updateChrome(1);
