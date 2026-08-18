@@ -127,7 +127,8 @@
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://shineforacause.com/terms-conditions</loc>
+    <loc>https://shineforacause.com/sms</loc></url>
+  <url><loc>https://shineforacause.com/terms-conditions</loc>
     <lastmod>2026-08-08</lastmod>
   </url>
 </urlset>
