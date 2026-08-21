@@ -38,6 +38,8 @@
   strong{color:var(--ink)}
   a{color:var(--gold-deep)}
 
+  .notreq{margin-top:1.5rem;padding:1rem 1.2rem;border-radius:14px;
+          background:#FFF8E9;border:1px solid #E8D3A4;color:#4A3A17;font-size:.95rem}
   .facts{margin-top:1.6rem;border:1px solid var(--line);border-radius:14px;overflow:hidden}
   .facts div{display:flex;gap:1rem;padding:.8rem 1.1rem;border-bottom:1px solid var(--line);
              font-size:.95rem}
@@ -82,6 +84,13 @@
   <p class="lede">Appointment texts from Shine for a Cause Mobile Detailing, a mobile auto
     detailing company in Fort Collins, Colorado. Joining is optional and you can stop at any time.</p>
 
+  <div class="notreq">
+    <strong>Joining is optional.</strong> You do <strong>not</strong> need to agree to text
+    messages to book a detail, request a quote, or be a customer. Consent is never a condition
+    of purchase. If you would rather not receive texts, we call or email you instead, and every
+    booking and contact form on this site goes through with the box left unticked.
+  </div>
+
   <!-- ── Sign-up ────────────────────────────────────────────────────── -->
   <section class="signup">
     <h2>Sign up for appointment texts</h2>
@@ -106,6 +115,8 @@
           <a href="/terms-conditions.html#sms">SMS Terms</a>.</span>
       </label>
 
+      <div id="warn" style="display:none;margin-top:.9rem;padding:.8rem 1rem;border-radius:10px;
+           background:#FFF3F3;border:1px solid #F0C9C9;color:#8A2B2B;font-size:.88rem"></div>
       <button id="submit" type="button">Sign me up</button>
     </div>
     <div id="ok">Thanks. You are signed up for appointment texts. Reply STOP to any message to stop.</div>
@@ -174,10 +185,16 @@
     var optIn = document.getElementById('sOptIn').checked;
 
     if (!name || !phone) { alert('Please enter your name and mobile number.'); return; }
-    // The whole purpose of this page is joining, so the box has to be ticked
-    // here. It is still unticked by default and the visitor ticks it themselves,
-    // and every other form on the site works without it.
-    if (!optIn) { alert('Please tick the box to agree to receive text messages.'); return; }
+    // Nothing is being sold here, so this is not a condition of purchase: it is
+    // simply that a text program cannot add someone who has not agreed to texts.
+    // Said in place rather than as a blocking alert, so it never reads as a gate.
+    if (!optIn) {
+      var w = document.getElementById('warn');
+      w.style.display = 'block';
+      w.textContent = 'Tick the box above to join. You do not have to \u2014 you can still ' +
+        'book and be a customer without texts, and we will call or email you instead.';
+      return;
+    }
 
     btn.textContent = 'Signing up…'; btn.disabled = true;
     fetch('https://sfac-mu.vercel.app/api/leads/webhook', {
