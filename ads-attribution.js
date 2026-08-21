@@ -34,18 +34,23 @@
       var get = function (k) { return (q.get(k) || '').trim().slice(0, 200); };
 
       var gclid = get('gclid') || get('wbraid') || get('gbraid');
+      // Meta puts fbclid on the landing URL the way Google puts gclid. Without
+      // this, a Facebook or Instagram ad click with no UTMs on it was ignored
+      // completely and the lead arrived as plain WEB.
+      var fbclid = get('fbclid');
       var source = get('utm_source').toLowerCase();
       var medium = get('utm_medium').toLowerCase();
       var campaign = get('utm_campaign');
       var content = get('utm_content') || get('utm_term');
 
-      if (!gclid && !source && !campaign) return null;
+      if (!gclid && !fbclid && !source && !campaign) return null;
 
       // Platform, in the vocabulary the CRM already uses.
       var platform = 'WEB';
       if (gclid || source.indexOf('google') === 0) platform = 'GOOGLE';
-      else if (source.indexOf('facebook') === 0 || source === 'fb') platform = 'FB';
       else if (source.indexOf('instagram') === 0 || source === 'ig') platform = 'IG';
+      else if (fbclid || source.indexOf('facebook') === 0 || source === 'fb' ||
+               source.indexOf('meta') === 0) platform = 'FB';
       else if (source) platform = source.toUpperCase().slice(0, 20);
 
       return {
@@ -53,8 +58,9 @@
         campaign_name: campaign,
         // Falls back to something readable so the CRM is not left with a blank
         // column on a click that clearly came from an ad.
-        ad_name: content || (gclid ? 'Google Ads click' : ''),
+        ad_name: content || (gclid ? 'Google Ads click' : fbclid ? 'Meta Ads click' : ''),
         gclid: gclid,
+        fbclid: fbclid,
         medium: medium,
         landed_on: window.location.pathname,
         at: new Date().toISOString()
@@ -81,11 +87,19 @@
     }
   }
 
-  // First touch wins, so a later organic visit does not overwrite the ad that
-  // earned the lead. A genuinely new ad click does replace it.
+  // First touch wins.
+  //
+  // This used to also overwrite whenever the new URL carried a gclid or a
+  // campaign, which is last-touch wearing a first-touch comment. Someone who
+  // clicked a Meta ad and later arrived through a Google brand ad had the Meta
+  // click erased, so the campaign that actually found them lost the credit and
+  // the one they were already looking for took it.
+  //
+  // Staleness is handled by the 90 day expiry in load(): once that lapses the
+  // next ad click writes fresh.
   var fresh = readParams();
   var stored = load();
-  if (fresh && (!stored || fresh.gclid || fresh.campaign_name)) {
+  if (fresh && !stored) {
     try { window.localStorage.setItem(STORE, JSON.stringify(fresh)); } catch (e) {}
     stored = fresh;
   }
@@ -113,9 +127,11 @@
         if (!payload.campaign_name && stored.campaign_name) payload.campaign_name = stored.campaign_name;
         if (!payload.ad_name && stored.ad_name) payload.ad_name = stored.ad_name;
 
-        if (stored.gclid) {
-          payload.notes = (payload.notes ? payload.notes + ' | ' : '') +
-            'gclid: ' + stored.gclid +
+        var clickId = stored.gclid ? 'gclid: ' + stored.gclid
+                    : stored.fbclid ? 'fbclid: ' + stored.fbclid
+                    : '';
+        if (clickId) {
+          payload.notes = (payload.notes ? payload.notes + ' | ' : '') + clickId +
             (stored.landed_on ? ' | landed: ' + stored.landed_on : '');
         }
 
