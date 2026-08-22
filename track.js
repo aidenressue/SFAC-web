@@ -58,15 +58,20 @@
     };
 
     var body = JSON.stringify(payload);
-    // sendBeacon survives the page being closed mid-request, which a fetch does
-    // not. Falls back where it is missing.
+
+    /* text/plain, not application/json, and this matters.
+       application/json is not a CORS-safelisted content type, so the browser
+       preflights it — and a sendBeacon request cannot be preflighted, so it is
+       dropped without a word. The symptom is an OPTIONS 204 and no POST at all.
+       text/plain is safelisted, so the beacon goes straight out. The body is
+       still JSON and the API parses it as JSON whatever the header says. */
     try {
       if (navigator.sendBeacon &&
-          navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'application/json' }))) return;
+          navigator.sendBeacon(ENDPOINT, new Blob([body], { type: 'text/plain;charset=UTF-8' }))) return;
     } catch (e) {}
     try {
       fetch(ENDPOINT, {
-        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        method: 'POST', headers: { 'Content-Type': 'text/plain;charset=UTF-8' },
         body: body, keepalive: true, mode: 'cors'
       }).catch(function () {});
     } catch (e) {}
