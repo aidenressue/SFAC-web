@@ -3,7 +3,8 @@
    nothing at all, so the bar disappears on its own without a code change. */
 (function () {
   var SALE_ENDS = '2026-09-12T23:59:00-06:00';
-  var HEADLINE  = 'End of Summer Sale: 20% off all details!';
+  // Only the discount itself is gold; the rest of the line reads as body text.
+  var HEADLINE  = ['End of Summer Sale: ', '20% off', ' all details!'];
 
   var end = new Date(SALE_ENDS).getTime();
   if (isNaN(end) || Date.now() >= end) return;
@@ -11,23 +12,27 @@
   var css = document.createElement('style');
   css.textContent =
     '.sfac-sale{position:relative;z-index:200;background:#fff;' +
-    'color:#A87B27;font-family:Archivo,system-ui,sans-serif;display:flex;flex-wrap:wrap;align-items:center;' +
-    'justify-content:center;gap:.35rem .8rem;padding:.4rem 1rem;text-align:center;line-height:1.3;' +
+    'color:#101112;font-family:Archivo,system-ui,sans-serif;display:flex;flex-wrap:wrap;align-items:center;' +
+    'justify-content:center;gap:.3rem .9rem;padding:.45rem 1rem;text-align:center;line-height:1.3;' +
     'border-bottom:1px solid rgba(201,151,58,.32)}' +
-    '.sfac-sale-txt{font-size:.8rem;font-weight:800;letter-spacing:-.01em}' +
-    '.sfac-sale-cd{display:inline-flex;align-items:center;gap:.35rem;background:rgba(201,151,58,.12);' +
-    'border-radius:999px;padding:.2rem .6rem;font-size:.68rem;font-weight:700;letter-spacing:.02em;' +
-    'white-space:nowrap;font-variant-numeric:tabular-nums;color:#A87B27}' +
+    '.sfac-sale-txt{font-size:.94rem;font-weight:800;letter-spacing:-.01em}' +
+    '.sfac-sale-hl{color:#A87B27}' +
+    '.sfac-sale-cd{display:inline-flex;align-items:center;gap:.35rem;font-size:.86rem;font-weight:700;' +
+    'letter-spacing:.01em;white-space:nowrap;font-variant-numeric:tabular-nums;color:#101112}' +
     '.sfac-sale-cd b{font-weight:800}' +
-    '@media (max-width:560px){.sfac-sale{padding:.36rem .7rem;gap:.2rem .5rem}' +
-    '.sfac-sale-txt{font-size:.72rem}.sfac-sale-cd{font-size:.63rem;padding:.16rem .5rem}}';
+    '@media (max-width:560px){.sfac-sale{padding:.4rem .7rem;gap:.15rem .55rem}' +
+    '.sfac-sale-txt{font-size:.82rem}.sfac-sale-cd{font-size:.76rem}}';
   document.head.appendChild(css);
 
   var bar = document.createElement('div');
   bar.className = 'sfac-sale';
   bar.setAttribute('role', 'status');
-  bar.innerHTML = '<span class="sfac-sale-txt"></span><span class="sfac-sale-cd"></span>';
-  bar.querySelector('.sfac-sale-txt').textContent = HEADLINE;
+  bar.innerHTML = '<span class="sfac-sale-txt">' +
+    '<span class="sfac-sale-a"></span><span class="sfac-sale-hl"></span><span class="sfac-sale-b"></span>' +
+    '</span><span class="sfac-sale-cd"></span>';
+  bar.querySelector('.sfac-sale-a').textContent  = HEADLINE[0];
+  bar.querySelector('.sfac-sale-hl').textContent = HEADLINE[1];
+  bar.querySelector('.sfac-sale-b').textContent  = HEADLINE[2];
   var cd = bar.querySelector('.sfac-sale-cd');
 
   function tick() {
