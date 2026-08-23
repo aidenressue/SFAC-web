@@ -1,0 +1,41 @@
+{
+  "homepage cards": {
+    "Full Express": {
+      "img": "photos/packages/pkg-reset.jpg",
+      "script_label": "Level One"
+    },
+    "Full Executive": {
+      "img": "photos/packages/pkg-executive.jpg",
+      "script_label": "Level Two"
+    },
+    "Interior Express": {
+      "img": "photos/packages/pkg-int-reset.jpg",
+      "script_label": "Level One"
+    },
+    "Interior Executive": {
+      "img": "photos/packages/pkg-int-executive.jpg",
+      "script_label": "Level Two"
+    },
+    "Exterior Express": {
+      "img": "photos/packages/pkg-maintenance.jpg",
+      "script_label": "Level One"
+    },
+    "Exterior Executive": {
+      "img": "photos/packages/pkg-ext-reset.jpg",
+      "script_label": "Level Two"
+    },
+    "Ceramic Coating": {
+      "img": "photos/packages/pkg-ext-ceramic.jpg",
+      "script_label": "Level Three"
+    }
+  },
+  "quote builder": {
+    "Full Express": "photos/packages/pkg-reset.jpg",
+    "Full Executive": "photos/packages/pkg-executive.jpg",
+    "Exterior Express": "photos/packages/pkg-maintenance.jpg",
+    "Exterior Executive": "photos/packages/pkg-ext-reset.jpg",
+    "Ceramic Coating": "photos/packages/pkg-ext-ceramic.jpg",
+    "Interior Express": "photos/packages/pkg-int-reset.jpg",
+    "Interior Executive": "photos/packages/pkg-int-executive.jpg"
+  }
+}
