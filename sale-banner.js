@@ -10,17 +10,17 @@
 
   var css = document.createElement('style');
   css.textContent =
-    '.sfac-sale{position:relative;z-index:200;background:linear-gradient(90deg,#A87B27 0%,#C9973A 50%,#A87B27 100%);' +
-    'color:#fff;font-family:Archivo,system-ui,sans-serif;display:flex;flex-wrap:wrap;align-items:center;' +
-    'justify-content:center;gap:.5rem 1rem;padding:.6rem 1rem;text-align:center;line-height:1.3;' +
-    'box-shadow:0 1px 0 rgba(0,0,0,.08)}' +
-    '.sfac-sale-txt{font-size:.95rem;font-weight:800;letter-spacing:-.01em}' +
-    '.sfac-sale-cd{display:inline-flex;align-items:center;gap:.4rem;background:rgba(16,17,18,.82);' +
-    'border-radius:999px;padding:.28rem .78rem;font-size:.78rem;font-weight:700;letter-spacing:.02em;' +
-    'white-space:nowrap;font-variant-numeric:tabular-nums}' +
+    '.sfac-sale{position:relative;z-index:200;background:#fff;' +
+    'color:#A87B27;font-family:Archivo,system-ui,sans-serif;display:flex;flex-wrap:wrap;align-items:center;' +
+    'justify-content:center;gap:.35rem .8rem;padding:.4rem 1rem;text-align:center;line-height:1.3;' +
+    'border-bottom:1px solid rgba(201,151,58,.32)}' +
+    '.sfac-sale-txt{font-size:.8rem;font-weight:800;letter-spacing:-.01em}' +
+    '.sfac-sale-cd{display:inline-flex;align-items:center;gap:.35rem;background:rgba(201,151,58,.12);' +
+    'border-radius:999px;padding:.2rem .6rem;font-size:.68rem;font-weight:700;letter-spacing:.02em;' +
+    'white-space:nowrap;font-variant-numeric:tabular-nums;color:#A87B27}' +
     '.sfac-sale-cd b{font-weight:800}' +
-    '@media (max-width:560px){.sfac-sale{padding:.55rem .75rem;gap:.3rem .6rem}' +
-    '.sfac-sale-txt{font-size:.82rem}.sfac-sale-cd{font-size:.72rem;padding:.24rem .6rem}}';
+    '@media (max-width:560px){.sfac-sale{padding:.36rem .7rem;gap:.2rem .5rem}' +
+    '.sfac-sale-txt{font-size:.72rem}.sfac-sale-cd{font-size:.63rem;padding:.16rem .5rem}}';
   document.head.appendChild(css);
 
   var bar = document.createElement('div');
