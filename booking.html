@@ -74,7 +74,7 @@
 
     /* ── NAV ── */
     .booking-nav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      position: fixed; top: var(--sfac-sale-h, 0px); left: 0; right: 0; z-index: 200;
       height: 96px; padding: 0 2rem;
       display: flex; align-items: center; justify-content: space-between;
       background: #F4F1EC;
@@ -93,7 +93,7 @@
 
     /* ── MAIN LAYOUT ── */
     #booking-app {
-      position: fixed; inset: 0; top: 96px;
+      position: fixed; inset: 0; top: calc(96px + var(--sfac-sale-h, 0px));
       display: flex;
     }
 
@@ -1277,27 +1277,15 @@ const CRM_API = 'https://sfac-mu.vercel.app';
 
 const SERVICE_CONFIGS = {
   // ── Full Detail: Maintenance / Reset / Executive (set price applies to all sizes; add mid/large/van to charge more) ──
-  'maintenance-full': {
-    label: 'Full Maintenance', packageType: 'full', tier: 'maintenance',
-    description: 'A regular upkeep clean, inside and out, to keep your car fresh between deeper details.',
-    bullets: ['Interior vacuum & wipe down', 'Floor mats, windows & mirrors', 'Trunk & door jambs', 'Quick hand wash & wax', 'Clean rims & tires'],
-    included: {
-      interior: ['Interior vacuum', 'Wipe all surfaces', 'Floor mats', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
-      exterior: ['Quick hand wash', 'Wax protection', 'Clean rims', 'Clean tires']
-    },
-    pricing: { small:180, mid:195, large:210, van:245 },
-    acuityIds: { small:0, mid:0, large:0, van:0 },
-    addons: ['headlight','engine','petHair','trim', 'carSeats']
-  },
   'reset-full': {
-    label: 'Full Reset', packageType: 'full', tier: 'reset',
+    label: 'Full Express', packageType: 'full', tier: 'reset',
     description: 'A deeper reset of built-up dirt and grime, inside and out.',
-    bullets: ['Thorough interior vacuum', 'Clean & protect plastics', 'Spot steam & stain treatment', 'Floor mats detailed & shined', 'Hand wash & 1-step decontamination', 'Hybrid sealant, rims, wheel wells & tires'],
+    bullets: ['Thorough interior vacuum', 'Clean & protect plastics', 'Spot steam cleaning', 'Floor mats detailed & shined', 'Hand wash', 'Hybrid sealant, rims, wheel wells & tires'],
     included: {
-      interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Stains (spot treatment)', 'Spot steam cleaning', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
-      exterior: ['Professional hand wash', '1-step paint decontamination', 'Hybrid sealant', 'Detail rims', 'Wheel wells', 'Detail tires']
+      interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Spot steam cleaning', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
+      exterior: ['Professional hand wash', 'Hybrid sealant', 'Detail rims', 'Wheel wells', 'Detail tires']
     },
-    pricing: { small:274, mid:299, large:324, van:349 },
+    pricing: { small:260, mid:290, large:315, van:345 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','petHair','trim', 'carSeats']
   },
@@ -1309,16 +1297,16 @@ const SERVICE_CONFIGS = {
       interior: ['Thorough vacuum interior', 'Clean & protect plastic', 'Wipe all surfaces', 'Stains (spot treatment)', 'Full carpet shampoo', 'Seat shampoo', 'Leather conditioning', 'Full steam cleaning', 'Pet hair removal', 'Trim restoration', 'Detail floor mats & shine', 'Windows & mirrors', 'Detail trunk', 'Door jambs'],
       exterior: ['Professional hand wash', '2-step decontamination', 'Spot paint enhancement', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Detail rims', 'Wheel wells', 'Detail tires']
     },
-    pricing: { small:474, mid:514, large:554, van:604 },
+    pricing: { small:460, mid:505, large:550, van:610 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine'] // trim restoration included
   },
   // ── Exterior Only: Reset / Executive ──
   'reset-exterior': {
-    label: 'Exterior Reset', packageType: 'exterior', tier: 'reset',
+    label: 'Exterior Express', packageType: 'exterior', tier: 'reset',
     description: 'An exterior wash with wheels, tires, and paint protection.',
     bullets: ['Professional hand wash', 'Spot polish', 'Wax protection', 'Detail rims & wheel wells', 'Detail tires'],
-    pricing: { small:99, mid:124, large:149, van:174 },
+    pricing: { small:90, mid:120, large:150, van:180 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
@@ -1326,24 +1314,16 @@ const SERVICE_CONFIGS = {
     label: 'Exterior Executive', packageType: 'exterior', tier: 'executive',
     description: 'A deep exterior with decontamination, polish, and sealant.',
     bullets: ['Professional hand wash', '2-step decontamination', 'Spot paint enhancement', 'Ceramic sealant (4 to 6 month)', 'Trim restoration', 'Rims, wheel wells & tires'],
-    pricing: { small:200, mid:225, large:250, van:280 },
+    pricing: { small:175, mid:200, large:230, van:265 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine'] // trim restoration included
   },
   // ── Interior Only: Maintenance / Reset / Executive ──
-  'maintenance-interior': {
-    label: 'Interior Maintenance', packageType: 'interior', tier: 'maintenance',
-    description: 'An interior upkeep clean: vacuum, wipe down, windows, and door panels.',
-    bullets: ['Interior vacuum', 'Wipe all surfaces', 'Floor mats', 'Windows & mirrors', 'Trunk & door jambs'],
-    pricing: { small:125, mid:140, large:155, van:180 },
-    acuityIds: { small:0, mid:0, large:0, van:0 },
-    addons: ['petHair', 'carSeats']
-  },
   'reset-interior': {
-    label: 'Interior Reset', packageType: 'interior', tier: 'reset',
+    label: 'Interior Express', packageType: 'interior', tier: 'reset',
     description: 'A deep interior reset with steam and spot treatment.',
     bullets: ['Thorough vacuum', 'Clean & protect plastics', 'Spot steam cleaning', 'Stain spot treatment', 'Floor mats detailed & shined', 'Windows, trunk & door jambs'],
-    pricing: { small:200, mid:225, large:250, van:275 },
+    pricing: { small:200, mid:230, large:260, van:290 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['petHair', 'carSeats']
   },
@@ -1351,7 +1331,7 @@ const SERVICE_CONFIGS = {
     label: 'Interior Executive', packageType: 'interior', tier: 'executive',
     description: 'A full interior reset with shampoo, leather care, and steam.',
     bullets: ['Full carpet & seat shampoo', 'Leather conditioning', 'Full steam cleaning', 'Pet hair removal', 'Trim restoration'],
-    pricing: { small:300, mid:330, large:360, van:395 },
+    pricing: { small:315, mid:350, large:385, van:425 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: []
   },
@@ -1360,7 +1340,7 @@ const SERVICE_CONFIGS = {
     img: 'photos/paint/pc-guide-faded.jpg', condition: 'Lightly faded paint',
     description: 'A single machine polish stage that restores gloss to your paint and removes up to 10% of light scratches and swirls. It brings back depth and clarity, and it makes the ideal prep before a ceramic coating.',
     bullets: ['Full wash & decontamination', 'Single-stage machine polish', 'Restores gloss, depth & clarity', 'Removes up to 10% of light swirls', 'Great refresh or ceramic prep'],
-    pricing: { small:449, mid:499, large:549, van:649 },
+    pricing: { small:515, mid:575, large:630, van:745 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
@@ -1369,7 +1349,7 @@ const SERVICE_CONFIGS = {
     img: 'photos/paint/pc-guide-1step.jpg', condition: 'Scratches & swirls',
     description: 'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
     bullets: ['Full wash & decontamination', 'Single-stage machine correction', 'Removes 65 to 70% of scratches & swirls', 'Deep, reflective showroom gloss', 'Premium finish, sealed'],
-    pricing: { small:699, mid:749, large:799, van:899 },
+    pricing: { small:805, mid:860, large:920, van:1035 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
@@ -1378,7 +1358,7 @@ const SERVICE_CONFIGS = {
     img: 'photos/paint/pc-guide-swirls.jpg', condition: 'Deep defects',
     description: 'Our highest level of paint correction, with two full stages of compounding and polishing. They cut through even the deepest defects, leaving a showroom shine and paint that is about as close to perfect as it gets.',
     bullets: ['Full wash & decontamination', 'Two-stage compound cut + fine polish', 'Removes deep scratches & oxidation', 'Maximum gloss restoration', 'Premium finish, sealed'],
-    pricing: { small:1500, mid:1700, large:1900, van:2200 },
+    pricing: { small:1725, mid:1955, large:2185, van:2530 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: ['headlight','engine','trim']
   },
@@ -1388,7 +1368,7 @@ const SERVICE_CONFIGS = {
     label: '2 Year Shield', packageType: 'ceramic', tier: '2yr',
     description: 'A System X 9H ceramic coating with a 2 year warranty, applied over a full gloss-boosting polish. Deep gloss, extreme water beading, and UV protection.',
     bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'System X 9H ceramic coating', '2 year full warranty', 'Extreme hydrophobics & UV protection'],
-    pricing: { small:748, mid:748, large:748, van:848 },
+    pricing: { small:860, mid:860, large:860, van:975 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: []
   },
@@ -1396,7 +1376,7 @@ const SERVICE_CONFIGS = {
     label: '6 Year Armor', packageType: 'ceramic', tier: '6yr',
     description: 'A thicker, multi-layer System X coating with a 6 year warranty and stronger chemical resistance, applied over a full gloss-boosting polish.',
     bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'Multi-layer System X coating', '6 year full warranty', 'Stronger chemical & etch resistance'],
-    pricing: { small:839, mid:999, large:1159, van:1309 },
+    pricing: { small:965, mid:1150, large:1335, van:1505 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: []
   },
@@ -1404,7 +1384,7 @@ const SERVICE_CONFIGS = {
     label: 'Lifetime Diamond', packageType: 'ceramic', tier: 'life',
     description: 'Our maximum-durability System X coating with a lifetime warranty and a free first annual inspection, applied over a full gloss-boosting polish.',
     bullets: ['Full wash & decontamination', 'Gloss-boosting machine polish', 'Maximum-thickness System X coating', 'Lifetime warranty', 'Free first annual inspection'],
-    pricing: { small:1000, mid:1200, large:1400, van:1650 },
+    pricing: { small:1150, mid:1380, large:1610, van:1900 },
     acuityIds: { small:0, mid:0, large:0, van:0 },
     addons: []
   },
@@ -1415,39 +1395,44 @@ const SERVICE_CONFIGS = {
 const CERAMIC_COATINGS = [
   { key:'2yr',  label:'2 Year Shield',    warranty:'2-Year Warranty',   desc:'The next level of surface protection. A System X 9H coating with a deep, glossy finish that lasts.',
     features:['Deep gloss and hydrophobics','9H+ hardness','UV and oxidation protection','CARFAX registered','2 year full warranty'],
-    coating:{ small:299, mid:249, large:199, van:199 }, dur:{ small:240, mid:300, large:360, van:420 } },
+    coating:{ small:345, mid:285, large:230, van:230 }, dur:{ small:240, mid:300, large:360, van:420 } },
   { key:'6yr',  label:'6 Year Armor',     warranty:'6-Year Warranty',   desc:'A thicker, multi-layer coat with even stronger protection and a longer warranty.',
     features:['Extreme gloss and hydrophobics','9H+ hardness','UV and oxidation protection','Thicker multi-layer coat','Stronger chemical resistance','CARFAX registered','6 year full warranty'],
-    coating:{ small:390, mid:500, large:610, van:660 }, dur:{ small:300, mid:360, large:420, van:480 } },
+    coating:{ small:450, mid:575, large:705, van:760 }, dur:{ small:300, mid:360, large:420, van:480 } },
   { key:'life', label:'Lifetime Diamond', warranty:'Lifetime Warranty', desc:'Our maximum-durability coating with the strongest protection and a lifetime warranty.',
     features:['Ultimate gloss and hydrophobics','9H+ hardness','UV and oxidation protection','Maximum durability and thickness','Strongest chemical resistance','Free first annual inspection','CARFAX registered','Lifetime warranty'],
-    coating:{ small:551, mid:701, large:851, van:1001 }, dur:{ small:360, mid:420, large:480, van:540 } },
+    coating:{ small:635, mid:805, large:980, van:1155 }, dur:{ small:360, mid:420, large:480, van:540 } },
 ];
 const CERAMIC_PREP = [
   { key:'polish',   label:'Polish', tagline:'Included with every coating', condition:'Lightly faded paint',
     img:'photos/paint/pc-guide-faded.jpg',
     desc:'A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls. It brings back the depth and clarity that daily driving and washing dull down over time, and sets up a flawless surface before the coating goes on.',
-    price:{ small:449, mid:499, large:549, van:649 },  dur:{ small:240, mid:260, large:280, van:300 } },
+    price:{ small:515, mid:575, large:630, van:745 },  dur:{ small:240, mid:260, large:280, van:300 } },
   { key:'one-step', label:'1-Step Correction', tagline:'Most popular', condition:'Scratches & swirls',
     img:'photos/paint/pc-guide-1step.jpg',
     desc:'A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss. The level most cars need to go from dull and marred to a genuine showroom shine.',
-    price:{ small:699, mid:749, large:799, van:899 },  dur:{ small:330, mid:350, large:370, van:390 } },
+    price:{ small:805, mid:860, large:920, van:1035 },  dur:{ small:330, mid:350, large:370, van:390 } },
   { key:'two-step', label:'2-Step Correction', tagline:'Maximum correction', condition:'Deep defects',
     img:'photos/paint/pc-guide-swirls.jpg',
     desc:'Two full stages of compounding and polishing that cut through even the deepest scratches and oxidation, leaving a showroom shine and paint that is about as close to perfect as it gets.',
-    price:{ small:1500, mid:1700, large:1900, van:2200 }, dur:{ small:450, mid:475, large:500, van:525 } },
+    price:{ small:1725, mid:1955, large:2185, van:2530 }, dur:{ small:450, mid:475, large:500, van:525 } },
 ];
 function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
 
-// Live promotions. A sale holds one coating + correction combination at its old
-// price while the list price moves up around it, so the saving is real and the
-// old figure is shown struck through rather than the price just being lower.
-const CERAMIC_SALES = [
-  { coating:'2yr', prep:'polish', price:{ small:699, mid:699, large:699, van:699 } },
-];
+// Sitewide sale. Every table above holds the LIST price; the discount is applied
+// once here, so the cart, the Acuity booking and the payment link all agree
+// without any of the totalling code needing to know a sale is running. When the
+// deadline passes saleOf() becomes the identity and list prices show again.
+const SITE_SALE = { pct: 0.20, label: 'End of Summer Sale', ends: '2026-09-12T23:59:00-06:00' };
+function saleActive() { return Date.now() < new Date(SITE_SALE.ends).getTime(); }
+function saleOf(listPrice) {
+  return saleActive() ? Math.round(listPrice * (1 - SITE_SALE.pct)) : listPrice;
+}
 function ceramicSalePrice(coatingKey, prepKey, size) {
-  const s = CERAMIC_SALES.find(x => x.coating === coatingKey && x.prep === prepKey);
-  return s ? (s.price[size] ?? null) : null;
+  const c = CERAMIC_COATINGS.find(x => x.key === coatingKey);
+  const p = CERAMIC_PREP.find(x => x.key === prepKey);
+  if (!c || !p) return null;
+  return saleOf((c.coating[size] || 0) + (p.price[size] || 0));
 }
 /** "$699" on its own, or the list price struck through beside the sale price. */
 function priceWithSale(listPrice, salePrice) {
@@ -1503,9 +1488,9 @@ const TIER_INFO = {
 };
 
 const PACKAGE_TIERS = {
-  interior: ['maintenance','reset','executive'],
+  interior: ['reset','executive'],
   exterior: ['reset','executive'],
-  full:     ['maintenance','reset','executive'],
+  full:     ['reset','executive'],
   paint:    ['polish','1step','2step'],
   ceramic:  ['2yr','6yr','life'],
 };
@@ -1959,8 +1944,8 @@ function svcPrice(svcKey, vehicle) {
   const cfg = SERVICE_CONFIGS[svcKey];
   let p = cfg?.pricing?.[vehicle];
   if (p == null) p = cfg?.pricing?.small;
-  if (p == null) return { price: 0, custom: true };
-  return { price: p, custom: false };
+  if (p == null) return { price: 0, list: 0, custom: true };
+  return { price: saleOf(p), list: p, custom: false };
 }
 
 function getPriceRange(pkgType) {
@@ -2022,7 +2007,7 @@ function renderTiers() {
   grid.innerHTML = tiers.map((tier, i) => {
     const svcKey = buildSvcKey(tier, state.packageType);
     const cfg = SERVICE_CONFIGS[svcKey];
-    const { price, custom } = svcPrice(svcKey, state.vehicle);
+    const { price, list, custom } = svcPrice(svcKey, state.vehicle);
     const info = TIER_INFO[tier];
     return `
     <div class="tier-card ${state.tier===tier?'selected':''}" onclick="selectTier('${tier}')">
@@ -2035,7 +2020,7 @@ function renderTiers() {
         ? includedGroupsHtml(cfg, true)
         : `<ul class="tier-bullets">${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}</ul>`}
       ${tier === 'maintenance' ? `<div class="tier-note">Only for new, recently detailed, and/or very well maintained cars.</div>` : ''}
-      <div class="tier-price">${custom ? 'Custom' : '$'+price}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
+      <div class="tier-price">${custom ? 'Custom' : priceWithSale(list, price)}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
     </div>
   `}).join('');
 }
@@ -2194,12 +2179,10 @@ function addCeramicToCart() {
 // different chemistry.
 function getDuration(svcKey, vehicle) {
   const durations = {
-    'maintenance-full':    { small:150, mid:170, large:190, van:210 },
     'reset-full':          { small:240, mid:255, large:270, van:300 },
     'executive-full':      { small:330, mid:360, large:390, van:420 },
     'reset-exterior':      { small:90,  mid:105, large:120, van:135 },
     'executive-exterior':  { small:150, mid:170, large:190, van:210 },
-    'maintenance-interior':{ small:90,  mid:105, large:120, van:135 },
     'reset-interior':      { small:165, mid:185, large:205, van:225 },
     'executive-interior':  { small:230, mid:250, large:270, van:290 },
     'paint-polish':      { small:240, mid:260, large:280, van:300 },
@@ -2232,7 +2215,7 @@ function renderPackageDetail() {
   const cfg = SERVICE_CONFIGS[svcKey];
   if (!cfg) return;
 
-  const { price, custom } = svcPrice(svcKey, state.vehicle);
+  const { price, list, custom } = svcPrice(svcKey, state.vehicle);
   const dur = getDuration(svcKey, state.vehicle);
 
   document.getElementById('pkg-detail-content').innerHTML = `
@@ -2240,7 +2223,7 @@ function renderPackageDetail() {
       <div class="pkg-detail-icon">${vehicleSVG(state.vehicle)}</div>
       <div>
         <div class="pkg-detail-name">${cfg.label}</div>
-        <div class="pkg-detail-price">${custom ? 'Custom' : '$'+price}</div>
+        <div class="pkg-detail-price">${custom ? 'Custom' : priceWithSale(list, price)}</div>
         <div class="pkg-detail-duration">${formatDuration(dur)}</div>
       </div>
     </div>
@@ -3551,5 +3534,6 @@ if (!restoreBookingProgress()) loadCarriedQuote();
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDKS0DiGpQQV2A8T3R_Ku6ZVrZy1KqBtAU&libraries=places&callback=initMap">
 </script>
 <script src="/track.js"></script>
+<script src="/sale-banner.js"></script>
 </body>
 </html>

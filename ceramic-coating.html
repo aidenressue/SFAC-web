@@ -1268,7 +1268,7 @@
                 <li>Guards against sap, tar, bird droppings &amp; bugs</li>
                 <li>Stays cleaner and easier to wipe down</li>
               </ul>
-              <span class="cqb-addprice">+$149</span>
+              <span class="cqb-addprice">+$170</span>
             </button>
             <button class="cqb-opt addon" data-addon="wheel">
               <span class="cqb-check"></span>
@@ -1279,7 +1279,7 @@
                 <li>Repels brake dust &amp; road grime</li>
                 <li>Wipes clean in seconds</li>
               </ul>
-              <span class="cqb-addprice">+$199</span>
+              <span class="cqb-addprice">+$230</span>
             </button>
           </div>
         </div>
@@ -1650,26 +1650,27 @@
     }
 
     var PREP_PRICES = {
-      'polish':   { small: 449,  mid: 499,  large: 549,  van: 649  },
-      'one-step': { small: 699,  mid: 749,  large: 799,  van: 899  },
-      'two-step': { small: 1500, mid: 1700, large: 1900, van: 2200 }
+      'polish':   { small: 515,  mid: 575,  large: 630,  van: 745  },
+      'one-step': { small: 805,  mid: 860,  large: 920,  van: 1035 },
+      'two-step': { small: 1725, mid: 1955, large: 2185, van: 2530 }
     };
-    // Live promotions. "2 Year + Polish" is held at the old entry price while the
-    // list price moves up around it, so the old figure is shown struck through.
-    var SALE_PRICES = {
-      crystal: { polish: { small: 699, mid: 699, large: 699, van: 699 } }
-    };
+    // Sitewide End of Summer sale: every table here holds the LIST price and the
+    // discount is taken once, so the quote, the handoff to booking and the site
+    // all agree. Past the deadline salePrice() returns null and list prices show.
+    var SITE_SALE = { pct: 0.20, ends: '2026-09-12T23:59:00-06:00' };
+    function saleActive() { return Date.now() < new Date(SITE_SALE.ends).getTime(); }
     function salePrice(coating, prep, size) {
-      var c = SALE_PRICES[coating]; if (!c) return null;
-      var pr = c[prep]; if (!pr) return null;
-      return pr[size] != null ? pr[size] : null;
+      if (!saleActive()) return null;
+      var coat = COATING_PRICES[coating], pr = PREP_PRICES[prep];
+      if (!coat || !pr || coat[size] == null || pr[size] == null) return null;
+      return Math.round((coat[size] + pr[size]) * (1 - SITE_SALE.pct));
     }
     var COATING_PRICES = {
-      crystal: { small: 299, mid: 249, large: 199, van: 199 },
-      pro:     { small: 390, mid: 500, large: 610, van: 660 },
-      max:     { small: 551, mid: 701, large: 851, van: 1001 }
+      crystal: { small: 345, mid: 285, large: 230, van: 230 },
+      pro:     { small: 450, mid: 575, large: 705, van: 760 },
+      max:     { small: 635, mid: 805, large: 980, van: 1155 }
     };
-    var ADDON_PRICES = { glass: 149, wheel: 199 };
+    var ADDON_PRICES = { glass: 170, wheel: 230 };
     var ADDON_LABELS = { glass: 'Glass Coating', wheel: 'Wheel Coating' };
     var SIZE_LABELS = { small: 'Small', mid: 'Mid-Size', large: 'Large', van: 'Van / Oversized' };
     var PREP_LABELS = { 'polish': 'Polish', 'one-step': '1-Step Correction', 'two-step': '2-Step Correction' };
@@ -1956,5 +1957,6 @@
 </script>
 <script src="/media.js"></script>
 <script src="/track.js"></script>
+<script src="/sale-banner.js"></script>
 </body>
 </html>

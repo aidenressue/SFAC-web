@@ -554,6 +554,7 @@
     .pc-price-big { margin:auto 0 1.4rem; padding-top:1.1rem; border-top:1px solid rgba(255,255,255,.09); }
     .pc-price-big .from { display:block; font-family:var(--font-d); font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:#7A7D82; margin-bottom:.15rem; }
     .pc-price-big .amt { font-family:var(--font-d); font-size:2.3rem; font-weight:900; color:var(--gold); letter-spacing:-.03em; line-height:1; }
+    .pc-price-big .was { font-family:var(--font-d); font-size:1.35rem; font-weight:800; color:#F2555A; text-decoration:line-through; text-decoration-color:#F2555A; margin-right:.3rem; }
     .pc-price-big .sz { font-family:var(--font-d); font-size:.78rem; font-weight:700; color:#7A7D82; margin-left:.45rem; }
     @media (max-width:480px) { .pc-sizes { width:100%; justify-content:space-between; } .pc-size-btn { flex:1; padding:.6rem .4rem; text-align:center; } }
 
@@ -1000,8 +1001,8 @@
           </div>
         </div>
         <p class="pc-desc"><span class="pc-desc-first">A single machine polish stage that restores the gloss to your paint and removes up to 10% of light scratches and swirls.</span><span class="pc-desc-rest"> It won't fully correct deeper defects, but it brings back the depth and clarity that daily driving and washing dull down over time, and it sets up a flawless surface before sealing it in with a ceramic coating.</span> <button type="button" class="pc-seemore">See more</button></p>
-        <div class="pc-price-big" data-small="$449" data-mid="$499" data-large="$549" data-van="$649">
-          <span class="amt">$449</span><span class="sz">Small vehicle</span>
+        <div class="pc-price-big" data-small="$412" data-mid="$460" data-large="$504" data-van="$596" data-was-small="$515" data-was-mid="$575" data-was-large="$630" data-was-van="$745">
+          <s class="was">$515</s> <span class="amt">$412</span><span class="sz">Small vehicle</span>
         </div>
         <a href="/booking.html" class="btn btn-gold">Book Now &rarr;</a>
       </div>
@@ -1028,8 +1029,8 @@
           </div>
         </div>
         <p class="pc-desc"><span class="pc-desc-first">A true single-stage paint correction that machine polishes the clear coat to cut through 65 to 70% of scratches and swirls, leaving a deep, reflective gloss.</span><span class="pc-desc-rest"> It's the level most cars need to go from dull and marred to a genuine showroom shine.</span> <button type="button" class="pc-seemore">See more</button></p>
-        <div class="pc-price-big" data-small="$699" data-mid="$749" data-large="$799" data-van="$899">
-          <span class="amt">$699</span><span class="sz">Small vehicle</span>
+        <div class="pc-price-big" data-small="$644" data-mid="$688" data-large="$736" data-van="$828" data-was-small="$805" data-was-mid="$860" data-was-large="$920" data-was-van="$1,035">
+          <s class="was">$805</s> <span class="amt">$644</span><span class="sz">Small vehicle</span>
         </div>
         <a href="/booking.html" class="btn btn-gold">Book Now &rarr;</a>
       </div>
@@ -1054,8 +1055,8 @@
           </div>
         </div>
         <p class="pc-desc"><span class="pc-desc-first">Our highest level of paint correction, with two full stages of compounding and polishing.</span><span class="pc-desc-rest"> They cut through even the deepest defects, leaving a showroom shine and paint that's about as close to perfect as it gets.</span> <button type="button" class="pc-seemore">See more</button></p>
-        <div class="pc-price-big" data-small="$1,500" data-mid="$1,700" data-large="$1,900" data-van="$2,200">
-          <span class="amt">$1,500</span><span class="sz">Small vehicle</span>
+        <div class="pc-price-big" data-small="$1,380" data-mid="$1,564" data-large="$1,748" data-van="$2,024" data-was-small="$1,725" data-was-mid="$1,955" data-was-large="$2,185" data-was-van="$2,530">
+          <s class="was">$1,725</s> <span class="amt">$1,380</span><span class="sz">Small vehicle</span>
         </div>
         <a href="/booking.html" class="btn btn-gold">Book Now &rarr;</a>
       </div>
@@ -1317,6 +1318,8 @@
         bar.querySelectorAll('.pc-size-btn').forEach(function (b) { b.classList.toggle('active', b === btn); });
         prices.forEach(function (p) {
           p.querySelector('.amt').textContent = p.dataset[size];
+          var wasEl = p.querySelector('.was');
+          if (wasEl) wasEl.textContent = p.dataset['was' + size.charAt(0).toUpperCase() + size.slice(1)];
           p.querySelector('.sz').textContent = SIZE_LABELS[size];
         });
       });
@@ -1334,5 +1337,6 @@
 </script>
 <script src="/media.js"></script>
 <script src="/track.js"></script>
+<script src="/sale-banner.js"></script>
 </body>
 </html>

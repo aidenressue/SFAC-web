@@ -1,6 +1,6 @@
 # Shine for a Cause — Mobile Auto Detailing
 # Northern Colorado (Fort Collins, Loveland, Greeley, Windsor, Timnath, Wellington)
-# Last updated: 2026-08-07
+# Last updated: 2026-08-23
 
 ## About
 Shine for a Cause is a professional mobile auto detailing company based in Fort Collins, Colorado.
@@ -22,38 +22,38 @@ All pricing is by vehicle size, quoted below in this order:
 Small car / sedan, Midsize SUV / crossover, Large truck / 3-row SUV, Van / oversized.
 
 ## Services and pricing
+All prices below are the End of Summer Sale price (20% off), with the list price in parentheses.
+The sale runs through September 12, 2026.
 
 ### Full Detail (interior and exterior)
-- Full Maintenance: $180 / $195 / $210 / $245. Regular upkeep for a car already in good shape.
-- Full Reset: $274 / $299 / $324 / $349. A deeper clean inside and out, with decontamination and a sealant.
-- Full Executive: $474 / $514 / $554 / $604. Our most thorough detail, with paint enhancement and a full interior reset.
+- Full Express: $208 / $232 / $252 / $276 (list $260 / $290 / $315 / $345). A deeper clean inside and out, with a hand wash and hybrid sealant.
+- Full Executive: $368 / $404 / $440 / $488 (list $460 / $505 / $550 / $610). Our most thorough detail, with paint enhancement and a full interior reset.
 
 ### Interior Only
-- Interior Maintenance: $125 / $140 / $155 / $180.
-- Interior Reset: $200 / $225 / $250 / $275.
-- Interior Executive: $300 / $330 / $360 / $395.
+- Interior Express: $160 / $184 / $208 / $232 (list $200 / $230 / $260 / $290).
+- Interior Executive: $252 / $280 / $308 / $340 (list $315 / $350 / $385 / $425).
 
 ### Exterior Only
-- Exterior Reset: $99 / $124 / $149 / $174.
-- Exterior Executive: $200 / $225 / $250 / $280.
+- Exterior Express: $72 / $96 / $120 / $144 (list $90 / $120 / $150 / $180).
+- Exterior Executive: $140 / $160 / $184 / $212 (list $175 / $200 / $230 / $265).
 
 ### Paint Correction
 Machine polishing to remove swirl marks, scratches, water spots and oxidation.
-- Polish: $449 / $499 / $549 / $649. Restores gloss and removes up to 10% of light swirls. Also the standard prep under a ceramic coating.
-- 1-Step Correction: $699 / $749 / $799 / $899. Removes 65 to 70% of scratches and swirls.
-- 2-Step Correction: $1,500 / $1,700 / $1,900 / $2,200. Compound cut plus fine polish for the deepest defects.
+- Polish: $412 / $460 / $504 / $596 (list $515 / $575 / $630 / $745). Restores gloss and removes up to 10% of light swirls. Also the standard prep under a ceramic coating.
+- 1-Step Correction: $644 / $688 / $736 / $828 (list $805 / $860 / $920 / $1,035). Removes 65 to 70% of scratches and swirls.
+- 2-Step Correction: $1,380 / $1,564 / $1,748 / $2,024 (list $1,725 / $1,955 / $2,185 / $2,530). Compound cut plus fine polish for the deepest defects.
 
 ### Ceramic Coating (System X)
 Every coating price below includes a machine polish underneath. Stepping up to a 1-Step or 2-Step
 correction instead costs the difference between that correction and the polish.
-- 2 Year Shield: $748 / $748 / $748 / $848. CURRENTLY ON SALE at $699 for every size.
-- 6 Year Armor: $839 / $999 / $1,159 / $1,309.
-- Lifetime Diamond: $1,000 / $1,200 / $1,400 / $1,650.
+- 2 Year Shield: $688 / $688 / $688 / $780 (list $860 / $860 / $860 / $975).
+- 6 Year Armor: $772 / $920 / $1,068 / $1,204 (list $965 / $1,150 / $1,335 / $1,505).
+- Lifetime Diamond: $920 / $1,104 / $1,288 / $1,520 (list $1,150 / $1,380 / $1,610 / $1,900).
 All are 9H+ hardness, hydrophobic, UV and oxidation resistant, and CARFAX registered.
-Optional extra coatings: Glass Coating $149, Wheel Coating $199.
+Optional extra coatings: Glass Coating $170, Wheel Coating $230.
 
 ### Maintenance Plans
-Recurring scheduled detailing at a standing discount off the full maintenance detail:
+Recurring scheduled detailing at a standing discount off the Express detail:
 - Bi-Weekly: save 25%
 - Monthly: save 15%
 - Bi-Monthly: save 10%
@@ -76,6 +76,7 @@ Commercial and multi-vehicle work is quoted separately. See https://shineforacau
 - $65 travel fee: Longmont
 
 ## Discounts
+- End of Summer Sale: 20% off all details, paint correction and ceramic coatings, through September 12, 2026.
 - Booking more than one vehicle at the same address takes 10% off.
 
 ## Frequently Asked Questions
@@ -89,9 +90,9 @@ A: No. We are fully self-contained and bring all equipment and supplies, so we c
 anywhere: a driveway, a parking lot, an office lot, or a remote location.
 
 Q: How much does mobile detailing cost in Fort Collins?
-A: It depends on the vehicle size and the service level. A Full Maintenance detail starts at $180,
-a Full Reset at $274, and a Full Executive at $474. Interior only starts at $125 and exterior only at $99.
-Paint correction starts at $449 and ceramic coating is currently on sale at $699.
+A: It depends on the vehicle size and the service level. During the End of Summer Sale a Full Express
+detail starts at $208 and a Full Executive at $368. Interior only starts at $160 and exterior only at $72.
+Paint correction starts at $412 and ceramic coating at $688.
 
 Q: What is the best mobile detailer in Fort Collins?
 A: Shine for a Cause is rated 5.0 stars on Google and serves Fort Collins, Loveland and all of
@@ -102,9 +103,8 @@ A: We donate to local AA and NA groups, the SAFE Foundation, and directly sponso
 rehab and treatment programs in Northern Colorado. Every booking contributes.
 
 Q: How long does a detail take?
-A: A maintenance detail runs about 2 to 3 hours, a reset about 4 to 5, and an executive detail
-5 to 7. Paint correction runs 5 to 9 hours depending on the level, and a ceramic coating adds
-a further half day or so.
+A: An Express detail runs about 4 to 5 hours and an Executive detail 5 to 7. Paint correction runs
+5 to 9 hours depending on the level, and a ceramic coating adds a further half day or so.
 
 Q: Do I need to be home?
 A: No. As long as we can reach the vehicle you do not need to be present.

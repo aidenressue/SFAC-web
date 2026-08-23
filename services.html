@@ -295,6 +295,7 @@
     .finish-badge.ceramic { background: rgba(212,168,81,0.15); border: 1px solid rgba(212,168,81,0.45); color: var(--gold); }
 
     .pkg-card-body { padding: 1.4rem 1.5rem; flex: 1; }
+    .pkg-price .was { color:#F2555A; text-decoration:line-through; text-decoration-color:#F2555A; font-weight:700; margin-right:.15rem; }
     .pkg-card-name {
       font-family: var(--fh); font-size: .92rem; font-weight: 800;
       letter-spacing: -.01em; color: var(--text); margin-bottom: .4rem;
@@ -529,7 +530,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$90</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$90</s> $72</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Book Now</a>
       </div>
     </div>
@@ -552,7 +553,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$165</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$200</s> $160</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Book Now</a>
       </div>
     </div>
@@ -575,7 +576,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$220</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$260</s> $208</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Book Now</a>
       </div>
     </div>
@@ -611,7 +612,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$140</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$175</s> $140</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Book Now</a>
       </div>
     </div>
@@ -634,7 +635,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$330</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$315</s> $252</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Book Now</a>
       </div>
     </div>
@@ -656,7 +657,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$440</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$460</s> $368</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Book Now</a>
       </div>
     </div>
@@ -743,7 +744,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$750</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$860</s> $688</span></div>
         <a href="/quote-builder.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Get a Quote</a>
       </div>
     </div>
@@ -769,7 +770,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$1,050</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$965</s> $772</span></div>
         <a href="/quote-builder.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Get a Quote</a>
       </div>
     </div>
@@ -795,7 +796,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$1,450</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$1,150</s> $920</span></div>
         <a href="/quote-builder.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Get a Quote</a>
       </div>
     </div>
@@ -832,7 +833,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$550</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$805</s> $644</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Book Now</a>
       </div>
     </div>
@@ -856,7 +857,7 @@
         </ul>
       </div>
       <div class="pkg-card-footer">
-        <div class="pkg-price">Starting at <span>$900</span></div>
+        <div class="pkg-price">Starting at <span><s class="was">$1,725</s> $1,380</span></div>
         <a href="/booking.html" class="btn-gold" style="padding:.55rem 1.1rem;font-size:.7rem;">Book Now</a>
       </div>
     </div>
@@ -946,5 +947,6 @@
   sections.forEach(id => { const el = document.getElementById(id); if(el) obs.observe(el); });
 </script>
 <script src="/track.js"></script>
+<script src="/sale-banner.js"></script>
 </body>
 </html>
