@@ -25,17 +25,17 @@ Small car / sedan, Midsize SUV / crossover, Large truck / 3-row SUV, Van / overs
 
 ### Full Detail (interior and exterior)
 - Full Maintenance: $180 / $195 / $210 / $245. Regular upkeep for a car already in good shape.
-- Full Reset: $299 / $324 / $349 / $374. A deeper clean inside and out, with decontamination and a sealant.
-- Full Executive: $499 / $539 / $579 / $629. Our most thorough detail, with paint enhancement and a full interior reset.
+- Full Reset: $274 / $299 / $324 / $349. A deeper clean inside and out, with decontamination and a sealant.
+- Full Executive: $474 / $514 / $554 / $604. Our most thorough detail, with paint enhancement and a full interior reset.
 
 ### Interior Only
 - Interior Maintenance: $125 / $140 / $155 / $180.
-- Interior Reset: $225 / $250 / $275 / $300.
-- Interior Executive: $325 / $355 / $385 / $420.
+- Interior Reset: $200 / $225 / $250 / $275.
+- Interior Executive: $300 / $330 / $360 / $395.
 
 ### Exterior Only
 - Exterior Reset: $99 / $124 / $149 / $174.
-- Exterior Executive: $225 / $250 / $275 / $305.
+- Exterior Executive: $200 / $225 / $250 / $280.
 
 ### Paint Correction
 Machine polishing to remove swirl marks, scratches, water spots and oxidation.
@@ -90,7 +90,7 @@ anywhere: a driveway, a parking lot, an office lot, or a remote location.
 
 Q: How much does mobile detailing cost in Fort Collins?
 A: It depends on the vehicle size and the service level. A Full Maintenance detail starts at $180,
-a Full Reset at $299, and a Full Executive at $499. Interior only starts at $125 and exterior only at $99.
+a Full Reset at $274, and a Full Executive at $474. Interior only starts at $125 and exterior only at $99.
 Paint correction starts at $449 and ceramic coating is currently on sale at $699.
 
 Q: What is the best mobile detailer in Fort Collins?
