@@ -327,6 +327,7 @@
     .pkg-panel { display:none; }
     .pkg-panel.active { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:start; animation:panelIn .35s ease; }
     .pkg-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; align-items:stretch; }
+    .pkg-grid + .pkg-grid { margin-top:1.4rem; }
     @keyframes panelIn { from { opacity:0; transform:translateY(14px);} to {opacity:1; transform:none;} }
     .pkg-card { background:#fff; border:1px solid var(--line); border-radius:20px; display:flex; flex-direction:column; position:relative; box-shadow:var(--shadow-card); transition:transform .2s, box-shadow .2s; }
     .pkg-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lift); }
@@ -337,7 +338,7 @@
     .pkg-card-img span { font-family:var(--font-d); font-size:.58rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:#B9B6AE; }
     .pkg-card-img::after { content:''; position:absolute; inset:0; z-index:2; pointer-events:none; background:linear-gradient(to top, rgba(0,0,0,.5), rgba(0,0,0,0) 45%); }
     .pkg-fun { position:absolute; left:1.2rem; bottom:.7rem; z-index:3; font-family:'Caveat',cursive; font-weight:700; font-size:2.3rem; line-height:1; color:#fff; text-shadow:0 2px 12px rgba(0,0,0,.55); }
-    .pkg-panel .pkg-card:nth-child(3) .pkg-fun { color:var(--gold); }
+    .pkg-grid.tier-exec .pkg-fun { color:var(--gold); }
     .pkg-card-body { padding:1.7rem 1.8rem 1.8rem; display:flex; flex-direction:column; flex:1; }
     .pop-tag { position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--gold); color:#141005; font-family:var(--font-d); font-size:.62rem; font-weight:800; letter-spacing:.14em; text-transform:uppercase; padding:.35rem 1rem; border-radius:999px; box-shadow:0 4px 12px rgba(201,151,58,.4); }
     .pkg-tier { font-family:var(--font-d); font-size:.64rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:var(--gold-deep); margin-bottom:.4rem; }
@@ -502,7 +503,7 @@
     /* ── Responsive ───────────────────── */
     @media (max-width: 1024px) {
       .services-grid { grid-template-columns:repeat(2,1fr); }
-      .pkg-panel.active, .pkg-grid { grid-template-columns:1fr; max-width:460px; margin:0 auto; }
+      .pkg-panel.active, .pkg-grid { grid-template-columns:1fr; max-width:460px; margin-inline:auto; }
       .story-grid { grid-template-columns:1fr; gap:2.2rem; }
       .veh-grid { grid-template-columns:repeat(2,1fr); }
       .stats-inner { grid-template-columns:repeat(2,1fr); }
@@ -552,8 +553,8 @@
       .foot-contact li { font-size:.85rem; }
     }
     /* Full detail: interior on top, exterior below; items two per row */
-    #panel-full .pkg-inc.two { display:flex; flex-direction:column; gap:1.4rem; }
-    #panel-full .pkg-list { display:grid; grid-template-columns:1fr 1fr; gap:.55rem 1.2rem; }
+    .pkg-card.full .pkg-inc.two { display:flex; flex-direction:column; gap:1.4rem; }
+    .pkg-card.full .pkg-list { display:grid; grid-template-columns:1fr 1fr; gap:.55rem 1.2rem; }
     /* ── Inter headers, site-wide ─────── */
     h1, h2, h3, h4,
     .h-display, .h-sec, .cc-title, .cc-h2, .sec-head-c h2, .cta-band h2,
@@ -613,7 +614,7 @@
       .pkg-price { margin-bottom:.85rem; }
       .pkg-price .amt { font-size:1.85rem; }
       .pkg-inc { margin-bottom:1rem; }
-      #panel-full .pkg-inc.two { gap:1rem; }
+      .pkg-card.full .pkg-inc.two { gap:1rem; }
       .pkg-inc-head { font-size:.72rem; margin-bottom:.5rem; padding-bottom:.3rem; }
       .pkg-list { gap:.4rem; }
       .pkg-list li { font-size:.76rem; line-height:1.35; }
@@ -941,60 +942,32 @@
       <h2 class="h-sec" style="margin:0 0 1.4rem;">Choose Your Detail Package</h2>
     </div>
 
-    <div class="tabs" id="pkgTabs">
-      <button class="tab active" data-panel="full">Full Detail</button>
-      <button class="tab" data-panel="ext">Exterior Only</button>
-      <button class="tab" data-panel="int">Interior Only</button>
+    <div class="tabs" id="pkgSizes">
+      <button class="tab active" data-size="small">Small</button>
+      <button class="tab" data-size="mid">Mid-Size</button>
+      <button class="tab" data-size="large">Large</button>
+      <button class="tab" data-size="van">Van</button>
     </div>
 
     <div class="pkg-panels">
-            <div class="pkg-panel active" id="panel-full">
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="/brand/svc-mobile-detailing.jpg" alt="Washing the hood of a black Audi from the front with soap suds" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
+
+      <div class="pkg-grid tier-express">
+
+      <div class="pkg-card full rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-reset.jpg" alt="Gloved detailer steam cleaning an Audi steering wheel" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
         <div class="pkg-card-body">
-          <div class="pkg-name">Full Maintenance</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$180</span></div>
-          <div class="pkg-inc two">
-            <div>
-              <div class="pkg-inc-head">Interior</div>
-              <ul class="pkg-list">
-              <li>Interior vacuum</li>
-              <li>Wipe all surfaces</li>
-              <li>Floor mats</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-            </div>
-            <div>
-              <div class="pkg-inc-head">Exterior</div>
-              <ul class="pkg-list">
-              <li>Quick hand wash</li>
-              <li>Wax protection</li>
-              <li>Clean rims</li>
-              <li>Clean tires</li>
-            </ul>
-            </div>
-          </div>
-          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-reset.jpg" alt="Gloved detailer steam cleaning an Audi steering wheel" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Full Reset</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$274</span></div>
+          <div class="pkg-name">Full Express</div>
+          <div class="pkg-price"><span class="from pkg-size-lbl">Small</span><span class="amt" data-p="225,250,275,300">$225</span></div>
           <div class="pkg-inc two">
             <div>
               <div class="pkg-inc-head">Interior</div>
               <ul class="pkg-list">
               <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
+              <li>Clean &amp; protect plastic</li>
               <li>Wipe all surfaces</li>
-              <li>Stains (spot treatment)</li>
               <li>Spot steam cleaning</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
+              <li>Detail floor mats &amp; shine</li>
+              <li>Windows &amp; mirrors</li>
               <li>Detail trunk</li>
               <li>Door jambs</li>
             </ul>
@@ -1003,7 +976,6 @@
               <div class="pkg-inc-head">Exterior</div>
               <ul class="pkg-list">
               <li>Professional hand wash</li>
-              <li>1-step paint decontamination</li>
               <li>Hybrid sealant</li>
               <li>Detail rims</li>
               <li>Wheel wells</li>
@@ -1011,20 +983,67 @@
             </ul>
             </div>
           </div>
-          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
         </div>
       </div>
+
       <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-executive.jpg" alt="Full Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-maintenance.jpg" alt="Detailer hand washing a vehicle in a driveway" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Exterior Express</div>
+          <div class="pkg-price"><span class="from pkg-size-lbl">Small</span><span class="amt" data-p="80,105,130,155">$80</span></div>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">Exterior</div>
+            <ul class="pkg-list">
+              <li>Professional hand wash</li>
+              <li>Spot polish</li>
+              <li>Wax protection</li>
+              <li>Detail rims</li>
+              <li>Wheel wells</li>
+              <li>Detail tires</li>
+            </ul>
+          </div>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
+        </div>
+      </div>
+
+      <div class="pkg-card rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-int-reset.jpg" alt="Gloved detailer steam cleaning and scrubbing an Escalade leather back seat" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
+        <div class="pkg-card-body">
+          <div class="pkg-name">Interior Express</div>
+          <div class="pkg-price"><span class="from pkg-size-lbl">Small</span><span class="amt" data-p="175,200,225,250">$175</span></div>
+          <div class="pkg-inc">
+            <div class="pkg-inc-head">Interior</div>
+            <ul class="pkg-list">
+              <li>Thorough vacuum interior</li>
+              <li>Clean &amp; protect plastic</li>
+              <li>Wipe all surfaces</li>
+              <li>Spot steam cleaning</li>
+              <li>Detail floor mats &amp; shine</li>
+              <li>Windows &amp; mirrors</li>
+              <li>Detail trunk</li>
+              <li>Door jambs</li>
+            </ul>
+          </div>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
+        </div>
+      </div>
+
+      </div>
+
+      <div class="pkg-grid tier-exec">
+
+      <div class="pkg-card full rv">
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-executive.jpg" alt="Full Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Full Executive</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$474</span></div>
+          <div class="pkg-price"><span class="from pkg-size-lbl">Small</span><span class="amt" data-p="399,439,479,529">$399</span></div>
           <div class="pkg-inc two">
             <div>
               <div class="pkg-inc-head">Interior</div>
               <ul class="pkg-list" id="fullExecInt">
               <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
+              <li>Clean &amp; protect plastic</li>
               <li>Wipe all surfaces</li>
               <li>Stains (spot treatment)</li>
               <li>Full carpet shampoo</li>
@@ -1033,8 +1052,8 @@
               <li>Full steam cleaning</li>
               <li>Pet hair removal</li>
               <li>Trim restoration</li>
-              <li class="pkg-hide">Detail floor mats & shine</li>
-              <li class="pkg-hide">Windows & mirrors</li>
+              <li class="pkg-hide">Detail floor mats &amp; shine</li>
+              <li class="pkg-hide">Windows &amp; mirrors</li>
               <li class="pkg-hide">Detail trunk</li>
               <li class="pkg-hide">Door jambs</li>
             </ul>
@@ -1054,35 +1073,15 @@
             </ul>
             </div>
           </div>
-          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
         </div>
       </div>
-      </div>
-      <div class="pkg-panel" id="panel-ext">
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-maintenance.jpg" alt="Full Maintenance" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Exterior Reset</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$99</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Exterior</div>
-            <ul class="pkg-list">
-              <li>Professional hand wash</li>
-              <li>Spot polish</li>
-              <li>Wax protection</li>
-              <li>Detail rims</li>
-              <li>Wheel wells</li>
-              <li>Detail tires</li>
-            </ul>
-          </div>
-          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
+
       <div class="pkg-card rv">
         <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-ext-reset.jpg" alt="Detailer foaming down a black Ford Bronco in a driveway" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Exterior Executive</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$200</span></div>
+          <div class="pkg-price"><span class="from pkg-size-lbl">Small</span><span class="amt" data-p="150,175,200,230">$150</span></div>
           <div class="pkg-inc">
             <div class="pkg-inc-head">Exterior</div>
             <ul class="pkg-list">
@@ -1096,81 +1095,20 @@
               <li>Detail tires</li>
             </ul>
           </div>
-          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
         </div>
       </div>
+
       <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-ext-ceramic.jpg" alt="Gloved detailer applying ceramic coating to a white Porsche 911 under a canopy" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Ceramic Coating</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt"><s class="was">$1,099</s> <span class="now">$699</span></span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">What's Included</div>
-            <ul class="pkg-list">
-              <li>Paint enhancement/correction</li>
-              <li>Your choice of 2, 6 or lifetime coatings</li>
-              <li>9H hardness, scratch and swirl resistance</li>
-              <li>Hydrophobic, self-cleaning finish</li>
-              <li>UV and chemical protection</li>
-              <li>Deep gloss and long-lasting shine</li>
-            </ul>
-          </div>
-          <a href="/ceramic-coating.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      </div>
-      <div class="pkg-panel" id="panel-int">
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-int-maintenance.jpg" alt="Gloved detailer wiping the touchscreen in a tan and black SUV interior" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level One</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Interior Maintenance</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$125</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Interior</div>
-            <ul class="pkg-list">
-              <li>Interior vacuum</li>
-              <li>Wipe all surfaces</li>
-              <li>Floor mats</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-          </div>
-          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-int-reset.jpg" alt="Gloved detailer steam cleaning and scrubbing an Escalade leather back seat" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
-        <div class="pkg-card-body">
-          <div class="pkg-name">Interior Reset</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$200</span></div>
-          <div class="pkg-inc">
-            <div class="pkg-inc-head">Interior</div>
-            <ul class="pkg-list">
-              <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
-              <li>Wipe all surfaces</li>
-              <li>Stains (spot treatment)</li>
-              <li>Spot steam cleaning</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
-              <li>Detail trunk</li>
-              <li>Door jambs</li>
-            </ul>
-          </div>
-          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
-        </div>
-      </div>
-      <div class="pkg-card rv">
-        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-int-executive.jpg" alt="Interior Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Three</div></div>
+        <div class="pkg-card-img"><span>Image coming soon</span><img src="photos/packages/pkg-int-executive.jpg" alt="Interior Executive" loading="lazy" onerror="this.remove()" /><div class="pkg-fun">Level Two</div></div>
         <div class="pkg-card-body">
           <div class="pkg-name">Interior Executive</div>
-          <div class="pkg-price"><span class="from">Starting at</span><span class="amt">$300</span></div>
+          <div class="pkg-price"><span class="from pkg-size-lbl">Small</span><span class="amt" data-p="275,305,335,370">$275</span></div>
           <div class="pkg-inc">
             <div class="pkg-inc-head">Interior</div>
             <ul class="pkg-list">
               <li>Thorough vacuum interior</li>
-              <li>Clean & protect plastic</li>
+              <li>Clean &amp; protect plastic</li>
               <li>Wipe all surfaces</li>
               <li>Stains (spot treatment)</li>
               <li>Full carpet shampoo</li>
@@ -1179,15 +1117,16 @@
               <li>Full steam cleaning</li>
               <li>Pet hair removal</li>
               <li>Trim restoration</li>
-              <li>Detail floor mats & shine</li>
-              <li>Windows & mirrors</li>
+              <li>Detail floor mats &amp; shine</li>
+              <li>Windows &amp; mirrors</li>
               <li>Detail trunk</li>
               <li>Door jambs</li>
             </ul>
           </div>
-          <a href="/quote-builder.html" class="btn btn-dark">Get Free Quote</a>
+          <a href="/booking.html" class="btn btn-dark">Book Now</a>
         </div>
       </div>
+
       </div>
     </div>
   </div>
@@ -1435,15 +1374,20 @@
   });
 
 
-  // Package tabs
-  const tabs = document.querySelectorAll('#pkgTabs .tab');
-  tabs.forEach(tab => tab.addEventListener('click', () => {
-    tabs.forEach(t => t.classList.remove('active'));
-    tab.classList.add('active');
-    document.querySelectorAll('.pkg-panel').forEach(p => p.classList.remove('active'));
-    document.getElementById('panel-' + tab.dataset.panel).classList.add('active');
-    document.querySelectorAll('.pkg-panel.active .rv').forEach(el => el.classList.add('in'));
-  }));
+  // Package vehicle-size selector: every card reprices to the chosen size
+  const SIZE_IDX = { small:0, mid:1, large:2, van:3 };
+  const SIZE_LBL = { small:'Small', mid:'Mid-Size', large:'Large', van:'Van / Oversized' };
+  const sizeTabs = document.querySelectorAll('#pkgSizes .tab');
+  function paintPkgSize(size) {
+    const i = SIZE_IDX[size];
+    if (i === undefined) return;
+    sizeTabs.forEach(t => t.classList.toggle('active', t.dataset.size === size));
+    document.querySelectorAll('.pkg-price .amt[data-p]').forEach(el => {
+      el.textContent = '$' + el.dataset.p.split(',')[i];
+    });
+    document.querySelectorAll('.pkg-size-lbl').forEach(el => { el.textContent = SIZE_LBL[size]; });
+  }
+  sizeTabs.forEach(tab => tab.addEventListener('click', () => paintPkgSize(tab.dataset.size)));
 
   // Package list "See more / See less"
   document.querySelectorAll('.pkg-more-btn').forEach(btn => {
