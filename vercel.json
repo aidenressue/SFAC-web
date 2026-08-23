@@ -98,6 +98,46 @@
       "source": "/mothers-day.html",
       "destination": "/",
       "permanent": true
+    },
+    {
+      "source": "/home-classic",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home-classic.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home-new",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/home-new.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/packages-slides",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/packages-slides.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ceramic-quote-v2",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/ceramic-quote-v2.html",
+      "destination": "/",
+      "permanent": true
     }
   ]
 }

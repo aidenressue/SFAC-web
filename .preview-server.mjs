@@ -10,8 +10,8 @@ const TYPES = { '.html':'text/html', '.css':'text/css', '.js':'text/javascript',
 
 http.createServer((req, res) => {
   let urlPath = decodeURIComponent(req.url.split('?')[0]);
-  // The redesign has landed in index.html, so root serves the live page.
-  // /home-new.html still resolves normally for the old draft.
+  // The redesign landed in index.html, which is the live homepage and the
+  // only one now: the old home-classic/home-new copies are gone.
   if (urlPath === '/') urlPath = '/index.html';
   const filePath = path.join(ROOT, urlPath);
   if (!filePath.startsWith(ROOT)) { res.writeHead(403); return res.end('Forbidden'); }

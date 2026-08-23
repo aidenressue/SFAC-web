@@ -11,16 +11,16 @@ The user often sends one message containing many separate requests. Before doing
 3. **Work the independent pieces simultaneously**, not one-by-one. Fire all image generations in parallel up front (they take the longest), and batch independent file edits in the same turn while they render.
 4. **Account for every item before reporting done.** Re-read the original message and confirm each checklist item was actually completed. Missing a request is the #1 thing to avoid.
 
-## Homepage redesign (in progress)
+## Homepage
 
-- Work happens on the **`homepage-redesign`** branch in `home-new.html`.
-- The live homepage is `index.html` — **do not edit it** during the redesign. Content gets migrated from it into `home-new.html` as the draft is finalized.
-- The booking flow (`booking.html`) and quote builder (`quote-builder.html`) are **off-limits** — link into them, don't modify them.
+- The redesign shipped on 2026-08-02. `index.html` **is** the live homepage: edit it directly.
+- `home-new.html` and `home-classic.html` are gone. Do not recreate a second copy of the homepage; git history holds the old one (`git show 396d34a^:index.html`).
+- `booking.html` and `quote-builder.html` are live money paths. Change them only when asked, and verify against production afterwards, never just localhost.
 
 ## Preview server
 
 - A small Node preview server runs on **http://localhost:3001** (`.preview-server.mjs`).
-- It maps `/` (and `/index.html`) to `home-new.html` so a refresh always lands on the redesign draft. All other assets serve normally.
+- It serves `/` from `index.html`, the live homepage. All other assets serve normally.
 - If it's not running, start it: `node .preview-server.mjs` (from the repo root, background it).
 - Port 3000 is the user's own server — always use 3001.
 
