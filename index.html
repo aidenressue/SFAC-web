@@ -631,6 +631,35 @@
       .pkg-list { gap:.4rem; }
       .pkg-list li { font-size:.76rem; line-height:1.35; }
     }
+
+    /* ── Desktop hero: side by side ───────────────────────────────────────
+       The footage is 9:16. Filling a wide hero with it throws away two thirds
+       of every frame, so on desktop the video keeps its own shape in a panel
+       beside the copy instead of behind it. Nothing is cropped, the text sits
+       on the page background rather than on the footage, and the tint and the
+       white-text treatment are both unnecessary here. Phones keep the
+       full-bleed treatment, which is what the aspect ratio was shot for. */
+    @media (min-width: 1024px) {
+      .hero { display:grid; grid-template-columns:1.05fr .95fr; align-items:center;
+        gap:clamp(2rem,5vw,4.5rem); padding:calc(128px + 1.5rem) clamp(2rem,5vw,4.5rem) 4.5rem;
+        text-align:left; background:var(--bg); overflow:visible; }
+      .hero-tint, .hero-scrim { display:none; }
+      .hero-img { position:relative; inset:auto; order:2; justify-self:center;
+        height:min(74svh, 620px); width:auto; aspect-ratio:9/16; object-fit:cover;
+        object-position:center; border-radius:26px; box-shadow:0 26px 70px rgba(16,17,18,.22); }
+      .hero-content { order:1; position:relative; z-index:2; max-width:none; padding:0;
+        display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
+        gap:1.9rem; text-align:left; }
+      .hero-top { align-items:flex-start; }
+      .hero h1 { color:var(--ink); text-shadow:none; white-space:normal; text-align:left;
+        font-size:clamp(2rem,3.7vw,3.15rem); margin-bottom:0; }
+      .hero h1 .accent { color:var(--gold-deep); }
+      .hero-sub { color:var(--ink-2); text-shadow:none; margin:0; text-align:left; }
+      .hero-ctas { justify-content:flex-start; }
+      .hero-call { color:var(--ink-2); text-shadow:none; }
+      .hero-call strong { color:var(--ink); }
+      .hero .scroll-cue { display:none; }
+    }
 </style>
   <script src="/ga.js"></script>
   <script type="application/ld+json">
