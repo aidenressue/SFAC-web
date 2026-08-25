@@ -1536,16 +1536,35 @@ const state = {
 // ═══════════════════════════════════════════════════════════════════
 let map, marker, autocomplete;
 const TIMNATH = { lat: 40.5272, lng: -104.9611 };
+// The ad targets a 21 mile radius of Fort Collins, so anything inside that
+// radius must not be quoted a travel fee or the ad spend buys a bounce. This is
+// measured from coordinates rather than a city list because the radius cuts
+// through Greeley: the west side is inside it and the east side is not.
+const FORT_COLLINS = { lat: 40.5853, lng: -105.0844 };
+const FREE_RADIUS_MI = 21;
 
 // ── Service-area travel-fee tiers ──
 // Core area: no travel fee.
-const FREE_CITIES  = ['timnath','fort collins','loveland','windsor'];
-// $45 travel fee + a 1-hour driving buffer (30 min before + 30 min after) blocked around the job.
+const FREE_CITIES  = ['timnath','fort collins','loveland','windsor','wellington','laporte','la porte','severance','bellvue','masonville','eaton','ault','johnstown','berthoud'];
+// $45 travel fee. Only reached by addresses outside the 21 mile Fort Collins radius,
+// since the distance check above already cleared everything inside it.
 const FEE45_CITIES = ['greeley','eaton','ault','wellington','laporte','la porte','johnstown','berthoud'];
 // $65 travel fee (Longmont is explicitly included; anything else within 30 miles also lands here).
 const FEE65_CITIES = ['longmont'];
 
 // Straight-line miles from Timnath.
+function milesBetween(aLat, aLng, bLat, bLng) {
+  const R = 3958.8;
+  const dLat = (bLat - aLat) * Math.PI / 180;
+  const dLng = (bLng - aLng) * Math.PI / 180;
+  const h = Math.sin(dLat/2) * Math.sin(dLat/2) +
+            Math.cos(aLat * Math.PI / 180) * Math.cos(bLat * Math.PI / 180) *
+            Math.sin(dLng/2) * Math.sin(dLng/2);
+  return R * 2 * Math.atan2(Math.sqrt(h), Math.sqrt(1 - h));
+}
+function milesFromFortCollins(lat, lng) {
+  return milesBetween(FORT_COLLINS.lat, FORT_COLLINS.lng, lat, lng);
+}
 function milesFromTimnath(lat, lng) {
   const R = 3958.8;
   const dLat = (lat - TIMNATH.lat) * Math.PI / 180;
@@ -1570,6 +1589,8 @@ function extractCity(comps) {
 // reserves time afterwards.
 const TRAVEL_BUFFERS = {
   free:  { before: 0,  after: 30 },
+  // No fee, but far enough out that the drive still has to be blocked off.
+  near:  { before: 15, after: 45 },
   fee45: { before: 15, after: 45 },
   fee65: { before: 30, after: 60 },
   out:   { before: 0,  after: 30 },
@@ -1577,7 +1598,14 @@ const TRAVEL_BUFFERS = {
 
 function classifyLocation(city, lat, lng) {
   const c = (city || '').toLowerCase().trim();
-  if (FREE_CITIES.includes(c))  return { serviced:true, fee:0,  tier:'free',  city };
+  const miFC = milesFromFortCollins(lat, lng);
+  if (FREE_CITIES.includes(c)) {
+    return { serviced:true, fee:0, tier: miFC > 10 ? 'near' : 'free', city };
+  }
+  // Inside the ad radius: no travel fee regardless of which city it is called.
+  // Checked before the fee lists so a west-Greeley address comes out free while
+  // the east side of the same city still pays.
+  if (miFC <= FREE_RADIUS_MI) return { serviced:true, fee:0, tier:'near', city };
   if (FEE45_CITIES.includes(c)) return { serviced:true, fee:45, tier:'fee45', city };
   if (FEE65_CITIES.includes(c)) return { serviced:true, fee:65, tier:'fee65', city };
   // Any other city within 30 miles: $65 travel fee, and the same timing as the
