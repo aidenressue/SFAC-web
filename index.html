@@ -236,6 +236,7 @@
     .hero-tint { position:absolute; inset:0; z-index:1; pointer-events:none;
       background:linear-gradient(180deg, rgba(10,11,13,.62) 0%, rgba(10,11,13,.5) 42%, rgba(10,11,13,.34) 70%, rgba(10,11,13,.12) 88%, rgba(10,11,13,0) 100%); }
     .hero-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 87%, rgba(255,255,255,.04) 89%, rgba(255,255,255,.12) 91%, rgba(255,255,255,.26) 93%, rgba(255,255,255,.46) 95%, rgba(255,255,255,.68) 96.5%, rgba(255,255,255,.86) 98%, rgba(255,255,255,.97) 99%, #fff 100%); }
+    .hero-reviews { display:none; }
     .hero-content { position:relative; z-index:2; width:100%; max-width:1300px; padding:1.5rem 2rem 5.5rem; display:flex; flex-direction:column; align-items:center; justify-content:space-between; }
     .hero-top { display:flex; flex-direction:column; align-items:center; }
     .hero-badge { display:inline-flex; align-items:center; gap:.7rem; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); border-radius:999px; padding:.7rem 1.5rem; font-family:var(--font-d); font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:1.6rem; transition:transform .18s ease, box-shadow .18s ease; }
@@ -640,16 +641,20 @@
        white-text treatment are both unnecessary here. Phones keep the
        full-bleed treatment, which is what the aspect ratio was shot for. */
     @media (min-width: 1024px) {
-      .hero { display:grid; grid-template-columns:1.05fr .95fr; align-items:center;
+      .hero { display:grid; grid-template-columns:minmax(0,1fr) clamp(340px, 42vw, 720px); align-items:center;
         gap:clamp(2rem,5vw,4.5rem); padding:calc(128px + 1.5rem) clamp(2rem,5vw,4.5rem) 4.5rem;
         text-align:left; background:var(--bg); overflow:visible; }
       .hero-tint, .hero-scrim { display:none; }
-      .hero-img { position:relative; inset:auto; order:2; justify-self:center;
-        height:min(74svh, 620px); width:auto; aspect-ratio:9/16; object-fit:cover;
-        object-position:center; border-radius:26px; box-shadow:0 26px 70px rgba(16,17,18,.22); }
+      /* Wider than the source's own 9:16 so it reads as half the page. That
+         costs some crop at the top and bottom, far less than a full-bleed
+         hero would, and the subject stays in frame. */
+      .hero-img { position:relative; inset:auto; order:2; justify-self:stretch;
+        width:100%; height:min(82svh, 760px); aspect-ratio:auto;
+        object-fit:cover; object-position:center 42%;
+        border-radius:26px; box-shadow:0 26px 70px rgba(16,17,18,.22); }
       .hero-content { order:1; position:relative; z-index:2; max-width:none; padding:0;
-        display:flex; flex-direction:column; align-items:flex-start; justify-content:center;
-        gap:1.9rem; text-align:left; }
+        display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start;
+        gap:1.5rem; text-align:left; }
       .hero-top { align-items:flex-start; }
       .hero h1 { color:var(--ink); text-shadow:none; white-space:normal; text-align:left;
         font-size:clamp(2rem,3.7vw,3.15rem); margin-bottom:0; }
@@ -659,6 +664,12 @@
       .hero-call { color:var(--ink-2); text-shadow:none; }
       .hero-call strong { color:var(--ink); }
       .hero .scroll-cue { display:none; }
+      .hero-reviews { display:block; width:100%; margin-top:auto; }
+      .hero-reviews .greviews { margin:0; }
+      .hero-reviews .gr-head { margin-bottom:.7rem; }
+      .hero-reviews .gr-track { grid-auto-columns:100%; }
+      .hero-reviews .gr-note { margin-top:.5rem; }
+      .hero-ctas { margin-top:.4rem; }
     }
 </style>
   <script src="/ga.js"></script>
@@ -889,6 +900,7 @@
     </a>
       <h1 class="h-display">Northern Colorado's <span class="accent">Top</span> Mobile Detailing</h1>
     </div>
+    <div class="hero-reviews" id="heroReviews" aria-hidden="true"></div>
     <div class="hero-ctas">
       <a href="#packages" class="btn btn-ghost">Learn More <svg class="btn-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       <a href="tel:+19708516433" class="btn btn-gold">(970) 851-6433</a>
@@ -1487,9 +1499,21 @@
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
   // Google reviews carousel + read more
-  (function () {
-    const track = document.getElementById('grTrack');
-    if (!track) return;
+  // A second copy of this slider lives in the hero. It is cloned from the
+  // original rather than duplicated in the markup, so the reviews stay in one
+  // place, and the carousel below is initialised per track instead of by id.
+  (function cloneReviewsIntoHero() {
+    const src = document.querySelector('.greviews');
+    const slot = document.getElementById('heroReviews');
+    if (!src || !slot) return;
+    const copy = src.cloneNode(true);
+    copy.classList.remove('rv');           // never wait on a reveal, it is above the fold
+    copy.classList.add('greviews--hero');
+    copy.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+    slot.appendChild(copy);
+  })();
+
+  document.querySelectorAll('.gr-track').forEach(function (track) {
     const originals = Array.from(track.children);
     const N = originals.length;
     // clone first two so the loop wraps seamlessly
@@ -1529,7 +1553,7 @@
     wrap.addEventListener('mouseleave', start);
     window.addEventListener('resize', () => go(false), { passive: true });
     start();
-  })();
+  });
 
   // Count-up stats
   const statIO = new IntersectionObserver(entries => {
