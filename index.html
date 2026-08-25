@@ -225,8 +225,19 @@
     .hero { position:relative; isolation:isolate; margin-top:-128px; padding-top:128px; min-height:100vh; min-height:100svh; display:flex; align-items:stretch; justify-content:center; text-align:center; overflow:hidden; }
     .scroll-cue { position:absolute; bottom:1.4rem; left:50%; z-index:4; color:var(--ink); animation:bob 1.6s ease-in-out infinite; }
     @keyframes bob { 0%,100% { transform:translate(-50%,0); } 50% { transform:translate(-50%,10px); } }
-    .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 12%; }
-    .hero-scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 87%, rgba(255,255,255,.04) 89%, rgba(255,255,255,.12) 91%, rgba(255,255,255,.26) 93%, rgba(255,255,255,.46) 95%, rgba(255,255,255,.68) 96.5%, rgba(255,255,255,.86) 98%, rgba(255,255,255,.97) 99%, #fff 100%); }
+    /* The source is 9:16. On a phone it fills the hero as shot; on a wide screen
+       object-fit:cover has to crop roughly two thirds of the frame height away,
+       so this sits on the part of the frame with the vehicle and the foam in it
+       rather than a body panel. A landscape edit is the real fix. */
+    .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 38%; }
+    /* Darkens the footage so the headline stays readable over it. The video is
+       bright (white vehicle, foam, pale tarmac), so it needs a real tint, not a
+       token one. Heavier at the top where the headline sits. */
+    /* Tint off at Aiden's request. Kept as an element so it can be dialled back
+       in with one value if the headline turns out to be hard to read. */
+    .hero-tint { display:none; position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:linear-gradient(180deg, rgba(10,11,13,.62) 0%, rgba(10,11,13,.5) 42%, rgba(10,11,13,.34) 70%, rgba(10,11,13,.12) 88%, rgba(10,11,13,0) 100%); }
+    .hero-reviews { display:none; }
     .hero-content { position:relative; z-index:2; width:100%; max-width:1300px; padding:1.5rem 2rem 5.5rem; display:flex; flex-direction:column; align-items:center; justify-content:space-between; }
     .hero-top { display:flex; flex-direction:column; align-items:center; }
     .hero-badge { display:inline-flex; align-items:center; gap:.7rem; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); border-radius:999px; padding:.7rem 1.5rem; font-family:var(--font-d); font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:1.6rem; transition:transform .18s ease, box-shadow .18s ease; }
@@ -235,15 +246,15 @@
     .hero-badge .g-logo { width:21px; height:21px; display:block; }
     .hero-badge .divider { width:1px; height:18px; background:var(--line); }
     .hero-badge .btxt { font-family:var(--font-b); font-weight:500; }
-    .hero h1 { font-size:clamp(1.6rem,3.4vw,2.9rem); line-height:1.1; color:var(--ink); margin-bottom:1.1rem; white-space:nowrap; text-shadow:0 2px 22px rgba(255,255,255,.85), 0 1px 6px rgba(255,255,255,.75); }
-    .hero h1 .accent { color:var(--gold-deep); }
-    .hero-sub { font-size:clamp(.95rem,1.6vw,1.12rem); color:var(--ink-2); line-height:1.7; max-width:580px; margin:0 auto; font-weight:500; }
+    .hero h1 { font-size:clamp(1.6rem,3.4vw,2.9rem); line-height:1.1; color:#fff; margin-bottom:1.1rem; white-space:nowrap; text-shadow:0 2px 26px rgba(0,0,0,.55), 0 1px 8px rgba(0,0,0,.4); }
+    .hero h1 .accent { color:#E6B85C; }
+    .hero-sub { font-size:clamp(.95rem,1.6vw,1.12rem); color:rgba(255,255,255,.92); line-height:1.7; max-width:580px; margin:0 auto; font-weight:500; text-shadow:0 1px 10px rgba(0,0,0,.5); }
     .hero-ctas { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; }
     .hero-ctas .btn { font-size:.98rem; padding:1.1rem 2.5rem; }
     .hero-ctas .btn-arrow { width:19px; height:19px; }
-    .hero-call { display:block; font-size:.86rem; font-weight:600; color:var(--ink-2); }
-    .hero-call strong { color:var(--ink); font-family:var(--font-d); }
-    .hero-call:hover strong { color:var(--gold-deep); }
+    .hero-call { display:block; font-size:.86rem; font-weight:600; color:rgba(255,255,255,.88); text-shadow:0 1px 8px rgba(0,0,0,.5); }
+    .hero-call strong { color:#fff; font-family:var(--font-d); }
+    .hero-call:hover strong { color:#E6B85C; }
 
     /* ── Quick services strip ─────────── */
     .services-main { max-width:1400px; margin:0 auto; padding:2.5rem 1.75rem 3.5rem; }
@@ -622,6 +633,56 @@
       .pkg-list { gap:.4rem; }
       .pkg-list li { font-size:.76rem; line-height:1.35; }
     }
+
+    /* ── Desktop hero: side by side ───────────────────────────────────────
+       The footage is 9:16. Filling a wide hero with it throws away two thirds
+       of every frame, so on desktop the video keeps its own shape in a panel
+       beside the copy instead of behind it. Nothing is cropped, the text sits
+       on the page background rather than on the footage, and the tint and the
+       white-text treatment are both unnecessary here. Phones keep the
+       full-bleed treatment, which is what the aspect ratio was shot for. */
+    @media (min-width: 1024px) {
+      .hero { display:grid; grid-template-columns:minmax(0,1fr) clamp(340px, 42vw, 720px); align-items:center;
+        gap:clamp(2rem,5vw,4.5rem); padding:calc(128px + 1.5rem) clamp(2rem,5vw,4.5rem) 4.5rem;
+        text-align:left; background:var(--bg); overflow:visible; }
+      .hero-tint { display:none; }
+      /* Wider than the source's own 9:16 so it reads as half the page. That
+         costs some crop at the top and bottom, far less than a full-bleed
+         hero would, and the subject stays in frame. */
+      .hero-img { position:relative; inset:auto; order:2; justify-self:stretch;
+        width:100%; height:min(82svh, 760px); aspect-ratio:auto;
+        object-fit:cover; object-position:center 42%;
+        border-radius:26px; box-shadow:0 26px 70px rgba(16,17,18,.22); }
+      .hero-content { order:1; position:relative; z-index:2; max-width:none; padding:0;
+        display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start;
+        gap:1.5rem; text-align:left; }
+      .hero-top { align-items:flex-start; }
+      .hero h1 { color:var(--ink); text-shadow:none; white-space:normal; text-align:left;
+        font-size:clamp(2rem,3.7vw,3.15rem); margin-bottom:0; }
+      .hero h1 .accent { color:var(--gold-deep); }
+      .hero-sub { color:var(--ink-2); text-shadow:none; margin:0; text-align:left; }
+      .hero-ctas { justify-content:flex-start; }
+      .hero-call { color:var(--ink-2); text-shadow:none; }
+      .hero-call strong { color:var(--ink); }
+      .hero .scroll-cue { display:none; }
+      .hero-reviews { display:block; width:100%; margin-top:auto; }
+      .hero-reviews .greviews { margin:0; }
+      .hero-reviews .gr-head { margin-bottom:.7rem; }
+      .hero-reviews .gr-track { grid-auto-columns:100%; }
+      /* Hero copy of the slider is stripped back: Google mark and stars only.
+         The original slider further down the page keeps its full header. */
+      .hero-reviews .gr-excellent,
+      .hero-reviews .gr-rating,
+      .hero-reviews .gr-note { display:none; }
+      .hero-reviews .gr-head { justify-content:center; gap:.5rem; margin-bottom:.7rem; }
+      .hero-reviews .gr-google { order:1; }
+      .hero-reviews .gr-google > span { display:none; }   /* the Google wordmark, mark only */
+      .hero-reviews .gr-stars { order:2; }
+      /* Centred within the left column only, not the hero as a whole. */
+      .hero .hero-badge { align-self:center; }
+      .hero-ctas { justify-content:center; }
+      .hero-ctas { margin-top:.4rem; }
+    }
 </style>
   <script src="/ga.js"></script>
   <script type="application/ld+json">
@@ -835,8 +896,11 @@
 
 <!-- ═══ HERO ═══ -->
 <header class="hero" id="home">
-  <img class="hero-img" src="/images/hero/hero.jpg" alt="Detailer wiping down a matte gray Range Rover in an upscale Northern Colorado farmhouse driveway" aria-hidden="true">
-  <div class="hero-scrim"></div>
+  <video class="hero-img" autoplay muted loop playsinline preload="auto"
+         poster="/images/hero/hero.jpg" aria-hidden="true">
+    <source src="/images/hero/hero-loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero-tint"></div>
   <div class="hero-content">
     <div class="hero-top">
     <a class="hero-badge" href="https://share.google/30ZRDMpHtHqeJzK9F" target="_blank" rel="noopener" aria-label="Read our Google reviews">
@@ -847,6 +911,7 @@
     </a>
       <h1 class="h-display">Northern Colorado's <span class="accent">Top</span> Mobile Detailing</h1>
     </div>
+    <div class="hero-reviews" id="heroReviews" aria-hidden="true"></div>
     <div class="hero-ctas">
       <a href="#packages" class="btn btn-ghost">Learn More <svg class="btn-arrow" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
       <a href="tel:+19708516433" class="btn btn-gold">(970) 851-6433</a>
@@ -1445,9 +1510,21 @@
   document.querySelectorAll('.rv').forEach(el => io.observe(el));
 
   // Google reviews carousel + read more
-  (function () {
-    const track = document.getElementById('grTrack');
-    if (!track) return;
+  // A second copy of this slider lives in the hero. It is cloned from the
+  // original rather than duplicated in the markup, so the reviews stay in one
+  // place, and the carousel below is initialised per track instead of by id.
+  (function cloneReviewsIntoHero() {
+    const src = document.querySelector('.greviews');
+    const slot = document.getElementById('heroReviews');
+    if (!src || !slot) return;
+    const copy = src.cloneNode(true);
+    copy.classList.remove('rv');           // never wait on a reveal, it is above the fold
+    copy.classList.add('greviews--hero');
+    copy.querySelectorAll('[id]').forEach(el => el.removeAttribute('id'));
+    slot.appendChild(copy);
+  })();
+
+  document.querySelectorAll('.gr-track').forEach(function (track) {
     const originals = Array.from(track.children);
     const N = originals.length;
     // clone first two so the loop wraps seamlessly
@@ -1487,7 +1564,7 @@
     wrap.addEventListener('mouseleave', start);
     window.addEventListener('resize', () => go(false), { passive: true });
     start();
-  })();
+  });
 
   // Count-up stats
   const statIO = new IntersectionObserver(entries => {
