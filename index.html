@@ -237,7 +237,14 @@
        in with one value if the headline turns out to be hard to read. */
     .hero-tint { display:none; position:absolute; inset:0; z-index:1; pointer-events:none;
       background:linear-gradient(180deg, rgba(10,11,13,.62) 0%, rgba(10,11,13,.5) 42%, rgba(10,11,13,.34) 70%, rgba(10,11,13,.12) 88%, rgba(10,11,13,0) 100%); }
-    .hero-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 87%, rgba(255,255,255,.04) 89%, rgba(255,255,255,.12) 91%, rgba(255,255,255,.26) 93%, rgba(255,255,255,.46) 95%, rgba(255,255,255,.68) 96.5%, rgba(255,255,255,.86) 98%, rgba(255,255,255,.97) 99%, #fff 100%); }
+    /* Was a tall white fade that started at 87% of the hero and washed the
+       bottom third out. Replaced with a short blurred band at the very bottom
+       edge, so the video softens into the page instead of bleaching into it. */
+    .hero-scrim { position:absolute; left:0; right:0; bottom:0; height:76px; z-index:1;
+      pointer-events:none;
+      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
+      -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 72%);
+      mask-image:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 72%); }
     .hero-reviews { display:none; }
     .hero-content { position:relative; z-index:2; width:100%; max-width:1300px; padding:1.5rem 2rem 5.5rem; display:flex; flex-direction:column; align-items:center; justify-content:space-between; }
     .hero-top { display:flex; flex-direction:column; align-items:center; }
