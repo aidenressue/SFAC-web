@@ -233,7 +233,9 @@
     /* Darkens the footage so the headline stays readable over it. The video is
        bright (white vehicle, foam, pale tarmac), so it needs a real tint, not a
        token one. Heavier at the top where the headline sits. */
-    .hero-tint { position:absolute; inset:0; z-index:1; pointer-events:none;
+    /* Tint off at Aiden's request. Kept as an element so it can be dialled back
+       in with one value if the headline turns out to be hard to read. */
+    .hero-tint { display:none; position:absolute; inset:0; z-index:1; pointer-events:none;
       background:linear-gradient(180deg, rgba(10,11,13,.62) 0%, rgba(10,11,13,.5) 42%, rgba(10,11,13,.34) 70%, rgba(10,11,13,.12) 88%, rgba(10,11,13,0) 100%); }
     .hero-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 87%, rgba(255,255,255,.04) 89%, rgba(255,255,255,.12) 91%, rgba(255,255,255,.26) 93%, rgba(255,255,255,.46) 95%, rgba(255,255,255,.68) 96.5%, rgba(255,255,255,.86) 98%, rgba(255,255,255,.97) 99%, #fff 100%); }
     .hero-reviews { display:none; }
