@@ -237,14 +237,6 @@
        in with one value if the headline turns out to be hard to read. */
     .hero-tint { display:none; position:absolute; inset:0; z-index:1; pointer-events:none;
       background:linear-gradient(180deg, rgba(10,11,13,.62) 0%, rgba(10,11,13,.5) 42%, rgba(10,11,13,.34) 70%, rgba(10,11,13,.12) 88%, rgba(10,11,13,0) 100%); }
-    /* Was a tall white fade that started at 87% of the hero and washed the
-       bottom third out. Replaced with a short blurred band at the very bottom
-       edge, so the video softens into the page instead of bleaching into it. */
-    .hero-scrim { position:absolute; left:0; right:0; bottom:0; height:76px; z-index:1;
-      pointer-events:none;
-      backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px);
-      -webkit-mask-image:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 72%);
-      mask-image:linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 72%); }
     .hero-reviews { display:none; }
     .hero-content { position:relative; z-index:2; width:100%; max-width:1300px; padding:1.5rem 2rem 5.5rem; display:flex; flex-direction:column; align-items:center; justify-content:space-between; }
     .hero-top { display:flex; flex-direction:column; align-items:center; }
@@ -653,7 +645,7 @@
       .hero { display:grid; grid-template-columns:minmax(0,1fr) clamp(340px, 42vw, 720px); align-items:center;
         gap:clamp(2rem,5vw,4.5rem); padding:calc(128px + 1.5rem) clamp(2rem,5vw,4.5rem) 4.5rem;
         text-align:left; background:var(--bg); overflow:visible; }
-      .hero-tint, .hero-scrim { display:none; }
+      .hero-tint { display:none; }
       /* Wider than the source's own 9:16 so it reads as half the page. That
          costs some crop at the top and bottom, far less than a full-bleed
          hero would, and the subject stays in frame. */
@@ -909,7 +901,6 @@
     <source src="/images/hero/hero-loop.mp4" type="video/mp4">
   </video>
   <div class="hero-tint"></div>
-  <div class="hero-scrim"></div>
   <div class="hero-content">
     <div class="hero-top">
     <a class="hero-badge" href="https://share.google/30ZRDMpHtHqeJzK9F" target="_blank" rel="noopener" aria-label="Read our Google reviews">
