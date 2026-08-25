@@ -225,8 +225,17 @@
     .hero { position:relative; isolation:isolate; margin-top:-128px; padding-top:128px; min-height:100vh; min-height:100svh; display:flex; align-items:stretch; justify-content:center; text-align:center; overflow:hidden; }
     .scroll-cue { position:absolute; bottom:1.4rem; left:50%; z-index:4; color:var(--ink); animation:bob 1.6s ease-in-out infinite; }
     @keyframes bob { 0%,100% { transform:translate(-50%,0); } 50% { transform:translate(-50%,10px); } }
-    .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 12%; }
-    .hero-scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 87%, rgba(255,255,255,.04) 89%, rgba(255,255,255,.12) 91%, rgba(255,255,255,.26) 93%, rgba(255,255,255,.46) 95%, rgba(255,255,255,.68) 96.5%, rgba(255,255,255,.86) 98%, rgba(255,255,255,.97) 99%, #fff 100%); }
+    /* The source is 9:16. On a phone it fills the hero as shot; on a wide screen
+       object-fit:cover has to crop roughly two thirds of the frame height away,
+       so this sits on the part of the frame with the vehicle and the foam in it
+       rather than a body panel. A landscape edit is the real fix. */
+    .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 38%; }
+    /* Darkens the footage so the headline stays readable over it. The video is
+       bright (white vehicle, foam, pale tarmac), so it needs a real tint, not a
+       token one. Heavier at the top where the headline sits. */
+    .hero-tint { position:absolute; inset:0; z-index:1; pointer-events:none;
+      background:linear-gradient(180deg, rgba(10,11,13,.62) 0%, rgba(10,11,13,.5) 42%, rgba(10,11,13,.34) 70%, rgba(10,11,13,.12) 88%, rgba(10,11,13,0) 100%); }
+    .hero-scrim { position:absolute; inset:0; z-index:1; background:linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0) 87%, rgba(255,255,255,.04) 89%, rgba(255,255,255,.12) 91%, rgba(255,255,255,.26) 93%, rgba(255,255,255,.46) 95%, rgba(255,255,255,.68) 96.5%, rgba(255,255,255,.86) 98%, rgba(255,255,255,.97) 99%, #fff 100%); }
     .hero-content { position:relative; z-index:2; width:100%; max-width:1300px; padding:1.5rem 2rem 5.5rem; display:flex; flex-direction:column; align-items:center; justify-content:space-between; }
     .hero-top { display:flex; flex-direction:column; align-items:center; }
     .hero-badge { display:inline-flex; align-items:center; gap:.7rem; background:#fff; border:1px solid var(--line); box-shadow:var(--shadow-card); border-radius:999px; padding:.7rem 1.5rem; font-family:var(--font-d); font-size:1rem; font-weight:700; color:var(--ink); margin-bottom:1.6rem; transition:transform .18s ease, box-shadow .18s ease; }
@@ -235,15 +244,15 @@
     .hero-badge .g-logo { width:21px; height:21px; display:block; }
     .hero-badge .divider { width:1px; height:18px; background:var(--line); }
     .hero-badge .btxt { font-family:var(--font-b); font-weight:500; }
-    .hero h1 { font-size:clamp(1.6rem,3.4vw,2.9rem); line-height:1.1; color:var(--ink); margin-bottom:1.1rem; white-space:nowrap; text-shadow:0 2px 22px rgba(255,255,255,.85), 0 1px 6px rgba(255,255,255,.75); }
-    .hero h1 .accent { color:var(--gold-deep); }
-    .hero-sub { font-size:clamp(.95rem,1.6vw,1.12rem); color:var(--ink-2); line-height:1.7; max-width:580px; margin:0 auto; font-weight:500; }
+    .hero h1 { font-size:clamp(1.6rem,3.4vw,2.9rem); line-height:1.1; color:#fff; margin-bottom:1.1rem; white-space:nowrap; text-shadow:0 2px 26px rgba(0,0,0,.55), 0 1px 8px rgba(0,0,0,.4); }
+    .hero h1 .accent { color:#E6B85C; }
+    .hero-sub { font-size:clamp(.95rem,1.6vw,1.12rem); color:rgba(255,255,255,.92); line-height:1.7; max-width:580px; margin:0 auto; font-weight:500; text-shadow:0 1px 10px rgba(0,0,0,.5); }
     .hero-ctas { display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; }
     .hero-ctas .btn { font-size:.98rem; padding:1.1rem 2.5rem; }
     .hero-ctas .btn-arrow { width:19px; height:19px; }
-    .hero-call { display:block; font-size:.86rem; font-weight:600; color:var(--ink-2); }
-    .hero-call strong { color:var(--ink); font-family:var(--font-d); }
-    .hero-call:hover strong { color:var(--gold-deep); }
+    .hero-call { display:block; font-size:.86rem; font-weight:600; color:rgba(255,255,255,.88); text-shadow:0 1px 8px rgba(0,0,0,.5); }
+    .hero-call strong { color:#fff; font-family:var(--font-d); }
+    .hero-call:hover strong { color:#E6B85C; }
 
     /* ── Quick services strip ─────────── */
     .services-main { max-width:1400px; margin:0 auto; padding:2.5rem 1.75rem 3.5rem; }
@@ -835,7 +844,11 @@
 
 <!-- ═══ HERO ═══ -->
 <header class="hero" id="home">
-  <img class="hero-img" src="/images/hero/hero.jpg" alt="Detailer wiping down a matte gray Range Rover in an upscale Northern Colorado farmhouse driveway" aria-hidden="true">
+  <video class="hero-img" autoplay muted loop playsinline preload="auto"
+         poster="/images/hero/hero.jpg" aria-hidden="true">
+    <source src="/images/hero/hero-loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero-tint"></div>
   <div class="hero-scrim"></div>
   <div class="hero-content">
     <div class="hero-top">
