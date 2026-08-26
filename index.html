@@ -689,30 +689,38 @@
       .hero-ctas { margin-top:.4rem; }
     }
 
-    /* ── Phone package cards: rotated ────────────────────────────────────
-       Stacked vertically the Executive card ran far longer than the Express
-       one, because it carries twice the bullets. Laid out side by side the
-       list takes the height instead of the card, so the two read as a pair.
+    /* ── Phone package cards: sideways ───────────────────────────────────
+       Image, name, price and the button run down the left; what's included
+       fills the right. On Full Detail the Interior and Exterior lists sit as
+       two columns rather than stacked, which halves the list height so the
+       left column is not left with a long run of empty space beside it.
        display:contents lets the card body's children become grid items, so
-       the include list can sit beside the image without moving the markup. */
+       none of this needed the markup rearranged. */
     @media (max-width: 700px) {
-      .pkg-card { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,43%);
-        column-gap:1rem; padding:1rem; align-items:start; }
+      .pkg-card { display:grid; grid-template-columns:minmax(0,37%) minmax(0,1fr);
+        column-gap:.8rem; padding:.85rem; align-items:start; }
       .pkg-card-body { display:contents; }
-      .pkg-card-img { grid-column:2; grid-row:1; aspect-ratio:4/3; border-radius:14px; }
-      .pkg-fun { font-size:1.5rem; left:.7rem; bottom:.45rem; }
-      .pkg-name { grid-column:2; grid-row:2; margin:.65rem 0 .15rem; font-size:1.02rem; }
-      .pkg-price { grid-column:2; grid-row:3; margin-bottom:.75rem; }
-      .pkg-price .amt { font-size:1.7rem; }
-      .pkg-price .from { font-size:.6rem; }
-      .pkg-fn { font-size:.58rem; }
-      .pkg-card .btn { grid-column:2; grid-row:4; width:100%; padding:.85rem .6rem; font-size:.86rem; }
-      /* the include list owns the left column for the card's full height */
-      .pkg-inc, .pkg-card .pkg-inc.two { grid-column:1; grid-row:1 / span 4; margin:0; }
-      #panel-full .pkg-inc.two { display:flex; flex-direction:column; gap:.9rem; }
+      .pkg-card-img { grid-column:1; grid-row:1; aspect-ratio:4/5; border-radius:14px; }
+      .pkg-fun { font-size:1.4rem; left:.6rem; bottom:.4rem; }
+      .pkg-name { grid-column:1; grid-row:2; margin:.45rem 0 .1rem; font-size:1rem; line-height:1.15; }
+      .pkg-price { grid-column:1; grid-row:3; margin-bottom:.6rem; }
+      .pkg-price .amt { font-size:1.32rem; white-space:nowrap; }
+      .pkg-price .from { font-size:.56rem; margin-bottom:.05rem; }
+      .pkg-fn { font-size:.55rem; margin-top:.2rem; }
+      .pkg-card .btn { grid-column:1; grid-row:4; width:100%; padding:.8rem .4rem; font-size:.82rem; }
+      .pkg-inc, .pkg-card .pkg-inc.two { grid-column:2; grid-row:1 / span 4; margin:0; }
+      /* Interior and Exterior side by side instead of one above the other */
+      /* minmax(0,…) or a long word like "decontamination" sets the column's
+         min-content width and pushes the text outside the card. */
+      #panel-full .pkg-inc.two { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:.6rem .6rem; }
+      #panel-full .pkg-inc.two > div { min-width:0; }
       #panel-full .pkg-inc.two .pkg-list { grid-template-columns:1fr; }
-      .pkg-list li { font-size:.74rem; line-height:1.32; }
-      .pkg-list li::before { width:14px; height:14px; }
+      .pkg-inc-head { font-size:.6rem; letter-spacing:.08em; margin-bottom:.35rem; padding-bottom:.25rem; }
+      .pkg-list { gap:.34rem; }
+      .pkg-list li { font-size:.66rem; line-height:1.3; gap:.32rem; min-width:0; overflow-wrap:break-word; }
+      .pkg-list li::before { width:12px; height:12px; background-size:7px; margin-top:.12rem; }
+      .pkg-more-btn { font-size:.75rem; }
+    }
     }
 </style>
   <script src="/ga.js"></script>
