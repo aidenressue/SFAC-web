@@ -2048,7 +2048,7 @@ function renderTiers() {
         ? includedGroupsHtml(cfg, true)
         : `<ul class="tier-bullets">${(cfg?.bullets || info.highlights).map(h=>`<li>${h}</li>`).join('')}</ul>`}
       ${tier === 'maintenance' ? `<div class="tier-note">Only for new, recently detailed, and/or very well maintained cars.</div>` : ''}
-      <div class="tier-price">${custom ? 'Custom' : priceWithSale(list, price)}<span> · ${formatDuration(getDuration(svcKey, state.vehicle))}</span></div>
+      <div class="tier-price">${custom ? 'Custom' : priceWithSale(list, price)}<span> · ${formatDuration(getDisplayDuration(svcKey, state.vehicle))}</span></div>
     </div>
   `}).join('');
 }
@@ -2205,14 +2205,27 @@ function addCeramicToCart() {
 // Ceramic is the coating only. The correction chosen underneath is added on top
 // by CERAMIC_PREP, which is why all three tiers are the same length: same job,
 // different chemistry.
+// What the customer is quoted. Express is shown shorter than it is blocked for:
+// the van still gets the longer window, the customer is simply not told that an
+// express detail ties up half a day. Anything not listed here shows its real
+// blocked time, which is the case for every Executive, paint and ceramic job.
+const DISPLAY_DURATIONS = {
+  'reset-full':     { small:180, mid:195, large:210, van:240 },
+  'reset-interior': { small:135, mid:155, large:175, van:195 },
+  'reset-exterior': { small:60,  mid:75,  large:90,  van:105 },
+};
+function getDisplayDuration(svcKey, vehicle) {
+  return DISPLAY_DURATIONS[svcKey]?.[vehicle] ?? getDuration(svcKey, vehicle);
+}
+
 function getDuration(svcKey, vehicle) {
   const durations = {
-    'reset-full':          { small:240, mid:255, large:270, van:300 },
-    'executive-full':      { small:330, mid:360, large:390, van:420 },
-    'reset-exterior':      { small:90,  mid:105, large:120, van:135 },
-    'executive-exterior':  { small:150, mid:170, large:190, van:210 },
-    'reset-interior':      { small:165, mid:185, large:205, van:225 },
-    'executive-interior':  { small:230, mid:250, large:270, van:290 },
+    'reset-full':          { small:210, mid:225, large:240, van:270 },
+    'executive-full':      { small:300, mid:330, large:360, van:390 },
+    'reset-exterior':      { small:75,  mid:90,  large:105, van:120 },
+    'executive-exterior':  { small:120, mid:140, large:160, van:180 },
+    'reset-interior':      { small:150, mid:170, large:190, van:210 },
+    'executive-interior':  { small:200, mid:220, large:240, van:260 },
     'paint-polish':      { small:240, mid:260, large:280, van:300 },
     'paint-1step':       { small:330, mid:350, large:370, van:390 },
     'paint-2step':       { small:450, mid:475, large:500, van:525 },
@@ -2244,7 +2257,7 @@ function renderPackageDetail() {
   if (!cfg) return;
 
   const { price, list, custom } = svcPrice(svcKey, state.vehicle);
-  const dur = getDuration(svcKey, state.vehicle);
+  const dur = getDisplayDuration(svcKey, state.vehicle);
 
   document.getElementById('pkg-detail-content').innerHTML = `
     <div class="pkg-detail-header">
