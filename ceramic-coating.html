@@ -1657,8 +1657,8 @@
     // Sitewide End of Summer sale: every table here holds the LIST price and the
     // discount is taken once, so the quote, the handoff to booking and the site
     // all agree. Past the deadline salePrice() returns null and list prices show.
-    var SITE_SALE = { pct: 0.20, ends: '2026-09-12T23:59:00-06:00' };
-    function saleActive() { return Date.now() < new Date(SITE_SALE.ends).getTime(); }
+    var SITE_SALE = { pct: 0.20, ends: null };   // null: runs until switched off
+    function saleActive() { return !SITE_SALE.ends || Date.now() < new Date(SITE_SALE.ends).getTime(); }
     function salePrice(coating, prep, size) {
       if (!saleActive()) return null;
       var coat = COATING_PRICES[coating], pr = PREP_PRICES[prep];

@@ -1423,8 +1423,13 @@ function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
 // once here, so the cart, the Acuity booking and the payment link all agree
 // without any of the totalling code needing to know a sale is running. When the
 // deadline passes saleOf() becomes the identity and list prices show again.
-const SITE_SALE = { pct: 0.20, label: 'End of Summer Sale', ends: '2026-09-12T23:59:00-06:00' };
-function saleActive() { return Date.now() < new Date(SITE_SALE.ends).getTime(); }
+// `ends: null` means the sale runs until it is switched off by hand. It used to
+// carry a date, and when that date passed the discount silently stopped while
+// the homepage carried on advertising the old prices, so the site quoted one
+// figure and the cart charged another. Set a date here only alongside the
+// struck-through prices on the homepage.
+const SITE_SALE = { pct: 0.20, label: 'End of Summer Sale', ends: null };
+function saleActive() { return !SITE_SALE.ends || Date.now() < new Date(SITE_SALE.ends).getTime(); }
 function saleOf(listPrice) {
   return saleActive() ? Math.round(listPrice * (1 - SITE_SALE.pct)) : listPrice;
 }

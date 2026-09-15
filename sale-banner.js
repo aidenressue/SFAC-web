@@ -2,12 +2,15 @@
    the end of the sale in days/hours/minutes. Once the deadline passes it renders
    nothing at all, so the bar disappears on its own without a code change. */
 (function () {
-  var SALE_ENDS = '2026-09-12T23:59:00-06:00';
+  // null: the bar shows with no countdown and stays until this is given a date.
+  // A date that quietly passes takes the discount with it, which is what
+  // happened on 12 September.
+  var SALE_ENDS = null;
   // Only the discount itself is gold; the rest of the line reads as body text.
   var HEADLINE  = ['End of Summer Sale: ', '20% off', ' all details!'];
 
-  var end = new Date(SALE_ENDS).getTime();
-  if (isNaN(end) || Date.now() >= end) return;
+  var end = SALE_ENDS ? new Date(SALE_ENDS).getTime() : null;
+  if (end !== null && (isNaN(end) || Date.now() >= end)) return;
 
   var css = document.createElement('style');
   css.textContent =
@@ -36,6 +39,8 @@
   var cd = bar.querySelector('.sfac-sale-cd');
 
   function tick() {
+    if (end === null) { cd.style.display = 'none'; return; }
+    cd.style.display = '';
     var left = end - Date.now();
     if (left <= 0) { bar.remove(); return; }
     var mins  = Math.floor(left / 60000);
