@@ -1,4 +1,4 @@
-/* End of Summer sale bar. Renders above the nav on every page and counts down to
+/* Standing discount bar. Renders above the nav on every page and counts down to
    the end of the sale in days/hours/minutes. Once the deadline passes it renders
    nothing at all, so the bar disappears on its own without a code change. */
 (function () {
@@ -7,7 +7,7 @@
   // happened on 12 September.
   var SALE_ENDS = null;
   // Only the discount itself is gold; the rest of the line reads as body text.
-  var HEADLINE  = ['End of Summer Sale: ', '20% off', ' all details!'];
+  var HEADLINE  = ['Now taking ', '20% off', ' all details!'];
 
   var end = SALE_ENDS ? new Date(SALE_ENDS).getTime() : null;
   if (end !== null && (isNaN(end) || Date.now() >= end)) return;

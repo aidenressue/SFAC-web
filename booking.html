@@ -1428,7 +1428,7 @@ function ceramicPolishPrice(size) { return CERAMIC_PREP[0].price[size] || 0; }
 // the homepage carried on advertising the old prices, so the site quoted one
 // figure and the cart charged another. Set a date here only alongside the
 // struck-through prices on the homepage.
-const SITE_SALE = { pct: 0.20, label: 'End of Summer Sale', ends: null };
+const SITE_SALE = { pct: 0.20, label: '20% Off', ends: null };
 function saleActive() { return !SITE_SALE.ends || Date.now() < new Date(SITE_SALE.ends).getTime(); }
 function saleOf(listPrice) {
   return saleActive() ? Math.round(listPrice * (1 - SITE_SALE.pct)) : listPrice;
