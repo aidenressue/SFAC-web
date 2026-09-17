@@ -230,6 +230,14 @@
        so this sits on the part of the frame with the vehicle and the foam in it
        rather than a body panel. A landscape edit is the real fix. */
     .hero-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center 38%; }
+    /* Phones get the 9:16 footage it was shot for; desktop gets the photo,
+       because filling a wide hero with a vertical video crops two thirds away. */
+    .hero-photo { display:none; }
+    .hero-video { display:block; }
+    @media (min-width: 1024px) {
+      .hero-photo { display:block; }
+      .hero-video { display:none; }
+    }
     /* Darkens the footage so the headline stays readable over it. The video is
        bright (white vehicle, foam, pale tarmac), so it needs a real tint, not a
        token one. Heavier at the top where the headline sits. */
@@ -640,58 +648,20 @@
       .pkg-list li { font-size:.76rem; line-height:1.35; }
     }
 
-    /* ── Desktop hero: side by side ───────────────────────────────────────
-       The footage is 9:16. Filling a wide hero with it throws away two thirds
-       of every frame, so on desktop the video keeps its own shape in a panel
-       beside the copy instead of behind it. Nothing is cropped, the text sits
-       on the page background rather than on the footage, and the tint and the
-       white-text treatment are both unnecessary here. Phones keep the
-       full-bleed treatment, which is what the aspect ratio was shot for. */
+    /* ── Desktop hero ────────────────────────────────────────────────────
+       Back to the original: one photo, full bleed, copy centred over it. The
+       side-by-side panel existed only to give the vertical video somewhere to
+       live on a wide screen, and the photo does not need it. */
     @media (min-width: 1024px) {
-      .hero { display:grid; grid-template-columns:minmax(0,1fr) clamp(340px, 42vw, 720px); align-items:center;
-        gap:clamp(2rem,5vw,4.5rem); padding:calc(128px + 1.5rem) clamp(2rem,5vw,4.5rem) 4.5rem;
-        text-align:left; background:var(--bg); overflow:visible; }
       .hero-tint { display:none; }
-      /* Wider than the source's own 9:16 so it reads as half the page. That
-         costs some crop at the top and bottom, far less than a full-bleed
-         hero would, and the subject stays in frame. */
-      .hero-img { position:relative; inset:auto; order:2; justify-self:stretch;
-        width:100%; height:min(82svh, 760px); aspect-ratio:auto;
-        object-fit:cover; object-position:center 42%;
-        border-radius:26px; box-shadow:0 26px 70px rgba(16,17,18,.22); }
-      .hero-content { order:1; position:relative; z-index:2; max-width:none; padding:0;
-        display:flex; flex-direction:column; align-items:stretch; justify-content:flex-start;
-        gap:1.5rem; text-align:left; }
-      .hero-top { align-items:flex-start; }
-      .hero h1 { color:var(--ink); text-shadow:none; white-space:normal; text-align:left;
-        font-size:clamp(2rem,3.7vw,3.15rem); margin-bottom:0; }
+      .hero h1 { color:var(--ink); text-shadow:0 2px 22px rgba(255,255,255,.85), 0 1px 6px rgba(255,255,255,.75); }
       .hero h1 .accent { color:var(--gold-deep); }
-      .hero-sub { color:var(--ink-2); text-shadow:none; margin:0; text-align:left; }
-      .hero-ctas { justify-content:flex-start; }
+      .hero-sub { color:var(--ink-2); text-shadow:none; }
       .hero-call { color:var(--ink-2); text-shadow:none; }
       .hero-call strong { color:var(--ink); }
-      .hero .scroll-cue { display:none; }
-      .hero-reviews { display:block; width:100%; margin-top:auto; }
-      .hero-reviews .greviews { margin:0; }
-      .hero-reviews .gr-head { margin-bottom:.7rem; }
-      .hero-reviews .gr-track { grid-auto-columns:100%; }
-      /* Hero copy of the slider is stripped back: Google mark and stars only.
-         The original slider further down the page keeps its full header. */
-      .hero-reviews .gr-excellent,
-      .hero-reviews .gr-rating,
-      .hero-reviews .gr-note { display:none; }
-      .hero-reviews .gr-head { justify-content:center; gap:.5rem; margin-bottom:.7rem; }
-      .hero-reviews .gr-google { order:1; }
-      .hero-reviews .gr-google > span { display:none; }   /* the Google wordmark, mark only */
-      .hero-reviews .gr-stars { order:2; }
-      /* Centred within the left column only, not the hero as a whole. */
-      .hero .hero-badge { align-self:center; }
-      /* Desktop swaps the "Trusted by 300+" line for the BBB seal. Phones keep
-         the wording: the seal's small print is unreadable at that size. */
+      /* The seal reads well at this size; phones keep the wording instead. */
       .hero .hero-badge .btxt { display:none; }
       .hero .hero-badge .hero-bbb { display:block; height:42px; width:auto; margin:-6px 0; }
-      .hero-ctas { justify-content:center; }
-      .hero-ctas { margin-top:.4rem; }
     }
 
     /* ── Phone package cards: sideways ───────────────────────────────────
@@ -945,10 +915,14 @@
 
 <!-- ═══ HERO ═══ -->
 <header class="hero" id="home">
-  <video class="hero-img" autoplay muted loop playsinline preload="auto"
-         poster="/images/hero/hero.jpg" aria-hidden="true">
-    <source src="/images/hero/hero-loop.mp4" type="video/mp4">
-  </video>
+  <img class="hero-img hero-photo" src="/images/hero/hero.jpg"
+       alt="Detailer wiping down a matte gray Range Rover in an upscale Northern Colorado farmhouse driveway"
+       aria-hidden="true" />
+  <!-- Phones only. The src is attached by script at mobile widths, so a desktop
+       visitor never downloads the video at all. -->
+  <video class="hero-img hero-video" muted loop playsinline preload="none"
+         poster="/images/hero/hero.jpg" aria-hidden="true"
+         data-src="/images/hero/hero-loop.mp4"></video>
   <div class="hero-tint"></div>
   <div class="hero-content">
     <div class="hero-top">
@@ -1516,6 +1490,22 @@
     });
   });
 
+
+  // The hero video is for phones only. Attaching the source here rather than in
+  // the markup means a desktop visitor never downloads it, and it is why the
+  // element carries data-src instead of src.
+  (function heroVideo() {
+    const v = document.querySelector('video.hero-video');
+    if (!v || !v.dataset.src) return;
+    const phone = window.matchMedia('(max-width: 1023px)');
+    const load = () => {
+      if (!phone.matches || v.src) return;
+      v.src = v.dataset.src;
+      v.play().catch(() => {});   // blocked autoplay is recovered by media.js
+    };
+    load();
+    phone.addEventListener ? phone.addEventListener('change', load) : phone.addListener(load);
+  })();
 
   // Package tabs
   const tabs = document.querySelectorAll('#pkgTabs .tab');
